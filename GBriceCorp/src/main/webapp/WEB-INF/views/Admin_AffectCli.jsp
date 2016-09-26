@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Module de recherche de conseiller    Admin</title>
+<title>Module de recherche de conseiller   Admin</title>
 </head>
 <body>
 
