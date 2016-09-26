@@ -2,4 +2,9 @@
 /Users/
 /.settings/
 /.project
+<<<<<<< HEAD
 /.classpath
+=======
+/.gitignore
+/.classpath
+>>>>>>> refs/remotes/origin/master

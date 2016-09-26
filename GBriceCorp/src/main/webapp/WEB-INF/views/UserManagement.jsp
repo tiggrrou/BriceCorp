@@ -75,7 +75,7 @@
                       <div class="row">
                           <div class="form-actions floatRight">
                               <input type="submit"  value="{{!ctrl.user.id ? 'Ajouter' : 'Modifier'}}" class="btn btn-primary btn-sm" ng-disabled="myForm.$invalid">
-                              <button type="button" ng-click="ctrl.reset()" class="btn btn-warning btn-sm" ng-disabled="myForm.$pristine">Rï¿½initialiser le Formulaire</button>
+                              <button type="button" ng-click="ctrl.reset()" class="btn btn-warning btn-sm" ng-disabled="myForm.$pristine">Réinitialiser le Formulaire</button>
                           </div>
                       </div>
                   </form>
