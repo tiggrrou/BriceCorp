@@ -14,6 +14,18 @@ angular.module('myApp').controller('UserController', ['$scope', 'UserService', f
 
     fetchAllUsers();
 
+    function connexion(login, pwd){
+    	UserService.connexion(login, pwd)
+    		.then(
+    		function(d) {
+    			console.log(d);
+    		}, 
+    		function (errResponse){
+    			console.error("Error while connection");
+    		}
+    	);
+    }
+    
     function fetchAllUsers(){
         UserService.fetchAllUsers()
             .then(
@@ -91,7 +103,7 @@ angular.module('myApp').controller('UserController', ['$scope', 'UserService', f
         $scope.myForm.$setPristine(); //reset Form
     }
 
-    function connect() {
-    	console.log('connexion !');
+    function connect(login, pwd) {
+    	connexion(login, pwd);
     }
 }]);

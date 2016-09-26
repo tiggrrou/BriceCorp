@@ -12,6 +12,8 @@ public interface UserService {
 	
 	User findByName(String name);
 	
+	User findByLogin(String login);
+	
 	void saveUser(User user);
 	
 	void updateUser(User user);
@@ -23,5 +25,9 @@ public interface UserService {
 	void deleteAllUsers();
 	
 	public boolean isUserExist(User user);
+	
+	String connexion(String login, String mdp);
+	
+	boolean checkPassword(User user, String mdp);
 	
 }

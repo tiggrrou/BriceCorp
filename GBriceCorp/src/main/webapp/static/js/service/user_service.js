@@ -60,6 +60,22 @@ angular.module('myApp').factory('UserService', ['$http', '$q', function($http, $
         return deferred.promise;
     }
     
+    /* tente la connexion a un espace personnel */
+    function connexion(login, pwd) {
+        var deferred = $q.defer();
+        $http.post(REST_SERVICE_URI+login, pwd)
+            .then(
+            function (response) {
+                deferred.resolve(response.data);
+            },
+            function(errResponse){
+                console.error('Error while logging User');
+                deferred.reject(errResponse);
+            }
+        );
+        return deferred.promise;
+    }
+    
     /* supprime un user puis refresh de la liste des users */
     function deleteUser(id) {
         var deferred = $q.defer();

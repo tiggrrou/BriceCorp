@@ -93,7 +93,22 @@ public class HelloWorldRestController {
         return new ResponseEntity<User>(currentUser, HttpStatus.OK);
     }
  
+    //------------------- Login a User --------------------------------------------------------
     
+    @RequestMapping(value = "/user/{login}", method = RequestMethod.POST)
+    public ResponseEntity<User> updateUser(@PathVariable("login") String login, @RequestBody String pwd) {
+        System.out.println("logging User " + login);
+         
+        User currentUser = userService.findByLogin(login);
+         
+        if (currentUser==null) {
+            System.out.println("User with login " + login + " not found");
+            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+        }
+         
+        String responseConnect = userService.connexion(login, pwd);
+        return new ResponseEntity<User>( HttpStatus.OK);
+    }
     
     //------------------- Delete a User --------------------------------------------------------
      

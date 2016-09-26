@@ -10,38 +10,76 @@ import org.springframework.stereotype.Service;
 import com.wha.springmvc.model.User;
 
 @Service("userService")
-public class UserServiceImpl implements UserService{
-	
+public class UserServiceImpl implements UserService {
+
 	private static final AtomicLong counter = new AtomicLong();
-	
+
 	private static List<User> users;
-	
-	static{
-		users= populateDummyUsers();
+
+	static {
+		users = populateDummyUsers();
 	}
 
 	public List<User> findAllUsers() {
 		return users;
 	}
-	
+
 	public User findById(long id) {
-		for(User user : users){
-			if(user.getId() == id){
+		for (User user : users) {
+			if (user.getId() == id) {
 				return user;
 			}
 		}
 		return null;
 	}
-	
+
 	public User findByName(String name) {
-		for(User user : users){
-			if(user.getUsername().equalsIgnoreCase(name)){
+		for (User user : users) {
+			if (user.getUsername().equalsIgnoreCase(name)) {
 				return user;
 			}
 		}
 		return null;
 	}
-	
+
+	/**
+	 * Recherche un utilisateur par son login
+	 * 
+	 * @param login
+	 * @return null si non trouvé
+	 */
+	public User findByLogin(String login) {
+		for (User user : users) {
+			if (user.getLogin().equalsIgnoreCase(login)) {
+				return user;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Vérifie le mot de passe d'un utilisateur
+	 * 
+	 * @param user
+	 * @param mdp
+	 * @return vrai si les valeurs concordent
+	 */
+	public boolean checkPassword(User user, String mdp) {
+		if (user != null) {
+			return (user.getPassword().equalsIgnoreCase(mdp));
+		}
+		return false;
+	}
+
+	public String connexion(String login, String mdp) {
+		User l_user = findByLogin(login);
+
+		if (checkPassword(l_user, mdp)) {
+			return "identification réussie";
+		}
+		return "identification incorrecte";
+	}
+
 	public void saveUser(User user) {
 		user.setId(counter.incrementAndGet());
 		users.add(user);
@@ -53,28 +91,29 @@ public class UserServiceImpl implements UserService{
 	}
 
 	public void deleteUserById(long id) {
-		
-		for (Iterator<User> iterator = users.iterator(); iterator.hasNext(); ) {
-		    User user = iterator.next();
-		    if (user.getId() == id) {
-		        iterator.remove();
-		    }
+
+		for (Iterator<User> iterator = users.iterator(); iterator.hasNext();) {
+			User user = iterator.next();
+			if (user.getId() == id) {
+				iterator.remove();
+			}
 		}
 	}
 
 	public boolean isUserExist(User user) {
-		return findByName(user.getUsername())!=null;
+		return findByName(user.getUsername()) != null;
 	}
-	
-	public void deleteAllUsers(){
+
+	public void deleteAllUsers() {
 		users.clear();
 	}
 
-	private static List<User> populateDummyUsers(){
+	private static List<User> populateDummyUsers() {
 		List<User> users = new ArrayList<User>();
-		users.add(new User(counter.incrementAndGet(),"Sam", "PARIS", "sam@abc.com"));
-		users.add(new User(counter.incrementAndGet(),"wajih", "rue albert 1er COLOMBES", "wajih@formation.com"));
-		users.add(new User(counter.incrementAndGet(),"Tomy", "ALBAMA", "tomy@abc.com"));
+		users.add(new User(counter.incrementAndGet(), "Sam", "PARIS", "sam@abc.com", "a", "a"));
+		users.add(new User(counter.incrementAndGet(), "wajih", "rue albert 1er COLOMBES", "wajih@formation.com", "b",
+				"b"));
+		users.add(new User(counter.incrementAndGet(), "Tomy", "ALBAMA", "tomy@abc.com", "c", "c"));
 		return users;
 	}
 

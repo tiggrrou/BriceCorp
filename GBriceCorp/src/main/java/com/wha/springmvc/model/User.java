@@ -51,11 +51,13 @@ public class User {
 		id=0;
 	}
 	
-	public User(long id, String username, String address, String email){
+	public User(long id, String username, String address, String email, String login, String mdp){
 		this.id = id;
 		this.name = username;
 		this.address = address;
 		this.email = email;
+		this.login = login;
+		this.password = mdp;
 	}
 	//#endregion
 	
