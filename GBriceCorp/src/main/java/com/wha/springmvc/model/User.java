@@ -2,25 +2,64 @@ package com.wha.springmvc.model;
 
 public class User {
 
+	//#region Variables
+	/**
+	 * ID de l'utilisateur
+	 */
 	private long id;
 	
-	private String username;
+	/**
+	 * Nom de l'utilisateur
+	 */
+	private String name;
 	
+	/**
+	 * Prénom de l'utilisateur
+	 */
+	private String firstName;
+	
+	/**
+	 * Adresse de l'utilisateur
+	 */
 	private String address;
 	
+	/**
+	 * mail de l'utilisateur
+	 */
 	private String email;
 	
+	/**
+	 * Pseudonyme de l'utilisateur
+	 */
+	private String login;
+	
+	/**
+	 * Mot de passe dde l'utilisateur
+	 */
+	private String password;
+	
+	/**
+	 * Téléphone de l'utilisateur
+	 */
+	private int phoneNumber;
+	
+	
+	//#endregion
+	
+	//#region Constructeurs
 	public User(){
 		id=0;
 	}
 	
 	public User(long id, String username, String address, String email){
 		this.id = id;
-		this.username = username;
+		this.name = username;
 		this.address = address;
 		this.email = email;
 	}
-
+	//#endregion
+	
+	//#region Accesseurs
 	public long getId() {
 		return id;
 	}
@@ -30,11 +69,11 @@ public class User {
 	}
 
 	public String getUsername() {
-		return username;
+		return name;
 	}
 
 	public void setUsername(String username) {
-		this.username = username;
+		this.name = username;
 	}
 
 	public String getAddress() {
@@ -53,6 +92,48 @@ public class User {
 		this.email = email;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public int getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(int phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+	//#endregion
+	
+	//#region Méthodes redéfinies
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -77,10 +158,13 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", nom=" + username + ", adresse=" + address
+		return "User [id=" + id + ", nom=" + name + ", adresse=" + address
 				+ ", email=" + email + "]";
 	}
-	
+	//#endregion
 
+	//#region Méthodes
+	
+	//#endregion
 	
 }

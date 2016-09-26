@@ -2,13 +2,14 @@
 
 angular.module('myApp').controller('UserController', ['$scope', 'UserService', function($scope, UserService) {
     var self = this;
-    self.user={id:null,username:'',address:'',email:''};
+    self.user={id:null,username:'',address:'',email:'',login:'',password:''};
     self.users=[];
 
     self.submit = submit;
     self.edit = edit;
     self.remove = remove;
     self.reset = reset;
+    self.connect = connect;
 
 
     fetchAllUsers();
@@ -86,8 +87,11 @@ angular.module('myApp').controller('UserController', ['$scope', 'UserService', f
 
 
     function reset(){
-        self.user={id:null,username:'',address:'',email:''};
+        self.user={id:null,username:'',address:'',email:'',login:'',password:''};
         $scope.myForm.$setPristine(); //reset Form
     }
 
+    function connect() {
+    	console.log('connexion !');
+    }
 }]);
