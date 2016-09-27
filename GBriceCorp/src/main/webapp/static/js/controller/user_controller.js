@@ -2,7 +2,7 @@
 
 angular.module('myApp').controller('UserController', ['$scope', 'UserService', function($scope, UserService) {
     var self = this;
-    self.user={id:null,username:'',address:'',email:'',login:'',password:''};
+    self.user={id:null,nom:'',adresse:'',mail:'',identifiant:'',motDePasse:''};
     self.users=[];
 
     self.submit = submit;
@@ -99,11 +99,11 @@ angular.module('myApp').controller('UserController', ['$scope', 'UserService', f
 
 
     function reset(){
-        self.user={id:null,username:'',address:'',email:'',login:'',password:''};
+        self.user={id:null,nom:'',adresse:'',mail:'',identifiant:'',motDePasse:''};
         $scope.myForm.$setPristine(); //reset Form
     }
 
     function connect() {
-    	connexion(self.user.login, self.user.password);
+    	connexion(self.user.identifiant, self.user.motDePasse);
     }
 }]);

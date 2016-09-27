@@ -47,7 +47,7 @@
 						<div class="form-group col-md-12">
 							<label class="col-md-2 control-lable" for="file">Login</label>
 							<div class="col-md-7">
-								<input type="text" ng-model="ctrl.user.login" name="login"
+								<input type="text" ng-model="ctrl.user.identifiant" name="login"
 									class="username form-control input-sm"
 									placeholder="Entez votre login" required />
 								<div class="has-error" ng-show="formConnexion.$dirty">
@@ -61,7 +61,7 @@
 						<div class="form-group col-md-12">
 							<label class="col-md-2 control-lable" for="file">Password</label>
 							<div class="col-md-7">
-								<input type="password" ng-model="ctrl.user.password" name="password"
+								<input type="password" ng-model="ctrl.user.motDePasse" name="password"
 									class="password form-control input-sm"
 									placeholder="Entrez votre mot de passe" required />
 								<div class="has-error" ng-show="formConnexion.$dirty">
@@ -92,7 +92,7 @@
 					<div class="form-group col-md-12">
 						<label class="col-md-2 control-lable" for="file">Name</label>
 						<div class="col-md-7">
-							<input type="text" ng-model="ctrl.user.username" name="uname"
+							<input type="text" ng-model="ctrl.user.nom" name="uname"
 								class="username form-control input-sm"
 								placeholder="Entez votre nom" required ng-minlength="3" />
 							<div class="has-error" ng-show="myForm.$dirty">
@@ -110,7 +110,7 @@
 					<div class="form-group col-md-12">
 						<label class="col-md-2 control-lable" for="file">Adresse</label>
 						<div class="col-md-7">
-							<input type="text" ng-model="ctrl.user.address"
+							<input type="text" ng-model="ctrl.user.adresse"
 								class="form-control input-sm"
 								placeholder="Entrez votre adresse. [Pas de validation sur ce champ]" />
 						</div>
@@ -121,7 +121,7 @@
 					<div class="form-group col-md-12">
 						<label class="col-md-2 control-lable" for="file">Email</label>
 						<div class="col-md-7">
-							<input type="email" ng-model="ctrl.user.email" name="email"
+							<input type="email" ng-model="ctrl.user.mail" name="email"
 								class="email form-control input-sm"
 								placeholder="Entrez votre Email" required />
 							<div class="has-error" ng-show="myForm.$dirty">
@@ -165,9 +165,9 @@
 				<tbody>
 					<tr ng-repeat="u in ctrl.users">
 						<td><span ng-bind="u.id"></span></td>
-						<td><span ng-bind="u.username"></span></td>
-						<td><span ng-bind="u.address"></span></td>
-						<td><span ng-bind="u.email"></span></td>
+						<td><span ng-bind="u.nom"></span></td>
+						<td><span ng-bind="u.adresse"></span></td>
+						<td><span ng-bind="u.mail"></span></td>
 						<td>
 							<button type="button" ng-click="ctrl.edit(u.id)"
 								class="btn btn-success custom-width">Modifier</button>

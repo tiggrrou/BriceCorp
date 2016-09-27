@@ -11,37 +11,37 @@ public class User {
 	/**
 	 * Nom de l'utilisateur
 	 */
-	private String name;
+	private String nom;
 	
 	/**
 	 * Prénom de l'utilisateur
 	 */
-	private String firstName;
+	private String prenom;
 	
 	/**
 	 * Adresse de l'utilisateur
 	 */
-	private String address;
+	private String adresse;
 	
 	/**
 	 * mail de l'utilisateur
 	 */
-	private String email;
+	private String mail;
 	
 	/**
 	 * Pseudonyme de l'utilisateur
 	 */
-	private String login;
+	private String identifiant;
 	
 	/**
 	 * Mot de passe dde l'utilisateur
 	 */
-	private String password;
+	private String motDePasse;
 	
 	/**
 	 * Téléphone de l'utilisateur
 	 */
-	private int phoneNumber;
+	private int telephone;
 	
 	
 	//#endregion
@@ -53,11 +53,11 @@ public class User {
 	
 	public User(long id, String username, String address, String email, String login, String mdp){
 		this.id = id;
-		this.name = username;
-		this.address = address;
-		this.email = email;
-		this.login = login;
-		this.password = mdp;
+		this.nom = username;
+		this.adresse = address;
+		this.mail = email;
+		this.identifiant = login;
+		this.motDePasse = mdp;
 	}
 	//#endregion
 	
@@ -69,72 +69,65 @@ public class User {
 	public void setId(long id) {
 		this.id = id;
 	}
-
-	public String getUsername() {
-		return name;
-	}
-
-	public void setUsername(String username) {
-		this.name = username;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public int getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public void setPhoneNumber(int phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-	//#endregion
 	
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public String getPrenom() {
+		return prenom;
+	}
+
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+
+	public String getAdresse() {
+		return adresse;
+	}
+
+	public void setAdresse(String adresse) {
+		this.adresse = adresse;
+	}
+
+	public String getMail() {
+		return mail;
+	}
+
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+
+	public String getIdentifiant() {
+		return identifiant;
+	}
+
+	public void setIdentifiant(String identifiant) {
+		this.identifiant = identifiant;
+	}
+
+	public String getMotDePasse() {
+		return motDePasse;
+	}
+
+	public void setMotDePasse(String motDePasse) {
+		this.motDePasse = motDePasse;
+	}
+
+	public int getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(int telephone) {
+		this.telephone = telephone;
+	}
+	
+	//#endregion
+
 	//#region Méthodes redéfinies
 	@Override
 	public int hashCode() {
@@ -160,9 +153,13 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", nom=" + name + ", adresse=" + address
-				+ ", email=" + email + "]";
+		return "User [getId()=" + getId() + ", getNom()=" + getNom() + ", getPrenom()=" + getPrenom()
+				+ ", getAdresse()=" + getAdresse() + ", getMail()=" + getMail() + ", getIdentifiant()="
+				+ getIdentifiant() + ", getMotDePasse()=" + getMotDePasse() + ", getTelephone()=" + getTelephone()
+				+ ", hashCode()=" + hashCode() + "]";
 	}
+
+	
 	//#endregion
 
 	//#region Méthodes

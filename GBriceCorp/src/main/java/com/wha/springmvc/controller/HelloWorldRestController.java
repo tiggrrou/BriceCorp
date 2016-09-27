@@ -56,10 +56,10 @@ public class HelloWorldRestController {
      
     @RequestMapping(value = "/user/", method = RequestMethod.POST)
     public ResponseEntity<Void> createUser(@RequestBody User user,    UriComponentsBuilder ucBuilder) {
-        System.out.println("Creating User " + user.getUsername());
+        System.out.println("Creating User " + user.getNom());
  
         if (userService.isUserExist(user)) {
-            System.out.println("A User with name " + user.getUsername() + " already exist");
+            System.out.println("A User with name " + user.getNom() + " already exist");
             return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }
  
@@ -85,9 +85,9 @@ public class HelloWorldRestController {
             return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
         }
  
-        currentUser.setUsername(user.getUsername());
-        currentUser.setAddress(user.getAddress());
-        currentUser.setEmail(user.getEmail());
+        currentUser.setNom(user.getNom());
+        currentUser.setAdresse(user.getAdresse());
+        currentUser.setMail(user.getMail());
          
         userService.updateUser(currentUser);
         return new ResponseEntity<User>(currentUser, HttpStatus.OK);
