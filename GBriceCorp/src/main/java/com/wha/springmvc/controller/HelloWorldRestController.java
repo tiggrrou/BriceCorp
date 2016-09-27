@@ -95,19 +95,25 @@ public class HelloWorldRestController {
  
     //------------------- Login a User --------------------------------------------------------
     
-    @RequestMapping(value = "/user/{login}", method = RequestMethod.POST)
-    public ResponseEntity<User> updateUser(@PathVariable("login") String login, @RequestBody String pwd) {
+    @RequestMapping(value = "/user/connect/{login}", method = RequestMethod.POST ,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> connectUser(@PathVariable("login") String login, @RequestBody String pwd) {
         System.out.println("logging User " + login);
          
         User currentUser = userService.findByLogin(login);
-         
+        
+        
+        
         if (currentUser==null) {
             System.out.println("User with login " + login + " not found");
             return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
         }
          
         String responseConnect = userService.connexion(login, pwd);
-        return new ResponseEntity<User>( HttpStatus.OK);
+        System.out.println(responseConnect);
+        if ("identification réussie".equalsIgnoreCase(responseConnect))
+        	return new ResponseEntity<User>(HttpStatus.OK);
+        else 
+        	return new ResponseEntity<User>(HttpStatus.NOT_ACCEPTABLE);
     }
     
     //------------------- Delete a User --------------------------------------------------------

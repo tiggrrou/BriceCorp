@@ -15,13 +15,13 @@ angular.module('myApp').controller('UserController', ['$scope', 'UserService', f
     fetchAllUsers();
 
     function connexion(login, pwd){
-    	UserService.connexion(login, pwd)
+    	UserService.connectUser(login, pwd)
     		.then(
     		function(d) {
     			console.log(d);
     		}, 
     		function (errResponse){
-    			console.error("Error while connection");
+    			console.error('Error while connection');
     		}
     	);
     }
@@ -53,7 +53,7 @@ angular.module('myApp').controller('UserController', ['$scope', 'UserService', f
             .then(
             fetchAllUsers,
             function(errResponse){
-                console.error('Error while updating User');
+                console.error('Error while updating User' + errResponse);
             }
         );
     }
@@ -103,7 +103,7 @@ angular.module('myApp').controller('UserController', ['$scope', 'UserService', f
         $scope.myForm.$setPristine(); //reset Form
     }
 
-    function connect(login, pwd) {
-    	connexion(login, pwd);
+    function connect() {
+    	connexion(self.user.login, self.user.password);
     }
 }]);

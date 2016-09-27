@@ -40,7 +40,7 @@
 				<span class="lead">Formulaire connexion</span>
 			</div>
 			<div class="formcontainer">
-				<form ng-submit="ctrl.connect(login.value, password.value)" name="formConnexion"
+				<form ng-submit="ctrl.connect()" name="formConnexion"
 					class="form-horizontal">
 					<input type="hidden" ng-model="ctrl.user.id" />
 					<div class="row">
