@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
 
 	public User findByName(String name) {
 		for (User user : users) {
-			if (user.getUsername().equalsIgnoreCase(name)) {
+			if (user.getNom().equalsIgnoreCase(name)) {
 				return user;
 			}
 		}
@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
 	 */
 	public User findByLogin(String login) {
 		for (User user : users) {
-			if (user.getLogin().equalsIgnoreCase(login)) {
+			if (user.getIdentifiant().equalsIgnoreCase(login)) {
 				return user;
 			}
 		}
@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService {
 	 */
 	public boolean checkPassword(User user, String mdp) {
 		if (user != null) {
-			return (user.getPassword().equalsIgnoreCase(mdp));
+			return (user.getMotDePasse().equalsIgnoreCase(mdp));
 		}
 		return false;
 	}
@@ -101,7 +101,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public boolean isUserExist(User user) {
-		return findByName(user.getUsername()) != null;
+		return findByName(user.getNom()) != null;
 	}
 
 	public void deleteAllUsers() {

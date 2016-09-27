@@ -56,10 +56,10 @@ public class HelloWorldRestController {
      
     @RequestMapping(value = "/user/", method = RequestMethod.POST)
     public ResponseEntity<Void> createUser(@RequestBody User user,    UriComponentsBuilder ucBuilder) {
-        System.out.println("Creating User " + user.getUsername());
+        System.out.println("Creating User " + user.getNom());
  
         if (userService.isUserExist(user)) {
-            System.out.println("A User with name " + user.getUsername() + " already exist");
+            System.out.println("A User with name " + user.getNom() + " already exist");
             return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }
  
@@ -85,9 +85,9 @@ public class HelloWorldRestController {
             return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
         }
  
-        currentUser.setUsername(user.getUsername());
-        currentUser.setAddress(user.getAddress());
-        currentUser.setEmail(user.getEmail());
+        currentUser.setNom(user.getNom());
+        currentUser.setAdresse(user.getAdresse());
+        currentUser.setMail(user.getMail());
          
         userService.updateUser(currentUser);
         return new ResponseEntity<User>(currentUser, HttpStatus.OK);
@@ -95,19 +95,25 @@ public class HelloWorldRestController {
  
     //------------------- Login a User --------------------------------------------------------
     
-    @RequestMapping(value = "/user/{login}", method = RequestMethod.POST)
-    public ResponseEntity<User> updateUser(@PathVariable("login") String login, @RequestBody String pwd) {
+    @RequestMapping(value = "/user/connect/{login}", method = RequestMethod.POST ,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> connectUser(@PathVariable("login") String login, @RequestBody String pwd) {
         System.out.println("logging User " + login);
          
         User currentUser = userService.findByLogin(login);
-         
+        
+        
+        
         if (currentUser==null) {
             System.out.println("User with login " + login + " not found");
             return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
         }
          
         String responseConnect = userService.connexion(login, pwd);
-        return new ResponseEntity<User>( HttpStatus.OK);
+        System.out.println(responseConnect);
+        if ("identification réussie".equalsIgnoreCase(responseConnect))
+        	return new ResponseEntity<User>(HttpStatus.OK);
+        else 
+        	return new ResponseEntity<User>(HttpStatus.NOT_ACCEPTABLE);
     }
     
     //------------------- Delete a User --------------------------------------------------------

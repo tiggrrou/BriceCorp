@@ -8,7 +8,8 @@ angular.module('myApp').factory('UserService', ['$http', '$q', function($http, $
         fetchAllUsers: fetchAllUsers,
         createUser: createUser,
         updateUser:updateUser,
-        deleteUser:deleteUser
+        deleteUser:deleteUser,
+        connectUser:connectUser
     };
 
     return factory;
@@ -60,16 +61,19 @@ angular.module('myApp').factory('UserService', ['$http', '$q', function($http, $
         return deferred.promise;
     }
     
-    /* tente la connexion a un espace personnel */
-    function connexion(login, pwd) {
+    /**
+     *  tente la connexion à un espace personnel 
+     */
+    function connectUser(login, pwd) {
         var deferred = $q.defer();
-        $http.post(REST_SERVICE_URI+login, pwd)
+        $http.post(REST_SERVICE_URI+'connect/'+login, pwd)
             .then(
             function (response) {
                 deferred.resolve(response.data);
+                console.log('eh eh connexion réussie');
             },
             function(errResponse){
-                console.error('Error while logging User');
+                console.error('Error while logging User' + errResponse.value);
                 deferred.reject(errResponse);
             }
         );
