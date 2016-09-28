@@ -1,6 +1,6 @@
 'use strict';
 
-App.controller('UserController', ['$scope', 'UserService', function($scope, UserService) {
+App.controller('UserController', ['$scope','$location', 'UserService', function($scope,$location, UserService) {
     var self = this;
     self.user={id:null,nom:'',adresse:'',mail:'',identifiant:'',motDePasse:''};
     self.users=[];
@@ -61,6 +61,23 @@ console.log("pas de session");
     	UserService.connectUser(login, pwd)
     		.then(
     		function(d) {
+    			var user = JSON.parse(sessionStorage.getItem("currentUser"));
+    			var userType = (user == null)? 0 : user.typeUser;
+    			switch(userType){
+    			case "0" : 
+    				$location.path("/");
+    				break;
+    			case "1" : 
+    				$location.path("/admin/");
+    				break;
+    			case "2" : 
+    				$location.path("/cons/");
+    				break;    			
+    			case "3" : 
+    				$location.path("/cli/");
+    				break;    			
+    			}
+    			$location.path("/")
     			console.log(d);
     			console.log("mon d est juste au dessus")
     	        location.reload();
