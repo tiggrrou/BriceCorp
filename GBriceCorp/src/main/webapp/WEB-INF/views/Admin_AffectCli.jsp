@@ -4,9 +4,22 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Module de recherche de conseiller   Admin</title>
+<title>Module d'affectation des nouveaux clients   Admin</title>
 </head>
 <body>
-
+	<h1>Nouveaux Clients en attente d'affectation</h1>
+		<thead>
+		<tr>
+			<th>Date</th>
+			<th>Nom</th>
+			<th>Prenom</th>
+			<th width="20%"></th>
+		</tr>
+	</thead>
+	<tr name="liste_newAaffect" ng-repeat="u in admin.inscription">
+		<td><span ng-bind="u.date"></span></td>
+		<td><span ng-bind="u.nom"></span></td>
+		<td><span ng-bind="u.prenom"></span></td>
+	</tr>
 </body>
 </html>
