@@ -7,6 +7,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.stereotype.Service;
 
+import com.wha.springmvc.model.TypeUtilisateur;
 import com.wha.springmvc.model.User;
 
 @Service("userService")
@@ -110,10 +111,10 @@ public class UserServiceImpl implements UserService {
 
 	private static List<User> populateDummyUsers() {
 		List<User> users = new ArrayList<User>();
-		users.add(new User(counter.incrementAndGet(), "Sam", "PARIS", "sam@abc.com", "a", "a"));
+		users.add(new User(counter.incrementAndGet(), "Sam", "PARIS", "sam@abc.com", "a", "a",TypeUtilisateur.Administrateur.getType()));
 		users.add(new User(counter.incrementAndGet(), "wajih", "rue albert 1er COLOMBES", "wajih@formation.com", "b",
-				"b"));
-		users.add(new User(counter.incrementAndGet(), "Tomy", "ALBAMA", "tomy@abc.com", "c", "c"));
+				"b", TypeUtilisateur.Conseiller.getType()));
+		users.add(new User(counter.incrementAndGet(), "Tomy", "ALBAMA", "tomy@abc.com", "c", "c",TypeUtilisateur.Client.getType()));
 		return users;
 	}
 

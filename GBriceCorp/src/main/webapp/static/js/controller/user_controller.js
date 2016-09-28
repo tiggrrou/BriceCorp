@@ -19,6 +19,7 @@ angular.module('myApp').controller('UserController', ['$scope', 'UserService', f
     		.then(
     		function(d) {
     			console.log(d);
+    			console.log("mon d est juste au dessus")
     		}, 
     		function (errResponse){
     			console.error('Error while connection');

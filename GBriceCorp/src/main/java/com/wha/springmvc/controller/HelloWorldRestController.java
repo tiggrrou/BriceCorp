@@ -95,13 +95,11 @@ public class HelloWorldRestController {
  
     //------------------- Login a User --------------------------------------------------------
     
-    @RequestMapping(value = "/user/connect/{login}", method = RequestMethod.POST ,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> connectUser(@PathVariable("login") String login, @RequestBody String pwd) {
+    @RequestMapping(value = "/user/connect/{login}&{password}", method = RequestMethod.GET ,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> connectUser(@PathVariable("login") String login, @PathVariable("password") String pwd) {
         System.out.println("logging User " + login);
          
         User currentUser = userService.findByLogin(login);
-        
-        
         
         if (currentUser==null) {
             System.out.println("User with login " + login + " not found");
@@ -111,7 +109,10 @@ public class HelloWorldRestController {
         String responseConnect = userService.connexion(login, pwd);
         System.out.println(responseConnect);
         if ("identification réussie".equalsIgnoreCase(responseConnect))
-        	return new ResponseEntity<User>(HttpStatus.OK);
+        {
+        	//TODO routage vers bonne page
+        	return new ResponseEntity<User>(currentUser,HttpStatus.OK);
+        }
         else 
         	return new ResponseEntity<User>(HttpStatus.NOT_ACCEPTABLE);
     }

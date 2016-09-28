@@ -79,7 +79,7 @@ public class Client extends User {
 	 * @param conseillerID
 	 */
 	public Client(long id, String username, String address, String email, String login, String mdp, int revenus, Date dateOuverture, Date dateCloture, long conseillerID) {
-		super(id, username, address, email, login, mdp);
+		super(id, username, address, email, login, mdp, TypeUtilisateur.Client.getType());
 		this.revenus = revenus;
 		this.dateOuverture = dateOuverture;
 		this.dateCloture = dateCloture;
