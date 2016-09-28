@@ -3,45 +3,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
-<title>AngularJS $http Exemple</title>
-<style>
-.username.ng-valid {
-	background-color: lightgreen;
-}
+<title>GestBank</title>
 
-.username.ng-dirty.ng-invalid-required {
-	background-color: red;
-}
-
-.username.ng-dirty.ng-invalid-minlength {
-	background-color: yellow;
-}
-
-.email.ng-valid {
-	background-color: lightgreen;
-}
-
-.email.ng-dirty.ng-invalid-required {
-	background-color: red;
-}
-
-.email.ng-dirty.ng-invalid-email {
-	background-color: yellow;
-}
-</style>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
 
 </head>
-<body ng-app="myApp" class="ng-cloak">
-	<!-- banniere en fixe dans le header pour la deco -->
-
-	<img id="banniere" src="static/imgs/banniere.jpg" />
+<body ng-app="myApp" class="ng-cloak" layout="row">
 
 
 	<!-- Affichage de la navbar -->
-	<div class="navbar col-xs-3">
+	<div class="navbar col-xs-3" flex>
 
 
 
@@ -51,7 +24,7 @@
 
 
 			<!-- Menu de connexion  -->
-			<div class="formcontainer" ng-hide="true">
+			<div class="formcontainer" ng-hide="connexion_cache" >
 				<form ng-submit="ctrl.connect(login.value, password.value)"
 					name="formConnexion" class="form-horizontal">
 					<input type="hidden" ng-model="ctrl.user.id" />
@@ -94,10 +67,10 @@
 			</div>
 
 			<!-- Menu du Conseiller -->
-			<div class="container-fluid" ng-hide="false">
+			<div class="container-fluid" ng-hide="conseiller_cache" >
 				<div class="list-group">
 					<a href="#" class="list-group-item active"
-						ng-click="rechercheClient_cache = !rechercheClient_cache">
+						ng-click="rechercheClient_cache = !rechercheClient_cache ; rechercheIBAN_cache = false">
 						<h4 class="list-group-item-heading">Recherche client</h4>
 						<p class="list-group-item-text">Rechercher un client</p>
 					</a>
@@ -146,7 +119,7 @@
 					</div>
 
 					<a href="#" class="list-group-item"
-						ng-click="rechercheIBAN_cache = !rechercheIBAN_cache">
+						ng-click="rechercheIBAN_cache = !rechercheIBAN_cache; rechercheClient_cache = false">
 						<h4 class="list-group-item-heading">Recherche IBAN</h4>
 						<p class="list-group-item-text">Rechercher un compte par
 							l'IBAN</p>
@@ -188,8 +161,9 @@
 				</div>
 			</div>
 
+
 			<!-- Menu du Client -->
-			<div class="container-fluid" ng-hide="true">
+			<div class="container-fluid" ng-hide="client_cache">
 				<div class="list-group">
 					<a href="#" class="list-group-item active">
 						<h4 class="list-group-item-heading">Mes Comptes</h4>
@@ -211,7 +185,7 @@
 			</div>
 
 			<!-- Menu de l'administrateur -->
-			<div class="container-fluid" ng-hide="true">
+			<div class="container-fluid" ng-hide="admin_cache">
 				<div class="list-group">
 					<a href="#" class="list-group-item active">
 						<h4 class="list-group-item-heading">Demandes d'ouvertures</h4>
@@ -283,16 +257,118 @@
 	</div>
 
 
-	<!-- Tableau d'affichage de liste -->
 
 
-	<div class="generic-container" ng-controller="UserController as ctrl">
+
+
+<div class="partie_commune" layout="column" flex>
+
+	<!-- banniere en fixe dans le header pour la deco -->
+
+<div class="banniere "  layout="column" flex>
+	<div flex>	
+		<img class="langue" src="static/imgs/en.png" ng-hide="lang_cache" ng-click="lang_cache = !lang_cache" />
+		<img class="langue" src="static/imgs/fr.png" ng-show="lang_cache" ng-click="lang_cache = !lang_cache" />
+		</div>
+		<div flex>	
+	<input type="button" class="btn btn-danger" value="Deconnexion" />
+	
+	</div>
+
+</div>
+
+   
+	
+
+	<!-- Tableau d'affichage des utilisateurs -->
+
+
+	<div class="generic-container" ng-controller="UserController as ctrl" >
+	<div class="panel panel-default">
+		<!-- Default panel contents -->
+		<div class="panel-heading">
+			<span class="lead">Liste des utilisateurs </span>
+		</div>
+		<div class="tablecontainer">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Login</th>
+						<th>MPD</th>						
+						<th>Nom</th>
+						<th>Adresse</th>
+						<th>Email</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="u in ctrl.users">
+						<td><span ng-bind="u.identifiant"></span></td>
+						<td><span ng-bind="u.motDePasse"></span></td>						
+						<td><span ng-bind="u.nom"></span></td>
+						<td><span ng-bind="u.adresse"></span></td>
+						<td><span ng-bind="u.mail"></span></td>
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	<!-- Tableau d'affichage des conseillers -->
+		<div class="panel panel-info" layout="colomn" flex>
+
+			<!-- Default panel contents -->
+			<div class="panel-heading" flex>
+				<span class="lead">Liste des conseillers </span>
+			</div>
+
+
+			<div class="panel-body" flex>
+				<div class="tablecontainer">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>ID.</th>
+								<th ng-click="trier_par_matricule()">Matricule</th>
+								<th ng-click="trier_par_nom()">Nom</th>
+								<th ng-click="trier_par_prenom()">Prenom</th>
+								<th ng-click="trier_par_Adresse()">Adresse</th>
+								<th ng-click="trier_par_Email()">Email</th>
+								<th>Editer</th>
+								<th>Détruire</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="conseiller in ctrl.conseillers">
+								<td><span ng-bind="conseiller.matricule"></span></td>
+								<td><span ng-bind="conseiller.nom"></span></td>
+								<td><span ng-bind="conseiller.prenom"></span></td>
+								<td><span ng-bind="conseiller.address"></span></td>
+								<td><span ng-bind="conseiller.email"></span></td>
+								<td><img class="icone" src="static/imgs/crayon.png"
+									ng-click="editer_conseiller()" /></td>
+								<td><img class="icone" src="static/imgs/delete.png"
+									ng-click="supprimer_conseiller()" /></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+	<!-- Tableau d'affichage des demandes d'ouverture -->
+
+
 
 		<div class="panel panel-info" layout="colomn">
 
 			<!-- Default panel contents -->
 			<div class="panel-heading" flex>
-				<span class="lead">Liste des utilisateurs </span>
+				<span class="lead">Liste des demandes d'ouverture </span>
 			</div>
 
 
@@ -303,24 +379,33 @@
 							<tr>
 								<th>ID.</th>
 								<th ng-click="trier_par_nom()">Nom</th>
+								<th ng-click="trier_par_prenom()">Prenom</th>
 								<th ng-click="trier_par_Adresse()">Adresse</th>
 								<th ng-click="trier_par_Email()">Email</th>
-								<th width="20%" ng-click="trier_par_type()">Type</th>
+								<th width="20%">Attribution</th>
+
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="u in ctrl.users">
-								<td><span ng-bind="u.id"></span></td>
-								<td><span ng-bind="u.username"></span></td>
-								<td><span ng-bind="u.address"></span></td>
-								<td><span ng-bind="u.email"></span></td>
-								<td><select class="form-control" id="sel1"
-									ng-change="validation_attribution()">
-										<option value="volvo">Volvo</option>
-										<option value="saab">Saab</option>
-										<option value="mercedes">Mercedes</option>
-										<option value="audi">Audi</option>
-								</select></td>
+							<tr ng-repeat="guest in ctrl.guests">
+								<td><span ng-bind="guest.nom"></span></td>
+								<td><span ng-bind="guest.prenom"></span></td>
+								<td><span ng-bind="guest.address"></span></td>
+								<td><span ng-bind="guest.email"></span></td>
+
+								<td>
+
+									<div class="formcontainer">
+		<form name="formValidation" class="form-horizontal">
+			<select class="form-control" id="sel1"
+				ng-change="validation_attribution(id.conseiller)">
+				<option value="conseiller.id" selected=selected>"conseiller actuel"</option>
+				<option ng-repeat="conseiller in ctrl.conseillers" value="conseiller.id">"conseiller.nom"</option>
+
+			</select>
+		</form>
+	</div>	
+									</td>
 							</tr>
 						</tbody>
 					</table>
@@ -329,13 +414,69 @@
 		</div>
 
 
-	</div>
 
 
 
+	<!-- Formulaire d'inscription -->
+	
 
 
+		<div class="panel panel-info" layout="colomn">
 
+			<!-- Default panel contents -->
+			<div class="panel-heading" flex>
+				<span class="lead">Inscription</span>
+			</div>
+
+
+			<div class="panel-body" flex>
+<div class="formcontainer">
+				<form ng-submit="ctrl.connect()" name="formConnexion"
+					class="form-horizontal">
+					<input type="hidden" ng-model="ctrl.user.id" />
+					<div class="row">
+						<div class="form-group col-md-12">
+							<label class="col-md-2 control-lable" for="file">Login</label>
+							<div class="col-md-7">
+								<input type="text" ng-model="ctrl.user.identifiant" name="login"
+									class="username form-control input-sm"
+									placeholder="Entez votre login" required />
+								<div class="has-error" ng-show="formConnexion.$dirty">
+									<span ng-show="formConnexion.login.$error.required">Champ
+										obligatoire</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-md-12">
+							<label class="col-md-2 control-lable" for="file">Password</label>
+							<div class="col-md-7">
+								<input type="password" ng-model="ctrl.user.motDePasse" name="password"
+									class="password form-control input-sm"
+									placeholder="Entrez votre mot de passe" required />
+								<div class="has-error" ng-show="formConnexion.$dirty">
+									<span ng-show="formConnexion.password.$error.required">Champ
+										obligatoire</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-actions floatRight">
+							<input type="submit" value="Connexion"
+								class="btn btn-primary btn-sm" 
+								ng-disabled="formConnexion.$invalid"
+								>
+						</div>
+					</div>
+				</form>
+			</div>
+</div>
+</div>
+</div>
+</div>
 	<ng-view></ng-view>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
@@ -344,6 +485,41 @@
 	<script
 		src="<c:url value='/static/js/controller/user_controller.js' />"></script>
 
+
+
+	
+	<script>
+	App.controller('cache_menu', function($scope) {
+		
+		$scope.update = function() {	
+			
+	if($scope.selectedItem == 1){
+		$scope.connexion_cache=false;
+		$scope.admin_cache=true;
+		$scope.conseiller_cache=true;
+		$scope.client_cache=true;
+	}else 	if($scope.selectedItem == 2){
+		$scope.connexion_cache=true;
+		$scope.admin_cache=false;
+		$scope.conseiller_cache=true;
+		$scope.client_cache=true;
+	}else 	if($scope.selectedItem == 3){
+		$scope.connexion_cache=true;
+		$scope.admin_cache=true;
+		$scope.conseiller_cache=false;
+		$scope.client_cache=true;
+	}else 	if($scope.selectedItem == 4){
+		$scope.connexion_cache=true;
+		$scope.admin_cache=true;
+		$scope.conseiller_cache=true;
+		$scope.client_cache=false;
+	}
+		}
+	})
+	
+	</script>
+	
+	
 	<!-- Responsive à faire
 	<script>
 	App.controller('cache_menu', function($scope) {

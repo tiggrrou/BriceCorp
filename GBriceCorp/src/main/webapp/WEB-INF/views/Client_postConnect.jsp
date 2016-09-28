@@ -7,6 +7,11 @@
 <title>Page post connexion client</title>
 </head>
 <body>
-
+	<h1></h1>
+	<tr name="liste_comptes" ng-repeat="u in client.comptes">
+		<td><span ng-bind="u.libellé"></span></td>
+		<td><span ng-bind="u.iban"></span></td>
+		<td><span ng-bind="u.solde"></span></td>
+	</tr>
 </body>
 </html>

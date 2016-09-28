@@ -61,7 +61,7 @@ public class Conseiller extends User {
 	}
 
 	public Conseiller(long id, String username, String address, String email, String login, String mdp, int matricule, Date debutContrat, Date finContrat) {
-		super(id, username, address, email, login, mdp);
+		super(id, username, address, email, login, mdp, TypeUtilisateur.Conseiller.getType());
 		this.matricule = matricule;
 		this.debutContrat = debutContrat;
 		this.finContrat = finContrat;

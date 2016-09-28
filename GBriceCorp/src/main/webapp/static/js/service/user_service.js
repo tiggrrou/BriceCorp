@@ -11,6 +11,10 @@ angular.module('myApp').factory('UserService', ['$http', '$q', function($http, $
         deleteUser:deleteUser,
         connectUser:connectUser
     };
+    
+    var user = {
+    		id:null,nom:'',prenom:'',adresse:'',mail:'',identifiant:'',motDePasse:'',typeUser:'',telephone:''
+    		};
 
     return factory;
     /*recherche de tous les utilisateurs */
@@ -66,11 +70,17 @@ angular.module('myApp').factory('UserService', ['$http', '$q', function($http, $
      */
     function connectUser(login, pwd) {
         var deferred = $q.defer();
-        $http.post(REST_SERVICE_URI+'connect/'+login, pwd)
+        $http.get(REST_SERVICE_URI+'connect/'+login+"&"+ pwd)
             .then(
             function (response) {
                 deferred.resolve(response.data);
+                // je suis co receptionner session + envoyer message à routeur
                 console.log('eh eh connexion réussie');
+                sessionStorage.setItem("currentUser",JSON.stringify(response.data));
+                var typeUser = JSON.parse(sessionStorage.getItem("currentUser")).typeUser;
+                var truc = sessionStorage.getItem("currentUser");
+                user = JSON.parse(truc);
+                console.log(user.motDePasse);
             },
             function(errResponse){
                 console.error('Error while logging User' + errResponse.value);

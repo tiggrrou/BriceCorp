@@ -43,7 +43,10 @@ public class User {
 	 */
 	private int telephone;
 	
-	
+	/**
+	 * 1 : Admin, 2 : Conseiller, 3 : Client
+	 */
+	private int typeUser;
 	//#endregion
 	
 	//#region Constructeurs
@@ -51,13 +54,14 @@ public class User {
 		id=0;
 	}
 	
-	public User(long id, String username, String address, String email, String login, String mdp){
+	public User(long id, String username, String address, String email, String login, String mdp, int type){
 		this.id = id;
 		this.nom = username;
 		this.adresse = address;
 		this.mail = email;
 		this.identifiant = login;
 		this.motDePasse = mdp;
+		this.typeUser = type;
 	}
 	//#endregion
 	
@@ -125,7 +129,14 @@ public class User {
 	public void setTelephone(int telephone) {
 		this.telephone = telephone;
 	}
-	
+
+	public int getTypeUser() {
+		return typeUser;
+	}
+
+	public void setTypeUser(int typeUser) {
+		this.typeUser = typeUser;
+	}	
 	//#endregion
 
 	//#region Méthodes redéfinies
@@ -156,10 +167,9 @@ public class User {
 		return "User [getId()=" + getId() + ", getNom()=" + getNom() + ", getPrenom()=" + getPrenom()
 				+ ", getAdresse()=" + getAdresse() + ", getMail()=" + getMail() + ", getIdentifiant()="
 				+ getIdentifiant() + ", getMotDePasse()=" + getMotDePasse() + ", getTelephone()=" + getTelephone()
-				+ ", hashCode()=" + hashCode() + "]";
+				+ ", getTypeUser()=" + getTypeUser() + ", hashCode()=" + hashCode() + "]";
 	}
 
-	
 	//#endregion
 
 	//#region Méthodes

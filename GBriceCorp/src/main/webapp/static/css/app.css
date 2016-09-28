@@ -1,5 +1,8 @@
 body {
 	display: flex;
+		    background-image: url("../../static/imgs/banniere.jpg");
+		        background-repeat: repeat-x;
+		            background-size: contain;
 }
 
 body, #mainWrapper {
@@ -11,7 +14,29 @@ body, .form-control {
 	font-size: 12px !important;
 
 }
+.username.ng-valid {
+	background-color: lightgreen;
+}
 
+.username.ng-dirty.ng-invalid-required {
+	background-color: red;
+}
+
+.username.ng-dirty.ng-invalid-minlength {
+	background-color: yellow;
+}
+
+.email.ng-valid {
+	background-color: lightgreen;
+}
+
+.email.ng-dirty.ng-invalid-required {
+	background-color: red;
+}
+
+.email.ng-dirty.ng-invalid-email {
+	background-color: yellow;
+}
 .floatRight {
 	float: right;
 	margin-right: 18px;
@@ -31,14 +56,13 @@ body, .form-control {
 }
 
 .generic-container {
-	display: flex;
-flex-direction: column;
-	width: auto;
-	margin-left: 5vh;
-	margin-right: 5vh;
-	margin-top: 30vh;
+
+	width: 75vw;
+	margin-left: 2vw;
+	margin-right: 1vw;
+	margin-top: 50vh;
 	margin-bottom: 5vh;
-	padding: 20px;
+	padding: 1vw;
 	background-color: #EAE7E7;
 	border: 1px solid #ddd;
 	border-radius: 4px;
@@ -50,14 +74,12 @@ flex-direction: column;
 }
 
 .custom-width {
-	width: 100%;
+	width: 100vw;
 }
 
 .panel {
 	align: center;
-
 	width: auto;
-
 }
 
 .navbar {
@@ -68,18 +90,28 @@ flex-direction: column;
 	border-radius: 0;
 	display: flex;
 	width: auto;
-min-height: 100vh;
+	min-height: 150vh;
 	background: rgba(200, 200, 200, 0.5);
 	border: rgba(200, 200, 200, 0.5);
 	justify-content: space-between;
 }
 
-#banniere {
-	position: fixed;
-	top: 0px;
-	left: 0px;
-	width: 100%;
-	height: 22%;
+.banniere {
+	float: right;
+	width: auto;
+
+}
+
+
+
+.langue {
+	width: 50px;
+	margin: auto;
+}
+
+.icone {
+	width: 10%;
+	height: auto;
 }
 
 
@@ -87,7 +119,6 @@ min-height: 100vh;
 	height: 20px;
 	aligne-self: flex-end;
 	margin: auto;
-			transform: rotate(180deg);
 }
 
 
