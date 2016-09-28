@@ -3,7 +3,7 @@
 angular.module.config(function($routeProvider) {
 	
 	$routeProvider
-	.when("/", {
+	.when("/" && user.type == "1", {
 		templateUrl: "./homePage.html",
 		controller: 'user_controller'
 	})
