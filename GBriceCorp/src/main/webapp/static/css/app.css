@@ -41,6 +41,8 @@ body, .form-control {
 	float: right;
 	margin-right: 18px;
 }
+.active
+
 
 .has-error {
 	color: red;
@@ -55,12 +57,17 @@ body, .form-control {
 	padding-left: 20px;
 }
 
+.partie_commune{
+	
+		width: 100vw;
+}
+
 .generic-container {
 
-	width: 75vw;
+
 	margin-left: 2vw;
 	margin-right: 1vw;
-	margin-top: 50vh;
+	margin-top: 150px;
 	margin-bottom: 5vh;
 	padding: 1vw;
 	background-color: #EAE7E7;
@@ -73,9 +80,7 @@ body, .form-control {
 	width: 80px !important;
 }
 
-.custom-width {
-	width: 100vw;
-}
+
 
 .panel {
 	align: center;

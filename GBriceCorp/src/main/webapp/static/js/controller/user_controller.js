@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp').controller('UserController', ['$scope', 'UserService', function($scope, UserService) {
+App.controller('UserController', ['$scope', 'UserService', function($scope, UserService) {
     var self = this;
     self.user={id:null,nom:'',adresse:'',mail:'',identifiant:'',motDePasse:''};
     self.users=[];
@@ -11,6 +11,49 @@ angular.module('myApp').controller('UserController', ['$scope', 'UserService', f
     self.reset = reset;
     self.connect = connect;
 
+    
+  
+    
+
+  
+    if(sessionStorage.getItem("currentUser") == null){
+console.log("pas de session");
+    	$scope.connexion_cache=false;
+    	$scope.admin_cache=true;
+    	$scope.conseiller_cache=true;
+    	$scope.client_cache=true;
+    }else {
+		console.log("une session existe");
+		var utilisateur = JSON.parse(sessionStorage.getItem("currentUser"));
+		console.log("utilisateur.typeUser" +utilisateur.typeUser);
+		console.log("utilisateur.nom" +utilisateur.nom);
+    
+	if(utilisateur.typeUser == 1){
+    	$scope.connexion_cache=true;
+    	$scope.admin_cache=false;
+    	$scope.conseiller_cache=true;
+    	$scope.client_cache=true;
+	}else if(utilisateur.typeUser == 2){
+		$scope.connexion_cache=true;
+		$scope.admin_cache=true;
+		$scope.conseiller_cache=false;
+		$scope.client_cache=true;
+	}else if(utilisateur.typeUser == 3){
+		$scope.connexion_cache=true;
+		$scope.admin_cache=true;
+		$scope.conseiller_cache=true;
+		$scope.client_cache=false;
+	} 
+
+    }
+    
+    $scope.session_delete = function() {
+    	//delete sessionStorage.getItem("currentUser");
+    	sessionStorage.removeItem('currentUser');
+        location.reload();
+    	console.log("delete session");
+    };
+    
 
     fetchAllUsers();
 
@@ -20,11 +63,13 @@ angular.module('myApp').controller('UserController', ['$scope', 'UserService', f
     		function(d) {
     			console.log(d);
     			console.log("mon d est juste au dessus")
+    	        location.reload();
     		}, 
     		function (errResponse){
     			console.error('Error while connection');
     		}
     	);
+
     }
     
     function fetchAllUsers(){
