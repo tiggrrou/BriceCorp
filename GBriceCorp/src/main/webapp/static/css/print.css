@@ -3,7 +3,10 @@
 }
 
 .panel {
-
+	display: flex;
+	 justify-content:space-between;
+	align-items: center;
+	flex-direction: column;
 }
 
 .panel-heading {
@@ -16,12 +19,24 @@
 }
 
 .tablecontainer {
-	
+
 }
 
 .table {
-	display: flex;
-	align-items: center;
-	flex-direction: column;
+
 	width: 100vw;
+}
+
+th {
+border-bottom-style: dashed;
+    border-width: 1px;
+        border-color: green;
+
+}
+
+td {
+border-bottom-style: dotted;
+    border-width: 1px;
+
+
 }

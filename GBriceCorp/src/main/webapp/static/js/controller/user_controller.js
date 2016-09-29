@@ -63,9 +63,9 @@ App.controller('UserController', ['$scope','$location', 'UserService', function(
     }
     
     $scope.session_delete = function() {
-    	//delete sessionStorage.getItem("currentUser");
     	sessionStorage.removeItem('currentUser');
-        location.reload();
+		$location.path("/");
+    	location.reload();
     	console.log("delete session");
     };
     
@@ -74,7 +74,7 @@ App.controller('UserController', ['$scope','$location', 'UserService', function(
           var innerContents = document.getElementById(printSectionId).innerHTML;
           var popupWindow = window.open('', '_blank', 'width=600,height=700,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no');
           popupWindow.document.open();
-          popupWindow.document.write('<html><head><link rel="stylesheet" type="text/css" href="static/css/print.css" /></head><body onload="window.print()">' + innerContents + '</html>');
+          popupWindow.document.write('<html><head><link rel="stylesheet" type="text/css" href="static/css/print.css" /></head><body >' + innerContents + '</html>');
           popupWindow.document.close();
         }
 

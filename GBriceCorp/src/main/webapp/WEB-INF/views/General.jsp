@@ -260,12 +260,13 @@
 
 			</div>
 		</div>
-		<div ng-view class="generic-container"></div>
-	</div>
+		<div class="generic-container">
+
+	<ng-view></ng-view>
 	
 		<!-- Web Service de conversion -->
 
-	<div class="generic-container" ng-hide="{{connexion_cache}}">
+	<div ng-hide="{{connexion_cache}}">
 	<table>
 		<tr>
 			<td>Veuillez saisir le montant à convertir :</td>
@@ -288,8 +289,8 @@
 		<script>gp_currencySymbols()</script>
 	</div>
 	</div>
-	
-	
+	</div>
+		</div>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
 	<script src="<c:url value='/static/js/app.js' />"></script>

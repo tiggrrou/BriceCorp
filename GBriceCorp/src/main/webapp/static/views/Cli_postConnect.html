@@ -1,4 +1,11 @@
-
+<div
+	ng-init="Comptes=[
+{Libelle:'Comptecds',Iban:'2616464', Solde:'150'},
+{Libelle:'hgdfdgfbfdb',Iban:'7587578578', Solde:'1570'},
+{Libelle:'Compfgbgfbtecds',Iban:'7857868676', Solde:'78150'},
+{Libelle:'fgbfdbgfb',Iban:'78687678676', Solde:'8150'}
+]">
+<div id="printSectionId">
 	<div class="panel panel-info" layout="colomn">
 
 			<!-- Default panel contents -->
@@ -18,14 +25,16 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr name="liste_comptes" ng-repeat="u in ctrl.comptes">
-								<td><span ng-bind="u.libellé"></span></td>
-								<td><span ng-bind="u.iban"></span></td>
-								<td><span ng-bind="u.solde"></span></td>
+							<tr name="liste_comptes" ng-repeat="Compte in Comptes">
+								<td>{{Compte.Libelle}}</td>
+								<td>{{Compte.Iban}}</td>
+								<td>{{Compte.Solde}}</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</div>
-
+	</div>
+		</div>
+<button ng-click="printToCart('printSectionId')" class="button">Imprimer</button>

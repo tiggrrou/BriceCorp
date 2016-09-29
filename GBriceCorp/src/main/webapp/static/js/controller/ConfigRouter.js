@@ -84,7 +84,7 @@ App.config(['$routeProvider',function($routeProvider) {
 	
 	// Routage Admin
 	.when("/admin/" , {
-		templateUrl:"static/viewsAdmin_AffectCli.html",
+		templateUrl:"static/views/Admin_AffectCli.html",
 		controller: 'UserController'		
 	})
 	.when("/admin/Admin_AffectCli" , {
