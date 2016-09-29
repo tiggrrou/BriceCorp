@@ -4,7 +4,7 @@ App.config(function($routeProvider) {
 	
 	$routeProvider
 	.when("/" , {
-		templateUrl: "views/Admin_CreaCons.html",
+		templateUrl: "./static/views/Admin_CreaCons.html",
 		controller: 'user_controller'
 	})
 	

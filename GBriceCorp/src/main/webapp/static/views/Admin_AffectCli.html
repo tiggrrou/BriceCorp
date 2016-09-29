@@ -1,0 +1,53 @@
+	<h1>Nouveaux Clients en attente d'affectation</h1>
+	<!-- Tableau d'affichage des demandes d'ouverture -->
+
+
+
+		<div class="panel panel-info" layout="colomn">
+
+			<!-- Default panel contents -->
+			<div class="panel-heading" flex>
+				<span class="lead">Liste des demandes d'ouverture </span>
+			</div>
+
+
+			<div class="panel-body" flex>
+				<div class="tablecontainer">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>ID.</th>
+								<th ng-click="trier_par_nom()">Nom</th>
+								<th ng-click="trier_par_prenom()">Prenom</th>
+								<th ng-click="trier_par_Adresse()">Adresse</th>
+								<th ng-click="trier_par_Email()">Email</th>
+								<th width="20%">Attribution</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="guest in ctrl.guests">
+								<td><span ng-bind="guest.nom"></span></td>
+								<td><span ng-bind="guest.prenom"></span></td>
+								<td><span ng-bind="guest.address"></span></td>
+								<td><span ng-bind="guest.email"></span></td>
+
+								<td>
+
+									<div class="formcontainer">
+		<form name="formValidation" class="form-horizontal">
+			<select class="form-control" id="sel1"
+				ng-change="validation_attribution(id.conseiller)">
+				<option value="conseiller.id" selected=selected>"conseiller actuel"</option>
+				<option ng-repeat="conseiller in ctrl.conseillers" value="conseiller.id">"conseiller.nom"</option>
+
+			</select>
+		</form>
+	</div>	
+									</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>

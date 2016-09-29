@@ -281,6 +281,8 @@
    
 	 
 
+
+
 	<!-- Tableau d'affichage des utilisateurs -->
 
 
@@ -316,167 +318,12 @@
 			</table>
 		</div>
 
-	<!-- Tableau d'affichage des conseillers -->
-		<div class="panel panel-info" layout="colomn" flex>
-
-			<!-- Default panel contents -->
-			<div class="panel-heading" flex>
-				<span class="lead">Liste des conseillers </span>
-			</div>
-
-
-			<div class="panel-body" flex>
-				<div class="tablecontainer">
-					<table class="table table-hover">
-						<thead>
-							<tr>
-								<th>ID.</th>
-								<th ng-click="trier_par_matricule()">Matricule</th>
-								<th ng-click="trier_par_nom()">Nom</th>
-								<th ng-click="trier_par_prenom()">Prenom</th>
-								<th ng-click="trier_par_Adresse()">Adresse</th>
-								<th ng-click="trier_par_Email()">Email</th>
-								<th>Editer</th>
-								<th>Détruire</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr ng-repeat="conseiller in ctrl.conseillers">
-								<td><span ng-bind="conseiller.matricule"></span></td>
-								<td><span ng-bind="conseiller.nom"></span></td>
-								<td><span ng-bind="conseiller.prenom"></span></td>
-								<td><span ng-bind="conseiller.address"></span></td>
-								<td><span ng-bind="conseiller.email"></span></td>
-								<td><img class="icone" src="static/imgs/crayon.png"
-									ng-click="editer_conseiller()" /></td>
-								<td><img class="icone" src="static/imgs/delete.png"
-									ng-click="supprimer_conseiller()" /></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
 
 
 
 
 
-	<!-- Tableau d'affichage des demandes d'ouverture -->
 
-
-
-		<div class="panel panel-info" layout="colomn">
-
-			<!-- Default panel contents -->
-			<div class="panel-heading" flex>
-				<span class="lead">Liste des demandes d'ouverture </span>
-			</div>
-
-
-			<div class="panel-body" flex>
-				<div class="tablecontainer">
-					<table class="table table-hover">
-						<thead>
-							<tr>
-								<th>ID.</th>
-								<th ng-click="trier_par_nom()">Nom</th>
-								<th ng-click="trier_par_prenom()">Prenom</th>
-								<th ng-click="trier_par_Adresse()">Adresse</th>
-								<th ng-click="trier_par_Email()">Email</th>
-								<th width="20%">Attribution</th>
-
-							</tr>
-						</thead>
-						<tbody>
-							<tr ng-repeat="guest in ctrl.guests">
-								<td><span ng-bind="guest.nom"></span></td>
-								<td><span ng-bind="guest.prenom"></span></td>
-								<td><span ng-bind="guest.address"></span></td>
-								<td><span ng-bind="guest.email"></span></td>
-
-								<td>
-
-									<div class="formcontainer">
-		<form name="formValidation" class="form-horizontal">
-			<select class="form-control" id="sel1"
-				ng-change="validation_attribution(id.conseiller)">
-				<option value="conseiller.id" selected=selected>"conseiller actuel"</option>
-				<option ng-repeat="conseiller in ctrl.conseillers" value="conseiller.id">"conseiller.nom"</option>
-
-			</select>
-		</form>
-	</div>	
-									</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-
-
-
-
-
-	<!-- Formulaire d'inscription -->
-	
-
-
-		<div class="panel panel-info" layout="colomn">
-
-			<!-- Default panel contents -->
-			<div class="panel-heading" flex>
-				<span class="lead">Inscription</span>
-			</div>
-
-
-			<div class="panel-body" flex>
-<div class="formcontainer">
-				<form ng-submit="ctrl.connect()" name="formConnexion"
-					class="form-horizontal">
-					<input type="hidden" ng-model="ctrl.user.id" />
-					<div class="row">
-						<div class="form-group col-md-12">
-							<label class="col-md-2 control-lable" for="file">Login</label>
-							<div class="col-md-7">
-								<input type="text" ng-model="ctrl.user.identifiant" name="login"
-									class="username form-control input-sm"
-									placeholder="Entez votre login" required />
-								<div class="has-error" ng-show="formConnexion.$dirty">
-									<span ng-show="formConnexion.login.$error.required">Champ
-										obligatoire</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="form-group col-md-12">
-							<label class="col-md-2 control-lable" for="file">Password</label>
-							<div class="col-md-7">
-								<input type="password" ng-model="ctrl.user.motDePasse" name="password"
-									class="password form-control input-sm"
-									placeholder="Entrez votre mot de passe" required />
-								<div class="has-error" ng-show="formConnexion.$dirty">
-									<span ng-show="formConnexion.password.$error.required">Champ
-										obligatoire</span>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="row">
-						<div class="form-actions floatRight">
-							<input type="submit" value="Connexion"
-								class="btn btn-primary btn-sm" 
-								ng-disabled="formConnexion.$invalid"
-								>
-						</div>
-					</div>
-				</form>
-			</div>
-</div>
-</div>
 </div>
 </div>
 	<ng-view></ng-view>
@@ -486,8 +333,10 @@
 	<script src="<c:url value='/static/js/service/user_service.js' />"></script>
 	<script
 		src="<c:url value='/static/js/controller/user_controller.js' />"></script>
-
-
+<script
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-route.js"></script>
+	<script
+		src="<c:url value='/static/js/controller/ConfigRouter.js' />"></script>
 
 	<!-- Responsive à faire
 	<script>
