@@ -1,0 +1,29 @@
+ 
+<form ng-submit="ctrl.virement()" class="select.input-group-sm">
+
+<tr ng-repeat="u in ctrl.users">
+						<td><span ng-bind="u.identifiant"></span></td>
+						<td><span ng-bind="u.motDePasse"></span></td>	
+																	<td><span ng-bind="u.typeUser"></span></td>
+						<td><span ng-bind="u.nom"></span></td>
+						<td><span ng-bind="u.adresse"></span></td>
+						<td><span ng-bind="u.mail"></span></td>
+
+					</tr>
+	Compte à débiter
+	<SELECT name="Compte à débiter" size="1">
+		<OPTION ng-repeat="u in ctrl.user.comptes"> u.libellé
+	</SELECT> 
+
+	Compte à créditer
+	<SELECT name="Compte à débiter" size="1">
+		<OPTION ng-repeat="u in ctrl.user.comptes"> u.libellé
+	</SELECT> 
+	
+	<div class="row">
+		<div class="form-actions floatRight">
+			<input type="submit" value="Soumettre ma demande à mon conseiller"
+				class="btn btn-primary btn-sm">
+		</div>
+	</div>
+</form>

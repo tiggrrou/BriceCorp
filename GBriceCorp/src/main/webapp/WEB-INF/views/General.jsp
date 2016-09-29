@@ -12,7 +12,22 @@
 </head>
 
 <body ng-app="myApp" class="ng-cloak" layout="row" ng-controller="UserController as ctrl">
-
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js">
+	</script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-route.js">
+	</script>
+	<script src="<c:url value='/static/js/app.js' />">
+	</script>
+	<script src="<c:url value='/static/js/service/user_service.js' />">
+	</script>
+	<script
+		src="<c:url value='/static/js/controller/user_controller.js' />">
+		</script>
+	<script
+		src="<c:url value='/static/js/controller/ConfigRouter.js' />">
+		</script>
 
 	<!-- Affichage de la navbar -->
 
@@ -479,40 +494,12 @@
 </div>
 </div>
 </div>
-	<ng-view></ng-view>
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
-	<script src="<c:url value='/static/js/app.js' />"></script>
-	<script src="<c:url value='/static/js/service/user_service.js' />"></script>
-	<script
-		src="<c:url value='/static/js/controller/user_controller.js' />"></script>
+		<div ng-view></div>
+	
+	
+	
+	
 
 
-
-	<!-- Responsive à faire
-	<script>
-	App.controller('cache_menu', function($scope) {
-		
-	
-	window.addEventListener("resize", function(){
-		var width = document.body.clientWidth;
-
-		if(width < 400){
-			$scope.nav_cache = true;
-			$scope.resize_cache = true;
-			}else{
-		$scope.resize_cache = false;
-}
-console.log("resize" + $scope.resize_cache);
-console.log("nav" + $scope.nav_cache);
-	})
-	})
-	
-	
-	
-	
-	</script>
-	
--->
 </body>
 </html>

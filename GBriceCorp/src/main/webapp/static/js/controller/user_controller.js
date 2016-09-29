@@ -64,16 +64,16 @@ console.log("pas de session");
     			var user = JSON.parse(sessionStorage.getItem("currentUser"));
     			var userType = (user == null)? 0 : user.typeUser;
     			switch(userType){
-    			case "0" : 
+    			case 0 : 
     				$location.path("/");
     				break;
-    			case "1" : 
+    			case 1 : 
     				$location.path("/admin/");
     				break;
-    			case "2" : 
+    			case 2 : 
     				$location.path("/cons/");
     				break;    			
-    			case "3" : 
+    			case 3 : 
     				$location.path("/cli/");
     				break;    			
     			}

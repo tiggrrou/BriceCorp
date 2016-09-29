@@ -75,110 +75,110 @@
 					<div class="row">
 						<div class="form-actions floatRight">
 							<input type="submit" value="Connexion"
-								class="btn btn-primary btn-sm" 
-								ng-disabled="formConnexion.$invalid"
-								>
+								class="btn btn-primary btn-sm"
+								ng-disabled="formConnexion.$invalid">
 						</div>
 					</div>
 				</form>
 			</div>
-		<div class="panel-heading">
-			<span class="lead">Formulaire Inscription</span>
-		</div>
-		<div class="formcontainer">
-			<form ng-submit="ctrl.submit()" name="myForm" class="form-horizontal">
-				<input type="hidden" ng-model="ctrl.user.id" />
-				<div class="row">
-					<div class="form-group col-md-12">
-						<label class="col-md-2 control-lable" for="file">Name</label>
-						<div class="col-md-7">
-							<input type="text" ng-model="ctrl.user.nom" name="uname"
-								class="username form-control input-sm"
-								placeholder="Entez votre nom" required ng-minlength="3" />
-							<div class="has-error" ng-show="myForm.$dirty">
-								<span ng-show="myForm.uname.$error.required">Champ
-									Obligatoire</span> <span ng-show="myForm.uname.$error.minlength">longueur
-									minimum requise est de 3</span> <span ng-show="myForm.uname.$invalid">Ce
-									champ est invalide </span>
+			<div class="panel-heading">
+				<span class="lead">Formulaire Inscription</span>
+			</div>
+			<div class="formcontainer">
+				<form ng-submit="ctrl.submit()" name="myForm"
+					class="form-horizontal">
+					<input type="hidden" ng-model="ctrl.user.id" />
+					<div class="row">
+						<div class="form-group col-md-12">
+							<label class="col-md-2 control-lable" for="file">Name</label>
+							<div class="col-md-7">
+								<input type="text" ng-model="ctrl.user.nom" name="uname"
+									class="username form-control input-sm"
+									placeholder="Entez votre nom" required ng-minlength="3" />
+								<div class="has-error" ng-show="myForm.$dirty">
+									<span ng-show="myForm.uname.$error.required">Champ
+										Obligatoire</span> <span ng-show="myForm.uname.$error.minlength">longueur
+										minimum requise est de 3</span> <span ng-show="myForm.uname.$invalid">Ce
+										champ est invalide </span>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
 
 
-				<div class="row">
-					<div class="form-group col-md-12">
-						<label class="col-md-2 control-lable" for="file">Adresse</label>
-						<div class="col-md-7">
-							<input type="text" ng-model="ctrl.user.adresse"
-								class="form-control input-sm"
-								placeholder="Entrez votre adresse. [Pas de validation sur ce champ]" />
-						</div>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="form-group col-md-12">
-						<label class="col-md-2 control-lable" for="file">Email</label>
-						<div class="col-md-7">
-							<input type="email" ng-model="ctrl.user.mail" name="email"
-								class="email form-control input-sm"
-								placeholder="Entrez votre Email" required />
-							<div class="has-error" ng-show="myForm.$dirty">
-								<span ng-show="myForm.email.$error.required">Ce champ est
-									obligatoire</span> <span ng-show="myForm.email.$invalid">Ce
-									champ est invalide</span>
+					<div class="row">
+						<div class="form-group col-md-12">
+							<label class="col-md-2 control-lable" for="file">Adresse</label>
+							<div class="col-md-7">
+								<input type="text" ng-model="ctrl.user.adresse"
+									class="form-control input-sm"
+									placeholder="Entrez votre adresse. [Pas de validation sur ce champ]" />
 							</div>
 						</div>
 					</div>
-				</div>
 
-				<div class="row">
-					<div class="form-actions floatRight">
-						<input type="submit"
-							value="{{!ctrl.user.id ? 'Ajouter' : 'Modifier'}}"
-							class="btn btn-primary btn-sm" ng-disabled="myForm.$invalid">
-						<button type="button" ng-click="ctrl.reset()"
-							class="btn btn-warning btn-sm" ng-disabled="myForm.$pristine">Réinitialiser
-							le Formulaire</button>
+					<div class="row">
+						<div class="form-group col-md-12">
+							<label class="col-md-2 control-lable" for="file">Email</label>
+							<div class="col-md-7">
+								<input type="email" ng-model="ctrl.user.mail" name="email"
+									class="email form-control input-sm"
+									placeholder="Entrez votre Email" required />
+								<div class="has-error" ng-show="myForm.$dirty">
+									<span ng-show="myForm.email.$error.required">Ce champ
+										est obligatoire</span> <span ng-show="myForm.email.$invalid">Ce
+										champ est invalide</span>
+								</div>
+							</div>
+						</div>
 					</div>
-				</div>
-			</form>
+
+					<div class="row">
+						<div class="form-actions floatRight">
+							<input type="submit"
+								value="{{!ctrl.user.id ? 'Ajouter' : 'Modifier'}}"
+								class="btn btn-primary btn-sm" ng-disabled="myForm.$invalid">
+							<button type="button" ng-click="ctrl.reset()"
+								class="btn btn-warning btn-sm" ng-disabled="myForm.$pristine">Réinitialiser
+								le Formulaire</button>
+						</div>
+					</div>
+				</form>
+			</div>
 		</div>
-	</div>
-	<div class="panel panel-default">
-		<!-- Default panel contents -->
-		<div class="panel-heading">
-			<span class="lead">Liste des utilisateurs </span>
+		<div class="panel panel-default">
+			<!-- Default panel contents -->
+			<div class="panel-heading">
+				<span class="lead">Liste des utilisateurs </span>
+			</div>
+			<div class="tablecontainer">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>ID.</th>
+							<th>Nom</th>
+							<th>Adresse</th>
+							<th>Email</th>
+							<th width="20%"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="u in ctrl.users">
+							<td><span ng-bind="u.id"></span></td>
+							<td><span ng-bind="u.nom"></span></td>
+							<td><span ng-bind="u.adresse"></span></td>
+							<td><span ng-bind="u.mail"></span></td>
+							<td>
+								<button type="button" ng-click="ctrl.edit(u.id)"
+									class="btn btn-success custom-width">Modifier</button>
+								<button type="button" ng-click="ctrl.remove(u.id)"
+									class="btn btn-danger custom-width">Supprimer</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
-		<div class="tablecontainer">
-			<table class="table table-hover">
-				<thead>
-					<tr>
-						<th>ID.</th>
-						<th>Nom</th>
-						<th>Adresse</th>
-						<th>Email</th>
-						<th width="20%"></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="u in ctrl.users">
-						<td><span ng-bind="u.id"></span></td>
-						<td><span ng-bind="u.nom"></span></td>
-						<td><span ng-bind="u.adresse"></span></td>
-						<td><span ng-bind="u.mail"></span></td>
-						<td>
-							<button type="button" ng-click="ctrl.edit(u.id)"
-								class="btn btn-success custom-width">Modifier</button>
-							<button type="button" ng-click="ctrl.remove(u.id)"
-								class="btn btn-danger custom-width">Supprimer</button>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
 	</div>
 
 	<script

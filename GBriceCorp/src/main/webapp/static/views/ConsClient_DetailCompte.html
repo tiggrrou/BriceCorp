@@ -1,0 +1,46 @@
+	<div>
+		<h3> Historique de votre compte  </h3>
+		<tr>
+			<td> Nom : </td>
+			<td> {{client.nom}} </td>
+			<td> Libellé Compte </td>
+			<td> {{compte.libellé}} </td>
+		</tr>
+		<tr>
+			<td> Prenom : </td>
+			<td> {{client.prebom}} </td>
+			<td> Date d'ouverture </td>
+			<td> {{compte.dateOuverture}} </td>
+		</tr>
+		<tr>
+			<td> Date de naissance : </td>
+			<td> {{client.dateNaiss}} </td>
+			<td> Découvert autorisé </td>
+			<td> {{compte.decouvert}} </td>
+		</tr>
+		<tr>
+			<td> Adresse : </td>
+			<td> {{client.adresse}} </td>
+		</tr>
+		<tr>
+			<td> Numero de tel : </td>
+			<td> {{client.telephone}} </td>
+		</tr>
+		
+		
+	</div>
+	<thead>
+		<tr>
+			<th>Date</th>
+			<th>Libellé</th>
+			<th>Type</th>
+			<th>Montant</th>
+			<th width="20%"></th>
+		</tr>
+	</thead>
+	<tr name="DetailHisto_comptes" ng-repeat="u in client.mouvCompte">
+		<td><span ng-bind="u.date"></span></td>
+		<td><span ng-bind="u.libellé"></span></td>
+		<td><span ng-bind="u.type"></span></td>
+		<td><span ng-bind="u.montant"></span></td>
+	</tr>
