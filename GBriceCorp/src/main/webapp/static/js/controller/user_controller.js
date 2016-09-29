@@ -68,16 +68,18 @@ console.log("pas de session");
     				$location.path("/");
     				break;
     			case 1 : 
-    				$location.path("/admin/");
+    				$location.path("admin/");
     				break;
     			case 2 : 
-    				$location.path("/cons/");
+    				$location.path("cons/");
     				break;    			
     			case 3 : 
-    				$location.path("/cli/");
-    				break;    			
+    				$location.path("cli/");
+    				break;
+    			default :
+    				$location.path("/");
+    				break;
     			}
-    			$location.path("/")
     			console.log(d);
     			console.log("mon d est juste au dessus")
     	        location.reload();
