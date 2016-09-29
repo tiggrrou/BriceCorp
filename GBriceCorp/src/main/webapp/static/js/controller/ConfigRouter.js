@@ -4,97 +4,103 @@
 App.config(['$routeProvider',function($routeProvider) {
 	
 	$routeProvider
+	
+	// Routage Guest
 	.when("/" , {
-		templateUrl: "static/views/Admin_CreaCons.html",
+		templateUrl:"static/views/Guest_WebService.html",
+		controller: 'UserController'
+	})
+	.when("/inscription" , {
+		templateUrl:"static/views/Guest_Inscription.html",
 		controller: 'UserController'
 	})
 	
 	// Routage conseiller
 		 
 	.when("/cons/" , {
-		templateUrl:"/Cons_DemCli.jsp",
+				templateUrl:"static/views/Cons_DemCli.html",
 		controller: 'UserController'		
 	})
 	.when("/cons/Cons_DemCli" , {
-		templateUrl:"/Cons_DemCli.jsp",
+		templateUrl:"static/views/Cons_DemCli.html",
 		controller: 'UserController'		
 	})
 	.when("/cli/Cons_RechCli" , {
-		templateUrl:"/Cons_RechCli.jsp",
+		templateUrl:"static/views/Cons_RechCli.html",
 		controller: 'UserController'		
 	})
 	.when("/cons/Cons_RechCpt" , {
-		templateUrl:"/Cons_RechCpt.jsp",
+		templateUrl:"static/views/Cons_RechCpt.html",
 		controller: 'UserController'		
 	})
 	.when("/cons/Cons_ValCheq" , {
-		templateUrl:"/Cons_ValCheq.jsp",
+		templateUrl:"static/views/Cons_ValCheq.html",
 		controller: 'UserController'		
 	})
 	.when("/cons/Cons_ValDecou" , {
-		templateUrl:"/Cons_ValDecou.jsp",
+		templateUrl:"static/views/Cons_ValDecou.html",
 		controller: 'UserController'		
 	})
 	.when("/cons/Cons_ValModif" , {
-		templateUrl:"/Cons_ValModif.jsp",
+		templateUrl:"static/views/Cons_ValModif.html",
 		controller: 'UserController'		
 	})
 	.when("/cons/Cons_DetailCompte" , {
-			templateUrl:"/ConsClient_DetailCompte.jsp",
+			templateUrl:"static/views/ConsClient_DetailCompte.html",
 			controller: 'UserController'		
 		})
 	
 	// Routage Client
 	
 	.when("/cli/" , {
-		templateUrl:"/Cli_postConnect.jsp",
+		templateUrl:"static/views/Cli_postConnect.html",
 		controller: 'UserController'		
 	})
 	.when("/cli/Cli_ListeComptes" , {
-		templateUrl:"/Cli_postConnect.jsp",
+		templateUrl:"static/views/Cli_postConnect.html",
 		controller: 'UserController'		
 	})
 	.when("/cli/Cli_DemDecou" , {
-		templateUrl:"/Cli_DemDecou.jsp",
+		templateUrl:"static/views/Cli_DemDecou.html",
 		controller: 'UserController'		
 	})
 	.when("/cli/Cli_modifInfos" , {
-		templateUrl:"/Cli_modifInfos.jsp",
+		templateUrl:"static/views/Cli_modifInfos.html",
 		controller: 'UserController'		
 	})
 	.when("/cli/Cli_NouvCompte" , {
-		templateUrl:"/Cli_NouvCompte.jsp",
+		templateUrl:"static/views/Cli_NouvCompte.html",
 		controller: 'UserController'		
 	})
 	.when("/cli/Cli_Virement" , {
-		templateUrl:"/Cli_Virement.jsp",
+		templateUrl:"static/views/Cli_Virement.html",
 		controller: 'UserController'		
 	})
 	.when("/cli/Cli_DetailCompte" , {
-		templateUrl:"/ConsClient_DetailCompte.jsp",
+		templateUrl:"static/views/ConsClient_DetailCompte.html",
 		controller: 'UserController'		
 	})
 	
 	
 	// Routage Admin
 	.when("/admin/" , {
-		templateUrl:"Admin_AffectCli.html",
+		templateUrl:"static/viewsAdmin_AffectCli.html",
 		controller: 'UserController'		
 	})
 	.when("/admin/Admin_AffectCli" , {
-		templateUrl:"/Admin_AffectCli.jsp",
+		templateUrl:"static/views/Admin_AffectCli.html",
 		controller: 'UserController'		
 	})
 	.when("/admin/Admin_RechCons" , {
-		templateUrl:"/Admin_RechCons.jsp",
+		templateUrl:"static/views/Admin_RechCons.html",
 		controller: 'UserController'		
 	})
 	.when("/admin/Admin_EditCons" , {
-		templateUrl:"/Admin_EditCon.jsp",
+		templateUrl:"static/views/Admin_EditCon.html",
 		controller: 'UserController'		
 	})
 	.when("/admin/Admin_CreaCons" , {
-		templateUrl:"/Admin_CreaCons.jsp",
+		templateUrl:"static/views/Admin_CreaCons.html",
 		controller: 'UserController'		
 	})
 }]);

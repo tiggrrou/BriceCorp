@@ -73,14 +73,15 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         $http.get(REST_SERVICE_URI+'connect/'+login+"&"+ pwd)
             .then(
             function (response) {
+            	sessionStorage.setItem("currentUser",JSON.stringify(response.data));
                 deferred.resolve(response.data);
                 // je suis co receptionner session + envoyer message à routeur
                 console.log('eh eh connexion réussie');
-                sessionStorage.setItem("currentUser",JSON.stringify(response.data));
-                var typeUser = JSON.parse(sessionStorage.getItem("currentUser")).typeUser;
-                var truc = sessionStorage.getItem("currentUser");
-                user = JSON.parse(truc);
-                console.log(user.motDePasse);
+                
+//                var typeUser = JSON.parse(sessionStorage.getItem("currentUser")).typeUser;
+//                var truc = sessionStorage.getItem("currentUser");
+//                user = JSON.parse(truc);
+//                console.log(user.motDePasse);
             },
             function(errResponse){
                 console.error('Error while logging User' + errResponse.value);
@@ -88,6 +89,35 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
             }
         );
         return deferred.promise;
+    }
+    
+    function getDemandes(idClient,idConseiller) {
+    	var deffered = $q.defer();
+    	$http.get(REST_SERVICE_URI+'demandes/'+idClient+"&"+idConseiller)
+    		.then(
+    		function (response){
+    			sessionStorage.setItem("Demandes",JOSN.stringify(response.data));
+    			deferred.resolve(response.data);
+    		},
+    		function (errResponse){
+    			console.error('Error while getting clients request')
+    		})
+    }
+    
+    /**
+     * Demande au serveur un client par son ID
+     */
+    function getClient(idClient) {
+    	var deffered = $q.defer();
+    	$http.get(REST_SERVICE_URI+'client/'+idClient)
+		.then(
+		function (response){
+			sessionStorage.setItem("Client",JOSN.stringify(response.data));
+			deferred.resolve(response.data);
+		},
+		function (errResponse){
+			console.error('Error while getting client')
+		})
     }
     
     /* supprime un user puis refresh de la liste des users */

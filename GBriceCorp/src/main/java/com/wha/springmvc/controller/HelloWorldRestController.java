@@ -117,6 +117,24 @@ public class HelloWorldRestController {
         	return new ResponseEntity<User>(HttpStatus.NOT_ACCEPTABLE);
     }
     
+    //------------------- get Demandes --------------------------------------------------------
+    
+    @RequestMapping(value = "/user/demandes/{idClient}&{idConseiller}", method = RequestMethod.GET ,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> getDemandes(@PathVariable("idClient") String idClient, @PathVariable("idConseiller") String idConseiller) {
+        //TODO obtenir les bonnes demandes
+    	return new ResponseEntity<User>(HttpStatus.OK);
+
+    }
+    
+    //------------------- get Demandes --------------------------------------------------------
+    
+    @RequestMapping(value = "/user/client/{idClient}", method = RequestMethod.GET ,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> getClient(@PathVariable("idClient") String idClient) {
+        //TODO obtenir le client
+    	return new ResponseEntity<User>(HttpStatus.OK);
+
+    }
+    
     //------------------- Delete a User --------------------------------------------------------
      
     @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
