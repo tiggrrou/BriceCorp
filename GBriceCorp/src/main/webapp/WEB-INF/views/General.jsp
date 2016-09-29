@@ -10,18 +10,38 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
 
+<script
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
+	<script src="<c:url value='/static/js/app.js' />"></script>
+	<script src="<c:url value='/static/js/service/user_service.js' />"></script>
+	<script
+		src="<c:url value='/static/js/controller/user_controller.js' />"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-route.js"></script>
+	<script src="<c:url value='/static/js/controller/ConfigRouter.js' />"></script>
+	
+
+
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	
+	<!-- <script src="http://www.geoplugin.net/javascript.gp" type="text/javascript"></script> -->
+	
+	<script src="static/gp/ajax_currency_converter.gp" type="text/javascript"></script>
+	<script src="static/gp/javascript.gp"	type="text/javascript"></script>
+
 </head>
 
-<body ng-app="myApp" class="ng-cloak" layout="row" ng-controller="UserController as ctrl">
+<body ng-app="myApp" class="ng-cloak" layout="row"
+	ng-controller="UserController as ctrl">
 
 
 	<!-- Affichage de la navbar -->
 
-	<div class="navbar col-xs-3" flex  >
+	<div class="navbar col-xs-3" flex>
 		<div id="contenu_navbar" class="contenu_navbar" ng-hide="nav_cache">
 			<img id="logo" src="static/imgs/logo.png" />
 			<!-- Menu de connexion  -->
-			<div class="formcontainer" ng-hide="{{connexion_cache}}" >
+			<div class="formcontainer" ng-hide="{{connexion_cache}}">
 				<form ng-submit="ctrl.connect()" name="formConnexion"
 					class="form-horizontal">
 					<input type="hidden" ng-model="ctrl.user.id" />
@@ -43,8 +63,8 @@
 						<div class="form-group col-md-12">
 							<label class="col-md-2 control-lable" for="file">Password</label>
 							<div class="col-md-7">
-								<input type="password" ng-model="ctrl.user.motDePasse" name="password"
-									class="password form-control input-sm"
+								<input type="password" ng-model="ctrl.user.motDePasse"
+									name="password" class="password form-control input-sm"
 									placeholder="Entrez votre mot de passe" required />
 								<div class="has-error" ng-show="formConnexion.$dirty">
 									<span ng-show="formConnexion.password.$error.required">Champ
@@ -57,16 +77,14 @@
 					<div class="row">
 						<div class="form-actions floatRight">
 							<input type="submit" value="Connexion"
-								class="btn btn-primary btn-sm" 
-								
-								>
+								class="btn btn-primary btn-sm">
 						</div>
 					</div>
 				</form>
 			</div>
 
 			<!-- Menu du Conseiller -->
-			<div class="container-fluid" ng-hide="{{conseiller_cache}}" >
+			<div class="container-fluid" ng-hide="{{conseiller_cache}}">
 				<div class="list-group">
 					<a href="#" class="list-group-item"
 						ng-click="rechercheClient_cache = !rechercheClient_cache ; rechercheIBAN_cache = false">
@@ -255,41 +273,68 @@
 			ng-click="nav_cache = !nav_cache" />
 	</div>
 
+	<!-- Web Service de conversion -->
 
-
-
-
-		
-
-
-
-<div id="partie_commune" class="partie_commune" layout="column" flex>
-
-	<!-- banniere en fixe dans le header pour la deco -->
-
-<div class="banniere "  layout="column" flex>
-	<div flex>	
-		<img class="langue" src="static/imgs/en.png" ng-hide="lang_cache" ng-click="lang_cache = !lang_cache" />
-		<img class="langue" src="static/imgs/fr.png" ng-show="lang_cache" ng-click="lang_cache = !lang_cache" />
-		</div>
-		<div flex>	
-	<input type="button" class="btn btn-danger" value="Deconnexion" ng-click="session_delete()" ng-hide="!{{connexion_cache}}"/>
-	
+	<div class="generic-container" ng-hide="{{connexion_cache}}">
+	<table>
+		<tr>
+			<td>Veuillez saisir le montant à convertir :</td>
+			<td><input type='text' id='gp_amount' size='4' /></td>
+		</tr>
+		<tr>
+			<td>Devise de départ :</td>
+			<td><select id="gp_from"></select></td>
+		</tr>
+		<tr>
+			<td>Devise d'arrivée :</td>
+			<td><select id="gp_to"></select></td>
+		</tr>
+	</table>
+	<p>
+		<input type='button' onClick='gp_convertIt()'
+			value='Convertir! (Wololo)' />
+	</p>
+	<div id="gp_converted" text-align: center>
+		<script>gp_currencySymbols()</script>
+	</div>
 	</div>
 
-</div>
-
-   
-	 
 
 
 
-	<!-- Tableau d'affichage des utilisateurs -->
 
 
-	<div class="generic-container" ng-controller="UserController as ctrl" >
+
+	<div id="partie_commune" class="partie_commune" layout="column" flex>
+
+		<!-- banniere en fixe dans le header pour la deco -->
+
+		<div class="banniere " layout="column" flex>
+			<div flex>
+				<img class="langue" src="static/imgs/en.png" ng-hide="lang_cache"
+					ng-click="lang_cache = !lang_cache" /> <img class="langue"
+					src="static/imgs/fr.png" ng-show="lang_cache"
+					ng-click="lang_cache = !lang_cache" />
+			</div>
+			<div flex>
+				<input type="button" class="btn btn-danger" value="Deconnexion"
+					ng-click="session_delete()" ng-hide="!{{connexion_cache}}" />
+
+			</div>
+
+		</div>
+
+
+
+
+
+
+		<!-- Tableau d'affichage des utilisateurs -->
+
+
+		<!-- <div class="generic-container" ng-controller="UserController as ctrl" >
 	<div class="panel panel-default">
-		<!-- Default panel contents -->
+		Default panel contents
 		<div class="panel-heading">
 			<span class="lead">Liste des utilisateurs </span>
 		</div>
@@ -317,7 +362,7 @@
 					</tr>
 				</tbody>
 			</table>
-		</div>
+		</div> -->
 
 
 
@@ -325,19 +370,44 @@
 
 
 
-</div>
-</div>
-	<ng-view></ng-view>
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
-	<script src="<c:url value='/static/js/app.js' />"></script>
-	<script src="<c:url value='/static/js/service/user_service.js' />"></script>
-	<script
-		src="<c:url value='/static/js/controller/user_controller.js' />"></script>
-<script
-		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-route.js"></script>
-	<script
-		src="<c:url value='/static/js/controller/ConfigRouter.js' />"></script>
+
+	
+
+ 	<div ng-view></div>	
+
+
+	
+	
+
+
+
+	</div>
+	
+<!--	<div class="generic-container" align:center >
+			<table>
+				<tr>
+					<td>Veuillez saisir le montant à convertir :</td>
+					<td><input type='text' id='gp_amount' size='4' /></td>
+				</tr>
+				<tr>
+					<td>Devise de départ :</td>
+					<td><select id="gp_from"></select></td>
+				</tr>
+				<tr>
+					<td>Devise d'arrivée :</td>
+					<td><select id="gp_to"></select></td>
+				</tr>
+			</table>
+			<p><input type='button' onClick='gp_convertIt()' value = 'Convertir! (Wololo)' /></p>
+	<div id="gp_converted" text-align: center>
+	<script>gp_currencySymbols()</script>
+	</div>
+	</div> -->
+	
+
+
+
+	
 
 	<!-- Responsive Ã  faire
 	<script>
