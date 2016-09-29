@@ -1,3 +1,4 @@
+<<<<<<< HEAD
  Veuillez sélectionner le type de compte que vous souhaitez souscrire :
 <form ng-submit="ctrl.writeDemNewCompte()" class="select.input-group-sm">
 	<SELECT name="Type de compte" size="1">
@@ -18,4 +19,26 @@
 				class="btn btn-primary btn-sm">
 		</div>
 	</div>
+=======
+ Veuillez sélectionner le type de compte que vous souhaitez souscrire :
+<form ng-submit="ctrl.writeDemNewCompte()" class="select.input-group-sm">
+	<SELECT name="Type de compte" size="1">
+		<OPTION>Compte Joint rémunéré
+		<OPTION>Compte Joint non-rémunéré
+		<OPTION selected>Nouveau Compte Courant
+		<OPTION>Compte à retrait différé
+		<OPTION>Compte de blanchiement d'argent
+		<OPTION>Compte Vampire
+	</SELECT> Si nécéssaire, veuillez uploader le document nécéssaire:
+	<form method="post" action="reception.js"
+		enctype="multipart/form-data">
+		<label for="Justificatif">Justificatif (type jpeg, bitmap ou png)</label><br /> <input type="file" name="justificatif" id="justificatif" /><br />
+	</form>
+	<div class="row">
+		<div class="form-actions floatRight">
+			<input type="submit" value="Soumettre ma demande à mon conseiller"
+				class="btn btn-primary btn-sm">
+		</div>
+	</div>
+>>>>>>> branch 'master' of https://github.com/tiggrrou/BriceCorp.git
 </form>
