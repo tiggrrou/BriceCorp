@@ -1,17 +1,15 @@
 'use strict';
 
-App.controller('UserController', ['$scope','$location', 'UserService', function($scope,$location, UserService) {
+App.controller('CompteController', ['$scope','$location', 'CompteService', function($scope,$location, CompteService) {
     var self = this;
-    self.user={id:null,nom:'',adresse:'',mail:'',identifiant:'',motDePasse:''};
-    self.users=[];
+    self.compte={id:null,nom:'',adresse:'',mail:'',identifiant:'',motDePasse:''};
+    self.comptes=[];
 
     self.client={id:null,nom:'',prenom:''};
     self.clients=[];
     
     self.conseiller={id:null,nom:'',prenom:'',matricule:''};
     self.conseillers = [];
-    
-    self.comptes = [];
     
     self.demandes = [];
     
@@ -26,10 +24,12 @@ App.controller('UserController', ['$scope','$location', 'UserService', function(
     self.getDemandes = getDemandes;
     self.getClient = getClient;
     self.getNotifs = getNotifs;
-    self.getComptes = getComptes;
 
     
+  
+    
 
+  
     if(sessionStorage.getItem("currentUser") == null)
     {
     	console.log("pas de session");
@@ -56,14 +56,14 @@ App.controller('UserController', ['$scope','$location', 'UserService', function(
 		{
 			$scope.conseiller_cache=false;
 		}
-		else if(utilisateur.typeUser == 3)
+		else if(utilisateur.typeuser == 3)
 		{
 			$scope.client_cache=false;
 		} 
     }
     
     $scope.session_delete = function() {
-    	sessionStorage.removeItem('currentUser');
+    	sessionStorage.removeItem('currentuser');
 		$location.path("/");
     	location.reload();
     	console.log("delete session");
@@ -80,16 +80,15 @@ App.controller('UserController', ['$scope','$location', 'UserService', function(
 
     
     
-    fetchAllUsers();
+    fetchAllComptes();
 
     function connexion(login, pwd){
-    	UserService.connectUser(login, pwd)
+    	CompteService.connectCompte(login, pwd)
     		.then(
     		function(d) {
-    			var user = JSON.parse(sessionStorage.getItem("currentUser"));
-    			var userType = (user == null)? 0 : user.typeUser;
-
-    			switch(userType){
+    			var compte = JSON.parse(sessionStorage.getItem("currentCompte"));
+    			var compteType = (compte == null)? 0 : compte.typeCompte;
+    			switch(compteType){
     			case 0 : 
     				$location.path("/");
     				break;
@@ -100,15 +99,14 @@ App.controller('UserController', ['$scope','$location', 'UserService', function(
     				$location.path("cons/");
     				break;    			
     			case 3 : 
-
     				$location.path("cli/");
-    				getComptes();
     				break;
     			default :
     				$location.path("/");
     				break;
     			}
     			console.log(d);
+    			console.log("mon d est juste au dessus")
     	        location.reload();
     		}, 
     		function (errResponse){
@@ -118,64 +116,64 @@ App.controller('UserController', ['$scope','$location', 'UserService', function(
 
     }
     
-    function fetchAllUsers(){
-        UserService.fetchAllUsers()
+    function fetchAllComptes(){
+        CompteService.fetchAllComptes()
             .then(
             function(d) {
-                self.users = d;
+                self.comptes = d;
             },
             function(errResponse){
-                console.error('Error while fetching Users');
+                console.error('Error while fetching Comptes');
             }
         );
     }
 
-    function createUser(user){
-        UserService.createUser(user)
+    function createCompte(compte){
+        CompteService.createCompte(compte)
             .then(
-            fetchAllUsers,
+            fetchAllComptes,
             function(errResponse){
-                console.error('Error while creating User');
+                console.error('Error while creating Compte');
             }
         );
     }
 
-    function updateUser(user, id){
-        UserService.updateUser(user, id)
+    function updateCompte(compte, id){
+        CompteService.updateCompte(compte, id)
             .then(
-            fetchAllUsers,
+            fetchAllComptes,
             function(errResponse){
-                console.error('Error while updating User' + errResponse);
+                console.error('Error while updating Compte' + errResponse);
             }
         );
     }
 
-    function deleteUser(id){
-        UserService.deleteUser(id)
+    function deleteCompte(id){
+        CompteService.deleteCompte(id)
             .then(
-            fetchAllUsers,
+            fetchAllComptes,
             function(errResponse){
-                console.error('Error while deleting User');
+                console.error('Error while deleting Compte');
             }
         );
     }
 
     function submit() {
-        if(self.user.id===null){
-            console.log('Saving New User', self.user);
-            createUser(self.user);
+        if(self.compte.id===null){
+            console.log('Saving New Compte', self.compte);
+            createCompte(self.compte);
         }else{
-            updateUser(self.user, self.user.id);
-            console.log('User updated with id ', self.user.id);
+            updateCompte(self.compte, self.compte.id);
+            console.log('Compte updated with id ', self.compte.id);
         }
         reset();
     }
 
     function edit(id){
         console.log('id to be edited', id);
-        for(var i = 0; i < self.users.length; i++){
-            if(self.users[i].id === id) {
-                self.user = angular.copy(self.users[i]);
+        for(var i = 0; i < self.comptes.length; i++){
+            if(self.comptes[i].id === id) {
+                self.compte = angular.copy(self.comptes[i]);
                 break;
             }
         }
@@ -183,25 +181,25 @@ App.controller('UserController', ['$scope','$location', 'UserService', function(
 
     function remove(id){
         console.log('id to be deleted', id);
-        if(self.user.id === id) {//clean form if the user to be deleted is shown there.
+        if(self.compte.id === id) {//clean form if the compte to be deleted is shown there.
             reset();
         }
-        deleteUser(id);
+        deleteCompte(id);
     }
 
 
     function reset(){
-        self.user={id:null,nom:'',adresse:'',mail:'',identifiant:'',motDePasse:''};
+        self.compte={id:null,nom:'',adresse:'',mail:'',identifiant:'',motDePasse:''};
         $scope.myForm.$setPristine(); //reset Form
     }
 
     function connect() {
-    	connexion(self.user.identifiant, self.user.motDePasse);
+    	connexion(self.compte.identifiant, self.compte.motDePasse);
     }
     
     function searchClients() {
     	// je lance la recherche avec le nom et prenom du client et l'ID du conseiller
-    	UserService.searchUser(self.client.prenom, self.client.nom, self.user.id)
+    	CompteService.searchCompte(self.client.prenom, self.client.nom, self.compte.id)
 		.then(
 		function(d) {
 			// je met les clients récupérés dans clients
@@ -216,7 +214,7 @@ App.controller('UserController', ['$scope','$location', 'UserService', function(
     function getDemandes(){
     	// je demande les demandes en fournissant l'id client et l'id conseiller
     	// ces valeurs peuvent être nulles dans ce cas on récupère les demandes d'admissions des nouveaux clients
-    	UserService.getDemandes(self.client.id,self.conseiller.id)
+    	CompteService.getDemandes(self.client.id,self.conseiller.id)
     	.then(
     			function(d){
     				//je place les demandes récupérées dans demandes
@@ -229,7 +227,7 @@ App.controller('UserController', ['$scope','$location', 'UserService', function(
     
     function getClient(){
     	// je récupère un client en fonction de son ID
-    	UserService.getClient(self.client.id)
+    	CompteService.getClient(self.client.id)
     	.then(
     			function(d){
     				client = JSON.parse(sessionStorage.getItem("Client"));
@@ -239,21 +237,9 @@ App.controller('UserController', ['$scope','$location', 'UserService', function(
     			});
     }
   
-    function getComptes(){
-    	// je récupère un client en fonction de son ID
-    	UserService.getComptes(self.client.id)
-    	.then(
-    			function(d){
-    				comptes = JSON.parse(sessionStorage.getItem("Comptes"));
-    			},
-    			function (errResponse){
-    				console.error('Error while getting a client from an ID')
-    			});
-    }
-    
     function getNotifs(){
     	// je récupère les notifs associées à un client
-    	UserService.getNotifs(self.client.id)
+    	CompteService.getNotifs(self.client.id)
     	.then(
     			function(d){
     				notifications = JSON.parse(sessionStorage.getItem("Notifications"));

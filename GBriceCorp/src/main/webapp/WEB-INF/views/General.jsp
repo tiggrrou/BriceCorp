@@ -137,7 +137,7 @@
 									<div class="col-xl-10">
 										<input type="text" ng-model="ctrl.compte.id" name="iban"
 											class="form-control input-sm"
-											placeholder="IBAN à rechercher" />
+											placeholder="IBAN a� rechercher" />
 									</div>
 								</div>
 							</div>
@@ -154,7 +154,7 @@
 					<a href="#/cons/Cons_DemCli" class="list-group-item"
 						ng-click="ctrl.getDemandes; rechercheClient_cache = false; rechercheIBAN_cache = false">
 						<h4 class="list-group-item-heading">Demandes</h4>
-						<p class="list-group-item-text">Liste des demandes à 
+						<p class="list-group-item-text">Liste des demandes a�
 							traiter</p>
 					</a>
 				</div>
@@ -164,11 +164,11 @@
 			<!-- Menu du Client -->
 			<div class="container-fluid" ng-hide="{{client_cache}}">
 				<div class="list-group">
-					<!-- Synthèse des comptes -->
+					<!-- Synthese des comptes -->
 					<a href="#/cli/Cli_ListeComptes" class="list-group-item active"
-						ng-click="compteCtrl.getComptes">
+						ng-click="ctrl.getComptes">
 						<h4 class="list-group-item-heading">Mes Comptes</h4>
-						<p class="list-group-item-text">Synthèse de vos comptes</p> <!-- Virements -->
+						<p class="list-group-item-text">Synthese de vos comptes</p> <!-- Virements -->
 					</a> <a href="#/cli/Cli_Virement" class="list-group-item"
 						ng-click="compteCtrl.getComptes">
 						<h4 class="list-group-item-heading">Virements</h4>
@@ -207,11 +207,11 @@
 							class="form-horizontal">
 							<div class="row">
 								<div class="form-group col-xs-10">
-									<label class="col-xl-2 control-lable" for="file">Prénom</label>
+									<label class="col-xl-2 control-lable" for="file">Prenom</label>
 									<div class="col-xl-10">
 										<input type="text" ng-model="ctrl.conseiller.prenom"
 											name="prenom" class="form-control input-sm"
-											placeholder="Prénom du conseiller" />
+											placeholder="Prenom du conseiller" />
 									</div>
 								</div>
 							</div>
@@ -302,20 +302,20 @@
 			<div ng-hide="{{connexion_cache}}">
 				<table>
 					<tr>
-						<td>Veuillez saisir le montant à convertir :</td>
+						<td>Veuillez saisir le montant a� convertir :</td>
 						<td><input type='text' id='gp_amount' size='4' /></td>
 					</tr>
 					<tr>
-						<td>Devise de départ :</td>
+						<td>Devise de depart :</td>
 						<td><select id="gp_from"></select></td>
 					</tr>
 					<tr>
-						<td>Devise d'arrivée :</td>
+						<td>Devise d'arrivee :</td>
 						<td><select id="gp_to"></select></td>
 					</tr>
 				</table>
 				<p>
-					<input type='button' onClick='gp_convertIt()'
+					<input type='button' onClick='gp_convertIt()' onMouseOver="PlaySound('Wololo.mp3')"
 						value='Convertir! (Wololo)' />
 				</p>
 				<div id="gp_converted" text-align: center>
@@ -328,7 +328,7 @@
 	</div>
 
 
-	<!-- Responsive Ã  faire
+	<!-- Responsive a� faire
 	<script>
 	App.controller('cache_menu', function($scope) {
 		

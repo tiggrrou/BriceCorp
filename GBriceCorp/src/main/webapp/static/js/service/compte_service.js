@@ -2,7 +2,7 @@
 
 App.factory('UserService', ['$http', '$q', function($http, $q){
 
-    var REST_SERVICE_URI = 'http://localhost:8080/GestBank/user/';
+    var REST_SERVICE_URI = 'http://localhost:8080/SpringAngularStartProject/user/';
 
     var factory = {
         fetchAllUsers: fetchAllUsers,
@@ -113,22 +113,6 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
 		.then(
 		function (response){
 			sessionStorage.setItem("Client",JOSN.stringify(response.data));
-			deferred.resolve(response.data);
-		},
-		function (errResponse){
-			console.error('Error while getting client')
-		})
-    }
-    
-    /**
-     * Demande au serveur un client par son ID
-     */
-    function getComptesClient(idClient) {
-    	var deffered = $q.defer();
-    	$http.get(REST_SERVICE_URI+'comptes/'+idClient)
-		.then(
-		function (response){
-			sessionStorage.setItem("Comptes",JOSN.stringify(response.data));
 			deferred.resolve(response.data);
 		},
 		function (errResponse){

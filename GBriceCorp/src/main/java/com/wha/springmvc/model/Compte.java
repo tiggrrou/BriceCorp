@@ -15,7 +15,7 @@ public class Compte {
 	/**
 	 * ID d'un compte (correspond à l'IBAN)
 	 */
-	private long ID;
+	private String ID;
 	/**
 	 * Libellé de description du compte
 	 */
@@ -109,10 +109,10 @@ public class Compte {
 	public void setTauxDecouvert(float tauxDecouvert) {
 		this.tauxDecouvert = tauxDecouvert;
 	}
-	public long getID() {
+	public String getID() {
 		return ID;
 	}
-	public void setID(long iD) {
+	public void setID(String iD) {
 		ID = iD;
 	}
 	//#endregion
@@ -130,7 +130,7 @@ public class Compte {
 	 * @param decouvert
 	 * @param tauxDecouvert
 	 */
-	public Compte(long iD, String libelle, long clientID, int decouvert, float tauxDecouvert) {
+	public Compte(String iD, String libelle, long clientID, int decouvert, float tauxDecouvert) {
 		super();
 		ID = iD;
 		this.libelle = libelle;

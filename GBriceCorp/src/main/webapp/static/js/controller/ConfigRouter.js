@@ -84,7 +84,10 @@ App.config(['$routeProvider',function($routeProvider) {
 		templateUrl:"static/views/ConsClient_DetailCompte.html",
 		controller: 'UserController'		
 	})
-	
+	.when("/cli/Cli_Notifications" , {
+		templateUrl:"static/views/Cli_Notifications.html",
+		controller: 'UserController'		
+	})
 	
 	// Routage Admin
 	.when("/admin/" , {

@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.wha.springmvc.model.Compte;
 import com.wha.springmvc.model.User;
+import com.wha.springmvc.service.CompteService;
 import com.wha.springmvc.service.UserService;
  
 @RestController
@@ -22,6 +24,9 @@ public class HelloWorldRestController {
  
     @Autowired
     UserService userService;  //Service which will do all data retrieval/manipulation work
+    
+    @Autowired
+    CompteService compteService;  //Service which will do all data retrieval/manipulation work
  
     
     //-------------------Retrieve All Users--------------------------------------------------------
@@ -162,5 +167,16 @@ public class HelloWorldRestController {
         userService.deleteAllUsers();
         return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
     }
+    
+  //------------------- Liste Compte d'un client --------------------------------------------------------
+    
+    @RequestMapping(value = "/Comptes/{idClient}", method = RequestMethod.DELETE)
+    public ResponseEntity<List<Compte>> getListeClientComptes(@PathVariable("idClient") long ID) {
+        List<Compte> listComptes = compteService.findByClientId(ID);        
+        return new ResponseEntity<List<Compte>>(listComptes ,HttpStatus.OK);
+    }
+    
+    
+
  
 }
