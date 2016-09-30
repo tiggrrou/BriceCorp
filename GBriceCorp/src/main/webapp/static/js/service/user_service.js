@@ -120,6 +120,22 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
 		})
     }
     
+    /**
+     * Demande au serveur un client par son ID
+     */
+    function getComptesClient(idClient) {
+    	var deffered = $q.defer();
+    	$http.get(REST_SERVICE_URI+'comptes/'+idClient)
+		.then(
+		function (response){
+			sessionStorage.setItem("Comptes",JOSN.stringify(response.data));
+			deferred.resolve(response.data);
+		},
+		function (errResponse){
+			console.error('Error while getting client')
+		})
+    }
+    
     /* supprime un user puis refresh de la liste des users */
     function deleteUser(id) {
         var deferred = $q.defer();
