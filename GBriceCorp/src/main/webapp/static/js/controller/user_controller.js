@@ -11,6 +11,8 @@ App.controller('UserController', ['$scope','$location', 'UserService', function(
     self.conseiller={id:null,nom:'',prenom:'',matricule:''};
     self.conseillers = [];
     
+    self.comptes = [];
+    
     self.demandes = [];
     
     self.notifications = [];
@@ -24,6 +26,7 @@ App.controller('UserController', ['$scope','$location', 'UserService', function(
     self.getDemandes = getDemandes;
     self.getClient = getClient;
     self.getNotifs = getNotifs;
+    self.getComptes = getComptes;
 
     
   
@@ -100,13 +103,13 @@ App.controller('UserController', ['$scope','$location', 'UserService', function(
     				break;    			
     			case 3 : 
     				$location.path("cli/");
+    				getComptes();
     				break;
     			default :
     				$location.path("/");
     				break;
     			}
     			console.log(d);
-    			console.log("mon d est juste au dessus")
     	        location.reload();
     		}, 
     		function (errResponse){
@@ -237,6 +240,18 @@ App.controller('UserController', ['$scope','$location', 'UserService', function(
     			});
     }
   
+    function getComptes(){
+    	// je récupère un client en fonction de son ID
+    	UserService.getComptes(self.client.id)
+    	.then(
+    			function(d){
+    				comptes = JSON.parse(sessionStorage.getItem("Comptes"));
+    			},
+    			function (errResponse){
+    				console.error('Error while getting a client from an ID')
+    			});
+    }
+    
     function getNotifs(){
     	// je récupère les notifs associées à un client
     	UserService.getNotifs(self.client.id)
