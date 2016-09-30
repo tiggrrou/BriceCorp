@@ -1,1 +1,46 @@
 
+
+<!-- Tableau d'affichage des comptes -->
+
+<div
+	ng-init="Comptes=[
+{Iban:'1564567641654', Nom:'MoreL',Prenom:'Brice', Solde:'5800'},
+{Iban:'54354345354', Nom:'dfgfdg',Prenom:'Tangi', Solde:'580'},
+{Iban:'4534534537783', Nom:'ModfgdfreL',Prenom:'Nicolas', Solde:'800'},
+{Iban:'4537873783783', Nom:'dfgdfgsdfg',Prenom:'bernard', Solde:'50'},
+{Iban:'7837838354', Nom:'dfgdfsgdfgdfgsdfgdf',Prenom:'dfgfdgfd', Solde:'378'}
+]">
+	<div class="panel panel-info" layout="colomn">
+
+		<!-- Default panel contents -->
+		<div class="panel-heading" flex>
+			<span class="lead">Liste des comptes</span>
+		</div>
+
+		<div class="panel-body" flex>
+			<div class="tablecontainer">
+				<table class="table table-hover">
+					<thead>
+						<tr >
+							<th ng-click="trier_par_Adresse()">Iban</th>						
+							<th ng-click="trier_par_nom()">Nom</th>
+							<th ng-click="trier_par_prenom()">Prenom</th>
+							<th ng-click="trier_par_Adresse()">Solde</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="Compte in Comptes" ng-click="alert('coucou')">
+
+							<td><a href="#/cons/Cons_DetailCompte">{{Compte.Iban}}</a></td>
+							<td><a href="#/cons/Cons_DetailCompte">{{Compte.Nom}}</a></td>
+							<td><a href="#/cons/Cons_DetailCompte">{{Compte.Prenom}}</a></td>
+							<td><a href="#/cons/Cons_DetailCompte">{{Compte.Solde}}</a></td>							
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+

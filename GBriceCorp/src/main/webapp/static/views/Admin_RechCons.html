@@ -1,11 +1,29 @@
 
 	<!-- Tableau d'affichage des conseillers -->
-		<div class="panel panel-info" layout="colomn" flex>
 
-			<!-- Default panel contents -->
-			<div class="panel-heading" flex>
-				<span class="lead">Liste des conseillers </span>
-			</div>
+
+
+
+
+	<div
+	
+	ng-init="Conseillers=[
+{Nom:'MoreL',Prenom:'Brice', Adresse:'24 rue Emile blandin 44400 REZE'},
+{Nom:'dsvsv',Prenom:'dsvsv', Adresse:'24 rue Emile blandin 44400 REZE'},
+{Nom:'MorsdvsveL',Prenom:'sdvdsvdsvdssdvdsvdsvd', Adresse:'24 rue Emile blandin 44400 REZE',Type:'Chequier'}
+]"
+	
+	>
+<div class="panel panel-info" layout="colomn">
+
+	<!-- Default panel contents -->
+	<div class="panel-heading" flex>
+		<span class="lead">Liste des conseillers</span>
+	</div>	
+	<!-- Tableau d'affichage des demandes d'ouverture -->
+
+
+
 
 
 			<div class="panel-body" flex>
@@ -13,33 +31,32 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th>ID.</th>
-								<th ng-click="trier_par_matricule()">Matricule</th>
 								<th ng-click="trier_par_nom()">Nom</th>
 								<th ng-click="trier_par_prenom()">Prenom</th>
 								<th ng-click="trier_par_Adresse()">Adresse</th>
-								<th ng-click="trier_par_Email()">Email</th>
-								<th>Editer</th>
-								<th>Détruire</th>
+								<th ng-click="trier_par_Email()">Editer</th>
+								<th  ng-click="trier_par_Action()">Supprimer</th>
+
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="conseiller in ctrl.conseillers">
-								<td><span ng-bind="conseiller.matricule"></span></td>
-								<td><span ng-bind="conseiller.nom"></span></td>
-								<td><span ng-bind="conseiller.prenom"></span></td>
-								<td><span ng-bind="conseiller.address"></span></td>
-								<td><span ng-bind="conseiller.email"></span></td>
-								<td><img class="icone" src="static/imgs/crayon.png"
-									ng-click="editer_conseiller()" /></td>
-								<td><img class="icone" src="static/imgs/delete.png"
-									ng-click="supprimer_conseiller()" /></td>
+							<tr ng-repeat="Conseiller in Conseillers">
+								<td>{{Conseiller.Nom}}</td>
+								<td>{{Conseiller.Prenom}}</td>
+								<td>{{Conseiller.Adresse}}</td>
+								<td>
+<img class="langue" src="static/imgs/crayon.png" ng-click="" />
+
+									</td>
+								<td>
+<img class="langue" src="static/imgs/delete.png" ng-click="" />
+
+									</td>									
 							</tr>
 						</tbody>
 					</table>
 				</div>
 			</div>
-		</div>
-
-
+</div>
+</div>
 

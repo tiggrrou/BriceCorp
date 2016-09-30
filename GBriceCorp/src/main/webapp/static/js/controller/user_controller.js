@@ -26,10 +26,7 @@ App.controller('UserController', ['$scope','$location', 'UserService', function(
     self.getNotifs = getNotifs;
 
     
-  
-    
 
-  
     if(sessionStorage.getItem("currentUser") == null)
     {
     	console.log("pas de session");
@@ -88,6 +85,7 @@ App.controller('UserController', ['$scope','$location', 'UserService', function(
     		function(d) {
     			var user = JSON.parse(sessionStorage.getItem("currentUser"));
     			var userType = (user == null)? 0 : user.typeUser;
+
     			switch(userType){
     			case 0 : 
     				$location.path("/");
@@ -99,6 +97,7 @@ App.controller('UserController', ['$scope','$location', 'UserService', function(
     				$location.path("cons/");
     				break;    			
     			case 3 : 
+
     				$location.path("cli/");
     				break;
     			default :

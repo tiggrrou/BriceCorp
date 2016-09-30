@@ -1,19 +1,19 @@
 body {
 	display: flex;
-		    background-image: url("../../static/imgs/banniere.jpg");
-		        background-repeat: repeat-x;
-		            background-size: contain;
+	background-image: url("../../static/imgs/banniere.jpg");
+	background-repeat: repeat-x;
+	background-size: contain;
 }
 
 body, #mainWrapper {
 	height: 70%;
 	background-color: rgb(245, 245, 245);
-
 }
+
 body, .form-control {
 	font-size: 12px !important;
-
 }
+
 .username.ng-valid {
 	background-color: lightgreen;
 }
@@ -37,10 +37,12 @@ body, .form-control {
 .email.ng-dirty.ng-invalid-email {
 	background-color: yellow;
 }
+
 .floatRight {
 	float: right;
 	margin-right: 18px;
 }
+
 .active
 
 
@@ -57,14 +59,11 @@ body, .form-control {
 	padding-left: 20px;
 }
 
-.partie_commune{
-	
-		width: 100vw;
+.partie_commune {
+	width: 100vw;
 }
 
 .generic-container {
-
-
 	margin-left: 2vw;
 	margin-right: 1vw;
 	margin-top: 150px;
@@ -80,15 +79,12 @@ body, .form-control {
 	width: 80px !important;
 }
 
-
-
 .panel {
 	align: center;
 	width: auto;
 }
 
 .navbar {
-
 	align: center;
 	top: 0;
 	left: 0;
@@ -102,12 +98,23 @@ body, .form-control {
 }
 
 .banniere {
-	float: right;
+	align: center;
 	width: auto;
-
 }
 
+.session_name {
+	vertical-align: middle;
+	text-align: center;
+	color: white;
+	text-transform: capitalize;
+	letter-spacing: 3px;
+	    font-family: "Times New Roman", Times, serif;
+}
 
+.langue_connect {
+	float: right;
+	width: auto;
+}
 
 .langue {
 	width: 50px;
@@ -119,20 +126,16 @@ body, .form-control {
 	height: auto;
 }
 
-
 .flechemenu {
 	height: 20px;
 	aligne-self: flex-end;
 	margin: auto;
 }
 
-
-
 #logo {
 	max-height: 150px;
 	margin: 25px;
 }
-
 
 /* condition for screen size minimum of 500px */
 @media ( max-width :1000px) {
@@ -142,5 +145,3 @@ body, .form-control {
 		margin: 65px;
 	}
 }
-
-

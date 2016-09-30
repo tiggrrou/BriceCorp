@@ -1,30 +1,80 @@
 
-<form ng-submit="ctrl.virement()" class="select.input-group-sm">
+<!-- Formulaire de demande de virement -->
 
-<tr ng-repeat="u in ctrl.users">
-						<td><span ng-bind="u.identifiant"></span></td>
-						<td><span ng-bind="u.motDePasse"></span></td>	
-																	<td><span ng-bind="u.typeUser"></span></td>
-						<td><span ng-bind="u.nom"></span></td>
-						<td><span ng-bind="u.adresse"></span></td>
-						<td><span ng-bind="u.mail"></span></td>
 
-					</tr>
-	Compte à débiter
-	<SELECT name="Compte à débiter" size="1">
-		<OPTION ng-repeat="u in ctrl.user.comptes"> u.libellé
-	</SELECT> 
+<div
+	ng-init="Comptes=[
+{Libelle:'Comptecds',Iban:'2616464', Solde:'150'},
+{Libelle:'hgdfdgfbfdb',Iban:'7587578578', Solde:'1570'},
+{Libelle:'Compfgbgfbtecds',Iban:'7857868676', Solde:'78150'},
+{Libelle:'fgbfdbgfb',Iban:'78687678676', Solde:'8150'}
+]">
+<div class="panel panel-info" layout="colomn">
 
-	Compte à créditer
-	<SELECT name="Compte à débiter" size="1">
-		<OPTION ng-repeat="u in ctrl.user.comptes"> u.libellé
-	</SELECT> 
-	
-	<div class="row">
-		<div class="form-actions floatRight">
-			<input type="submit" value="Soumettre ma demande à mon conseiller"
-				class="btn btn-primary btn-sm">
-		</div>
+	<!-- Default panel contents -->
+	<div class="panel-heading" flex>
+		<span class="lead">Demande de virement</span>
 	</div>
 
-</form>
+
+	<div class="panel-body" flex>
+		<div class="formcontainer">
+			<form ng-submit="ctrl.virement()" name="formVirement"
+				class="form-horizontal">
+				<input type="hidden" ng-model="ctrl.user.id" />
+				<div class="row">
+					<div class="form-group col-md-12">
+						<label class="col-md-2 control-lable" for="file">Compte a debiter</label>
+						<div class="col-md-7">
+									<select ng-model="ctrl.user.debiter" name="debiter" class="form-control input-sm">
+<option name="liste_comptes" ng-repeat="Compte in Comptes">{{Compte.Libelle}} - {{Compte.Iban}} - {{Compte.Solde}}</option>
+</select>
+							<div class="has-error" ng-show="formVirement">
+								<span ng-show="formConnexion.prenom.$error.required">Champ
+									obligatoire</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-md-12">
+						<label class="col-md-2 control-lable" for="file">Compte a crediter</label>
+						<div class="col-md-7">
+							<select ng-model="ctrl.user.crediter" name="crediter" class="form-control input-sm">
+<option name="liste_comptes" ng-repeat="Compte in Comptes">{{Compte.Libelle}} - {{Compte.Iban}} - {{Compte.Solde}}</option>
+<option name="liste_comptes" >Autre</option>
+</select>
+							<div class="has-error" ng-show="formVirement.$dirty">
+								<span ng-show="formConnexion.nom.$error.required">Champ
+									obligatoire</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-md-12">
+						<label class="col-md-2 control-lable" for="file">Montant a transferer</label>
+						<div class="col-md-7">
+							<input type="text" ng-model="ctrl.user.montant"
+								name="montant" class="form-control input-sm"
+								placeholder="Entrez votre montant" required />
+							<div class="has-error" ng-show="formVirement.$dirty">
+								<span ng-show="formConnexion.montant.$error.required">Champ
+									obligatoire</span>
+							</div>
+						</div>
+					</div>
+				</div>				
+	
+				<div class="row">
+					<div class="form-actions floatRight">
+						<input type="submit" value="Effectuer la demande de virement"
+							class="btn btn-primary btn-sm"
+							ng-disabled="formVirement.$invalid">
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+</div>

@@ -10,20 +10,23 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
 
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
 <script src="<c:url value='/static/js/app.js' />"></script>
 <script src="<c:url value='/static/js/service/user_service.js' />"></script>
 <script src="<c:url value='/static/js/controller/user_controller.js' />"></script>
-	
-<!-- Script pour routage -->	
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-route.js"></script>
-<script src="<c:url value='/static/js/controller/ConfigRouter.js' />"></script>	
-	
-	
+
+<!-- Script pour routage -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-route.js"></script>
+<script src="<c:url value='/static/js/controller/ConfigRouter.js' />"></script>
+
+
 <!-- Script pour Web Service -->
-<script src="http://www.google.com/jsapi" type="text/javascript"></script>	
-<script src="static/gp/ajax_currency_converter.gp" type="text/javascript"></script>
-<script src="static/gp/javascript.gp"	type="text/javascript"></script>
+<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+<script src="static/gp/ajax_currency_converter.gp"
+	type="text/javascript"></script>
+<script src="static/gp/javascript.gp" type="text/javascript"></script>
 
 </head>
 
@@ -133,7 +136,8 @@
 									<label class="col-xl-2 control-lable" for="file">IBAN</label>
 									<div class="col-xl-10">
 										<input type="text" ng-model="ctrl.compte.id" name="iban"
-											class="form-control input-sm" placeholder="IBAN à rechercher" />
+											class="form-control input-sm"
+											placeholder="IBAN à rechercher" />
 									</div>
 								</div>
 							</div>
@@ -148,9 +152,10 @@
 
 					<!-- Tableau des demandes  -->
 					<a href="#/cons/Cons_DemCli" class="list-group-item"
-						ng-click="ctrl.getDemandes">
+						ng-click="ctrl.getDemandes; rechercheClient_cache = false; rechercheIBAN_cache = false">
 						<h4 class="list-group-item-heading">Demandes</h4>
-						<p class="list-group-item-text">Liste des demandes à  traiter</p>
+						<p class="list-group-item-text">Liste des demandes à 
+							traiter</p>
 					</a>
 				</div>
 			</div>
@@ -259,50 +264,68 @@
 
 		<!-- banniere en fixe dans le header pour la deco -->
 
-		<div class="banniere " layout="column" flex>
-			<div flex>
-				<img class="langue" src="static/imgs/en.png" ng-hide="lang_cache"
-					ng-click="lang_cache = !lang_cache" /> <img class="langue"
-					src="static/imgs/fr.png" ng-show="lang_cache"
-					ng-click="lang_cache = !lang_cache" />
+		<div class="banniere " layout="raw" flex>
+			<div class="session_name" flex>
+				<h1 ng-hide="{{connexion_cache}}">Bienvenue � la GestBank</h1>
+				<h1 ng-hide="{{admin_cache}}">Espace Administrateur</h1>
+				<h1 ng-hide="{{conseiller_cache}}">Espace Conseiller</h1>
+				<h1 ng-hide="{{client_cache}}">Bienvenue {{ctrl.client.nom}}</h1>
+
 			</div>
-			<div flex>
-				<input type="button" class="btn btn-danger" value="Deconnexion"
-					ng-click="session_delete()" ng-hide="!{{connexion_cache}}" />
+			<div class="langue_connect" layout="column" flex>
+				<div flex>
+					<img class="langue" src="static/imgs/en.png" ng-hide="lang_cache"
+						ng-click="lang_cache = !lang_cache" /> <img class="langue"
+						src="static/imgs/fr.png" ng-show="lang_cache"
+						ng-click="lang_cache = !lang_cache" />
+				</div>
+				<div flex>
+					<input type="button" class="btn btn-danger" value="Deconnexion"
+						ng-click="session_delete()" ng-hide="!{{connexion_cache}}" />
+
+				</div>
+
+
 
 			</div>
 		</div>
+
+
+
+
 		<div class="generic-container">
 
-	<ng-view></ng-view>
-	
-		<!-- Web Service de conversion -->
+			<ng-view></ng-view>
 
-	<div ng-hide="{{connexion_cache}}">
-	<table>
-		<tr>
-			<td>Veuillez saisir le montant à convertir :</td>
-			<td><input type='text' id='gp_amount' size='4' /></td>
-		</tr>
-		<tr>
-			<td>Devise de départ :</td>
-			<td><select id="gp_from"></select></td>
-		</tr>
-		<tr>
-			<td>Devise d'arrivée :</td>
-			<td><select id="gp_to"></select></td>
-		</tr>
-	</table>
-	<p>
-		<input type='button' onClick='gp_convertIt()'
-			value='Convertir! (Wololo)' />
-	</p>
-	<div id="gp_converted" text-align: center>
-		<script>gp_currencySymbols()</script>
-	</div>
-	</div>
-	</div>
+			<!-- Web Service de conversion -->
+
+			<div ng-hide="{{connexion_cache}}">
+				<table>
+					<tr>
+						<td>Veuillez saisir le montant à convertir :</td>
+						<td><input type='text' id='gp_amount' size='4' /></td>
+					</tr>
+					<tr>
+						<td>Devise de départ :</td>
+						<td><select id="gp_from"></select></td>
+					</tr>
+					<tr>
+						<td>Devise d'arrivée :</td>
+						<td><select id="gp_to"></select></td>
+					</tr>
+				</table>
+				<p>
+					<input type='button' onClick='gp_convertIt()'
+						value='Convertir! (Wololo)' />
+				</p>
+				<div id="gp_converted" text-align: center>
+					<script>
+						gp_currencySymbols()
+					</script>
+				</div>
+			</div>
 		</div>
+	</div>
 
 
 	<!-- Responsive Ã  faire

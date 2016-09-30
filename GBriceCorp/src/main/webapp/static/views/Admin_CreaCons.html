@@ -1,1 +1,132 @@
 
+<!-- Formulaire de creation de conseiller -->
+
+
+
+<div class="panel panel-info" layout="colomn">
+
+	<!-- Default panel contents -->
+	<div class="panel-heading" flex>
+		<span class="lead">Creation d'un nouveau conseiller</span>
+	</div>
+
+
+	<div class="panel-body" flex>
+		<div class="formcontainer">
+			<form ng-submit="ctrl.inscription()" name="formIscription"
+				class="form-horizontal">
+				<input type="hidden" ng-model="ctrl.user.id" />
+				<div class="row">
+					<div class="form-group col-md-12">
+						<label class="col-md-2 control-lable" for="file">Prenom</label>
+						<div class="col-md-7">
+							<input type="text" ng-model="ctrl.user.prenom" name="prenom"
+								class="form-control input-sm"
+								placeholder="Entez votre prenom" required />
+							<div class="has-error" ng-show="formInscription.$dirty">
+								<span ng-show="formConnexion.prenom.$error.required">Champ
+									obligatoire</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-md-12">
+						<label class="col-md-2 control-lable" for="file">Nom</label>
+						<div class="col-md-7">
+							<input type="text" ng-model="ctrl.user.nom"
+								name="nom" class="form-control input-sm"
+								placeholder="Entrez votre prenom" required />
+							<div class="has-error" ng-show="formInscription.$dirty">
+								<span ng-show="formConnexion.nom.$error.required">Champ
+									obligatoire</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-md-12">
+						<label class="col-md-2 control-lable" for="file">Telephone</label>
+						<div class="col-md-7">
+							<input type="tel" ng-model="ctrl.user.telephone" name="telephone"
+								class="form-control input-sm"
+								placeholder="Entez votre telephone" required />
+							<div class="has-error" ng-show="formInscription.$dirty">
+								<span ng-show="formConnexion.telephone.$error.required">Champ
+									obligatoire</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-md-12">
+						<label class="col-md-2 control-lable" for="file">Adresse mail</label>
+						<div class="col-md-7">
+							<input type="email" ng-model="ctrl.user.email"
+								name="email" class="form-control input-sm"
+								placeholder="Entrez votre email" required />
+							<div class="has-error" ng-show="formInscription.$dirty">
+								<span ng-show="formConnexion.email.$error.required">Champ
+									obligatoire</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				
+				
+				
+								<div class="row">
+					<div class="form-group col-md-12">
+						<label class="col-md-2 control-lable" for="file">Confirmez votre mail</label>
+						<div class="col-md-7">
+							<input type="email" ng-model="ctrl.user.prenom" name="conf_mail"
+								class="form-control input-sm"
+								placeholder="confirmation" required />
+							<div class="has-error" ng-show="formInscription.$dirty">
+								<span ng-show="formConnexion.conf_mail.$error.required">Champ
+									obligatoire</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-md-12">
+						<label class="col-md-2 control-lable" for="file">Adresse postale</label>
+						<div class="col-md-7">
+							<input type="text" ng-model="ctrl.user.adresse"
+								name="adresse" class="form-control input-sm"
+								placeholder="Entrez votre adresse" required />
+							<div class="has-error" ng-show="formInscription.$dirty">
+								<span ng-show="formConnexion.adresse.$error.required">Champ
+									obligatoire</span>
+							</div>
+						</div>
+					</div>
+				</div>
+								<div class="row">
+					<div class="form-group col-md-12">
+						<label class="col-md-2 control-lable" for="file">Code Postal</label>
+						<div class="col-md-7">
+							<input type="text" ng-model="ctrl.user.codepostal" name="codepostal"
+								class="form-control input-sm"
+								placeholder="Entez votre codepostal" required />
+							<div class="has-error" ng-show="formInscription.$dirty">
+								<span ng-show="formConnexion.codepostal.$error.required">Champ
+									obligatoire</span>
+							</div>
+						</div>
+					</div>
+				</div>
+	
+				<div class="row">
+					<div class="form-actions floatRight">
+						<input type="submit" value="Connexion"
+							class="btn btn-primary btn-sm"
+							ng-disabled="formConnexion.$invalid">
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
