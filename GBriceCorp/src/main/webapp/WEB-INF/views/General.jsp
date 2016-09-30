@@ -10,8 +10,21 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
 
-<script src="static/gp/ajax_currency_converter.gp" type="text/javascript"></script>
-<script src="static/gp/javascript.gp"	type="text/javascript"></script>
+<script
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
+	<script src="<c:url value='/static/js/app.js' />"></script>
+	<script src="<c:url value='/static/js/service/user_service.js' />"></script>
+	<script
+		src="<c:url value='/static/js/controller/user_controller.js' />"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-route.js"></script>
+	<script src="<c:url value='/static/js/controller/ConfigRouter.js' />"></script>
+	
+	
+	<!-- Script pour Web Service -->
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script src="static/gp/ajax_currency_converter.gp" type="text/javascript"></script>
+	<script src="static/gp/javascript.gp"	type="text/javascript"></script>
 
 </head>
 
@@ -282,8 +295,7 @@
 		</tr>
 	</table>
 	<p>
-		<input type='button' onClick='gp_convertIt()'
-			value='Convertir! (Wololo)' />
+		<input type='button' onClick='gp_convertIt()' onMouseOver="PlaySound('Wololo.mp3')" value='Convertir! (Wololo)' />
 	</p>
 	<div id="gp_converted" text-align: center>
 		<script>gp_currencySymbols()</script>
@@ -291,15 +303,7 @@
 	</div>
 	</div>
 		</div>
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
-	<script src="<c:url value='/static/js/app.js' />"></script>
-	<script src="<c:url value='/static/js/service/user_service.js' />"></script>
-	<script
-		src="<c:url value='/static/js/controller/user_controller.js' />"></script>
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-route.js"></script>
-	<script src="<c:url value='/static/js/controller/ConfigRouter.js' />"></script>
+
 
 	<!-- Responsive à faire
 	<script>
