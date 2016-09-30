@@ -10,6 +10,18 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
 
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
+<script src="<c:url value='/static/js/app.js' />"></script>
+<script src="<c:url value='/static/js/service/user_service.js' />"></script>
+<script src="<c:url value='/static/js/controller/user_controller.js' />"></script>
+	
+<!-- Script pour routage -->	
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-route.js"></script>
+<script src="<c:url value='/static/js/controller/ConfigRouter.js' />"></script>	
+	
+	
+<!-- Script pour Web Service -->
+<script src="http://www.google.com/jsapi" type="text/javascript"></script>	
 <script src="static/gp/ajax_currency_converter.gp" type="text/javascript"></script>
 <script src="static/gp/javascript.gp"	type="text/javascript"></script>
 
@@ -121,7 +133,7 @@
 									<label class="col-xl-2 control-lable" for="file">IBAN</label>
 									<div class="col-xl-10">
 										<input type="text" ng-model="ctrl.compte.id" name="iban"
-											class="form-control input-sm" placeholder="IBAN à rechercher" />
+											class="form-control input-sm" placeholder="IBAN Ã  rechercher" />
 									</div>
 								</div>
 							</div>
@@ -138,7 +150,7 @@
 					<a href="#/cons/Cons_DemCli" class="list-group-item"
 						ng-click="ctrl.getDemandes">
 						<h4 class="list-group-item-heading">Demandes</h4>
-						<p class="list-group-item-text">Liste des demandes à  traiter</p>
+						<p class="list-group-item-text">Liste des demandes Ã Â  traiter</p>
 					</a>
 				</div>
 			</div>
@@ -147,11 +159,11 @@
 			<!-- Menu du Client -->
 			<div class="container-fluid" ng-hide="{{client_cache}}">
 				<div class="list-group">
-					<!-- Synthèse des comptes -->
+					<!-- SynthÃ¨se des comptes -->
 					<a href="#/cli/Cli_ListeComptes" class="list-group-item active"
 						ng-click="compteCtrl.getComptes">
 						<h4 class="list-group-item-heading">Mes Comptes</h4>
-						<p class="list-group-item-text">Synthèse de vos comptes</p> <!-- Virements -->
+						<p class="list-group-item-text">SynthÃ¨se de vos comptes</p> <!-- Virements -->
 					</a> <a href="#/cli/Cli_Virement" class="list-group-item"
 						ng-click="compteCtrl.getComptes">
 						<h4 class="list-group-item-heading">Virements</h4>
@@ -190,11 +202,11 @@
 							class="form-horizontal">
 							<div class="row">
 								<div class="form-group col-xs-10">
-									<label class="col-xl-2 control-lable" for="file">Prénom</label>
+									<label class="col-xl-2 control-lable" for="file">PrÃ©nom</label>
 									<div class="col-xl-10">
 										<input type="text" ng-model="ctrl.conseiller.prenom"
 											name="prenom" class="form-control input-sm"
-											placeholder="Prénom du conseiller" />
+											placeholder="PrÃ©nom du conseiller" />
 									</div>
 								</div>
 							</div>
@@ -269,15 +281,15 @@
 	<div ng-hide="{{connexion_cache}}">
 	<table>
 		<tr>
-			<td>Veuillez saisir le montant à convertir :</td>
+			<td>Veuillez saisir le montant Ã  convertir :</td>
 			<td><input type='text' id='gp_amount' size='4' /></td>
 		</tr>
 		<tr>
-			<td>Devise de départ :</td>
+			<td>Devise de dÃ©part :</td>
 			<td><select id="gp_from"></select></td>
 		</tr>
 		<tr>
-			<td>Devise d'arrivée :</td>
+			<td>Devise d'arrivÃ©e :</td>
 			<td><select id="gp_to"></select></td>
 		</tr>
 	</table>
@@ -291,17 +303,9 @@
 	</div>
 	</div>
 		</div>
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
-	<script src="<c:url value='/static/js/app.js' />"></script>
-	<script src="<c:url value='/static/js/service/user_service.js' />"></script>
-	<script
-		src="<c:url value='/static/js/controller/user_controller.js' />"></script>
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-route.js"></script>
-	<script src="<c:url value='/static/js/controller/ConfigRouter.js' />"></script>
 
-	<!-- Responsive Ã  faire
+
+	<!-- Responsive ÃƒÂ  faire
 	<script>
 	App.controller('cache_menu', function($scope) {
 		
