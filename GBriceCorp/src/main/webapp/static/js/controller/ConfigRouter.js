@@ -53,11 +53,11 @@ App.config(['$routeProvider',function($routeProvider) {
 	// Routage Client
 	
 	.when("/cli/" , {
-		templateUrl:"static/views/Cli_postConnect.html",
+		templateUrl:"static/views/Cli_ListeComptes.html",
 		controller: 'UserController'		
 	})
 	.when("/cli/Cli_ListeComptes" , {
-		templateUrl:"static/views/Cli_postConnect.html",
+		templateUrl:"static/views/Cli_ListeComptes.html",
 		controller: 'UserController'		
 	})
 	.when("/cli/Cli_DemDecou" , {
@@ -65,7 +65,7 @@ App.config(['$routeProvider',function($routeProvider) {
 		controller: 'UserController'		
 	})
 	.when("/cli/Cli_modifInfos" , {
-		templateUrl:"static/views/Cli_modifInfos.html",
+		templateUrl:"static/views/Cli_ModifInfos.html",
 		controller: 'UserController'		
 	})
 	.when("/cli/Cli_NouvCompte" , {
