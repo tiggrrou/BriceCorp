@@ -9,7 +9,8 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         createUser: createUser,
         updateUser:updateUser,
         deleteUser:deleteUser,
-        connectUser:connectUser
+        connectUser:connectUser,
+        getComptesClient:getComptesClient
     };
     
     var user = {
@@ -92,7 +93,7 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
     }
     
     function getDemandes(idClient,idConseiller) {
-    	var deffered = $q.defer();
+    	var deferred = $q.defer();
     	$http.get(REST_SERVICE_URI+'demandes/'+idClient+"&"+idConseiller)
     		.then(
     		function (response){
@@ -108,7 +109,7 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
      * Demande au serveur un client par son ID
      */
     function getClient(idClient) {
-    	var deffered = $q.defer();
+    	var deferred = $q.defer();
     	$http.get(REST_SERVICE_URI+'client/'+idClient)
 		.then(
 		function (response){
@@ -124,12 +125,12 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
      * Demande au serveur un client par son ID
      */
     function getComptesClient(idClient) {
-    	var deffered = $q.defer();
-    	$http.get(REST_SERVICE_URI+'comptes/'+idClient)
+    	var deferred = $q.defer();
+    	$http.get(REST_SERVICE_URI+'Comptes/'+idClient)
 		.then(
 		function (response){
-			sessionStorage.setItem("Comptes",JOSN.stringify(response.data));
-			deferred.resolve(response.data);
+			sessionStorage.setItem("Comptes",JSON.stringify(response.data));
+			deferred.resolve(true);
 		},
 		function (errResponse){
 			console.error('Error while getting client')

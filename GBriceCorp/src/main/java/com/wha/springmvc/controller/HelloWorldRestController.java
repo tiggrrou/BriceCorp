@@ -170,7 +170,7 @@ public class HelloWorldRestController {
     
   //------------------- Liste Compte d'un client --------------------------------------------------------
     
-    @RequestMapping(value = "/Comptes/{idClient}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/user/Comptes/{idClient}", method = RequestMethod.GET)
     public ResponseEntity<List<Compte>> getListeClientComptes(@PathVariable("idClient") long ID) {
         List<Compte> listComptes = compteService.findByClientId(ID);        
         return new ResponseEntity<List<Compte>>(listComptes ,HttpStatus.OK);

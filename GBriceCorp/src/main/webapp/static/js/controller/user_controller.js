@@ -80,7 +80,7 @@ App.controller('UserController', ['$scope','$location', 'UserService', function(
 
     
     
-    fetchAllUsers();
+   // fetchAllUsers();
 
     function connexion(login, pwd){
     	UserService.connectUser(login, pwd)
@@ -241,7 +241,8 @@ App.controller('UserController', ['$scope','$location', 'UserService', function(
   
     function getComptes(){
     	// je récupère un client en fonction de son ID
-    	UserService.getComptes(self.client.id)
+    	var idCurrent = JSON.parse(sessionStorage.getItem("currentUser")).id;
+    	UserService.getComptesClient(idCurrent)
     	.then(
     			function(d){
     				comptes = JSON.parse(sessionStorage.getItem("Comptes"));
