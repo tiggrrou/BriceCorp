@@ -71,11 +71,11 @@
 				<version>2.4</version>
 				<configuration>
 					<warSourceDirectory>src/main/webapp</warSourceDirectory>
-					<warName>SpringAngularStartProject</warName>
+					<warName>GestBank</warName>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
 		</plugins>
-		<finalName>SpringAngularStartProject</finalName>
+		<finalName>GestBank</finalName>
 	</build>
 </project>
