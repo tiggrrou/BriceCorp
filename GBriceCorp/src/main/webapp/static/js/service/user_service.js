@@ -18,6 +18,7 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
     		};
 
     return factory;
+    
     /*recherche de tous les utilisateurs */
     function fetchAllUsers() {
         var deferred = $q.defer();
@@ -33,6 +34,9 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         );
         return deferred.promise;
     }
+    
+    
+
     
     /* Ajout d'un user puis refresh de la liste des users */
     function createUser(user) {

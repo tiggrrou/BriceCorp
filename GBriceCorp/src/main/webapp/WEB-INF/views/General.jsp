@@ -17,6 +17,9 @@
 <script src="<c:url value='/static/js/controller/user_controller.js' />"></script>
 
 <!-- Script pour routage -->
+<script src="<c:url value='/static/js/service/langue_service.js' />"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-resource.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-route.js"></script>
 <script src="<c:url value='/static/js/controller/ConfigRouter.js' />"></script>
@@ -27,6 +30,7 @@
 <script src="static/gp/ajax_currency_converter.gp"
 	type="text/javascript"></script>
 <script src="static/gp/javascript.gp" type="text/javascript"></script>
+
 
 </head>
 
@@ -46,7 +50,7 @@
 					<input type="hidden" ng-model="ctrl.user.id" />
 					<div class="row">
 						<div class="form-group col-md-12">
-							<label class="col-md-2 control-lable" for="file">Login</label>
+							<label class="col-md-2 control-lable" for="file">{{translation.login}}</label>
 							<div class="col-md-7">
 								<input type="text" ng-model="ctrl.user.identifiant" name="login"
 									class="username form-control input-sm"
@@ -60,7 +64,7 @@
 					</div>
 					<div class="row">
 						<div class="form-group col-md-12">
-							<label class="col-md-2 control-lable" for="file">Password</label>
+							<label class="col-md-2 control-lable" for="file">{{translation.password}}</label>
 							<div class="col-md-7">
 								<input type="password" ng-model="ctrl.user.motDePasse"
 									name="password" class="password form-control input-sm"
@@ -266,7 +270,7 @@
 
 		<div class="banniere " layout="raw" flex>
 			<div class="session_name" flex>
-				<h1 ng-hide="{{connexion_cache}}">Bienvenue à la GestBank</h1>
+				<h1 ng-hide="{{connexion_cache}}">{{translation.bienvenue}} GestBank</h1>
 				<h1 ng-hide="{{admin_cache}}">Espace Administrateur</h1>
 				<h1 ng-hide="{{conseiller_cache}}">Espace Conseiller</h1>
 				<h1 ng-hide="{{client_cache}}">Bienvenue {{ctrl.client.nom}}</h1>
@@ -274,14 +278,14 @@
 			</div>
 			<div class="langue_connect" layout="column" flex>
 				<div flex>
-					<img class="langue" src="static/imgs/en.png" ng-hide="lang_cache"
-						ng-click="lang_cache = !lang_cache" /> <img class="langue"
-						src="static/imgs/fr.png" ng-show="lang_cache"
-						ng-click="lang_cache = !lang_cache" />
+					<img class="langue" src="static/imgs/en.png" ng-hide="{{lang_cache}}"
+						ng-click="ctrl.change_langue('fr')" />
+					<img class="langue"	src="static/imgs/fr.png" ng-hide="!{{lang_cache}}"
+						ng-click="ctrl.change_langue('en')" />
 				</div>
 				<div flex>
 					<input type="button" class="btn btn-danger" value="Deconnexion"
-						ng-click="session_delete()" ng-hide="!{{connexion_cache}}" />
+						ng-click="ctrl.session_delete()" ng-hide="!{{connexion_cache}}" />
 
 				</div>
 
@@ -315,7 +319,7 @@
 					</tr>
 				</table>
 				<p>
-					<input type='button' onClick='gp_convertIt()' onMouseOver="PlaySound('Wololo.mp3')"
+					<input type='button' onClick='gp_convertIt()' onMouseOver="PlaySound('static/Sound/Wololo.mp3')"
 						value='Convertir! (Wololo)' />
 				</p>
 				<div id="gp_converted" text-align: center>

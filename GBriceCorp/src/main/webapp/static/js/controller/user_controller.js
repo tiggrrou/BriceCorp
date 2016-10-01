@@ -1,7 +1,7 @@
 'use strict';
 
-App.controller('UserController', ['$scope','$location', 'UserService', function($scope,$location, UserService) {
-    var self = this;
+App.controller('UserController', ['$scope','$location','$resource', 'UserService', 'translationService', function($scope,$location,$resource, UserService, translationService) {
+	var self = this;
     self.user={id:null,nom:'',adresse:'',mail:'',identifiant:'',motDePasse:''};
     self.users=[];
 
@@ -27,8 +27,11 @@ App.controller('UserController', ['$scope','$location', 'UserService', function(
     self.getClient = getClient;
     self.getNotifs = getNotifs;
     self.getComptes = getComptes;
+    self.connexion = connexion;
+    self.session_delete = session_delete;
+    self.change_langue = change_langue;
 
-    
+
 
     if(sessionStorage.getItem("currentUser") == null)
     {
@@ -37,9 +40,7 @@ App.controller('UserController', ['$scope','$location', 'UserService', function(
     	$scope.admin_cache=true;
     	$scope.conseiller_cache=true;
     	$scope.client_cache=true;
-    }
-    else 
-    {
+    }else{
 		console.log("une session existe");
 		var utilisateur = JSON.parse(sessionStorage.getItem("currentUser"));
 		console.log("utilisateur.typeUser" +utilisateur.typeUser);
@@ -60,23 +61,44 @@ App.controller('UserController', ['$scope','$location', 'UserService', function(
 		{
 			$scope.client_cache=false;
 		} 
-    }
+    };
     
-    $scope.session_delete = function() {
-    	sessionStorage.removeItem('currentUser');
+    function session_delete(){
+    	sessionStorage.clear();
 		$location.path("/");
     	location.reload();
     	console.log("delete session");
     };
-    
 
-        $scope.printToCart = function(printSectionId) {
+
+var language = sessionStorage.getItem("langue");
+    if(language == null)
+    {	
+	sessionStorage.setItem("langue","fr");
+    }
+    
+    if(language == "fr"){
+    	$scope.lang_cache=true;
+    }else{
+    	$scope.lang_cache=false;	
+    }
+    translationService.getTranslation($scope, language); 	
+
+    function change_langue(pays){
+    	$scope.lang_cache=!$scope.lang_cache;
+		sessionStorage.setItem("langue",pays);
+    	location.reload();
+	    };
+
+	    
+	    
+	 function printToCart(printSectionId){
           var innerContents = document.getElementById(printSectionId).innerHTML;
           var popupWindow = window.open('', '_blank', 'width=600,height=700,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no');
           popupWindow.document.open();
           popupWindow.document.write('<html><head><link rel="stylesheet" type="text/css" href="static/css/print.css" /></head><body >' + innerContents + '</html>');
           popupWindow.document.close();
-        }
+        };
 
     
     
@@ -102,6 +124,7 @@ App.controller('UserController', ['$scope','$location', 'UserService', function(
     			case 3 : 
 
     				$location.path("cli/");
+    				
     				getComptes();
     				break;
     			default :
@@ -115,8 +138,7 @@ App.controller('UserController', ['$scope','$location', 'UserService', function(
     			console.error('Error while connection');
     		}
     	);
-
-    }
+    };
     
     function fetchAllUsers(){
         UserService.fetchAllUsers()
@@ -128,7 +150,7 @@ App.controller('UserController', ['$scope','$location', 'UserService', function(
                 console.error('Error while fetching Users');
             }
         );
-    }
+    };
 
     function createUser(user){
         UserService.createUser(user)
@@ -138,7 +160,7 @@ App.controller('UserController', ['$scope','$location', 'UserService', function(
                 console.error('Error while creating User');
             }
         );
-    }
+    };
 
     function updateUser(user, id){
         UserService.updateUser(user, id)
@@ -148,7 +170,7 @@ App.controller('UserController', ['$scope','$location', 'UserService', function(
                 console.error('Error while updating User' + errResponse);
             }
         );
-    }
+    };
 
     function deleteUser(id){
         UserService.deleteUser(id)
@@ -158,7 +180,7 @@ App.controller('UserController', ['$scope','$location', 'UserService', function(
                 console.error('Error while deleting User');
             }
         );
-    }
+    };
 
     function submit() {
         if(self.user.id===null){
@@ -169,7 +191,7 @@ App.controller('UserController', ['$scope','$location', 'UserService', function(
             console.log('User updated with id ', self.user.id);
         }
         reset();
-    }
+    };
 
     function edit(id){
         console.log('id to be edited', id);
@@ -179,7 +201,7 @@ App.controller('UserController', ['$scope','$location', 'UserService', function(
                 break;
             }
         }
-    }
+    };
 
     function remove(id){
         console.log('id to be deleted', id);
@@ -187,17 +209,17 @@ App.controller('UserController', ['$scope','$location', 'UserService', function(
             reset();
         }
         deleteUser(id);
-    }
+    };
 
 
     function reset(){
         self.user={id:null,nom:'',adresse:'',mail:'',identifiant:'',motDePasse:''};
         $scope.myForm.$setPristine(); //reset Form
-    }
+    };
 
     function connect() {
     	connexion(self.user.identifiant, self.user.motDePasse);
-    }
+    };
     
     function searchClients() {
     	// je lance la recherche avec le nom et prenom du client et l'ID du conseiller
@@ -211,7 +233,7 @@ App.controller('UserController', ['$scope','$location', 'UserService', function(
 			console.error('Error while getting clients');
 		}
 	);	
-    }
+    };
     
     function getDemandes(){
     	// je demande les demandes en fournissant l'id client et l'id conseiller
@@ -225,7 +247,7 @@ App.controller('UserController', ['$scope','$location', 'UserService', function(
     			function (errResponse){
     				console.error('Error while getting Clients request')
     			});
-    }
+    };
     
     function getClient(){
     	// je récupère un client en fonction de son ID
@@ -237,7 +259,7 @@ App.controller('UserController', ['$scope','$location', 'UserService', function(
     			function (errResponse){
     				console.error('Error while getting a client from an ID')
     			});
-    }
+    };
   
     function getComptes(){
     	// je récupère un client en fonction de son ID
@@ -250,7 +272,7 @@ App.controller('UserController', ['$scope','$location', 'UserService', function(
     			function (errResponse){
     				console.error('Error while getting a client from an ID')
     			});
-    }
+    };
     
     function getNotifs(){
     	// je récupère les notifs associées à un client
@@ -262,5 +284,5 @@ App.controller('UserController', ['$scope','$location', 'UserService', function(
     			function (errResponse){
     				console.error('Error while getting Notifications')
     			})
-    }
+    };
 }]);
