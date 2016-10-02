@@ -15,7 +15,7 @@
 	<div class="panel-body" flex>
 		<div class="formcontainer">
 			<form ng-submit="ctrl.inscription()" name="formIscription"
-				class="form-horizontal">
+				class="form-horizontal" action="envoiMailConfirmation.php" method="post">
 				<input type="hidden" ng-model="ctrl.user.id" />
 				<div class="row">
 					<div class="form-group col-md-12">
