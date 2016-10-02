@@ -1,6 +1,6 @@
 'use strict';
 
-App.controller('UserController', ['$scope','$location','$resource', 'UserService', 'translationService', function($scope,$location,$resource, UserService, translationService) {
+App.controller('UserController', ['$scope', '$location', '$resource', '$route', 'UserService', 'translationService', function($scope, $location, $resource, $route, UserService, translationService) {
 	var self = this;
     self.user={id:null,nom:'',adresse:'',mail:'',identifiant:'',motDePasse:''};
     self.users=[];
@@ -31,6 +31,8 @@ App.controller('UserController', ['$scope','$location','$resource', 'UserService
     self.session_delete = session_delete;
     self.change_langue = change_langue;
 
+
+    $scope.$route = $route;
 
 
     if(sessionStorage.getItem("currentUser") == null)

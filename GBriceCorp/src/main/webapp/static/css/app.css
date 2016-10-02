@@ -65,14 +65,15 @@ body, .form-control {
 
 .generic-container {
 	margin-left: 2vw;
-	margin-right: 1vw;
-	margin-top: 150px;
+	margin-right: 2vw;
+	margin-top: 5vh;
 	margin-bottom: 5vh;
 	padding: 1vw;
 	background-color: #EAE7E7;
 	border: 1px solid #ddd;
 	border-radius: 4px;
 	box-shadow: 0 0 30px black;
+
 }
 
 .custom-width {
@@ -98,8 +99,12 @@ body, .form-control {
 }
 
 .banniere {
-	align: center;
-	width: auto;
+	margin-left: 2vw;
+	margin-right: 2vw;
+	margin-top: 5vh;
+	margin-bottom: 5vh;
+	padding-bottom: 5vw;
+
 }
 
 .session_name {
@@ -108,7 +113,7 @@ body, .form-control {
 	color: white;
 	text-transform: capitalize;
 	letter-spacing: 3px;
-	    font-family: "Times New Roman", Times, serif;
+	font-family: "Times New Roman", Times, serif;
 }
 
 .langue_connect {
@@ -117,7 +122,12 @@ body, .form-control {
 }
 
 .langue {
-	width: 50px;
+	margin-left: 2vw;
+	margin-right: 2vw;
+	margin-top: 5vh;
+	margin-bottom: 5vh;
+	padding: 1vw;
+	width: 75px;
 	margin: auto;
 }
 
@@ -135,13 +145,4 @@ body, .form-control {
 #logo {
 	max-height: 150px;
 	margin: 25px;
-}
-
-/* condition for screen size minimum of 500px */
-@media ( max-width :1000px) {
-	/* your conditional / responsive CSS inside this condition */
-	#logo {
-		max-height: 70px;
-		margin: 65px;
-	}
 }
