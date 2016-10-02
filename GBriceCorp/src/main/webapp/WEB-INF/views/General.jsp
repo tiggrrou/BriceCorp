@@ -48,10 +48,9 @@
 				<form ng-submit="ctrl.connect()" name="formConnexion"
 					class="form-horizontal">
 					<input type="hidden" ng-model="ctrl.user.id" />
-					<div class="row">
-						<div class="form-group col-md-12">
-							<label class="col-md-2 control-lable" for="file">{{translation.login}}</label>
-							<div class="col-md-7">
+					<div class="column">
+						<div class="form-group flex">
+							<label class="control-lable" for="file">{{translation.login}}</label>
 								<input type="text" ng-model="ctrl.user.identifiant" name="login"
 									class="username form-control input-sm"
 									placeholder="Entez votre login" required />
@@ -59,13 +58,11 @@
 									<span ng-show="formConnexion.login.$error.required">Champ
 										obligatoire</span>
 								</div>
-							</div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="form-group col-md-12">
-							<label class="col-md-2 control-lable" for="file">{{translation.password}}</label>
-							<div class="col-md-7">
+					<div class="column">
+						<div class="form-group ">
+							<label class=" control-lable" for="file">{{translation.password}}</label>
 								<input type="password" ng-model="ctrl.user.motDePasse"
 									name="password" class="password form-control input-sm"
 									placeholder="Entrez votre mot de passe" required />
@@ -73,7 +70,6 @@
 									<span ng-show="formConnexion.password.$error.required">Champ
 										obligatoire</span>
 								</div>
-							</div>
 						</div>
 					</div>
 
@@ -88,9 +84,9 @@
 
 			<!-- Menu du Conseiller -->
 			<div class="container-fluid" ng-hide="{{conseiller_cache}}">
-				<div class="list-group">
+				<div class="list-group" >
 					<!-- Recherche client  -->
-					<a href="#/cons/Cons_RechCli" class="list-group-item"
+					<a href="#/cons/Cons_RechCli" class="list-group-item" ng-class="{active: $route.current.activetab == 'conseiller_rechercheclient'}" 
 						ng-click="rechercheClient_cache = !rechercheClient_cache ; rechercheIBAN_cache = false">
 						<h4 class="list-group-item-heading">Recherche client</h4>
 						<p class="list-group-item-text">Rechercher un client</p>
@@ -126,7 +122,7 @@
 					</div>
 
 					<!-- Recherche IBAN  -->
-					<a href="#/cons/Cons_RechCpt" class="list-group-item" active="true"
+					<a href="#/cons/Cons_RechCpt" class="list-group-item" ng-class="{active: $route.current.activetab == 'conseiller_recherchecompte'}" 
 						ng-click="rechercheIBAN_cache = !rechercheIBAN_cache; rechercheClient_cache = false">
 						<h4 class="list-group-item-heading">Recherche compte</h4>
 						<p class="list-group-item-text">Rechercher un compte par IBAN</p>
@@ -155,7 +151,7 @@
 					</div>
 
 					<!-- Tableau des demandes  -->
-					<a href="#/cons/Cons_DemCli" class="list-group-item"
+					<a href="#/cons/Cons_DemCli" class="list-group-item" ng-class="{active: $route.current.activetab == 'conseiller_demandesclient'}" 
 						ng-click="ctrl.getDemandes; rechercheClient_cache = false; rechercheIBAN_cache = false">
 						<h4 class="list-group-item-heading">Demandes</h4>
 						<p class="list-group-item-text">Liste des demandes a 
@@ -169,20 +165,20 @@
 			<div class="container-fluid" ng-hide="{{client_cache}}">
 				<div class="list-group">
 					<!-- Synthese des comptes -->
-					<a href="#/cli/Cli_ListeComptes" class="list-group-item active"
+					<a href="#/cli/Cli_ListeComptes" class="list-group-item" ng-class="{active: $route.current.activetab == 'client_compte'}" 
 						ng-click="ctrl.getComptes">
 						<h4 class="list-group-item-heading">Mes Comptes</h4>
 						<p class="list-group-item-text">Synthese de vos comptes</p> <!-- Virements -->
-					</a> <a href="#/cli/Cli_Virement" class="list-group-item"
+					</a> <a href="#/cli/Cli_Virement" class="list-group-item" ng-class="{active: $route.current.activetab == 'client_virement'}" 
 						ng-click="compteCtrl.getComptes">
 						<h4 class="list-group-item-heading">Virements</h4>
 						<p class="list-group-item-text">Effectuer un virement</p> <!-- Infos personnelles -->
-					</a> <a href="#/cli/Cli_modifInfos" class="list-group-item"
+					</a> <a href="#/cli/Cli_modifInfos" class="list-group-item" ng-class="{active: $route.current.activetab == 'client_info'}" 
 						ng-click="ctrl.getClient">
 						<h4 class="list-group-item-heading">Informations Personnelles</h4>
 						<p class="list-group-item-text">Consulter et modifier vos
 							informations personnelles</p> <!-- Notifications -->
-					</a> <a href="#/cli/Cli_Notifications" class="list-group-item"
+					</a> <a href="#/cli/Cli_Notifications" class="list-group-item" ng-class="{active: $route.current.activetab == 'client_notif'}" 
 						ng-click="ctrl.getNotifs">
 						<h4 class="list-group-item-heading">
 							Notifications <span class="glyphicon glyphicon-envelope">
@@ -196,12 +192,12 @@
 			<div class="container-fluid" ng-hide="{{admin_cache}}">
 				<div class="list-group">
 					<!-- Tableau des demandes -->
-					<a href="#/admin/Admin_AffectCli" class="list-group-item active"
+					<a href="#/admin/Admin_AffectCli" class="list-group-item"  ng-class="{active: $route.current.activetab == 'admin_ouverture'}"
 						ng-click="ctrl.getDemandes">
 						<h4 class="list-group-item-heading">Demandes d'ouvertures</h4>
 						<p class="list-group-item-text">Afficher la liste des demande
 							d'ouverture</p> <!-- Recherche des conseillers -->
-					</a> <a href="#/admin/Admin_RechCons" class="list-group-item"
+					</a> <a href="#/admin/Admin_RechCons" class="list-group-item"  ng-class="{active: $route.current.activetab == 'admin_recherchecons'}"
 						ng-click="rechercheConseiller_cache = !rechercheConseiller_cache">
 						<h4 class="list-group-item-heading">Recherche des conseillers</h4>
 						<p class="list-group-item-text">List Group Item Text</p>
@@ -248,7 +244,7 @@
 					</div>
 
 					<!-- nouveau conseiller -->
-					<a href="#/admin/Admin_CreaCons" class="list-group-item">
+					<a href="#/admin/Admin_CreaCons" class="list-group-item"  ng-class="{active: $route.current.activetab == 'admin_nouveaucons'}">
 						<h4 class="list-group-item-heading">Nouveau conseiller</h4>
 						<p class="list-group-item-text">List Group Item Text</p>
 					</a>
@@ -274,7 +270,6 @@
 				<h1 ng-hide="{{admin_cache}}">Espace Administrateur</h1>
 				<h1 ng-hide="{{conseiller_cache}}">Espace Conseiller</h1>
 				<h1 ng-hide="{{client_cache}}">Bienvenue {{ctrl.client.nom}}</h1>
-
 			</div>
 			<div class="langue_connect" layout="column" flex>
 				<div flex>
@@ -286,11 +281,7 @@
 				<div flex>
 					<input type="button" class="btn btn-danger" value="Deconnexion"
 						ng-click="ctrl.session_delete()" ng-hide="!{{connexion_cache}}" />
-
 				</div>
-
-
-
 			</div>
 		</div>
 
