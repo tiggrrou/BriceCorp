@@ -143,6 +143,28 @@ public class Compte {
 		this.decouvert = decouvert;
 		this.tauxDecouvert = tauxDecouvert;
 	}
+	
+	/**
+	 * Constructeur pour dummy  BDD
+	 * @param iD
+	 * @param libelle
+	 * @param clientID
+	 * @param decouvert
+	 * @param tauxDecouvert
+	 */
+	public Compte(String iD, String libelle, long clientID, int decouvert, float tauxDecouvert, float solde) {
+		super();
+		ID = iD;
+		this.libelle = libelle;
+		this.dateOuverture = new Date();
+		this.dateCloture = null;
+		this.clientID = clientID;
+		this.actif = true;
+		this.solde = solde;
+		this.soldeAgio = 0;
+		this.decouvert = decouvert;
+		this.tauxDecouvert = tauxDecouvert;
+	}
 	//#endregion
 	
 	

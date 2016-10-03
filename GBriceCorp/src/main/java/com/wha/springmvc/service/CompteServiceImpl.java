@@ -84,14 +84,14 @@ public class CompteServiceImpl implements CompteService {
 	private static List<Compte> populateDummyComptes() {
 		List<Compte> comptes = new ArrayList<Compte>();
 		/*comptes.add(String iD, String libelle, long clientID, int decouvert, float tauxDecouvert);*/
-		comptes.add(new Compte("1", "Compte Courant", 4, 0, (float) 0.5));
-		comptes.add(new Compte("2", "Compte Joint non-rémunéré", 4, 0, (float) 0.5));
-		comptes.add(new Compte("3", "Compte Vampire", 2, 0, (float) 0.5));
-		comptes.add(new Compte("4", "Compte de blanchiement d'argent", 2, 0, (float) 0.5));
-		comptes.add(new Compte("33", "Compte Joint rémunéré", 5, 0, (float) 0.5));
-		comptes.add(new Compte("12", "Compte Courant", 5, 0,(float) 0.5));
-		comptes.add(new Compte("44", "Compte à retraits différés", 5, 0,(float) 0.5));
-		comptes.add(new Compte("90", "Compte Courant",5, 0, (float) 0.5));		
+		comptes.add(new Compte("1", "Compte Courant", 4, 0, (float) 0.5, (float) 650));
+		comptes.add(new Compte("2", "Compte Joint non-rémunéré", 4, 0, (float) 0.5, (float) 16500));
+		comptes.add(new Compte("3", "Compte Vampire", 2, 0, (float) 0.5, (float) 6500));
+		comptes.add(new Compte("4", "Compte de blanchiement d'argent", 2, 0, (float) 0.5, (float) 654));
+		comptes.add(new Compte("33", "Compte Joint rémunéré", 5, 0, (float) 0.5, (float) 700));
+		comptes.add(new Compte("12", "Compte Courant", 5, 0,(float) 0.5, (float) 6500));
+		comptes.add(new Compte("44", "Compte à retraits différés", 5, 0,(float) 0.5, (float) 60));
+		comptes.add(new Compte("90", "Compte Courant",5, 0, (float) 0.5, (float) 6));		
 		return comptes;
 	}
 

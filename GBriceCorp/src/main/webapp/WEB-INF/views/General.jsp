@@ -166,7 +166,7 @@
 				<div class="list-group">
 					<!-- Synthese des comptes -->
 					<a href="#/cli/Cli_ListeComptes" class="list-group-item" ng-class="{active: $route.current.activetab == 'client_compte'}" 
-						ng-click="ctrl.getComptes">
+						>
 						<h4 class="list-group-item-heading">Mes Comptes</h4>
 						<p class="list-group-item-text">Synthese de vos comptes</p> <!-- Virements -->
 					</a> <a href="#/cli/Cli_Virement" class="list-group-item" ng-class="{active: $route.current.activetab == 'client_virement'}" 

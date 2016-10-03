@@ -107,6 +107,7 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
     		function (errResponse){
     			console.error('Error while getting clients request')
     		})
+    		return deferred.promise;
     }
     
     /**
@@ -123,6 +124,7 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
 		function (errResponse){
 			console.error('Error while getting client')
 		})
+		return deferred.promise;
     }
     
     /**
@@ -139,6 +141,7 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
 		function (errResponse){
 			console.error('Error while getting client')
 		})
+		return deferred.promise;
     }
     
     /* supprime un user puis refresh de la liste des users */

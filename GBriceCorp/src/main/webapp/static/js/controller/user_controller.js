@@ -11,7 +11,8 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
     self.conseiller={id:null,nom:'',prenom:'',matricule:''};
     self.conseillers = [];
     
-    self.comptes = [];
+
+    $scope.un = 1;
     
     self.demandes = [];
     
@@ -269,7 +270,7 @@ var language = sessionStorage.getItem("langue");
     	UserService.getComptesClient(idCurrent)
     	.then(
     			function(d){
-    				comptes = JSON.parse(sessionStorage.getItem("Comptes"));
+    				$scope.comptes = JSON.parse(sessionStorage.getItem("Comptes"));
     			},
     			function (errResponse){
     				console.error('Error while getting a client from an ID')

@@ -1,10 +1,5 @@
 <div
-	ng-init="Comptes=[
-{Libelle:'Comptecds',Iban:'2616464', Solde:'150'},
-{Libelle:'hgdfdgfbfdb',Iban:'7587578578', Solde:'1570'},
-{Libelle:'Compfgbgfbtecds',Iban:'7857868676', Solde:'78150'},
-{Libelle:'fgbfdbgfb',Iban:'78687678676', Solde:'8150'}
-]">
+	ng-init="ctrl.getComptes();">
 <div id="printSectionId">
 	<div class="panel panel-info" layout="colomn">
 
@@ -25,10 +20,10 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr name="liste_comptes" ng-repeat="Compte in Comptes">
-								<td>{{Compte.Libelle}}</td>
-								<td>{{Compte.Iban}}</td>
-								<td>{{Compte.Solde}}</td>
+							<tr name="liste_comptes" ng-repeat="Compte in comptes">
+								<td>{{Compte.libelle}}</td>
+								<td>{{Compte.id}} </td>
+								<td>{{Compte.solde}}</td>
 							</tr>
 						</tbody>
 					</table>
