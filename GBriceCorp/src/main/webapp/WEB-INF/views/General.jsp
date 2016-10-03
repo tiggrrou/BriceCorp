@@ -193,7 +193,7 @@
 				<div class="list-group">
 					<!-- Tableau des demandes -->
 					<a href="#/admin/Admin_AffectCli" class="list-group-item"  ng-class="{active: $route.current.activetab == 'admin_ouverture'}"
-						ng-click="ctrl.getDemandes">
+						ng-click="ctrl.getDemandes; rechercheConseiller_cache = false">
 						<h4 class="list-group-item-heading">Demandes d'ouvertures</h4>
 						<p class="list-group-item-text">Afficher la liste des demande
 							d'ouverture</p> <!-- Recherche des conseillers -->
@@ -203,7 +203,7 @@
 						<p class="list-group-item-text">List Group Item Text</p>
 					</a>
 					<div class="formcontainer" ng-hide="!rechercheConseiller_cache">
-						<form ng-submit="ctrl.getConseillers" name="formRecConseillers"
+						<form ng-submit="ctrl.recherche_conseillerParNomPrenom(ctrl.conseiller.prenom,ctrl.conseiller.nom)" name="formRecConseillers"
 							class="form-horizontal">
 							<div class="row">
 								<div class="form-group col-xs-10">
@@ -225,16 +225,6 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="form-group col-xs-10">
-									<label class="col-xl-2 control-lable" for="file">Matricule</label>
-									<div class="col-xl-10">
-										<input type="text" ng-model="ctrl.conseiller.matricule"
-											name="matricule" class="form-control input-sm"
-											placeholder="Matricule" />
-									</div>
-								</div>
-							</div>
-							<div class="row">
 								<div class="form-actions floatRight">
 									<input type="submit" value="Recherche"
 										class="btn btn-primary btn-sm">
@@ -244,7 +234,8 @@
 					</div>
 
 					<!-- nouveau conseiller -->
-					<a href="#/admin/Admin_CreaCons" class="list-group-item"  ng-class="{active: $route.current.activetab == 'admin_nouveaucons'}">
+					<a href="#/admin/Admin_CreaCons" class="list-group-item"  ng-class="{active: $route.current.activetab == 'admin_nouveaucons'}"
+					ng-click="rechercheConseiller_cache = false">
 						<h4 class="list-group-item-heading">Nouveau conseiller</h4>
 						<p class="list-group-item-text">List Group Item Text</p>
 					</a>

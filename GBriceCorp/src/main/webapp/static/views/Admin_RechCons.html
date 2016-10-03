@@ -5,15 +5,7 @@
 
 
 
-	<div
-	
-	ng-init="Conseillers=[
-{Nom:'MoreL',Prenom:'Brice', Adresse:'24 rue Emile blandin 44400 REZE'},
-{Nom:'dsvsv',Prenom:'dsvsv', Adresse:'24 rue Emile blandin 44400 REZE'},
-{Nom:'MorsdvsveL',Prenom:'sdvdsvdsvdssdvdsvdsvd', Adresse:'24 rue Emile blandin 44400 REZE',Type:'Chequier'}
-]"
-	
-	>
+	<div ng-init="ctrl.recherche_conseillerParNomPrenom('','');">
 <div class="panel panel-info" layout="colomn">
 
 	<!-- Default panel contents -->
@@ -41,9 +33,9 @@
 						</thead>
 						<tbody>
 							<tr ng-repeat="Conseiller in Conseillers">
-								<td>{{Conseiller.Nom}}</td>
-								<td>{{Conseiller.Prenom}}</td>
-								<td>{{Conseiller.Adresse}}</td>
+								<td>{{Conseiller.nom}}</td>
+								<td>{{Conseiller.prenom}}</td>
+								<td>{{Conseiller.adresse}}</td>
 								<td>
 <img class="langue" src="static/imgs/crayon.png" ng-click="" />
 

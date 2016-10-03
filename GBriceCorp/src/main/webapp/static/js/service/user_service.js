@@ -10,7 +10,8 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         updateUser:updateUser,
         deleteUser:deleteUser,
         connectUser:connectUser,
-        getComptesClient:getComptesClient
+        getComptesClient:getComptesClient,
+        recherche_conseillerParNomPrenom:recherche_conseillerParNomPrenom
     };
     
     var user = {
@@ -160,4 +161,19 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         return deferred.promise;
     }
 
+    function recherche_conseillerParNomPrenom(Prenom, Nom) {
+        var deferred = $q.defer();
+
+        $http.get(REST_SERVICE_URI+'Conseillers/' + Prenom + '&' + Nom)
+            .then(
+            function (response) {
+                deferred.resolve(response.data);
+            },
+            function(errResponse){
+                console.error('Error while deleting User');
+                deferred.reject(errResponse);
+            }
+        );
+        return deferred.promise;
+    }
 }]);
