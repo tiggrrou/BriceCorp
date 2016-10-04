@@ -2,7 +2,7 @@
 
 App.controller('UserController', ['$scope', '$location', '$resource', '$route', 'UserService', 'translationService', function($scope, $location, $resource, $route, UserService, translationService) {
 	var self = this;
-    self.user={id:null,nom:'',adresse:'',mail:'',identifiant:'',motDePasse:''};
+    self.user={id:null,prenom:'',nom:'',adresse:'',codepostal:'',mail:'',identifiant:'',motDePasse:''};
     self.users=[];
 
     self.client={id:null,nom:'',prenom:''};
@@ -31,11 +31,21 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
     self.connexion = connexion;
     self.session_delete = session_delete;
     self.change_langue = change_langue;
-    self.recherche_conseillerParNomPrenom = recherche_conseillerParNomPrenom;
 
+    self.recherche_userParType = recherche_userParType;
+    
+
+    
+    
     $scope.$route = $route;
 
-
+    $scope.trier_par = function(tri) {
+        $scope.tripar = tri;
+    }
+    $scope.filtrer_par = function(filtre) {
+        $scope.monfiltre = filtre;
+    }    
+    
     if(sessionStorage.getItem("currentUser") == null)
     {
     	console.log("pas de session");
@@ -105,7 +115,7 @@ var language = sessionStorage.getItem("langue");
 
     
     
-   // fetchAllUsers();
+fetchAllUsers();
 
     function connexion(login, pwd){
     	UserService.connectUser(login, pwd)
@@ -147,6 +157,7 @@ var language = sessionStorage.getItem("langue");
         UserService.fetchAllUsers()
             .then(
             function(d) {
+        		console.log(d);
                 self.users = d;
             },
             function(errResponse){
@@ -154,7 +165,16 @@ var language = sessionStorage.getItem("langue");
             }
         );
     };
-
+    function submit() {
+        if(self.user.id===null){
+            console.log('Saving New User', self.user);
+            createUser(self.user);
+        }else{
+            updateUser(self.user, self.user.id);
+            console.log('User updated with id ', self.user.id);
+        }
+        reset();
+    };
     function createUser(user){
         UserService.createUser(user)
             .then(
@@ -185,16 +205,7 @@ var language = sessionStorage.getItem("langue");
         );
     };
 
-    function submit() {
-        if(self.user.id===null){
-            console.log('Saving New User', self.user);
-            createUser(self.user);
-        }else{
-            updateUser(self.user, self.user.id);
-            console.log('User updated with id ', self.user.id);
-        }
-        reset();
-    };
+
 
     function edit(id){
         console.log('id to be edited', id);
@@ -216,7 +227,7 @@ var language = sessionStorage.getItem("langue");
 
 
     function reset(){
-        self.user={id:null,nom:'',adresse:'',mail:'',identifiant:'',motDePasse:''};
+        self.user={id:null,nom:'',prenom:'',adresse:'',codepostal:'',mail:'',identifiant:'',motDePasse:''};
         $scope.myForm.$setPristine(); //reset Form
     };
 
@@ -289,18 +300,19 @@ var language = sessionStorage.getItem("langue");
     			})
     };
     
-    function recherche_conseillerParNomPrenom(Prenom, Nom){
+    function recherche_userParType(usertype){
     	// je récupère les conseillers avec le nom et le prenom
-    	UserService.recherche_conseillerParNomPrenom(Prenom,Nom)
 
+    	UserService.recherche_userParType(usertype)
     	.then(
-    			function(d){
-    				$scope.Conseillers = d;
+    			function(response){
+    				$scope.Conseillers = response;
     			},
     			function (errResponse){
     				console.error('Error while getting Notifications')
     			})
     };  
+
     
 
 }]);

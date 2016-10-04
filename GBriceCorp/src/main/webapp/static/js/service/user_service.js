@@ -11,11 +11,12 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         deleteUser:deleteUser,
         connectUser:connectUser,
         getComptesClient:getComptesClient,
-        recherche_conseillerParNomPrenom:recherche_conseillerParNomPrenom
+        recherche_userParType:recherche_userParType,
+
     };
     
     var user = {
-    		id:null,nom:'',prenom:'',adresse:'',mail:'',identifiant:'',motDePasse:'',typeUser:'',telephone:''
+    		id:null,nom:'',prenom:'',adresse:'',codepostal:'',mail:'',identifiant:'',motDePasse:'',typeUser:'',telephone:''
     		};
 
     return factory;
@@ -161,10 +162,10 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         return deferred.promise;
     }
 
-    function recherche_conseillerParNomPrenom(Prenom, Nom) {
+    function recherche_userParType(TypeUser) {
         var deferred = $q.defer();
 
-        $http.get(REST_SERVICE_URI+'Conseillers/' + Prenom + '&' + Nom)
+        $http.get(REST_SERVICE_URI+'Conseiller/'+ TypeUser)
             .then(
             function (response) {
                 deferred.resolve(response.data);
@@ -176,4 +177,6 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         );
         return deferred.promise;
     }
+
+    
 }]);
