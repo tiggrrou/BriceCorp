@@ -122,7 +122,7 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
 			deferred.resolve(response.data);
 		},
 		function (errResponse){
-			console.error('Error while getting client')
+			console.error('Error while getting client');
 		})
 		return deferred.promise;
     }

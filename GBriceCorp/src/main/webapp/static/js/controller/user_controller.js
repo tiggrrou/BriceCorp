@@ -6,7 +6,7 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
     self.users=[];
 
     self.client={id:null,nom:'',prenom:''};
-    self.clients=[];
+    self.clients;
     
     self.conseiller={id:null,nom:'',prenom:'',matricule:''};
     self.conseillers = [];
