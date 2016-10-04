@@ -1,5 +1,6 @@
 package com.wha.springmvc.controller;
  
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -131,7 +132,7 @@ public class HelloWorldRestController {
 
     }
     
-    //------------------- get Demandes --------------------------------------------------------
+    //------------------- get user --------------------------------------------------------
     
     @RequestMapping(value = "/user/client/{idClient}", method = RequestMethod.GET ,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> getClient(@PathVariable("idClient") String idClient) {
@@ -176,7 +177,18 @@ public class HelloWorldRestController {
         return new ResponseEntity<List<Compte>>(listComptes ,HttpStatus.OK);
     }
     
+  //------------------- Liste des users de type conseillers --------------------------------------------------------
     
-
- 
+    @RequestMapping(value = "/user/Conseillers/{Prenom}&{Nom}", method = RequestMethod.GET)
+    public ResponseEntity<List<User>> trouveParNomEtPrenom(@PathVariable("Prenom") String Prenom, @PathVariable("Nom") String Nom) {
+    	
+		List<User> listeconseillers = new ArrayList<User>();  	
+        List<User> listUsers = userService.trouveParNomEtPrenom(Prenom, Nom);   
+		for (User user : listUsers) {
+			if (user.getTypeUser() == 2) {
+			listeconseillers.add(user);
+			}
+		}
+		return new ResponseEntity<List<User>>(listeconseillers ,HttpStatus.OK);
+    } 
 }

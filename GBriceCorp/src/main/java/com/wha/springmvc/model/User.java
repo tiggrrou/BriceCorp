@@ -54,9 +54,10 @@ public class User {
 		id=0;
 	}
 	
-	public User(long id, String username, String address, String email, String login, String mdp, int type){
+	public User(long id, String nom,String prenom, String address, String email, String login, String mdp, int type){
 		this.id = id;
-		this.nom = username;
+		this.nom = nom;
+		this.prenom = prenom;		
 		this.adresse = address;
 		this.mail = email;
 		this.identifiant = login;

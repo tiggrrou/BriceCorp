@@ -31,7 +31,7 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
     self.connexion = connexion;
     self.session_delete = session_delete;
     self.change_langue = change_langue;
-
+    self.recherche_conseillerParNomPrenom = recherche_conseillerParNomPrenom;
 
     $scope.$route = $route;
 
@@ -288,4 +288,19 @@ var language = sessionStorage.getItem("langue");
     				console.error('Error while getting Notifications')
     			})
     };
+    
+    function recherche_conseillerParNomPrenom(Prenom, Nom){
+    	// je récupère les conseillers avec le nom et le prenom
+    	UserService.recherche_conseillerParNomPrenom(Prenom,Nom)
+
+    	.then(
+    			function(d){
+    				$scope.Conseillers = d;
+    			},
+    			function (errResponse){
+    				console.error('Error while getting Notifications')
+    			})
+    };  
+    
+
 }]);

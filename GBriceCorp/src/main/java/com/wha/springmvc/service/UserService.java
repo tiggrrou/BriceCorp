@@ -10,7 +10,11 @@ public interface UserService {
 	
 	User findById(long id);
 	
-	User findByName(String name);
+	List<User> trouveParNom(String nom);
+	
+	List<User> trouveParPrenom(String prenom);
+
+	List<User> trouveParNomEtPrenom(String nom, String prenom);
 	
 	User findByLogin(String login);
 	
