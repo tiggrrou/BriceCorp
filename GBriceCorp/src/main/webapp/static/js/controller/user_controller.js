@@ -2,7 +2,7 @@
 
 App.controller('UserController', ['$scope', '$location', '$resource', '$route', 'UserService', 'translationService', function($scope, $location, $resource, $route, UserService, translationService) {
 	var self = this;
-    self.user={id:null,nom:'',adresse:'',mail:'',identifiant:'',motDePasse:''};
+    self.user={id:null,prenom:'',nom:'',adresse:'',mail:'',identifiant:'',motDePasse:''};
     self.users=[];
 
     self.client={id:null,nom:'',prenom:''};
@@ -33,10 +33,16 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
     self.change_langue = change_langue;
     self.recherche_conseillerParNomPrenom = recherche_conseillerParNomPrenom;
     self.getMyUserBack = getMyUserBack;
-
+ 	self.recherche_userParType = recherche_userParType;
+    
     $scope.$route = $route;
 
-
+ $scope.trier_par = function(tri) {
+        $scope.tripar = tri;
+    }
+    $scope.filtrer_par = function(filtre) {
+        $scope.monfiltre = filtre;
+    } 
     if(sessionStorage.getItem("currentUser") == null)
     {
     	console.log("pas de session");
@@ -219,7 +225,7 @@ var language = sessionStorage.getItem("langue");
 
 
     function reset(){
-        self.user={id:null,nom:'',adresse:'',mail:'',identifiant:'',motDePasse:''};
+        self.user={id:null,prenom:'',nom:'',adresse:'',mail:'',identifiant:'',motDePasse:''};
         $scope.myForm.$setPristine(); //reset Form
     };
 
@@ -292,18 +298,15 @@ var language = sessionStorage.getItem("langue");
     			})
     };
     
-    function recherche_conseillerParNomPrenom(Prenom, Nom){
-    	// je récupère les conseillers avec le nom et le prenom
-    	UserService.recherche_conseillerParNomPrenom(Prenom,Nom)
-
+    UserService.recherche_userParType(usertype)
     	.then(
-    			function(d){
-    				$scope.Conseillers = d;
+    			function(response){
+    				$scope.Conseillers = response;
     			},
     			function (errResponse){
     				console.error('Error while getting Notifications')
     			})
-    };  
+    };
     
 
 }]);

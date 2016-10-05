@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.stereotype.Service;
 
-import com.wha.springmvc.model.Compte;
+
 import com.wha.springmvc.model.TypeUtilisateur;
 import com.wha.springmvc.model.User;
 
@@ -35,29 +35,28 @@ public class UserServiceImpl implements UserService {
 		return null;
 	}
 
-	public List<User> trouveParNom(String nom) {
-		List<User> listeusers = new ArrayList<User>();
+	public User trouveParNom(String nom) {
 		for (User user : users) {
-			if (user.getNom().indexOf(nom)>-1) {
-				listeusers.add(user);
+			if (user.getNom().equalsIgnoreCase(nom)) {
+				return user;
 			}
 		}
-		return listeusers;
+		return null;
 	}
-	public List<User> trouveParPrenom(String prenom) {
-		List<User> listeusers = new ArrayList<User>();
-		for (User user : users) {
-			if (user.getPrenom().indexOf(prenom)>-1) {
-				listeusers.add(user);
+	public User trouveParPrenom(String prenom) {
+				for (User user : users) {
+			if (user.getPrenom().equalsIgnoreCase(prenom)) {
+				return user;
 			}
 		}
-		return listeusers;
+		return null;
 	}
 
-	public List<User> trouveParNomEtPrenom(String prenom, String nom) {
+	public List<User> trouveParType(int typeUser) {
 		List<User> listeusers = new ArrayList<User>();
+
 		for (User user : users) {
-			if ((user.getPrenom().indexOf(prenom)>-1) && (user.getNom().indexOf(nom))>-1) {
+			if (user.getTypeUser() == typeUser) {
 				listeusers.add(user);
 			}
 		}
@@ -123,7 +122,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public boolean isUserExist(User user) {
-		return trouveParNom(user.getNom()) != null;
+		
+		
+		
+		return trouveParNom(user.getNom()) != null && trouveParPrenom(user.getPrenom()) != null;
 	}
 
 	public void deleteAllUsers() {
@@ -139,9 +141,9 @@ public class UserServiceImpl implements UserService {
 		users.add(new User(2, "Tomy","Tomy", "ALBAMA", "tomy@abc.com", "c", "c",TypeUtilisateur.Client.getType()));
 		users.add(new User(4, "Sophie","Sophie", "TEXAS", "sophie@def.com", "d", "d",TypeUtilisateur.Client.getType()));
 		users.add(new User(5, "John","John", "CALIFORNIA", "john@ijk.com", "e", "e",TypeUtilisateur.Client.getType()));
-		users.add(new User(6, "cons2","cons2", "rue albert 1er COLOMBES", "wajih@formation.com", "f",
+		users.add(new User(6, "prenom cons2","nom cons2", "rue machion truc", "wajih@formation.com", "f",
 				"f", TypeUtilisateur.Conseiller.getType()));
-		users.add(new User(7, "Conseiller3","Conseiller3", "rue albert 1er COLOMBES", "wajih@formation.com", "g",
+		users.add(new User(7, "Conseiller3","dsfdfge", "rue rgrege", "wajih@formation.com", "g",
 				"g", TypeUtilisateur.Conseiller.getType()));
 		return users;
 	}

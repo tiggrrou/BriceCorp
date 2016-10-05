@@ -202,34 +202,30 @@
 						<h4 class="list-group-item-heading">Recherche des conseillers</h4>
 						<p class="list-group-item-text">List Group Item Text</p>
 					</a>
-					<div class="formcontainer" ng-hide="!rechercheConseiller_cache">
-						<form ng-submit="ctrl.recherche_conseillerParNomPrenom(ctrl.conseiller.prenom,ctrl.conseiller.nom)" name="formRecConseillers"
-							class="form-horizontal">
+					<div ng-hide="!rechercheConseiller_cache">
+						<form ng-submit="ctrl.recherche_conseillerParNomPrenom(ctrl.conseiller.prenom,ctrl.conseiller.nom)" >
 							<div class="row">
-								<div class="form-group col-xs-10">
+								<div class=" col-xs-10">
 									<label class="col-xl-2 control-lable" for="file">Prenom</label>
 									<div class="col-xl-10">
-										<input type="text" ng-model="ctrl.conseiller.prenom"
+										<input type="text" ng-model="search.nom"
 											name="prenom" class="form-control input-sm"
-											placeholder="Prenom du conseiller" />
+											placeholder="Prenom du conseiller" 
+											
+											/>
 									</div>
 								</div>
 							</div>
 							<div class="row">
-								<div class="form-group col-xs-10">
+								<div class=" col-xs-10">
 									<label class="col-xl-2 control-lable" for="file">Nom</label>
 									<div class="col-xl-10">
-										<input type="text" ng-model="ctrl.conseiller.nom" name="nom"
+										<input type="text" ng-model="search.prenom" name="nom"
 											class="form-control input-sm" placeholder="Nom du conseiller" />
 									</div>
 								</div>
 							</div>
-							<div class="row">
-								<div class="form-actions floatRight">
-									<input type="submit" value="Recherche"
-										class="btn btn-primary btn-sm">
-								</div>
-							</div>
+
 						</form>
 					</div>
 

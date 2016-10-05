@@ -5,7 +5,7 @@
 
 
 
-	<div ng-init="ctrl.recherche_conseillerParNomPrenom('','');">
+	<div ng-init="ctrl.recherche_userParType(2);">
 <div class="panel panel-info" layout="colomn">
 
 	<!-- Default panel contents -->
@@ -23,16 +23,16 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th ng-click="trier_par_nom()">Nom</th>
-								<th ng-click="trier_par_prenom()">Prenom</th>
-								<th ng-click="trier_par_Adresse()">Adresse</th>
-								<th ng-click="trier_par_Email()">Editer</th>
-								<th  ng-click="trier_par_Action()">Supprimer</th>
+								<th ng-click="trier_par('nom')">Nom</th>
+								<th ng-click="trier_par('prenom')">Prenom</th>
+								<th ng-click="trier_par()">Adresse</th>
+								<th ng-click="trier_par()">Editer</th>
+								<th  ng-click="trier_par()">Supprimer</th>
 
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="Conseiller in Conseillers">
+							<tr ng-repeat="Conseiller in Conseillers | filter:search:strict | orderBy:tripar ">
 								<td>{{Conseiller.nom}}</td>
 								<td>{{Conseiller.prenom}}</td>
 								<td>{{Conseiller.adresse}}</td>
