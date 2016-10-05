@@ -136,6 +136,11 @@ body, .form-control {
 	height: auto;
 }
 
+.icone_liste{
+	width: 20px;
+	height: auto;	
+}
+
 .flechemenu {
 	height: 20px;
 	aligne-self: flex-end;

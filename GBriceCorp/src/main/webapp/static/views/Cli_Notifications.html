@@ -3,9 +3,11 @@
 <!-- getNotifs() 
 		Obtient les notifications liées à un client
 		besoin : user.id
-		renvoi : list<Notification> -->
+		renvoi : list<Notification>
+		ctrl.getNotifs()
+		 -->
 	<div	
-	ng-init="ctrl.getNotifs()
+	ng-init="
 	Notifications=[
 {Libelle:'Virement du bordel vers la poubelle',Date:'15/08/2009', Lu:'false'},
 {Libelle:'Virement du hfgjhgjghj vers la poubelle',Date:'15/08/2009', Lu:'true'},
@@ -32,13 +34,13 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th >Libelle</th>
-								<th >Date</th>
-								<th >Etat</th>
+								<th ng-click="ctrl.trier_par('Libelle')">Libelle</th>
+								<th ng-click="ctrl.trier_par('Date')">Date</th>
+								<th ng-click="ctrl.trier_par('Etat')" >Etat</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="Notification in Notifications" >
+							<tr ng-repeat="Notification in Notifications| orderBy:tripar ">
 								<td>{{Notification.Libelle}}</td>
 								<td>{{Notification.Date}}</td>
 								<td>

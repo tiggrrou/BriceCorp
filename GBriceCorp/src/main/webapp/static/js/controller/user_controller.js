@@ -1,61 +1,116 @@
 'use strict';
 
 App.controller('UserController', ['$scope', '$location', '$resource', '$route', 'UserService', 'translationService', function($scope, $location, $resource, $route, UserService, translationService) {
+	
+	// General
 	var self = this;
-    self.user={id:null,prenom:'',nom:'',adresse:'',mail:'',identifiant:'',motDePasse:''};
-    self.users=[];
-
-    self.client={id:null,nom:'',prenom:''};
-    self.clients;
-    
-    self.conseiller={id:null,nom:'',prenom:'',matricule:''};
-    self.conseillers = [];
+ 
     
 
-    $scope.un = 1;
+
+
     
-    self.demandes = [];
-    
-    self.notifications;
-    
-    self.submit = submit;
-    self.edit = edit;
-    self.remove = remove;
-    self.reset = reset;
-    self.connect = connect;
-    self.searchClients = searchClients;
-    self.getDemandes = getDemandes;
-    self.getClient = getClient;
-    self.getNotifs = getNotifs;
-    self.getComptes = getComptes;
-    self.connexion = connexion;
-    self.session_delete = session_delete;
+    // Fonctions I18n
+    $scope.$route = $route;   
     self.change_langue = change_langue;
-    self.getMyUserBack = getMyUserBack;
- 	self.recherche_userParType = recherche_userParType;
-    
-    $scope.$route = $route;
 
- $scope.trier_par = function(tri) {
-        $scope.tripar = tri;
+    //Initialisation de la langue par defaut a francais
+    var language = sessionStorage.getItem("langue");
+    if(language == null)
+    {	
+	sessionStorage.setItem("langue","fr");
+    }
+    
+    //Choix du drapeau cache en fonction de la langue en session
+    if(language == "fr"){
+    	$scope.lang_cache=true;
+    }else{
+    	$scope.lang_cache=false;	
+    }
+    //chargement du fichier de traduction dans le $scope grace au service dedie
+    translationService.getTranslation($scope, language); 	
+
+    //fonction de changement de la langue par le ngclick sur le drapeau
+    function change_langue(pays){
+    	$scope.lang_cache=!$scope.lang_cache;
+		sessionStorage.setItem("langue",pays);
+    	location.reload();
+	    };
+	    
+	    
+    // Fonctions vues
+self.trier_par = trier_par;
+
+	    
+function trier_par(tri){
+	//en cours d affinage
+	$scope.tripar = tri;
     }
 
-    if(sessionStorage.getItem("currentUser") == null)
-    {
-    	console.log("pas de session");
-    	$scope.connexion_cache=false;
-    	$scope.admin_cache=true;
-    	$scope.conseiller_cache=true;
-    	$scope.client_cache=true;
-    }else{
+
+
+ //Fonctions connection
+ self.connect = connect;
+ self.connexion = connexion;
+ self.session_delete = session_delete;
+ 
+ 
+ function connect() {
+ 	connexion(self.user.identifiant, self.user.motDePasse);
+ };
+ 
+ function connexion(login, pwd){
+ 	UserService.connectUser(login, pwd)
+ 		.then(
+ 		function(d) {
+ 			var user = JSON.parse(sessionStorage.getItem("currentUser"));
+ 			var userType = (user == null)? 0 : user.typeUser;
+
+ 			switch(userType){
+ 			case 0 : 
+ 				$location.path("/");
+ 				break;
+ 			case 1 : 
+ 				$location.path("admin/");
+ 				break;
+ 			case 2 : 
+ 				$location.path("cons/");
+ 				break;    			
+ 			case 3 : 
+
+ 				$location.path("cli/");
+ 				
+ 				getComptes();
+ 				break;
+ 			default :
+ 				$location.path("/");
+ 				break;
+ 			}
+ 			console.log(d);
+ 	        location.reload();
+ 		}, 
+ 		function (errResponse){
+ 			console.error('Error while connection');
+ 		}
+ 	);
+ }; 
+
+ if(sessionStorage.getItem("currentUser") == null)
+ {
+ 	console.log("pas de session");
+ 	$scope.connexion_cache=false;
+ 	$scope.admin_cache=true;
+ 	$scope.conseiller_cache=true;
+ 	$scope.client_cache=true;
+ }else{
 		console.log("une session existe");
 		var utilisateur = JSON.parse(sessionStorage.getItem("currentUser"));
 		console.log("utilisateur.typeUser" +utilisateur.typeUser);
 		console.log("utilisateur.nom" +utilisateur.nom);
-    	$scope.connexion_cache=true;
-    	$scope.admin_cache=true;
-    	$scope.conseiller_cache=true;
-    	$scope.client_cache=true;
+ 	$scope.connexion_cache=true;
+ 	$scope.admin_cache=true;
+ 	$scope.conseiller_cache=true;
+ 	$scope.client_cache=true;
 		if(utilisateur.typeUser == 1)
 		{
 	    	$scope.admin_cache=false;
@@ -68,86 +123,27 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
 		{
 			$scope.client_cache=false;
 		} 
-    };
-    
-    function session_delete(){
-    	sessionStorage.clear();
+ };
+
+ function session_delete(){
+ 	sessionStorage.clear();
 		$location.path("/");
-    	location.reload();
-    	console.log("delete session");
-    };
+ 	location.reload();
+ 	console.log("delete session");
+ };
+ 
+ // Fonctions User
+ self.user={id:null,prenom:'',nom:'',adresse:'',mail:'',identifiant:'',motDePasse:''};
+ self.users=[];
+ self.submit = submit;
+ self.edit = edit;
+ self.remove = remove;
+ self.reset = reset; 
+ self.getMyUserBack = getMyUserBack;
 
-
-var language = sessionStorage.getItem("langue");
-    if(language == null)
-    {	
-	sessionStorage.setItem("langue","fr");
-    }
+	self.recherche_userParType = recherche_userParType;
+  
     
-    if(language == "fr"){
-    	$scope.lang_cache=true;
-    }else{
-    	$scope.lang_cache=false;	
-    }
-    translationService.getTranslation($scope, language); 	
-
-    function change_langue(pays){
-    	$scope.lang_cache=!$scope.lang_cache;
-		sessionStorage.setItem("langue",pays);
-    	location.reload();
-	    };
-
-	    
-	    
-	 function printToCart(printSectionId){
-          var innerContents = document.getElementById(printSectionId).innerHTML;
-          var popupWindow = window.open('', '_blank', 'width=600,height=700,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no');
-          popupWindow.document.open();
-          popupWindow.document.write('<html><head><link rel="stylesheet" type="text/css" href="static/css/print.css" /></head><body >' + innerContents + '</html>');
-          popupWindow.document.close();
-        };
-
-    
-    function getMyUserBack()
-    {
-    	self.user = JSON.parse(sessionStorage.getItem("currentUser"));
-    }
-        
-    function connexion(login, pwd){
-    	UserService.connectUser(login, pwd)
-    		.then(
-    		function(d) {
-    			var user = JSON.parse(sessionStorage.getItem("currentUser"));
-    			var userType = (user == null)? 0 : user.typeUser;
-
-    			switch(userType){
-    			case 0 : 
-    				$location.path("/");
-    				break;
-    			case 1 : 
-    				$location.path("admin/");
-    				break;
-    			case 2 : 
-    				$location.path("cons/");
-    				break;    			
-    			case 3 : 
-
-    				$location.path("cli/");
-    				
-    				getComptes();
-    				break;
-    			default :
-    				$location.path("/");
-    				break;
-    			}
-    			console.log(d);
-    	        location.reload();
-    		}, 
-    		function (errResponse){
-    			console.error('Error while connection');
-    		}
-    	);
-    };
     
     function fetchAllUsers(){
         UserService.fetchAllUsers()
@@ -221,15 +217,38 @@ var language = sessionStorage.getItem("langue");
     };
 
 
-    function reset(){
-        self.user={id:null,prenom:'',nom:'',adresse:'',mail:'',identifiant:'',motDePasse:''};
-        $scope.myForm.$setPristine(); //reset Form
-    };
-
-    function connect() {
-    	connexion(self.user.identifiant, self.user.motDePasse);
+    
+    function recherche_userParType(usertype) {
+    UserService.recherche_userParType(usertype)
+    	.then(
+    			function(response){
+    				$scope.Conseillers = response;
+    			},
+    			function (errResponse){
+    				console.error('Error while getting Notifications')
+    			})
     };
     
+    function getMyUserBack()
+    {
+    	self.user = JSON.parse(sessionStorage.getItem("currentUser"));
+    }
+    
+  
+    // Fonctions Client
+    self.client={id:null,nom:'',prenom:''};
+    self.clients;
+    self.demandes = [];
+    self.getDemandes = getDemandes;    
+    self.notifications;
+    self.searchClients = searchClients;
+
+    self.getClient = getClient;  
+    
+
+
+ 	
+ 	
     function searchClients() {
     	// je lance la recherche avec le nom et prenom du client et l'ID du conseiller
     	UserService.searchUser(self.client.prenom, self.client.nom, self.user.id)
@@ -244,39 +263,14 @@ var language = sessionStorage.getItem("langue");
 	);	
     };
     
-    function getDemandes(){
-    	// je demande les demandes en fournissant l'id client et l'id conseiller
-    	// ces valeurs peuvent être nulles dans ce cas on récupère les demandes d'admissions des nouveaux clients
-    	UserService.getDemandes(self.client.id,self.conseiller.id)
-    	.then(
-    			function(d){
-    				//je place les demandes récupérées dans demandes
-    				demandes = JSON.parse(sessionStorage.getItem("Demandes"));	
-    			},
-    			function (errResponse){
-    				console.error('Error while getting Clients request')
-    			});
-    };
-    
+
+  
     function getClient(){
     	// je récupère un client en fonction de son ID
     	UserService.getClient(self.client.id)
     	.then(
     			function(d){
     				client = JSON.parse(sessionStorage.getItem("Client"));
-    			},
-    			function (errResponse){
-    				console.error('Error while getting a client from an ID')
-    			});
-    };
-  
-    function getComptes(){
-    	// je récupère un client en fonction de son ID
-    	var idCurrent = JSON.parse(sessionStorage.getItem("currentUser")).id;
-    	UserService.getComptesClient(idCurrent)
-    	.then(
-    			function(d){
-    				$scope.comptes = JSON.parse(sessionStorage.getItem("Comptes"));
     			},
     			function (errResponse){
     				console.error('Error while getting a client from an ID')
@@ -295,16 +289,88 @@ var language = sessionStorage.getItem("langue");
     			})
     };
     
-    function recherche_userParType(TypeUser) {
-    UserService.recherche_userParType(usertype)
+    
+    
+    
+    
+    
+    
+    // Fonctions Conseiller
+    self.conseiller={id:null,nom:'',prenom:'',matricule:''};
+    self.conseillers = [];
+    self.getNotifs = getNotifs;
+    self.getComptes = getComptes;   
+    self.detailCompte = detailCompte;
+    
+    
+    
+  //Fonction du lien par ngclick dans le ng-repeat du recherche compte
+   function detailCompte(iban){
+  	 $location.path("/cons/Cons_DetailCompte/" + iban);
+   }     
+    
+    
+    function getDemandes(){
+    	// je demande les demandes en fournissant l'id client et l'id conseiller
+    	// ces valeurs peuvent être nulles dans ce cas on récupère les demandes d'admissions des nouveaux clients
+    	UserService.getDemandes(self.client.id,self.conseiller.id)
     	.then(
-    			function(response){
-    				$scope.Conseillers = response;
+    			function(d){
+    				//je place les demandes récupérées dans demandes
+    				demandes = JSON.parse(sessionStorage.getItem("Demandes"));	
     			},
     			function (errResponse){
-    				console.error('Error while getting Notifications')
-    			})
+    				console.error('Error while getting Clients request')
+    			});
     };
+    
+  
+    
+    // Fonctions Admin
+    
+    
+
+
+
+
+
+	    
+    // Fonctions Print
+	 function printToCart(printSectionId){
+          var innerContents = document.getElementById(printSectionId).innerHTML;
+          var popupWindow = window.open('', '_blank', 'width=600,height=700,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no');
+          popupWindow.document.open();
+          popupWindow.document.write('<html><head><link rel="stylesheet" type="text/css" href="static/css/print.css" /></head><body >' + innerContents + '</html>');
+          popupWindow.document.close();
+        };
+
+    
+
+    function reset(){
+        self.user={id:null,prenom:'',nom:'',adresse:'',mail:'',identifiant:'',motDePasse:''};
+        $scope.myForm.$setPristine(); //reset Form
+    };
+
+   
+    
+   
+    
+   
+  
+    function getComptes(){
+    	// je récupère un client en fonction de son ID
+    	var idCurrent = JSON.parse(sessionStorage.getItem("currentUser")).id;
+    	UserService.getComptesClient(idCurrent)
+    	.then(
+    			function(d){
+    				$scope.comptes = JSON.parse(sessionStorage.getItem("Comptes"));
+    			},
+    			function (errResponse){
+    				console.error('Error while getting a client from an ID')
+    			});
+    };
+    
+   
     
 
 }]);
