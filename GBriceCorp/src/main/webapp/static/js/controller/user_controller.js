@@ -16,7 +16,7 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
     
     self.demandes = [];
     
-    self.notifications = [];
+    self.notifications;
     
     self.submit = submit;
     self.edit = edit;
@@ -32,6 +32,7 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
     self.session_delete = session_delete;
     self.change_langue = change_langue;
     self.recherche_conseillerParNomPrenom = recherche_conseillerParNomPrenom;
+    self.getMyUserBack = getMyUserBack;
 
     $scope.$route = $route;
 
@@ -104,9 +105,11 @@ var language = sessionStorage.getItem("langue");
         };
 
     
-    
-   // fetchAllUsers();
-
+    function getMyUserBack()
+    {
+    	self.user = JSON.parse(sessionStorage.getItem("currentUser"));
+    }
+        
     function connexion(login, pwd){
     	UserService.connectUser(login, pwd)
     		.then(
@@ -279,10 +282,10 @@ var language = sessionStorage.getItem("langue");
     
     function getNotifs(){
     	// je récupère les notifs associées à un client
-    	UserService.getNotifs(self.client.id)
+    	UserService.getNotifs(JSON.parse(sessionStorage.getItem("currentUser")).id)
     	.then(
-    			function(d){
-    				notifications = JSON.parse(sessionStorage.getItem("Notifications"));
+    			function(dataFromService){
+    				notifications = JSON.parse(dataFromService);
     			},
     			function (errResponse){
     				console.error('Error while getting Notifications')

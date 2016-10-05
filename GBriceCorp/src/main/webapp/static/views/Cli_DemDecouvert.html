@@ -1,9 +1,11 @@
-
-<form ng-submit="ctrl.writeDemDecou()">
+<!-- A creer : demande de dÈcouvert
+	donnÈes en entrÈe : user.ID, compte.ID, montant du dÈcouvert
+ -->
+<form ng-submit="CompteController.writeDemDecou()">
 <div class="panel panel-info" layout="colomn">
 
-	Quel d√©couvert souhaiteriez vous avoir? (attention ce montant ne peux
-	pas exc√©der 40% de vos revenus mensuels) <input type="text"
+	Quel decouvert souhaiteriez vous avoir? (attention ce montant ne peut
+	pas exceder 40% de vos revenus mensuels) <input type="text"
 		ng-model="ctrl.user.decouvert" name="demDecouvert"
 		class="username form-control input-sm"
 		placeholder="Saisir la valeur souhait√©e" required />

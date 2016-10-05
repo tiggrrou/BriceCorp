@@ -4,14 +4,12 @@
 
 
 
-<div class="panel panel-info" layout="colomn">
+<div class="panel panel-info" layout="colomn" ng-init="ctrl.getMyUserBack()">
 
 	<!-- Default panel contents -->
 	<div class="panel-heading" flex>
 		<span class="lead">Demande de modification d'information personnelles</span>
 	</div>
-
-
 	<div class="panel-body" flex>
 		<div class="formcontainer">
 			<form ng-submit="ctrl.inscription()" name="formIscription"
@@ -81,7 +79,7 @@
 					<div class="form-group col-md-12">
 						<label class="col-md-2 control-lable" for="file">Confirmez votre mail</label>
 						<div class="col-md-7">
-							<input type="email" ng-model="ctrl.user.prenom" name="conf_mail"
+							<input type="email" ng-model="ctrl.checkmail" name="conf_mail"
 								class="form-control input-sm"
 								placeholder="confirmation" required />
 							<div class="has-error" ng-show="formInscription.$dirty">

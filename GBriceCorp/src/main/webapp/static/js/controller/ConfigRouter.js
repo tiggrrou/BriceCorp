@@ -72,7 +72,7 @@ App.config(['$routeProvider',function($routeProvider) {
 	})
 	.when("/cli/Cli_DemDecou" , {
 		templateUrl:"static/views/Cli_DemDecou.html",
-		controller: 'UserController',	
+		controller: 'CompteController',	
 	    activetab: 'conseiller_demandesclient'			
 	})
 	.when("/cli/Cli_modifInfos" , {

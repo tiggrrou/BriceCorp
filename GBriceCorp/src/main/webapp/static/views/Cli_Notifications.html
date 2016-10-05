@@ -1,9 +1,12 @@
 
 <!-- Tableau des notifications -->
-
-	<div
-	
-	ng-init="Notifications=[
+<!-- getNotifs() 
+		Obtient les notifications liées à un client
+		besoin : user.id
+		renvoi : list<Notification> -->
+	<div	
+	ng-init="ctrl.getNotifs()
+	Notifications=[
 {Libelle:'Virement du bordel vers la poubelle',Date:'15/08/2009', Lu:'false'},
 {Libelle:'Virement du hfgjhgjghj vers la poubelle',Date:'15/08/2009', Lu:'true'},
 {Libelle:'Vighjhgjhgjhg la poubelle',Date:'15/08/2009', Lu:'true'},
