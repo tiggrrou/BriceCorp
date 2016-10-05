@@ -31,7 +31,6 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
     self.connexion = connexion;
     self.session_delete = session_delete;
     self.change_langue = change_langue;
-    self.recherche_conseillerParNomPrenom = recherche_conseillerParNomPrenom;
     self.getMyUserBack = getMyUserBack;
  	self.recherche_userParType = recherche_userParType;
     
@@ -40,9 +39,7 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
  $scope.trier_par = function(tri) {
         $scope.tripar = tri;
     }
-    $scope.filtrer_par = function(filtre) {
-        $scope.monfiltre = filtre;
-    } 
+
     if(sessionStorage.getItem("currentUser") == null)
     {
     	console.log("pas de session");
@@ -298,6 +295,7 @@ var language = sessionStorage.getItem("langue");
     			})
     };
     
+    function recherche_userParType(TypeUser) {
     UserService.recherche_userParType(usertype)
     	.then(
     			function(response){

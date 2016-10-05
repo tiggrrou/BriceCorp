@@ -179,7 +179,7 @@ public class HelloWorldRestController {
   //------------------- Liste des users de type --------------------------------------------------------
     
     @RequestMapping(value = "/user/Conseiller/{typeUser}", method = RequestMethod.GET)
-    public ResponseEntity<List<User>> trouveParNomEtPrenom(@PathVariable("typeUser") int typeUser) {
+    public ResponseEntity<List<User>> trouveParType(@PathVariable("typeUser") int typeUser) {
 
     	List<User> listUsers = userService.trouveParType(typeUser);   
 		return new ResponseEntity<List<User>>(listUsers ,HttpStatus.OK);
