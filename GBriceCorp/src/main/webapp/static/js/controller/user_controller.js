@@ -27,7 +27,6 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
     self.getDemandes = getDemandes;
     self.getClient = getClient;
     self.getNotifs = getNotifs;
-    self.getComptes = getComptes;
     self.connexion = connexion;
     self.session_delete = session_delete;
     self.change_langue = change_langue;
@@ -269,20 +268,7 @@ var language = sessionStorage.getItem("langue");
     				console.error('Error while getting a client from an ID')
     			});
     };
-  
-    function getComptes(){
-    	// je récupère un client en fonction de son ID
-    	var idCurrent = JSON.parse(sessionStorage.getItem("currentUser")).id;
-    	UserService.getComptesClient(idCurrent)
-    	.then(
-    			function(d){
-    				$scope.comptes = JSON.parse(sessionStorage.getItem("Comptes"));
-    			},
-    			function (errResponse){
-    				console.error('Error while getting a client from an ID')
-    			});
-    };
-    
+   
     function getNotifs(){
     	// je récupère les notifs associées à un client
     	UserService.getNotifs(JSON.parse(sessionStorage.getItem("currentUser")).id)

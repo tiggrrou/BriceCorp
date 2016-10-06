@@ -1,4 +1,4 @@
-<div ng-init="ctrl.getComptes();">
+<div ng-init="CompteController.getComptes();">
 <div id="printSectionId">
 	<div class="panel panel-info" layout="colomn">
 
@@ -13,13 +13,13 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th>Libellé</th>
+								<th>Libelle</th>
 								<th>Iban</th>
 								<th>Solde</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr name="liste_comptes" ng-repeat="Compte in comptes">
+							<tr name="liste_comptes" ng-repeat="Compte in CompteController.comptes">
 								<td>{{Compte.libelle}}</td>
 								<td>{{Compte.id}} </td>
 								<td>{{Compte.solde}}</td>

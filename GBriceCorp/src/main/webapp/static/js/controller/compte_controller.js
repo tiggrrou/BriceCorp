@@ -15,6 +15,8 @@ App.controller('CompteController', ['$scope','$location', 'CompteService', funct
     self.remove = remove;
     self.getDemandes = getDemandes;
     self.getNotifs = getNotifs;
+    self.getComptes = getComptes;
+    self.virement = virement;
     
  
     function fetchAllComptes(){
@@ -91,6 +93,19 @@ App.controller('CompteController', ['$scope','$location', 'CompteService', funct
     			});
     }
     
+    function getComptes(){
+    	// je récupère les comptes d'un client en fonction de son ID
+    	var idCurrent = JSON.parse(sessionStorage.getItem("currentUser")).id;
+    	CompteService.getComptesClient(idCurrent)
+    	.then(
+    			function(data){
+    				self.comptes = JSON.parse(data));
+    			},
+    			function (errResponse){
+    				console.error('Error while getting an account from an customer ID')
+    			});
+    };
+    
     function writeDemDecou() {
     	CompteService.writeDemDecou(JSON.parse(sessionStorage.getItem("User").id, compte.id, decouvert)
     			.then(
@@ -103,4 +118,16 @@ App.controller('CompteController', ['$scope','$location', 'CompteService', funct
     					})
     }
 
+    function virement()
+    {
+    	CompteService.virement(self.compteDebiteur, self.compteCredite, self.montant)
+    		.then(
+    				function(){
+    					alert("Votre virement a bien été effectué")
+    					getComptes();
+    				},
+    				function(messageErreurFromService){
+    					alert("Une erreur est survenue pendant le traitement de votre opération")
+    				}
+    				}
 }]);

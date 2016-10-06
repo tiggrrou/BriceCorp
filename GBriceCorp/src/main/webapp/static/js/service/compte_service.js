@@ -10,6 +10,8 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         updateUser:updateUser,
         deleteUser:deleteUser,
         connectUser:connectUser*/
+    	getComptesClient:getComptesClient,
+    	virement:virement //A FAIRE
     };
     
     return factory;
@@ -28,6 +30,22 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
     			}
     	)
     } 
+    
+    /**
+     * Demande au serveur la liste des comptes d'un client par son ID
+     */
+    function getComptesClient(idClient) {
+    	var deferred = $q.defer();
+    	$http.get(REST_SERVICE_URI+idClient)
+		.then(
+		function (response){
+			deferred.resolve(response.data);
+		},
+		function (errResponse){
+			console.error('Error while getting Account Data from server')
+		})
+		return deferred.promise;
+    }
     
     function getDemandes(idClient,idConseiller) {
     	var deferred = $q.defer();
