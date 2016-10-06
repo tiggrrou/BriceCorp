@@ -55,7 +55,7 @@ App.config(['$routeProvider',function($routeProvider) {
 	.when("/cons/Cons_DetailCompte" , {
 			templateUrl:"static/views/ConsClient_DetailCompte.html",
 			controller: 'UserController',	
-		    activetab: 'conseiller_rechercheclient'			
+		    activetab: 'conseiller_recherchecompte'			
 		})
 	
 	// Routage Client

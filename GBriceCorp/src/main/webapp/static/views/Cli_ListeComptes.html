@@ -13,13 +13,13 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th>Libelle</th>
-								<th>Iban</th>
-								<th>Solde</th>
+								<th ng-click="ctrl.trier_par('libelle')">Libelle</th>
+								<th ng-click="ctrl.trier_par('id')">Iban</th>
+								<th ng-click="ctrl.trier_par('solde')">Solde</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr name="liste_comptes" ng-repeat="Compte in CompteController.comptes">
+							<tr name="liste_comptes" ng-repeat="Compte in CompteController.comptes  | orderBy:tripar ">
 								<td>{{Compte.libelle}}</td>
 								<td>{{Compte.id}} </td>
 								<td>{{Compte.solde}}</td>

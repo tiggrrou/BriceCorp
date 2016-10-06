@@ -20,13 +20,13 @@
 				<table class="table table-hover">
 					<thead>
 						<tr>
-							<th ng-click="trier_par_nom()">Nom</th>
-							<th ng-click="trier_par_prenom()">Prenom</th>
-							<th ng-click="trier_par_Adresse()">Adresse</th>
+							<th ng-click="ctrl.trier_par('Nom')">Nom</th>
+							<th ng-click="ctrl.trier_par('Prenom')">Prenom</th>
+							<th ng-click="ctrl.trier_par('Adresse')">Adresse</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="Client in Clients">
+						<tr ng-repeat="Client in Clients| filter:search:strict | orderBy:tripar ">
 							<td>{{Client.Nom}}</td>
 							<td>{{Client.Prenom}}</td>
 							<td>{{Client.Adresse}}</td>

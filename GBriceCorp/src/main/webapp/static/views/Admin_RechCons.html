@@ -23,11 +23,11 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th ng-click="trier_par('nom')">Nom</th>
-								<th ng-click="trier_par('prenom')">Prenom</th>
-								<th ng-click="trier_par()">Adresse</th>
-								<th ng-click="trier_par()">Editer</th>
-								<th  ng-click="trier_par()">Supprimer</th>
+								<th ng-click="ctrl.trier_par('nom')">Nom <img class="icone_liste" src="static/imgs/flecheHaut.png" ng-hide="flechetri_1" ng-click="flechetri_1 = !flechetri_1" /> <img class="icone_liste" src="static/imgs/flecheBas.png" ng-hide="!flechetri_1" ng-click="flechetri_1 = !flechetri_1" /></th>
+								<th ng-click="ctrl.trier_par('prenom')">Prenom</th>
+								<th ng-click="ctrl.trier_par('adresse')">Adresse</th>
+								<th width="10%" ng-click="ctrl.trier_par()">Editer</th>
+								<th width="10%" ng-click="ctrl.trier_par()">Supprimer</th>
 
 							</tr>
 						</thead>
@@ -37,12 +37,14 @@
 								<td>{{Conseiller.prenom}}</td>
 								<td>{{Conseiller.adresse}}</td>
 								<td>
-<img class="langue" src="static/imgs/crayon.png" ng-click="" />
-
+<a href="#/admin/Admin_EditCons?{{Conseiller.id}}">								
+<img class="icone_liste" src="static/imgs/crayon.png" ng-click="" />
+</a>
 									</td>
 								<td>
-<img class="langue" src="static/imgs/delete.png" ng-click="" />
-
+<a href="#/admin/Admin_DelCons?{{Conseiller.id}}">
+<img class="icone_liste" src="static/imgs/delete.png" ng-click="" />
+</a>
 									</td>									
 							</tr>
 						</tbody>

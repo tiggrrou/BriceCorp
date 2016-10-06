@@ -22,19 +22,19 @@
 				<table class="table table-hover">
 					<thead>
 						<tr >
-							<th ng-click="trier_par_Adresse()">Iban</th>						
-							<th ng-click="trier_par_nom()">Nom</th>
-							<th ng-click="trier_par_prenom()">Prenom</th>
-							<th ng-click="trier_par_Adresse()">Solde</th>
+							<th ng-click="ctrl.trier_par('Iban')">Iban</th>						
+							<th ng-click="ctrl.trier_par('Nom')">Nom</th>
+							<th ng-click="ctrl.trier_par('Prenom')">Prenom</th>
+							<th ng-click="ctrl.trier_par('Solde')">Solde</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="Compte in Comptes" ng-click="alert('coucou')">
+						<tr ng-repeat="Compte in Comptes  | filter:search:strict | orderBy:tripar " ng-click="ctrl.detailCompte(Compte.Iban)">
 
-							<td><a href="#/cons/Cons_DetailCompte">{{Compte.Iban}}</a></td>
-							<td><a href="#/cons/Cons_DetailCompte">{{Compte.Nom}}</a></td>
-							<td><a href="#/cons/Cons_DetailCompte">{{Compte.Prenom}}</a></td>
-							<td><a href="#/cons/Cons_DetailCompte">{{Compte.Solde}}</a></td>							
+							<td >{{Compte.Iban}}</td>
+							<td >{{Compte.Nom}}</td>
+							<td >{{Compte.Prenom}}</td>
+							<td >{{Compte.Solde}}</td>							
 
 						</tr>
 					</tbody>

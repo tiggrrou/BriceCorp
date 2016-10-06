@@ -29,25 +29,25 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th ng-click="trier_par_nom()">Nom</th>
-								<th ng-click="trier_par_prenom()">Prenom</th>
-								<th ng-click="trier_par_Adresse()">Adresse</th>
-								<th ng-click="trier_par_Email()">Type</th>
-								<th  ng-click="trier_par_Action()">Action</th>
+								<th ng-click="ctrl.trier_par('Nom')">Nom</th>
+								<th ng-click="ctrl.trier_par('Prenom')">Prenom</th>
+								<th ng-click="ctrl.trier_par('Adresse')">Adresse</th>
+								<th ng-click="ctrl.trier_par('Type')">Type</th>
+								<th width="10%" ng-click="ctrl.trier_par('Action')">Action</th>
 
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="demande in Demandes">
+							<tr ng-repeat="demande in Demandes  | filter:search:strict | orderBy:tripar ">
 								<td>{{demande.Nom}}</td>
 								<td>{{demande.Prenom}}</td>
 								<td>{{demande.Adresse}}</td>
 								<td>{{demande.Type}}</td>
 
-								<td>
-<img class="langue" src="static/imgs/crayon.png" ng-hide="{{demande.Edition}}" ng-click="" />
-		<img class="langue" src="static/imgs/sablier.png" ng-hide="{{demande.Attente}}" ng-click="" />
-									</td>
+								<td align=center>
+<img class="icone_liste" src="static/imgs/crayon.png" ng-hide="{{demande.Edition}}" ng-click="" />
+		<img class="icone_liste" src="static/imgs/sablier.png" ng-hide="{{demande.Attente}}" ng-click="" />
+								</td>
 							</tr>
 						</tbody>
 					</table>
