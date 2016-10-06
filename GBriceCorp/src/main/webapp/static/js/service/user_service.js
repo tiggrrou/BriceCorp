@@ -10,7 +10,6 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         updateUser:updateUser,
         deleteUser:deleteUser,
         connectUser:connectUser,
-        getComptesClient:getComptesClient,
         recherche_userParType:recherche_userParType,
 
     };

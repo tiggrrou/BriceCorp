@@ -299,7 +299,6 @@ function trier_par(tri){
     self.conseiller={id:null,nom:'',prenom:'',matricule:''};
     self.conseillers = [];
     self.getNotifs = getNotifs;
-    self.getComptes = getComptes;   
     self.detailCompte = detailCompte;
     
     
@@ -349,28 +348,6 @@ function trier_par(tri){
     function reset(){
         self.user={id:null,prenom:'',nom:'',adresse:'',mail:'',identifiant:'',motDePasse:''};
         $scope.myForm.$setPristine(); //reset Form
-    };
-
+    };  
    
-    
-   
-    
-   
-  
-    function getComptes(){
-    	// je récupère un client en fonction de son ID
-    	var idCurrent = JSON.parse(sessionStorage.getItem("currentUser")).id;
-    	UserService.getComptesClient(idCurrent)
-    	.then(
-    			function(d){
-    				$scope.comptes = JSON.parse(sessionStorage.getItem("Comptes"));
-    			},
-    			function (errResponse){
-    				console.error('Error while getting a client from an ID')
-    			});
-    };
-    
-   
-    
-
 }]);

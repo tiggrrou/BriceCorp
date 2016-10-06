@@ -62,12 +62,12 @@ App.config(['$routeProvider',function($routeProvider) {
 	
 	.when("/cli/" , {
 		templateUrl:"static/views/Cli_ListeComptes.html",
-		controller: 'UserController',	
+		controller: 'CompteController',	
 	    activetab: 'client_compte'			
 	})
 	.when("/cli/Cli_ListeComptes" , {
 		templateUrl:"static/views/Cli_ListeComptes.html",
-		controller: 'UserController',	
+		controller: 'CompteController',	
 	    activetab: 'client_compte'			
 	})
 	.when("/cli/Cli_DemDecou" , {
@@ -82,12 +82,12 @@ App.config(['$routeProvider',function($routeProvider) {
 	})
 	.when("/cli/Cli_NouvCompte" , {
 		templateUrl:"static/views/Cli_NouvCompte.html",
-		controller: 'UserController',	
+		controller: 'CompteController',	
 	    activetab: 'client_compte'			
 	})
 	.when("/cli/Cli_Virement" , {
 		templateUrl:"static/views/Cli_Virement.html",
-		controller: 'UserController',	
+		controller: 'CompteController',	
 	    activetab: 'client_virement'			
 	})
 	.when("/cli/Cli_Notifications" , {
@@ -97,12 +97,12 @@ App.config(['$routeProvider',function($routeProvider) {
 	})
 	.when("/cli/Cli_DetailCompte" , {
 		templateUrl:"static/views/ConsClient_DetailCompte.html",
-		controller: 'UserController',	
+		controller: 'CompteController',	
 	    activetab: 'conseiller_demandesclient'			
 	})
 	.when("/cli/Cli_Notifications" , {
 		templateUrl:"static/views/Cli_Notifications.html",
-		controller: 'UserController',	
+		controller: 'CompteController',	
 	    activetab: 'conseiller_demandesclient'			
 	})
 	
