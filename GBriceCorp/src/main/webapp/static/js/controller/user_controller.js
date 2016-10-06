@@ -153,8 +153,7 @@ function trier_par(tri){
  self.remove = remove;
  self.reset = reset; 
  self.getMyUserBack = getMyUserBack;
-
-	self.recherche_userParType = recherche_userParType;
+ self.recherche_userParType = recherche_userParType;
   
     
     
@@ -255,7 +254,6 @@ function trier_par(tri){
     self.getDemandes = getDemandes;    
     self.notifications;
     self.searchClients = searchClients;
-
     self.getClient = getClient; 
     self.getNotifs = getNotifs;
     
@@ -302,11 +300,6 @@ function trier_par(tri){
     				console.error('Error while getting Notifications')
     			})
     };
-    
-    
-    
-    
-    
     
     
     // Fonctions Conseiller

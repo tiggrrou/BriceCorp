@@ -11,12 +11,11 @@
 		<span class="lead">Demande d'ouverture d'un compte courant</span>
 	</div>
 
-<!-- action="envoiMailConfirmation.php"-->
+	<!-- action="envoiMailConfirmation.php"-->
 	<div class="panel-body" flex>
 		<div class="formcontainer">
 			<form ng-submit="ctrl.submit()" name="formIscription"
-				class="form-horizontal" 
-				method="post">
+				class="form-horizontal" method="post">
 				<input type="hidden" ng-model="ctrl.user.id" />
 				<div class="row">
 					<div class="form-group col-md-12">
@@ -110,9 +109,10 @@
 
 
 				<div class="row">
-					<div class="form-actions floatRight">
-						<input type="submit" value="Connexion"
-							class="btn btn-primary btn-sm"
+					<div class="form-actions ">
+						<a href="#/" class="btn btn-warning btn-sm floatLeft"> Retour
+						</a> <input type="submit" value="Connexion"
+							class="btn btn-primary btn-sm floatRight"
 							ng-disabled="formConnexion.$invalid">
 					</div>
 				</div>
@@ -120,40 +120,40 @@
 		</div>
 	</div>
 </div>
-	<div class="panel panel-default">
-			<!-- Default panel contents -->
-			<div class="panel-heading">
-				<span class="lead">Liste des utilisateurs </span>
-			</div>
-			<div class="tablecontainer">
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th>ID.</th>
-							<th>Prenom</th>							
-							<th>Nom</th>
-							<th>Adresse</th>
-							<th>Codepostal</th>							
-							<th>Email</th>
-							<th width="20%"></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="u in ctrl.users">
-							<td><span ng-bind="u.id"></span></td>
-							<td><span ng-bind="u.prenom"></span></td>
-							<td><span ng-bind="u.nom"></span></td>							
-							<td><span ng-bind="u.adresse"></span></td>
-							<td><span ng-bind="u.codepostal"></span></td>							
-							<td><span ng-bind="u.mail"></span></td>
-							<td>
-								<button type="button" ng-click="ctrl.edit(u.id)"
-									class="btn btn-success custom-width">Modifier</button>
-								<button type="button" ng-click="ctrl.remove(u.id)"
-									class="btn btn-danger custom-width">Supprimer</button>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
+<div class="panel panel-default">
+	<!-- Default panel contents -->
+	<div class="panel-heading">
+		<span class="lead">Liste des utilisateurs </span>
+	</div>
+	<div class="tablecontainer">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>ID.</th>
+					<th>Prenom</th>
+					<th>Nom</th>
+					<th>Adresse</th>
+					<th>Codepostal</th>
+					<th>Email</th>
+					<th width="20%"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="u in ctrl.users">
+					<td><span ng-bind="u.id"></span></td>
+					<td><span ng-bind="u.prenom"></span></td>
+					<td><span ng-bind="u.nom"></span></td>
+					<td><span ng-bind="u.adresse"></span></td>
+					<td><span ng-bind="u.codepostal"></span></td>
+					<td><span ng-bind="u.mail"></span></td>
+					<td>
+						<button type="button" ng-click="ctrl.edit(u.id)"
+							class="btn btn-success custom-width">Modifier</button>
+						<button type="button" ng-click="ctrl.remove(u.id)"
+							class="btn btn-danger custom-width">Supprimer</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

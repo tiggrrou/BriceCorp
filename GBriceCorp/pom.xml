@@ -36,12 +36,20 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-		<dependency>
-    <groupId>org.webjars</groupId>
-    <artifactId>angularjs</artifactId>
-    <version>1.4.4</version>
+<!-- https://mvnrepository.com/artifact/org.webjars.bower/angular -->
+<dependency>
+    <groupId>org.webjars.bower</groupId>
+    <artifactId>angular</artifactId>
+    <version>1.5.8</version>
 </dependency>
 
+
+<!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-animate -->
+<dependency>
+    <groupId>org.webjars.bower</groupId>
+    <artifactId>angular-animate</artifactId>
+    <version>1.5.8</version>
+</dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.asayama.gwt.angular/gwt-angular-ngRoute -->
 		<dependency>

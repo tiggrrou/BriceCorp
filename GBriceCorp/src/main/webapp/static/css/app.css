@@ -1,3 +1,5 @@
+
+
 body {
 	display: flex;
 	background-image: url("../../static/imgs/banniere.jpg");
@@ -6,7 +8,7 @@ body {
 }
 
 body, #mainWrapper {
-	height: 70%;
+	height: 100%;
 	background-color: rgb(245, 245, 245);
 }
 
@@ -45,35 +47,52 @@ body, .form-control {
 
 .active
 
+  
+
+
 
 .has-error {
 	color: red;
 }
 
 .formcontainer {
+	transition: all linear 0.5s;
 	background-color: #DAE8E8;
-	padding: 20px;
+	height: auto;
+padding:20px;
 }
+
+
+.formcontainer.ng-hide {
+padding-bottom: 0px;
+	padding-top: 0px;
+	height: 0px;
+}
+
 
 .tablecontainer {
 	padding-left: 20px;
 }
 
-.partie_commune {
-	width: 100vw;
+.webservice{
+	display:flex;
+	flex-wrap: wrap;	
+	
 }
 
 .generic-container {
-	margin-left: 2vw;
-	margin-right: 2vw;
-	margin-top: 5vh;
-	margin-bottom: 5vh;
-	padding: 1vw;
+	display:flex;
+	flex-wrap: wrap;
+	margin-left: 1vw;
+	margin-right: 1vw;
+	margin-top: 1vh;
+	margin-bottom: 1vh;
+	padding: 10px;
 	background-color: #EAE7E7;
 	border: 1px solid #ddd;
 	border-radius: 4px;
 	box-shadow: 0 0 30px black;
-
+	align: center;
 }
 
 .custom-width {
@@ -84,8 +103,7 @@ body, .form-control {
 	align: center;
 	width: auto;
 }
-
-.navbar {
+.navbar2 {
 	align: center;
 	top: 0;
 	left: 0;
@@ -96,7 +114,31 @@ body, .form-control {
 	background: rgba(200, 200, 200, 0.5);
 	border: rgba(200, 200, 200, 0.5);
 	justify-content: space-between;
+	transition: all linear 0.5s;
 }
+.navbar {
+	align: center;
+	top: 0;
+	left: 0;
+	border-radius: 0;
+	display: flex;
+	min-width: 250px;
+	width: auto;
+	min-height: 150vh;
+	background: rgba(200, 200, 200, 0.5);
+	border: rgba(200, 200, 200, 0.5);
+	justify-content: space-between;
+	transition: all linear 1s;
+}
+
+.navbar2.ng-hide {
+	opacity: 0;
+}
+
+.navbar.ng-hide {
+	left: -500px;
+}
+
 
 .banniere {
 	margin-left: 2vw;
@@ -104,7 +146,6 @@ body, .form-control {
 	margin-top: 5vh;
 	margin-bottom: 5vh;
 	padding-bottom: 5vw;
-
 }
 
 .session_name {
@@ -136,9 +177,9 @@ body, .form-control {
 	height: auto;
 }
 
-.icone_liste{
+.icone_liste {
 	width: 20px;
-	height: auto;	
+	height: auto;
 }
 
 .flechemenu {
@@ -150,4 +191,10 @@ body, .form-control {
 #logo {
 	max-height: 150px;
 	margin: 25px;
+}
+@media (max-width: 768px) {
+    /* For mobile phones: */
+  body { @extend .ng-hide;
+  
+ }
 }

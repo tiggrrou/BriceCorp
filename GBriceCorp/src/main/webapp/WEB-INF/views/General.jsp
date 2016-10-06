@@ -11,17 +11,20 @@
 <link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
 
 <script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
 <script src="<c:url value='/static/js/app.js' />"></script>
 <script src="<c:url value='/static/js/service/user_service.js' />"></script>
 <script src="<c:url value='/static/js/controller/user_controller.js' />"></script>
-<script src="<c:url value='/static/js/controller/compte_controller.js' />"></script>
+<script
+	src="<c:url value='/static/js/controller/compte_controller.js' />"></script>
 <script src="<c:url value='/static/js/service/compte_service.js' />"></script>
 
 <!-- Script pour routage -->
 <script src="<c:url value='/static/js/service/langue_service.js' />"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-resource.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-route.js"></script>
 <script src="<c:url value='/static/js/controller/ConfigRouter.js' />"></script>
@@ -34,16 +37,34 @@
 <script src="static/gp/javascript.gp" type="text/javascript"></script>
 
 
+<!-- Carroussel 
+  <meta name="viewport" content=" initial-scale=4">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+  .carousel-inner > .item > img,
+  .carousel-inner > .item > a > img {
+      height: 30%;
+      width:100%;
+
+  }
+
+  </style>
+  -->
 </head>
 
-<body ng-app="myApp" class="ng-cloak" layout="row"
+<body ng-app="myApp" class="ng-cloak"
 	ng-controller="UserController as ctrl">
 
-
+	<div class="navbar2 col-xs-3" ng-hide="!nav_cache">
+		<img class="flechemenu " src="static/imgs/fd.png"
+			ng-click="nav_cache = !nav_cache" />
+	</div>
 	<!-- Affichage de la navbar -->
 
-	<div class="navbar col-xs-3" flex>
-		<div id="contenu_navbar" class="contenu_navbar" ng-hide="nav_cache">
+	<div class="navbar col-xs-3" ng-hide="nav_cache">
+		<div class="contenu_navbar">
 			<img id="logo" src="static/imgs/logo.png" />
 			<!-- Menu de connexion  -->
 			<div class="formcontainer" ng-hide="{{connexion_cache}}">
@@ -76,7 +97,7 @@
 					</div>
 
 					<div class="row">
-						<div class="form-actions floatRight">
+						<div class="form-actions center-block">
 							<input type="submit" value="Connexion"
 								class="btn btn-primary btn-sm">
 						</div>
@@ -85,7 +106,7 @@
 			</div>
 
 			<!-- Menu du Conseiller -->
-			<div class="container-fluid" ng-hide="{{conseiller_cache}}">
+			<div class="container-fluid col-xs-12" ng-hide="{{conseiller_cache}}">
 				<div class="list-group">
 					<!-- Recherche client  -->
 					<a href="#/cons/Cons_RechCli" class="list-group-item"
@@ -97,24 +118,24 @@
 					<div class="formcontainer" ng-hide="!rechercheClient_cache">
 						<form ng-submit="ctrl.searchClients" name="formConnexion"
 							class="form-horizontal">
-							<div class="row">
-								<div class="form-group col-xs-10">
-									<label class="col-xl-2 control-lable" for="file">Prenom</label>
-									<div class="col-xl-10">
+
+								<div class="form-group ">
+									<label class=" control-lable" for="file">Prenom</label>
+
 										<input type="text" ng-model="search.Prenom" name="prenom"
 											class="form-control input-sm" placeholder="Prenom du client" />
-									</div>
+
 								</div>
-							</div>
-							<div class="row">
-								<div class="form-group col-xs-10">
-									<label class="col-xl-2 control-lable" for="file">Nom</label>
-									<div class="col-xl-10">
+						
+
+								<div class="form-group ">
+									<label class=" control-lable" for="file">Nom</label>
+
 										<input type="text" ng-model="search.Nom" name="nom"
 											class="form-control input-sm" placeholder="Nom du client" />
-									</div>
+
 								</div>
-							</div>
+
 						</form>
 					</div>
 
@@ -130,15 +151,15 @@
 
 					<div class="formcontainer" ng-hide="!rechercheIBAN_cache">
 						<form class="form-horizontal">
-							<div class="row">
-								<div class="form-group col-xs-10">
-									<label class="col-xl-2 control-lable" for="file">IBAN</label>
-									<div class="col-xl-12">
+
+								<div class="form-group ">
+									<label class=" control-lable" for="file">IBAN</label>
+
 										<input type="text" ng-model="search.Iban" name="iban"
 											class="form-control input-sm"
 											placeholder="IBAN a  rechercher" />
-									</div>
-								</div>
+
+								
 							</div>
 						</form>
 					</div>
@@ -201,7 +222,7 @@
 						<p class="list-group-item-text">List Group Item Text</p>
 					</a>
 					<div class="formcontainer" ng-hide="!rechercheConseiller_cache">
-						<form class="form-horizontal">
+						<form class="form-horizontal" ng-hide="!rechercheConseiller_cache">
 							<div class="row">
 								<div class="form-group col-xs-10">
 									<label class="col-xl-2 control-lable" for="file">Prenom</label>
@@ -236,34 +257,32 @@
 		</div>
 
 
-		<img class="flechemenu " src="static/imgs/fd.png" ng-hide="nav_cache"
-			ng-click="nav_cache = !nav_cache" /> <img class="flechemenu "
-			src="static/imgs/fg.png" ng-show="nav_cache"
+		<img class="flechemenu " src="static/imgs/fg.png"
 			ng-click="nav_cache = !nav_cache" />
 	</div>
 
 
-	<div id="partie_commune" class="partie_commune" layout="column" flex>
+	<div class="partie_commune " >
 
 		<!-- banniere en fixe dans le header pour la deco -->
 
-		<div class="banniere " layout="raw" flex>
-			<div class="session_name" flex>
+		<div class="banniere col-xs-12"  >
+			<div class="session_name col-xs-9" >
 				<h1 ng-hide="{{connexion_cache}}">{{translation.bienvenue}}
 					GestBank</h1>
 				<h1 ng-hide="{{admin_cache}}">Espace Administrateur</h1>
 				<h1 ng-hide="{{conseiller_cache}}">Espace Conseiller</h1>
 				<h1 ng-hide="{{client_cache}}">Bienvenue {{ctrl.client.nom}}</h1>
 			</div>
-			<div class="langue_connect" layout="column" flex>
-				<div flex>
-					<img class="langue" src="static/imgs/en.png"
+			<div class="langue_connect col-xs-3" >
+				<div >
+					<img class="langue center-block" src="static/imgs/en.png"
 						ng-hide="{{lang_cache}}" ng-click="ctrl.change_langue('fr')" /> <img
-						class="langue" src="static/imgs/fr.png" ng-hide="!{{lang_cache}}"
+						class="langue center-block" src="static/imgs/fr.png" ng-hide="!{{lang_cache}}"
 						ng-click="ctrl.change_langue('en')" />
 				</div>
-				<div flex>
-					<input type="button" class="btn btn-danger" value="Deconnexion"
+				<div >
+					<input type="button" class="btn btn-danger center-block" value="Deconnexion"
 						ng-click="ctrl.session_delete()" ng-hide="!{{connexion_cache}}" />
 				</div>
 			</div>
@@ -272,44 +291,86 @@
 
 
 
-		<div class="generic-container" layout="raw">
+		<div class="generic-container ">
 
-			<div flex>
-				<ng-view ></ng-view>
+			<div class="col-xs-12" >
+				<ng-view></ng-view>
 			</div>
-			<div flex>
-				<!-- Web Service de conversion -->
 
-				<div ng-hide="{{connexion_cache}}">
-					<table>
-						<tr>
-							<td>Veuillez saisir le montant a  convertir :</td>
-							<td><input type='text' id='gp_amount' size='4' /></td>
-						</tr>
-						<tr>
-							<td>Devise de depart :</td>
-							<td><select id="gp_from"></select></td>
-						</tr>
-						<tr>
-							<td>Devise d'arrivee :</td>
-							<td><select id="gp_to"></select></td>
-						</tr>
-					</table>
-					<p>
-						<input type='button' onClick='gp_convertIt()'
-							onMouseOver="PlaySound('static/Sound/Wololo.mp3')"
-							value='Convertir! (Wololo)' />
-					</p>
-					<div id="gp_converted" text-align: center>
-						<script>
-							gp_currencySymbols()
-						</script>
+
+			<!-- Web Service de conversion -->
+
+			<div class="webservice" ng-hide="{{connexion_cache}}">
+				<div class="panel panel-info">
+					<!-- Default panel contents -->
+					<div class="panel-heading">
+						<span class="lead">Service de conversion</span>
+					</div>
+					<div class="panel-body col-lg-12">
+						<div class="col-xs-12 column " >
+
+							<div class="col-sm-6 " >
+								<label class="control-lable" for="file">Saisir le
+									montant a convertir :</label>
+							</div>
+							<div class="form-group  col-sm-6">
+
+								<input type="text" id="gp_amount" class="form-control input-sm"
+									placeholder="1234,56" />
+
+							</div>
+						</div>
+						<div class="col-xs-12 ">
+
+							<div class="col-sm-6">
+								<label class="control-lable" for="file">Montant converti
+									:</label>
+							</div class="col-sm-6">
+							<div class="form-group flex" id="gp_converted" text-align: center>
+
+
+
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="class="col-sm-6"">
+								<label class="control-lable" for="file">Devise de depart
+									:</label>
+							</div>
+							<div class="class="col-sm-6"">
+								<select class="form-control" id="gp_from"></select>
+							</div>
+
+						</div>
+						<div class="col-xs-12 ">
+
+
+							<div class="class="col-sm-6"">
+								<label class="control-lable" for="file">Devise d'arrivee
+									:</label>
+							</div>
+							<div class="class="col-sm-6"">
+								<select class="form-control" id="gp_to"></select>
+							</div>
+						</div>
+						<div class="col-xs-12">
+
+							<input class="btn btn-primary btn-sm center-block" type='button'
+								onClick='gp_convertIt()'
+								onMouseOver="PlaySound('static/Sound/Wololo.mp3')"
+								value='Convertir! (Wololo)' />
+						</div>
+
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	</div>
 
+	<script>
+		gp_currencySymbols()
+	</script>
 	<!-- Responsive a  faire
 	<script>
 	App.controller('cache_menu', function($scope) {
