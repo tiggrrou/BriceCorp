@@ -2,12 +2,27 @@
 
 App.controller('UserController', ['$scope', '$location', '$resource', '$route', 'UserService', 'translationService', function($scope, $location, $resource, $route, UserService, translationService) {
 	
+	/*Index fonctions
+	 *  self.change_langue = change_langue;
+	 *  self.trier_par = trier_par;
+	 *  self.connect = connect;
+	 *  self.connexion = connexion;
+	 *  self.session_delete = session_delete;
+	 *  self.submit = submit;
+	 *  self.edit = edit;
+	 *  self.remove = remove;
+	 *  self.reset = reset;
+	 *  self.getMyUserBack = getMyUserBack;
+	 *  self.getDemandes = getDemandes;
+	 *  self.searchClients = searchClients;
+	 *  self.getClient = getClient;
+	 *  self.getNotifs = getNotifs;
+	 *  self.detailCompte = detailCompte;
+	 * */
+
+    
 	// General
 	var self = this;
- 
-    
-
-
 
     
     // Fonctions I18n
@@ -79,8 +94,6 @@ function trier_par(tri){
  			case 3 : 
 
  				$location.path("cli/");
- 				
- 				getComptes();
  				break;
  			default :
  				$location.path("/");
@@ -243,7 +256,8 @@ function trier_par(tri){
     self.notifications;
     self.searchClients = searchClients;
 
-    self.getClient = getClient;  
+    self.getClient = getClient; 
+    self.getNotifs = getNotifs;
     
 
 
@@ -298,7 +312,6 @@ function trier_par(tri){
     // Fonctions Conseiller
     self.conseiller={id:null,nom:'',prenom:'',matricule:''};
     self.conseillers = [];
-    self.getNotifs = getNotifs;
     self.detailCompte = detailCompte;
     
     

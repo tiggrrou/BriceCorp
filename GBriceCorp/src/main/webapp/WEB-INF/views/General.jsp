@@ -15,6 +15,8 @@
 <script src="<c:url value='/static/js/app.js' />"></script>
 <script src="<c:url value='/static/js/service/user_service.js' />"></script>
 <script src="<c:url value='/static/js/controller/user_controller.js' />"></script>
+<script src="<c:url value='/static/js/controller/compte_controller.js' />"></script>
+<script src="<c:url value='/static/js/service/compte_service.js' />"></script>
 
 <!-- Script pour routage -->
 <script src="<c:url value='/static/js/service/langue_service.js' />"></script>
@@ -273,7 +275,7 @@
 		<div class="generic-container" layout="raw">
 
 			<div flex>
-				<ng-view></ng-view>
+				<ng-view ></ng-view>
 			</div>
 			<div flex>
 				<!-- Web Service de conversion -->

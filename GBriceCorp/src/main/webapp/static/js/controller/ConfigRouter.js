@@ -77,7 +77,7 @@ App.config(['$routeProvider',function($routeProvider) {
 	})
 	.when("/cli/Cli_modifInfos" , {
 		templateUrl:"static/views/Cli_ModifInfos.html",
-		controller: 'UserController',	
+		controller: 'CompteController',	
 	    activetab: 'client_info'			
 	})
 	.when("/cli/Cli_NouvCompte" , {
@@ -100,11 +100,7 @@ App.config(['$routeProvider',function($routeProvider) {
 		controller: 'CompteController',	
 	    activetab: 'conseiller_demandesclient'			
 	})
-	.when("/cli/Cli_Notifications" , {
-		templateUrl:"static/views/Cli_Notifications.html",
-		controller: 'CompteController',	
-	    activetab: 'conseiller_demandesclient'			
-	})
+
 	
 	// Routage Admin
 	.when("/admin/" , {

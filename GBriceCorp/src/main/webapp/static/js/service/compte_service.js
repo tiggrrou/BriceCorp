@@ -1,15 +1,10 @@
 'use strict';
 
-App.factory('UserService', ['$http', '$q', function($http, $q){
+App.factory('CompteService', ['$http', '$q', function($http, $q){
 
     var REST_SERVICE_URI_COMPTES = 'http://localhost:8080/SpringAngularStartProject/compte/';
 
     var factory = {
-     /*   fetchAllUsers: fetchAllUsers,
-        createUser: createUser,
-        updateUser:updateUser,
-        deleteUser:deleteUser,
-        connectUser:connectUser*/
     	getComptesClient:getComptesClient,
     	virement:virement //A FAIRE
     };
@@ -30,6 +25,12 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
     			}
     	)
     } 
+    
+    
+    function virement(compteDebiteurID, compteCrediteID, montant)
+    {
+    	
+    }
     
     /**
      * Demande au serveur la liste des comptes d'un client par son ID

@@ -1,6 +1,6 @@
 'use strict';
 
-App.controller('CompteController', ['$scope','$location', 'CompteService', function($scope,$location, CompteService) {
+App.controller('CompteController', ['$scope','$location', '$route', 'CompteService', function($scope,$location,$route, CompteService) {
     var self = this;
     self.compte;
     self.comptes;
@@ -14,11 +14,11 @@ App.controller('CompteController', ['$scope','$location', 'CompteService', funct
    self.edit = edit;
     self.remove = remove;
     self.getDemandes = getDemandes;
-    self.getNotifs = getNotifs;
     self.getComptes = getComptes;
     self.virement = virement;
     
- 
+    console.log("coucou j'existe !");
+    
     function fetchAllComptes(){
         CompteService.fetchAllComptes()
             .then(
@@ -99,7 +99,7 @@ App.controller('CompteController', ['$scope','$location', 'CompteService', funct
     	CompteService.getComptesClient(idCurrent)
     	.then(
     			function(data){
-    				self.comptes = JSON.parse(data));
+    				self.comptes = JSON.parse(data);
     			},
     			function (errResponse){
     				console.error('Error while getting an account from an customer ID')
@@ -107,7 +107,7 @@ App.controller('CompteController', ['$scope','$location', 'CompteService', funct
     };
     
     function writeDemDecou() {
-    	CompteService.writeDemDecou(JSON.parse(sessionStorage.getItem("User").id, compte.id, decouvert)
+    	CompteService.writeDemDecou(JSON.parse(sessionStorage.getItem("User").id), compte.id, decouvert)
     			.then(
     					function(){
     						// cas normal, pop up ?
@@ -120,7 +120,7 @@ App.controller('CompteController', ['$scope','$location', 'CompteService', funct
 
     function virement()
     {
-    	CompteService.virement(self.compteDebiteur, self.compteCredite, self.montant)
+    	CompteService.virement(self.compteDebiteur.id, self.compteCredite.id, self.montant)
     		.then(
     				function(){
     					alert("Votre virement a bien été effectué")
@@ -128,6 +128,6 @@ App.controller('CompteController', ['$scope','$location', 'CompteService', funct
     				},
     				function(messageErreurFromService){
     					alert("Une erreur est survenue pendant le traitement de votre opération")
-    				}
+    				})
     				}
 }]);
