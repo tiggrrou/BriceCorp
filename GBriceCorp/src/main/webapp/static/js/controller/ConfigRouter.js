@@ -119,7 +119,7 @@ App.config(['$routeProvider',function($routeProvider) {
 	    activetab: 'admin_recherchecons'		
 	})
 	.when("/admin/Admin_EditCons" , {
-		templateUrl:"static/views/Admin_EditCon.html",
+		templateUrl:"static/views/Admin_EditCons.html",
 		controller: 'UserController',	
 	    activetab: 'admin_recherchecons'		
 	})
