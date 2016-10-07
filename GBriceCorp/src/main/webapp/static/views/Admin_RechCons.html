@@ -37,13 +37,13 @@
 								<td>{{Conseiller.prenom}}</td>
 								<td>{{Conseiller.adresse}}</td>
 								<td>
-<a href="#/admin/Admin_EditCons?{{Conseiller.id}}">								
-<img class="icone_liste" src="static/imgs/crayon.png" ng-click="" />
+<!-- <a href="#/admin/Admin_EditCons?{{Conseiller.id}}"> -->								
+<img class="icone_liste" src="static/imgs/crayon.png" ng-click="redir_edit_cons()" />
 </a>
 									</td>
 								<td>
-<a href="#/admin/Admin_DelCons?{{Conseiller.id}}">
-<img class="icone_liste" src="static/imgs/delete.png" ng-click="" />
+<!--<a href="#/admin/Admin_DelCons?{{Conseiller.id}}"> -->
+<img class="icone_liste" src="static/imgs/delete.png" ng-click="redir_delete_cons()" />
 </a>
 									</td>									
 							</tr>
