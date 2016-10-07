@@ -82,7 +82,7 @@ padding-bottom: 0px;
 
 .generic-container {
 	display:flex;
-	flex-wrap: wrap;
+
 	margin-left: 1vw;
 	margin-right: 1vw;
 	margin-top: 1vh;
@@ -102,6 +102,7 @@ padding-bottom: 0px;
 .panel {
 	align: center;
 	width: auto;
+
 }
 .navbar2 {
 	align: center;
@@ -116,6 +117,12 @@ padding-bottom: 0px;
 	justify-content: space-between;
 	transition: all linear 0.5s;
 }
+.navbar2.ng-hide {
+
+	opacity: 0;
+}
+
+
 .navbar {
 	align: center;
 	top: 0;
@@ -130,12 +137,8 @@ padding-bottom: 0px;
 	justify-content: space-between;
 	transition: all linear 1s;
 }
-
-.navbar2.ng-hide {
-	opacity: 0;
-}
-
 .navbar.ng-hide {
+
 	left: -500px;
 }
 

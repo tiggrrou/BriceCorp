@@ -332,13 +332,19 @@ function trier_par(tri){
   
     
     // Fonctions Admin
-    self.creacons = creacons;
+    self.creaCons = creaCons;
 	
     /* Ajout d'un conseiller puis refresh de la liste des users */
    function creaCons(){
+
+
         UserService.creaCons2(self.user)
             .then(
-            fetchAllUsers,
+            		function(d){
+            			$location.path("admin/");	
+        			},
+            
+            
             function(errResponse){
                 console.error('Error while creating User');
             }

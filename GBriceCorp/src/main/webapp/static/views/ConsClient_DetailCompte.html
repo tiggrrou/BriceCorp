@@ -1,104 +1,108 @@
 
 
 
-		<div class=" panel panel-default col-xs-6">
+<div class=" col-xs-6">
+	<div class=" panel panel-default  ">
 
-			<div class="panel-heading ">
-				<span class="lead">Compte de MOREL Brice</span>
-			</div>
-			<ul class="list-group">
-				<li class="list-group-item">24 rue Emile Blandin 44400 REZE</li>
-				<li class="list-group-item">tel: 0676762393</li>
-				<li class="list-group-item">email: brice_morel@hotmail.com</li>
-			</ul>
-
-
+		<div class="panel-heading ">
+			<span class="lead">Compte de MOREL Brice</span>
 		</div>
+		<ul class="list-group">
+			<li class="list-group-item">24 rue Emile Blandin 44400 REZE</li>
+			<li class="list-group-item">tel: 0676762393</li>
+			<li class="list-group-item">email: brice_morel@hotmail.com</li>
+		</ul>
+	</div>
+</div>
+<div class=" col-xs-6">
 
-
-
-
-		<div id="RIBSectionId" class=" panel panel-default col-xs-6">
-			<div class="panel-heading">
-				<span class="lead">Compte courant a remuneration
-					exponentielle<button ng-click="ctrl.printToCart('RIBSectionId')" class="btn btn-warning btn-sm floatRight">Imprimer le RIB</button></span> 
-					
-			</div>
-			<ul class="list-group">
-				<li class="list-group-item">IBAN: 4587921687327</li>
-				<li class="list-group-item">Solde : 4589754euros</li>
-				<li class="list-group-item">Remuneration : 8 <button ng-click="" class="btn btn-danger btn-sm floatRight">Modifer</button></li>
-				<li class="list-group-item">Agios : 0<button ng-click="" class="btn btn-danger btn-sm floatRight">Modifer</button></li>
-			</ul>
-
+	<div id="RIBSectionId" class=" panel panel-default ">
+		<div class="panel-heading">
+			<span class="lead">Compte courant a remuneration exponentielle
+				<button ng-click="ctrl.printToCart('RIBSectionId')"
+					class="btn btn-warning btn-sm floatRight">Imprimer le RIB</button>
+			</span>
 		</div>
-
-
-		<div id="ReleveSectionId" class="panel panel-default col-xs-6"
-			ng-init="mouvements=[
+		<ul class="list-group">
+			<li class="list-group-item">IBAN: 4587921687327</li>
+			<li class="list-group-item">Solde : 4589754euros</li>
+			<li class="list-group-item">Remuneration : 8
+				<button ng-click="" class="btn btn-danger btn-sm floatRight">Modifer</button>
+			</li>
+			<li class="list-group-item">Agios : 0
+				<button ng-click="" class="btn btn-danger btn-sm floatRight">Modifer</button>
+			</li>
+		</ul>
+	</div>
+</div>
+<div class=" col-xs-6">
+	<div id="ReleveSectionId" class="panel panel-default "
+		ng-init="mouvements=[
 {Libelle:'MoreL',Date:'30/11/2010', Montant:'150'},
 {Libelle:'MoreL',Date:'30/11/2010', Montant:'1590'},
 {Libelle:'MoreL',Date:'30/11/2010', Montant:'15990'},
 {Libelle:'MoreL',Date:'30/11/2010', Montant:'159990'},
 {Libelle:'MoreL',Date:'30/11/2010', Montant:'15999990'}
 ]">
-			<!-- Default panel contents -->
-			<div class="panel-heading">
-				<span class="lead">Releve de compte<button ng-click="ctrl.printToCart('ReleveSectionId')" class="btn btn-warning btn-sm floatRight">Imprimer le Releve</button></span>
-				
-			</div>
-			<div class="tablecontainer">
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th ng-click="ctrl.trier_par('Libelle')">Libelle</th>
-							<th ng-click="ctrl.trier_par('Date')">Date</th>
-							<th ng-click="ctrl.trier_par('Montant')">Montant</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="mouvement in mouvements | orderBy:tripar ">
-							<td>{{mouvement.Libelle}}</td>
-							<td>{{mouvement.Date}}</td>
-							<td>{{mouvement.Montant}}</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-
+		<!-- Default panel contents -->
+		<div class="panel-heading">
+			<span class="lead">Releve de compte
+				<button ng-click="ctrl.printToCart('ReleveSectionId')"
+					class="btn btn-warning btn-sm floatRight">Imprimer le
+					Releve</button>
+			</span>
 		</div>
-
-		<div class="panel panel-default col-xs-6"
-			ng-init="documents=[
+		<div class="tablecontainer">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th ng-click="ctrl.trier_par('Libelle')">Libelle</th>
+						<th ng-click="ctrl.trier_par('Date')">Date</th>
+						<th ng-click="ctrl.trier_par('Montant')">Montant</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="mouvement in mouvements | orderBy:tripar ">
+						<td>{{mouvement.Libelle}}</td>
+						<td>{{mouvement.Date}}</td>
+						<td>{{mouvement.Montant}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+		</div>
+<div class=" col-xs-6">
+	<div class="panel panel-default "
+		ng-init="documents=[
 {Nom:'releve impot 2010', Type:'Imposition', Datereception:'30/11/2010'},
 {Nom:'domicle', Type:'quitance', Datereception:'30/11/2011'},
 {Nom:'dfdsf', Type:'Imposition', Datereception:'30/11/2000'},
 {Nom:'sdfdsf', Type:'dsfdsftion', Datereception:'30/18/2010'},
 ]">
-			<!-- Default panel contents -->
-			<div class="panel-heading">
-				<span class="lead">Documents disponible</span>
-			</div>
-			<div class="tablecontainer">
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th ng-click="ctrl.trier_par('Nom')">Nom</th>
-							<th ng-click="ctrl.trier_par('Type')">Type</th>
-							<th ng-click="ctrl.trier_par('Datereception')">Date de
-								reception</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="document in documents | orderBy:tripar ">
-							<td>{{document.Nom}}</td>
-							<td>{{document.Type}}</td>
-							<td>{{document.Datereception}}</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+		<!-- Default panel contents -->
+		<div class="panel-heading">
+			<span class="lead">Documents disponible</span>
 		</div>
-
-
+		<div class="tablecontainer">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th ng-click="ctrl.trier_par('Nom')">Nom</th>
+						<th ng-click="ctrl.trier_par('Type')">Type</th>
+						<th ng-click="ctrl.trier_par('Datereception')">Date de
+							reception</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="document in documents | orderBy:tripar ">
+						<td>{{document.Nom}}</td>
+						<td>{{document.Type}}</td>
+						<td>{{document.Datereception}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
 

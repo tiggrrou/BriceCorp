@@ -119,22 +119,20 @@
 						<form ng-submit="ctrl.searchClients" name="formConnexion"
 							class="form-horizontal">
 
-								<div class="form-group ">
-									<label class=" control-lable" for="file">Prenom</label>
+							<div class="form-group ">
+								<label class=" control-lable" for="file">Prenom</label> <input
+									type="text" ng-model="search.Prenom" name="prenom"
+									class="form-control input-sm" placeholder="Prenom du client" />
 
-										<input type="text" ng-model="search.Prenom" name="prenom"
-											class="form-control input-sm" placeholder="Prenom du client" />
+							</div>
 
-								</div>
-						
 
-								<div class="form-group ">
-									<label class=" control-lable" for="file">Nom</label>
+							<div class="form-group ">
+								<label class=" control-lable" for="file">Nom</label> <input
+									type="text" ng-model="search.Nom" name="nom"
+									class="form-control input-sm" placeholder="Nom du client" />
 
-										<input type="text" ng-model="search.Nom" name="nom"
-											class="form-control input-sm" placeholder="Nom du client" />
-
-								</div>
+							</div>
 
 						</form>
 					</div>
@@ -152,14 +150,12 @@
 					<div class="formcontainer" ng-hide="!rechercheIBAN_cache">
 						<form class="form-horizontal">
 
-								<div class="form-group ">
-									<label class=" control-lable" for="file">IBAN</label>
+							<div class="form-group ">
+								<label class=" control-lable" for="file">IBAN</label> <input
+									type="text" ng-model="search.Iban" name="iban"
+									class="form-control input-sm" placeholder="IBAN a  rechercher" />
 
-										<input type="text" ng-model="search.Iban" name="iban"
-											class="form-control input-sm"
-											placeholder="IBAN a  rechercher" />
 
-								
 							</div>
 						</form>
 					</div>
@@ -262,28 +258,29 @@
 	</div>
 
 
-	<div class="partie_commune " >
+	<div class="partie_commune ">
 
 		<!-- banniere en fixe dans le header pour la deco -->
 
-		<div class="banniere col-xs-12"  >
-			<div class="session_name col-xs-9" >
+		<div class="banniere col-xs-12">
+			<div class="session_name col-xs-9">
 				<h1 ng-hide="{{connexion_cache}}">{{translation.bienvenue}}
 					GestBank</h1>
 				<h1 ng-hide="{{admin_cache}}">Espace Administrateur</h1>
 				<h1 ng-hide="{{conseiller_cache}}">Espace Conseiller</h1>
 				<h1 ng-hide="{{client_cache}}">Bienvenue {{ctrl.client.nom}}</h1>
 			</div>
-			<div class="langue_connect col-xs-3" >
-				<div >
+			<div class="langue_connect col-xs-3">
+				<div>
 					<img class="langue center-block" src="static/imgs/en.png"
 						ng-hide="{{lang_cache}}" ng-click="ctrl.change_langue('fr')" /> <img
-						class="langue center-block" src="static/imgs/fr.png" ng-hide="!{{lang_cache}}"
-						ng-click="ctrl.change_langue('en')" />
+						class="langue center-block" src="static/imgs/fr.png"
+						ng-hide="!{{lang_cache}}" ng-click="ctrl.change_langue('en')" />
 				</div>
-				<div >
-					<input type="button" class="btn btn-danger center-block" value="Deconnexion"
-						ng-click="ctrl.session_delete()" ng-hide="!{{connexion_cache}}" />
+				<div>
+					<input type="button" class="btn btn-danger center-block"
+						value="Deconnexion" ng-click="ctrl.session_delete()"
+						ng-hide="!{{connexion_cache}}" />
 				</div>
 			</div>
 		</div>
@@ -293,10 +290,11 @@
 
 		<div class="generic-container ">
 
-			<div class="col-xs-12" >
-				<ng-view></ng-view>
-			</div>
 
+			<div class="col-xs-12">
+				<ng-view></ng-view>
+
+			</div>
 
 			<!-- Web Service de conversion -->
 
@@ -307,9 +305,9 @@
 						<span class="lead">Service de conversion</span>
 					</div>
 					<div class="panel-body col-lg-12">
-						<div class="col-xs-12 column " >
+						<div class="col-xs-12 column ">
 
-							<div class="col-sm-6 " >
+							<div class="col-sm-6 ">
 								<label class="control-lable" for="file">Saisir le
 									montant a convertir :</label>
 							</div>

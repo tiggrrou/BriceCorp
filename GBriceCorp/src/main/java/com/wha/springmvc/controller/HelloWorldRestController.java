@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.wha.springmvc.model.Compte;
+import com.wha.springmvc.model.Conseiller;
 import com.wha.springmvc.model.User;
 import com.wha.springmvc.service.CompteService;
 import com.wha.springmvc.service.UserService;
@@ -188,7 +189,7 @@ public class HelloWorldRestController {
   //-------------------Create a Conseiller--------------------------------------------------------
     
     @RequestMapping(value = "/user/ADMIN/creaCons", method = RequestMethod.POST)
-    public ResponseEntity<Void> creaCons3(@RequestBody User conseiller) {
+    public ResponseEntity<Void> creaCons3(@RequestBody Conseiller conseiller) {
         System.out.println("Creating a conseiller " + conseiller);
  
         /*if (userService.isUserExist(user)) {

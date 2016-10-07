@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.stereotype.Service;
 
-
+import com.wha.springmvc.model.Conseiller;
 import com.wha.springmvc.model.TypeUtilisateur;
 import com.wha.springmvc.model.User;
 

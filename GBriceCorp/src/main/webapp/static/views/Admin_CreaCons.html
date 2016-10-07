@@ -13,9 +13,10 @@
 
 	<div class="panel-body" flex>
 		<div class="formcontainer">
-			<form ng-submit="ctrl.inscription()" name="formIscription"
+			<form ng-submit="ctrl.creaCons()" name="formIscription"
 				class="form-horizontal">
 				<input type="hidden" ng-model="ctrl.user.id" />
+				<input type="hidden" ng-model="ctrl.user.TypeUser" value="2"/>				
 				<div class="row">
 					<div class="form-group col-md-12">
 						<label class="col-md-2 control-lable" for="file">Prenom</label>
@@ -62,8 +63,8 @@
 					<div class="form-group col-md-12">
 						<label class="col-md-2 control-lable" for="file">Adresse mail</label>
 						<div class="col-md-7">
-							<input type="email" ng-model="ctrl.user.email"
-								name="email" class="form-control input-sm"
+							<input type="email" ng-model="ctrl.user.mail"
+								name="mail" class="form-control input-sm"
 								placeholder="Entrez votre email" required />
 							<div class="has-error" ng-show="formInscription.$dirty">
 								<span ng-show="formConnexion.email.$error.required">Champ
@@ -80,7 +81,7 @@
 					<div class="form-group col-md-12">
 						<label class="col-md-2 control-lable" for="file">Confirmez votre mail</label>
 						<div class="col-md-7">
-							<input type="email" ng-model="ctrl.user.prenom" name="conf_mail"
+							<input type="email" ng-model="ctrl.user.conf_mail" name="conf_mail"
 								class="form-control input-sm"
 								placeholder="confirmation" required />
 							<div class="has-error" ng-show="formInscription.$dirty">
@@ -121,7 +122,7 @@
 	
 				<div class="row">
 					<div class="form-actions floatRight">
-						<input type="submit" value="Connexion"
+						<input type="submit" value="Ajouter"
 							class="btn btn-primary btn-sm"
 							ng-disabled="formConnexion.$invalid">
 					</div>
