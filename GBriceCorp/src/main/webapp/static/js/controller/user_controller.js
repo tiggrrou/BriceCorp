@@ -333,10 +333,21 @@ function trier_par(tri){
     
     // Fonctions Admin
     
-    
-
-
-
+    /* Ajout d'un conseiller puis refresh de la liste des users */
+    function creaCons2(conseiller) {
+        var deferred = $q.defer();
+        $http.post(REST_SERVICE_URI +"ADMIN/creaCons", conseiller)
+            .then(
+            function (response) {
+                deferred.resolve(response.data);
+            },
+            function(errResponse){
+                console.error('Error while creating Conseiller');
+                deferred.reject(errResponse);
+            }
+        );
+        return deferred.promise;
+    }
 
 
 	    
