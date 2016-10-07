@@ -344,6 +344,11 @@ function trier_par(tri){
             }
         );
     };
+	
+	$scope.redir_edit_cons = function () {
+    	$location.path("/admin/Admin_EditCons");
+    	
+    };
 
 
 	    
