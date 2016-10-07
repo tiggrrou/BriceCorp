@@ -332,22 +332,18 @@ function trier_par(tri){
   
     
     // Fonctions Admin
-    
+    self.creacons = creacons;
+	
     /* Ajout d'un conseiller puis refresh de la liste des users */
-    function creaCons2(conseiller) {
-        var deferred = $q.defer();
-        $http.post(REST_SERVICE_URI +"ADMIN/creaCons", conseiller)
+   function creaCons(){
+        UserService.creaCons2(self.user)
             .then(
-            function (response) {
-                deferred.resolve(response.data);
-            },
+            fetchAllUsers,
             function(errResponse){
-                console.error('Error while creating Conseiller');
-                deferred.reject(errResponse);
+                console.error('Error while creating User');
             }
         );
-        return deferred.promise;
-    }
+    };
 
 
 	    
