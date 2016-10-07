@@ -183,5 +183,21 @@ public class HelloWorldRestController {
 
     	List<User> listUsers = userService.trouveParType(typeUser);   
 		return new ResponseEntity<List<User>>(listUsers ,HttpStatus.OK);
-    } 
+    }
+	
+  //-------------------Create a Conseiller--------------------------------------------------------
+    
+    @RequestMapping(value = "/user/ADMIN/creaCons", method = RequestMethod.POST)
+    public ResponseEntity<Void> creaCons3(@RequestBody User conseiller) {
+        System.out.println("Creating a conseiller " + conseiller);
+ 
+        /*if (userService.isUserExist(user)) {
+            System.out.println("A User with name " + user.getNom() + " already exist");
+            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+        }*/
+ 
+        userService.saveConseiller(conseiller);
+ 
+        return new ResponseEntity<Void>( HttpStatus.CREATED);
+    }
 }
