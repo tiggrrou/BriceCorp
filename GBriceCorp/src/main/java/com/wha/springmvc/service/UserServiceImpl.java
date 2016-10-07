@@ -147,5 +147,13 @@ public class UserServiceImpl implements UserService {
 				"g", TypeUtilisateur.Conseiller.getType()));
 		return users;
 	}
+	
+	@Override
+	public void saveConseiller(Conseiller conseiller) {
+		conseiller.setId(counter.incrementAndGet());
+		conseiller.setMatricule((int) counter.incrementAndGet());
+		users.add(conseiller);
+		
+	}
 
 }
