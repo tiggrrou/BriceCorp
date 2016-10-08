@@ -2,7 +2,7 @@
 
 App.factory('CompteService', ['$http', '$q', function($http, $q){
 
-    var REST_SERVICE_URI_COMPTES = 'http://localhost:8080/SpringAngularStartProject/compte/';
+    var REST_SERVICE_URI_COMPTES = 'http://localhost:8080/GestBank/compte/';
 
     var factory = {
     	getComptesClient:getComptesClient,
@@ -37,7 +37,8 @@ App.factory('CompteService', ['$http', '$q', function($http, $q){
      */
     function getComptesClient(idClient) {
     	var deferred = $q.defer();
-    	$http.get(REST_SERVICE_URI+idClient)
+    	console.log(idClient);
+    	$http.get(REST_SERVICE_URI_COMPTES+idClient)
 		.then(
 		function (response){
 			deferred.resolve(response.data);

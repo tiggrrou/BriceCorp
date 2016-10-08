@@ -19,6 +19,8 @@ App.controller('CompteController', ['$scope','$location', '$route', 'CompteServi
     
     console.log("coucou j'existe !");
     
+console.log(getComptes());
+    
     function fetchAllComptes(){
         CompteService.fetchAllComptes()
             .then(
@@ -94,12 +96,13 @@ App.controller('CompteController', ['$scope','$location', '$route', 'CompteServi
     }
     
     function getComptes(){
-    	// je récupère les comptes d'un client en fonction de son ID
+    	// je recupere les comptes d'un client en fonction de son ID
     	var idCurrent = JSON.parse(sessionStorage.getItem("currentUser")).id;
     	CompteService.getComptesClient(idCurrent)
     	.then(
     			function(data){
-    				self.comptes = JSON.parse(data);
+    				console.log(data);
+    				$scope.comptes = data;
     			},
     			function (errResponse){
     				console.error('Error while getting an account from an customer ID')

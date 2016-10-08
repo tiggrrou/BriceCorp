@@ -258,7 +258,7 @@
 	</div>
 
 
-	<div class="partie_commune ">
+	<div class="partie_commune">
 
 		<!-- banniere en fixe dans le header pour la deco -->
 
@@ -288,17 +288,17 @@
 
 
 
-		<div class="generic-container ">
+		<div class="contenu_view ">
 
 
-			<div class="col-xs-12">
-				<ng-view></ng-view>
+			<div  class="contenu_hhg" ng-view>
+
 
 			</div>
 
 			<!-- Web Service de conversion -->
 
-			<div class="webservice" ng-hide="{{connexion_cache}}">
+			<div class="generic-container" ng-hide="{{connexion_cache}}">
 				<div class="panel panel-info">
 					<!-- Default panel contents -->
 					<div class="panel-heading">
@@ -364,7 +364,7 @@
 			</div>
 		</div>
 	</div>
-	</div>
+
 
 	<script>
 		gp_currencySymbols()

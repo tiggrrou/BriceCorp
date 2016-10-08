@@ -1,4 +1,4 @@
-<div ng-init="CompteController.getComptes(); ctrl.getMyUserBack();">
+
 <div id="printSectionId">
 	<div class="panel panel-info" layout="colomn">
 
@@ -19,7 +19,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr name="liste_comptes" ng-repeat="Compte in CompteController.comptes  | orderBy:tripar ">
+							<tr name="liste_comptes" ng-repeat="Compte in comptes  | orderBy:tripar ">
 								<td>{{Compte.libelle}}</td>
 								<td>{{Compte.id}} </td>
 								<td>{{Compte.solde}}</td>
@@ -30,5 +30,5 @@
 			</div>
 		</div>
 	</div>
-		</div>
+
 <button ng-click="printToCart('ctrl.printSectionId')" class="button">Imprimer</button>

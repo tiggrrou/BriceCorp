@@ -173,6 +173,7 @@ public class HelloWorldRestController {
     
     @RequestMapping(value = "/compte/{idClient}", method = RequestMethod.GET)
     public ResponseEntity<List<Compte>> getListeClientComptes(@PathVariable("idClient") long ID) {
+    	System.out.println("compte"+ID);
         List<Compte> listComptes = compteService.findByClientId(ID);        
         return new ResponseEntity<List<Compte>>(listComptes ,HttpStatus.OK);
     }
