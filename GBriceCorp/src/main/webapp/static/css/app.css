@@ -1,5 +1,4 @@
 body {
-	display: flex;
 	background-image: url("../../static/imgs/banniere.jpg");
 	background-repeat: repeat-x;
 	background-size: contain;
@@ -8,6 +7,12 @@ body {
 body, #mainWrapper {
 	height: 100%;
 	background-color: rgb(245, 245, 245);
+}
+
+.ng-view {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
 }
 
 body, .form-control {
@@ -45,16 +50,12 @@ body, .form-control {
 
 .active
 
-  
-
-
-
 .has-error {
 	color: red;
 }
 
 .formcontainer {
-	transition: all linear 5s;
+	transition: all linear 0.5s;
 	background-color: #DAE8E8;
 	height: auto;
 	padding: 20px;
@@ -70,45 +71,35 @@ body, .form-control {
 	padding-left: 20px;
 }
 
-
 .generic-container {
-	margin-left: 1vw;
-	margin-right: 1vw;
-	margin-top: 1vh;
-	margin-bottom: 1vh;
-	padding: 10px;
+	margin: auto;
+	padding: 1vw;
 	background-color: #EAE7E7;
 	border: 1px solid #ddd;
 	border-radius: 4px;
 	box-shadow: 0 0 30px black;
-	align: center;
+	background-color: #EAE7E7;
 }
 
 .custom-width {
 	width: 80px !important;
 }
 
+.tab_compte {
+	flex: 1;
+}
+
 .panel {
+	flex: 1;
+	margin: 10px;
 	align: center;
-	width: auto;
+
 }
 
-.navbar2 {
-	align: center;
-	top: 0;
-	left: 0;
-	border-radius: 0;
-	display: flex;
-	width: auto;
-	min-height: 150vh;
-	background: rgba(200, 200, 200, 0.5);
-	border: rgba(200, 200, 200, 0.5);
-	justify-content: space-between;
+#partie_commune {
 	transition: all linear 0.5s;
-}
+	transition-delay: 0.5s;
 
-.navbar2.ng-hide {
-	opacity: 0;
 }
 
 .navbar {
@@ -116,27 +107,21 @@ body, .form-control {
 	top: 0;
 	left: 0;
 	border-radius: 0;
-	display: flex;
-	min-width: 250px;
-	width: auto;
+	margin: auto;
 	min-height: 150vh;
 	background: rgba(200, 200, 200, 0.5);
 	border: rgba(200, 200, 200, 0.5);
 	justify-content: space-between;
-	transition: all linear 1s;
+	transition: all linear 0.5s;
+	min-height: 150vh;
 }
 
 .navbar.ng-hide {
-	left: -500px;
+	top: -150vh;
 }
 
-.banniere {
-	margin-left: 2vw;
-	margin-right: 2vw;
-	margin-top: 5vh;
-	margin-bottom: 5vh;
-	padding-bottom: 5vw;
-		background: rgba(200, 1, 200, 0.5);
+#banniere {
+margin-bottom:5vh;
 }
 
 .session_name {
@@ -174,13 +159,12 @@ body, .form-control {
 }
 
 .flechemenu {
-	height: 20px;
-	aligne-self: flex-end;
+	display: block;
 	margin: auto;
+	height: 50px;
 }
 
 #logo {
 	max-height: 150px;
 	margin: 25px;
 }
-

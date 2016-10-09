@@ -37,34 +37,20 @@
 <script src="static/gp/javascript.gp" type="text/javascript"></script>
 
 
-<!-- Carroussel 
-  <meta name="viewport" content=" initial-scale=4">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <style>
-  .carousel-inner > .item > img,
-  .carousel-inner > .item > a > img {
-      height: 30%;
-      width:100%;
 
-  }
-
-  </style>
-  -->
 </head>
 
-<body ng-app="myApp" class="ng-cloak"
+<body ng-app="myApp" class="ng-cloak "
+	" 
 	ng-controller="UserController as ctrl">
 
-	<div class="navbar2 col-xs-3" ng-hide="!nav_cache">
-		<img class="flechemenu " src="static/imgs/fd.png"
-			ng-click="nav_cache = !nav_cache" />
-	</div>
+
+
 	<!-- Affichage de la navbar -->
 
-	<div class="navbar col-xs-3" ng-hide="nav_cache">
-		<div class="contenu_navbar">
+	<div id="navbar" class="navbar col-xs-5 col-sm-3 col-lg-2"
+		ng-hide="nav_cache">
+		<div id="contenu_navbar" class="contenu_navbar">
 			<img id="logo" src="static/imgs/logo.png" />
 			<!-- Menu de connexion  -->
 			<div class="formcontainer" ng-hide="{{connexion_cache}}">
@@ -72,7 +58,7 @@
 					class="form-horizontal">
 					<input type="hidden" ng-model="ctrl.user.id" />
 					<div class="column">
-						<div class="form-group flex">
+						<div class="form-group ">
 							<label class="control-lable" for="file">{{translation.login}}</label>
 							<input type="text" ng-model="ctrl.user.identifiant" name="login"
 								class="username form-control input-sm"
@@ -106,7 +92,7 @@
 			</div>
 
 			<!-- Menu du Conseiller -->
-			<div class="container-fluid col-xs-12" ng-hide="{{conseiller_cache}}">
+			<div class="container-fluid " ng-hide="{{conseiller_cache}}">
 				<div class="list-group">
 					<!-- Recherche client  -->
 					<a href="#/cons/Cons_RechCli" class="list-group-item"
@@ -123,17 +109,12 @@
 								<label class=" control-lable" for="file">Prenom</label> <input
 									type="text" ng-model="search.Prenom" name="prenom"
 									class="form-control input-sm" placeholder="Prenom du client" />
-
 							</div>
-
-
 							<div class="form-group ">
 								<label class=" control-lable" for="file">Nom</label> <input
 									type="text" ng-model="search.Nom" name="nom"
 									class="form-control input-sm" placeholder="Nom du client" />
-
 							</div>
-
 						</form>
 					</div>
 
@@ -251,26 +232,28 @@
 				</div>
 			</div>
 		</div>
-
-
-		<img class="flechemenu " src="static/imgs/fg.png"
-			ng-click="nav_cache = !nav_cache" />
+		<div>
+			<img class="flechemenu " src="static/imgs/fleche-bas.png"
+				ng-click="ctrl.nav_cache_methode()" />
+		</div>
 	</div>
 
 
-	<div class="partie_commune">
-
 		<!-- banniere en fixe dans le header pour la deco -->
 
-		<div class="banniere col-xs-12">
-			<div class="session_name col-xs-9">
+		<div id="banniere" class="col-xs-7 col-sm-9 col-lg-10">
+			<div class="nav_fleche col-xs-1" ng-hide="!nav_cache">
+				<img class="flechemenu " src="static/imgs/fleche-bas.png"
+					ng-click="ctrl.nav_cache_methode()" />
+			</div>
+			<div class="session_name col-xs-8">
 				<h1 ng-hide="{{connexion_cache}}">{{translation.bienvenue}}
 					GestBank</h1>
 				<h1 ng-hide="{{admin_cache}}">Espace Administrateur</h1>
 				<h1 ng-hide="{{conseiller_cache}}">Espace Conseiller</h1>
 				<h1 ng-hide="{{client_cache}}">Bienvenue {{ctrl.client.nom}}</h1>
 			</div>
-			<div class="langue_connect col-xs-3">
+			<div class="langue_connect col-xs-2">
 				<div>
 					<img class="langue center-block" src="static/imgs/en.png"
 						ng-hide="{{lang_cache}}" ng-click="ctrl.change_langue('fr')" /> <img
@@ -286,82 +269,14 @@
 		</div>
 
 
+	<div id="partie_commune" class="col-xs-7 col-sm-9 col-lg-10">
+
+		<div class="generic-container">
+	
+			<div class="ng-view "></div>
 
 
-		<div class="contenu_view ">
-
-
-			<div  class="contenu_hhg" ng-view>
-
-
-			</div>
-
-			<!-- Web Service de conversion -->
-
-			<div class="generic-container" ng-hide="{{connexion_cache}}">
-				<div class="panel panel-info">
-					<!-- Default panel contents -->
-					<div class="panel-heading">
-						<span class="lead">Service de conversion</span>
-					</div>
-					<div class="panel-body col-lg-12">
-						<div class="col-xs-12 column ">
-
-							<div class="col-sm-6 ">
-								<label class="control-lable" for="file">Saisir le
-									montant a convertir :</label>
-							</div>
-							<div class="form-group  col-sm-6">
-
-								<input type="text" id="gp_amount" class="form-control input-sm"
-									placeholder="1234,56" />
-
-							</div>
-						</div>
-						<div class="col-xs-12 ">
-
-							<div class="col-sm-6">
-								<label class="control-lable" for="file">Montant converti
-									:</label>
-							</div class="col-sm-6">
-							<div class="form-group flex" id="gp_converted" text-align: center>
-
-
-
-							</div>
-						</div>
-						<div class="col-xs-12">
-							<div class="class="col-sm-6"">
-								<label class="control-lable" for="file">Devise de depart
-									:</label>
-							</div>
-							<div class="class="col-sm-6"">
-								<select class="form-control" id="gp_from"></select>
-							</div>
-
-						</div>
-						<div class="col-xs-12 ">
-
-
-							<div class="class="col-sm-6"">
-								<label class="control-lable" for="file">Devise d'arrivee
-									:</label>
-							</div>
-							<div class="class="col-sm-6"">
-								<select class="form-control" id="gp_to"></select>
-							</div>
-						</div>
-						<div class="col-xs-12">
-
-							<input class="btn btn-primary btn-sm center-block" type='button'
-								onClick='gp_convertIt()'
-								onMouseOver="PlaySound('static/Sound/Wololo.mp3')"
-								value='Convertir! (Wololo)' />
-						</div>
-
-					</div>
-				</div>
-			</div>
+	
 		</div>
 	</div>
 

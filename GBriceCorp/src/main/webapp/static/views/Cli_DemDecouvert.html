@@ -1,20 +1,21 @@
 <!-- A creer : demande de découvert
 	données en entrée : user.ID, compte.ID, montant du découvert
  -->
-<form ng-submit="CompteController.writeDemDecou()">
-<div class="panel panel-info" layout="colomn">
 
-	Quel decouvert souhaiteriez vous avoir? (attention ce montant ne peut
-	pas exceder 40% de vos revenus mensuels) <input type="text"
-		ng-model="ctrl.user.decouvert" name="demDecouvert"
-		class="username form-control input-sm"
-		placeholder="Saisir la valeur souhaitÃ©e" required />
-	<div class="row">
-		<div class="form-actions floatRight">
-			<input type="submit" value="Soumettre ma demande Ã  mon conseiller"
-				class="btn btn-primary btn-sm">
-		</div>
 
-	</div>
+	<form ng-submit="CompteController.writeDemDecou()">
+		<div class="panel panel-info" layout="colomn">
 
-</form>
+			Quel decouvert souhaiteriez vous avoir? (attention ce montant ne peut
+			pas exceder 40% de vos revenus mensuels) <input type="text"
+				ng-model="ctrl.user.decouvert" name="demDecouvert"
+				class="username form-control input-sm"
+				placeholder="Saisir la valeur souhaitÃ©e" required />
+			<div class="row">
+				<div class="form-actions floatRight">
+					<input type="submit" value="Soumettre ma demande Ã  mon conseiller"
+						class="btn btn-primary btn-sm">
+				</div>
+
+			</div>
+	</form>

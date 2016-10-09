@@ -1,103 +1,74 @@
 
 
+	<div class="panel panel-info">
+		<!-- Default panel contents -->
+		<div class="panel-heading">
+			<span class="lead">Cliquez ici pour nous rejoindre</span>
+		</div>
+		<div class="panel-body ">
+<a href="#/inscription" class="btn btn-success btn-lg center-block">
+	<h4 class="list-group-item-heading">Inscription</h4>
+</a>
 
-				<a href="#/inscription" class="btn btn-success btn-lg center-block" >
-						<h4 class="list-group-item-heading">Inscription</h4>
-				</a>
-<!-- 
-<div class="container">
-  <br>
-  <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="2000">
+</div>
+</div>
 
-    <ol class="carousel-indicators">
-      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-      <li data-target="#myCarousel" data-slide-to="1"></li>
-      <li data-target="#myCarousel" data-slide-to="2"></li>
-      <li data-target="#myCarousel" data-slide-to="3"></li>
-    </ol>
+	<div class="panel panel-info">
+		<!-- Default panel contents -->
+		<div class="panel-heading">
+			<span class="lead">Service de conversion</span>
+		</div>
+		<div class="panel-body ">
+			<div class="col-xs-12 raw ">
 
+				<div class="col-sm-6 ">
+					<label class="control-lable" for="file">Saisir le montant a convertir :</label>
+				</div>
+				<div class="form-group  col-sm-6">
 
-    <div class="carousel-inner" role="listbox">
+					<input type="text" id="gp_amount" class="form-control input-sm"
+						placeholder="1234,56" />
 
-      <div class="item active">
-      <a href="#/inscription"> 
-        <img src="static/imgs/compte1.jpg" alt="Chania"  height="100px">
-        <div class="carousel-caption">
-          <h3>L'argent coule a flot</h3>
+				</div>
+			</div>
+			<div class="col-xs-12 raw">
 
-        </div>
-                </a>
-      </div>
-
-      <div class="item">
-      <a href="#/inscription">
-        <img src="static/imgs/compte2.png" alt="Chania"  height="100px">
-        <div class="carousel-caption">
-          <h3>l'argent fait le bonheur</h3>
-
-        </div>
-        </a>
-      </div>
-    
-      <div class="item">
-      <a href="#/inscription">
-        <img src="static/imgs/compte3.jpg" alt="Flower"  height="100px">
-        <div class="carousel-caption">
-          <h3>la banque est votre amis</h3>
-
-        </div>
-                </a>
-      </div>
-
-      <div class="item">
-      <a href="#/inscription">
-        <img src="static/imgs/compte4.jpg" alt="Flower"  height="100px">
-        <div class="carousel-caption">
-          <h3>mieux qu'une tirelire</h3>
-
-        </div>
-                </a>
-      </div>
-  
-    </div>
+				<div class="col-sm-6">
+					<label class="control-lable" for="file">Montant converti :</label>
+				</div>
+				<div class="col-sm-6">
+					<div class="form-group " id="gp_converted" text-align: center>
 
 
-    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </a>
-  </div>
-  <script>
-$(document).ready(function(){
-    // Activate Carousel
-    $("#myCarousel").carousel();
-    
-    // Enable Carousel Indicators
-    $(".item1").click(function(){
-        $("#myCarousel").carousel(0);
-    });
-    $(".item2").click(function(){
-        $("#myCarousel").carousel(1);
-    });
-    $(".item3").click(function(){
-        $("#myCarousel").carousel(2);
-    });
-    $(".item4").click(function(){
-        $("#myCarousel").carousel(3);
-    });
-    
-    // Enable Carousel Controls
-    $(".left").click(function(){
-        $("#myCarousel").carousel("prev");
-    });
-    $(".right").click(function(){
-        $("#myCarousel").carousel("next");
-    });
-});
-</script>
-  
-</div> -->
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 raw">
+				<div class="col-sm-6">
+					<label class="control-lable" for="file">Devise de depart :</label>
+				</div>
+				<div class="col-sm-6">
+					<select class="form-control" id="gp_from"></select>
+				</div>
+
+			</div>
+			<div class="col-xs-12 raw">
+
+
+				<div class="col-sm-6">
+					<label class="control-lable" for="file">Devise d'arrivee :</label>
+				</div>
+				<div class="col-sm-6">
+					<select class="form-control" id="gp_to"></select>
+				</div>
+			</div>
+			<div class="col-xs-12">
+
+				<input class="btn btn-primary btn-sm center-block" type='button'
+					onClick='gp_convertIt()'
+					onMouseOver="PlaySound('static/Sound/Wololo.mp3')"
+					value='Convertir! (Wololo)' />
+			</div>
+
+		</div>
+	</div>

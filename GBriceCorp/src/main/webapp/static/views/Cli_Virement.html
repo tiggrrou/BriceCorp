@@ -1,76 +1,84 @@
 
-<!-- Formulaire de demande de virement -->
-<!-- 	CompteController.compteDebiteur = compte sur lequel on retire l'argent
+	<!-- Formulaire de demande de virement -->
+	<!-- 	CompteController.compteDebiteur = compte sur lequel on retire l'argent
 		CompteController.virement() methode de virement
 		COmpteController.montant montant à virer 
 		CompteController.compteCredite  = compte reçevant l'argent -->
-<!--  j'obtiens les comptes pour les placer dans les listes -->
-<div ng-init="CompteController.getComptes();">
-<div class="panel panel-info" layout="colomn">
+	<!--  j'obtiens les comptes pour les placer dans les listes -->
 
-	<!-- Default panel contents -->
-	<div class="panel-heading" flex>
-		<span class="lead">Demande de virement</span>
-	</div>
+		<div class="panel panel-info" ng-init="CompteController.getComptes();">
+
+			<!-- Default panel contents -->
+			<div class="panel-heading" >
+				<span class="lead">Demande de virement</span>
+			</div>
 
 
-	<div class="panel-body" flex>
-		<div class="formcontainer">
-			<form ng-submit="CompteController.virement()" name="formVirement"
-				class="form-horizontal">
-				<div class="row">
-					<div class="form-group col-md-12">
-						<label class="col-md-2 control-lable" for="file">Compte a debiter</label>
-						<div class="col-md-7">
-									<select ng-model="CompteController.compteDebiteur" name="debiter" class="form-control input-sm">
-<option name="liste_comptes" ng-repeat="Compte in CompteController.comptes">{{Compte.Libelle}} - {{Compte.Iban}} - {{Compte.Solde}}</option>
-</select>
-							<div class="has-error" ng-show="formVirement">
-								<span ng-show="formConnexion.prenom.$error.required">Champ
-									obligatoire</span>
+			<div class="panel-body" >
+				<div class="formcontainer">
+					<form ng-submit="CompteController.virement()" name="formVirement"
+						class="form-horizontal">
+						<div class="row">
+							<div class="form-group col-md-12">
+								<label class="col-md-2 control-lable" for="file">Compte
+									a debiter</label>
+								<div class="col-md-7">
+									<select ng-model="CompteController.compteDebiteur"
+										name="debiter" class="form-control input-sm">
+										<option name="liste_comptes"
+											ng-repeat="Compte in CompteController.comptes">{{Compte.Libelle}}
+											- {{Compte.Iban}} - {{Compte.Solde}}</option>
+									</select>
+									<div class="has-error" ng-show="formVirement">
+										<span ng-show="formConnexion.prenom.$error.required">Champ
+											obligatoire</span>
+									</div>
+								</div>
 							</div>
 						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="form-group col-md-12">
-						<label class="col-md-2 control-lable" for="file">Compte a crediter</label>
-						<div class="col-md-7">
-							<select ng-model="CompteController.compteCredite" name="crediter" class="form-control input-sm">
-<option name="liste_comptes" ng-repeat="Compte in CompteController.comptes">{{Compte.Libelle}} - {{Compte.Iban}} - {{Compte.Solde}}</option>
-<option name="liste_comptes" >Autre</option>
-</select>
-							<div class="has-error" ng-show="formVirement.$dirty">
-								<span ng-show="formConnexion.nom.$error.required">Champ
-									obligatoire</span>
+						<div class="row">
+							<div class="form-group col-md-12">
+								<label class="col-md-2 control-lable" for="file">Compte
+									a crediter</label>
+								<div class="col-md-7">
+									<select ng-model="CompteController.compteCredite"
+										name="crediter" class="form-control input-sm">
+										<option name="liste_comptes"
+											ng-repeat="Compte in CompteController.comptes">{{Compte.Libelle}}
+											- {{Compte.Iban}} - {{Compte.Solde}}</option>
+										<option name="liste_comptes">Autre</option>
+									</select>
+									<div class="has-error" ng-show="formVirement.$dirty">
+										<span ng-show="formConnexion.nom.$error.required">Champ
+											obligatoire</span>
+									</div>
+								</div>
 							</div>
 						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="form-group col-md-12">
-						<label class="col-md-2 control-lable" for="file">Montant a transferer</label>
-						<div class="col-md-7">
-							<input type="text" ng-model="CompteController.montant"
-								name="montant" class="form-control input-sm"
-								placeholder="Entrez votre montant" required />
-							<div class="has-error" ng-show="formVirement.$dirty">
-								<span ng-show="formConnexion.montant.$error.required">Champ
-									obligatoire</span>
+						<div class="row">
+							<div class="form-group col-md-12">
+								<label class="col-md-2 control-lable" for="file">Montant
+									a transferer</label>
+								<div class="col-md-7">
+									<input type="text" ng-model="CompteController.montant"
+										name="montant" class="form-control input-sm"
+										placeholder="Entrez votre montant" required />
+									<div class="has-error" ng-show="formVirement.$dirty">
+										<span ng-show="formConnexion.montant.$error.required">Champ
+											obligatoire</span>
+									</div>
+								</div>
 							</div>
 						</div>
-					</div>
-				</div>				
-	
-				<div class="row">
-					<div class="form-actions floatRight">
-						<input type="submit" value="Effectuer la demande de virement"
-							class="btn btn-primary btn-sm"
-							ng-disabled="formVirement.$invalid">
-					</div>
+
+						<div class="row">
+							<div class="form-actions floatRight">
+								<input type="submit" value="Effectuer la demande de virement"
+									class="btn btn-primary btn-sm"
+									ng-disabled="formVirement.$invalid">
+							</div>
+						</div>
+					</form>
 				</div>
-			</form>
+			</div>
 		</div>
-	</div>
-</div>
-</div>

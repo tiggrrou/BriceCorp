@@ -3,19 +3,14 @@
 
 
 
-	<div
-	
-	ng-init="Demandes=[
+<div class="panel panel-info" ng-init="Demandes=[
 {Nom:'MoreL',Prenom:'Brice', Adresse:'24 rue Emile blandin 44400 REZE', Type:'Virement', Edition:'true', Attente:'false'},
 {Nom:'dsvsv',Prenom:'dsvsv', Adresse:'24 rue Emile blandin 44400 REZE', Type:'Ouverture', Edition:'false', Attente:'true'},
 {Nom:'MorsdvsveL',Prenom:'sdvdsvdsvdssdvdsvdsvd', Adresse:'24 rue Emile blandin 44400 REZE',Type:'Chequier', Edition:'true', Attente:'false'}
-]"
-	
-	>
-<div class="panel panel-info" layout="colomn">
+]">
 
 	<!-- Default panel contents -->
-	<div class="panel-heading" flex>
+	<div class="panel-heading" >
 		<span class="lead">Demande Clients en attente de traitement </span>
 	</div>	
 	<!-- Tableau d'affichage des demandes d'ouverture -->
@@ -24,7 +19,7 @@
 
 
 
-			<div class="panel-body" flex>
+			<div class="panel-body" >
 				<div class="tablecontainer">
 					<table class="table table-hover">
 						<thead>
@@ -54,5 +49,5 @@
 				</div>
 			</div>
 </div>
-</div>
+
 

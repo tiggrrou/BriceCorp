@@ -20,10 +20,38 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
 	 *  self.detailCompte = detailCompte;
 	 * */
 
-    
 	// General
 	var self = this;
+	self.nav_cache_methode = nav_cache_methode;
 
+    function nav_cache_methode(){
+    	
+    	if ($scope.nav_cache){
+    		$scope.nav_cache = false;  
+        	var d2 = document.getElementById("partie_commune");
+        	d2.removeAttribute("class")
+        	d2.className += " col-xs-7 c col-sm-9 col-lg-10";      	
+
+        	var d = document.getElementById("banniere");
+        	d.removeAttribute("class")
+        	d.className += " col-xs-7 c col-sm-9 col-lg-10";     
+     	}else{
+    		$scope.nav_cache = true;  
+	    	var d2 = document.getElementById("partie_commune");
+        	d2.removeAttribute("class")
+        	d2.className += " col-xs-12"; 
+        	
+	    	var d = document.getElementById("banniere");
+        	d.removeAttribute("class")
+        	d.className += " col-xs-12";         	
+    	}
+ 
+    	
+	    };
+	    
+
+	    
+	    
     
     // Fonctions I18n
     $scope.$route = $route;   

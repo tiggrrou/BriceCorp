@@ -1,21 +1,17 @@
 
 <!-- Tableau d'affichage des clients -->
 
-<div
-	ng-init="Clients=[
+	<div class="panel panel-info" ng-init="Clients=[
 {Nom:'MoreL',Prenom:'Brice', Adresse:'24 rue Emile blandin 44400 REZE'},
 {Nom:'dsvsv',Prenom:'dsvsv', Adresse:'24 rue Emile blandin 44400 REZE'},
 {Nom:'MorsdvsveL',Prenom:'sdvdsvdsvdssdvdsvdsvd', Adresse:'24 rue Emile blandin 44400 REZE'}
 ]">
-	<div class="panel panel-info" layout="colomn">
 
 		<!-- Default panel contents -->
-		<div class="panel-heading" flex>
+		<div class="panel-heading" >
 			<span class="lead" >Liste des clients</span>
-
 		</div>
-
-		<div class="panel-body" flex>
+		<div class="panel-body" >
 			<div class="tablecontainer">
 				<table class="table table-hover">
 					<thead>
@@ -36,5 +32,5 @@
 			</div>
 		</div>
 	</div>
-</div>
+
 

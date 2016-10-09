@@ -1,26 +1,24 @@
 <!-- Formulaire d'edition d'un conseiller -->
-
-<div class="panel panel-info" layout="colomn">
+<div class="panel panel-info" >
 
 	<!-- Default panel contents -->
-	<div class="panel-heading" flex>
+	<div class="panel-heading">
 		<span class="lead">Edition de conseiller</span>
 	</div>
 
-<!-- action="envoiMailConfirmation.php"-->
-	<div class="panel-body" flex>
+	<!-- action="envoiMailConfirmation.php"-->
+	<div class="panel-body">
 		<div class="formcontainer">
 			<form ng-submit="ctrl.submit()" name="formIscription"
-				class="form-horizontal" 
-				method="post">
+				class="form-horizontal" method="post">
 				<input type="hidden" ng-model="ctrl.cons.id" />
 				<div class="row">
 					<div class="form-group col-md-12">
 						<label class="col-md-2 control-lable" for="file">Prenom</label>
 						<div class="col-md-7">
 							<input type="text" ng-model="ctrl.cons.prenom" name="prenom"
-								class="form-control input-sm" placeholder="Entrez la correction du prenom"
-								 />
+								class="form-control input-sm"
+								placeholder="Entrez la correction du prenom" />
 						</div>
 					</div>
 				</div>
@@ -29,8 +27,8 @@
 						<label class="col-md-2 control-lable" for="file">Nom</label>
 						<div class="col-md-7">
 							<input type="text" ng-model="ctrl.cons.nom" name="nom"
-								class="form-control input-sm" placeholder="Entrez la correction du nom"
-								 />
+								class="form-control input-sm"
+								placeholder="Entrez la correction du nom" />
 						</div>
 					</div>
 				</div>
@@ -40,8 +38,8 @@
 						<div class="col-md-7">
 							<input type="tel" ng-model="ctrl.cons.telephone" name="telephone"
 								class="form-control input-sm"
-								placeholder="Entez le nouveau numero de telephone"  />
-							</div>
+								placeholder="Entez le nouveau numero de telephone" />
+						</div>
 					</div>
 				</div>
 				<div class="row">
@@ -50,8 +48,8 @@
 							mail</label>
 						<div class="col-md-7">
 							<input type="email" ng-model="ctrl.cons.mail" name="mail"
-								class="form-control input-sm" placeholder="Entrez le nouvel email"
-								 />
+								class="form-control input-sm"
+								placeholder="Entrez le nouvel email" />
 						</div>
 					</div>
 				</div>
@@ -63,8 +61,8 @@
 							postale</label>
 						<div class="col-md-7">
 							<input type="text" ng-model="ctrl.cons.adresse" name="adresse"
-								class="form-control input-sm" placeholder="Entrez la nouvelle adresse"
-								 />
+								class="form-control input-sm"
+								placeholder="Entrez la nouvelle adresse" />
 						</div>
 					</div>
 				</div>
@@ -75,27 +73,29 @@
 						<div class="col-md-7">
 							<input type="text" ng-model="ctrl.cons.codepostal"
 								name="codepostal" class="form-control input-sm"
-								placeholder="Entrez le nouveau codepostal"  />
+								placeholder="Entrez le nouveau codepostal" />
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="form-group col-md-12">
-						<label class="col-md-2 control-lable" for="file">Date de debut de contrat</label>
+						<label class="col-md-2 control-lable" for="file">Date de
+							debut de contrat</label>
 						<div class="col-md-7">
 							<input type="text" ng-model="ctrl.cons.dateDebContrat"
 								name="dateDebContrat" class="form-control input-sm"
-								placeholder="ATTENTION: NECESSITE L'AVAL VOTRE DIRECTEUR D'AGENCE!"  />
+								placeholder="ATTENTION: NECESSITE L'AVAL VOTRE DIRECTEUR D'AGENCE!" />
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="form-group col-md-12">
-						<label class="col-md-2 control-lable" for="file">Date de fin de contrat</label>
+						<label class="col-md-2 control-lable" for="file">Date de
+							fin de contrat</label>
 						<div class="col-md-7">
 							<input type="text" ng-model="ctrl.cons.dateFinContrat"
 								name="dateFinContrat" class="form-control input-sm"
-								placeholder="ATTENTION: NECESSITE L'AVAL VOTRE DIRECTEUR D'AGENCE!"  />
+								placeholder="ATTENTION: NECESSITE L'AVAL VOTRE DIRECTEUR D'AGENCE!" />
 						</div>
 					</div>
 				</div>
@@ -104,50 +104,49 @@
 				<div class="row">
 					<div class="form-actions floatRight">
 						<input type="submit" value="Valider"
-							class="btn btn-primary btn-sm"
-							>
+							class="btn btn-primary btn-sm">
 					</div>
 				</div>
 			</form>
 		</div>
 	</div>
 </div>
-	<div class="panel panel-default">
-			<!-- Default panel contents -->
-			<div class="panel-heading">
-				<span class="lead">Liste des utilisateurs </span>
-			</div>
-			<div class="tablecontainer">
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th>ID.</th>
-							<th>Prenom</th>							
-							<th>Nom</th>
-							<th>Adresse</th>
-							<th>Codepostal</th>							
-							<th>Email</th>
-							<th width="20%"></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="c in ctrl.Cons">
-							<td><span ng-bind="c.id"></span></td>
-							<td><span ng-bind="c.prenom"></span></td>
-							<td><span ng-bind="c.nom"></span></td>							
-							<td><span ng-bind="c.adresse"></span></td>
-							<td><span ng-bind="c.codepostal"></span></td>							
-							<td><span ng-bind="c.mail"></span></td>
-              <td><span ng-bind="c.dateDebContrat"></span></td>
-              <td><span ng-bind="c.dateFinContrat"></span></td>
-							<td>
-								<button type="button" ng-click="ctrl.edit(u.id)"
-									class="btn btn-success custom-width">Modifier</button>
-								<button type="button" ng-click="ctrl.remove(u.id)"
-									class="btn btn-danger custom-width">Supprimer</button>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
+<div class="panel panel-default">
+	<!-- Default panel contents -->
+	<div class="panel-heading">
+		<span class="lead">Liste des utilisateurs </span>
+	</div>
+	<div class="tablecontainer">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>ID.</th>
+					<th>Prenom</th>
+					<th>Nom</th>
+					<th>Adresse</th>
+					<th>Codepostal</th>
+					<th>Email</th>
+					<th width="20%"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="c in ctrl.Cons">
+					<td><span ng-bind="c.id"></span></td>
+					<td><span ng-bind="c.prenom"></span></td>
+					<td><span ng-bind="c.nom"></span></td>
+					<td><span ng-bind="c.adresse"></span></td>
+					<td><span ng-bind="c.codepostal"></span></td>
+					<td><span ng-bind="c.mail"></span></td>
+					<td><span ng-bind="c.dateDebContrat"></span></td>
+					<td><span ng-bind="c.dateFinContrat"></span></td>
+					<td>
+						<button type="button" ng-click="ctrl.edit(u.id)"
+							class="btn btn-success custom-width">Modifier</button>
+						<button type="button" ng-click="ctrl.remove(u.id)"
+							class="btn btn-danger custom-width">Supprimer</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

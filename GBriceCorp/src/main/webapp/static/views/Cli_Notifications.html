@@ -6,53 +6,46 @@
 		renvoi : list<Notification>
 		ctrl.getNotifs()
 		 -->
-	<div	
-	ng-init="
+
+	<div class="panel panel-info" ng-init="
 	Notifications=[
 {Libelle:'Virement du bordel vers la poubelle',Date:'15/08/2009', Lu:'false'},
 {Libelle:'Virement du hfgjhgjghj vers la poubelle',Date:'15/08/2009', Lu:'true'},
 {Libelle:'Vighjhgjhgjhg la poubelle',Date:'15/08/2009', Lu:'true'},
 {Libelle:'Virement du ghjhgjghjghj vers la poubelle',Date:'15/08/2009', Lu:'true'},
 {Libelle:'Vireghjhgjhgjubelle',Date:'15/08/2009', Lu:'true'}
-]"
-	
-	>
-<div class="panel panel-info" layout="colomn">
+]">
 
-	<!-- Default panel contents -->
-	<div class="panel-heading" flex>
-		<span class="lead">Demandes Clients en attente de traitement </span>
-	</div>	
-	<!-- Tableau d'affichage des demandes d'ouverture -->
+		<!-- Default panel contents -->
+		<div class="panel-heading">
+			<span class="lead">Demandes Clients en attente de traitement </span>
+		</div>
+		<!-- Tableau d'affichage des demandes d'ouverture -->
 
+		<div class="panel-body">
+			<div class="tablecontainer">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th ng-click="ctrl.trier_par('Libelle')">Libelle</th>
+							<th ng-click="ctrl.trier_par('Date')">Date</th>
+							<th ng-click="ctrl.trier_par('Etat')">Etat</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="Notification in Notifications| orderBy:tripar ">
+							<td>{{Notification.Libelle}}</td>
+							<td>{{Notification.Date}}</td>
+							<td><img class="langue" src="static/imgs/drapeau.png"
+								ng-hide="{{Notification.Lu}}" ng-click="" /> <img
+								class="langue" src="static/imgs/delete.png"
+								ng-hide="!{{Notification.Lu}}" ng-click="" /></td>
 
-
-
-
-			<div class="panel-body" flex>
-				<div class="tablecontainer">
-					<table class="table table-hover">
-						<thead>
-							<tr>
-								<th ng-click="ctrl.trier_par('Libelle')">Libelle</th>
-								<th ng-click="ctrl.trier_par('Date')">Date</th>
-								<th ng-click="ctrl.trier_par('Etat')" >Etat</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr ng-repeat="Notification in Notifications| orderBy:tripar ">
-								<td>{{Notification.Libelle}}</td>
-								<td>{{Notification.Date}}</td>
-								<td>
-<img class="langue" src="static/imgs/drapeau.png" ng-hide="{{Notification.Lu}}" ng-click="" />
-		<img class="langue" src="static/imgs/delete.png" ng-hide="!{{Notification.Lu}}" ng-click="" />
-									</td>
-
-							</tr>
-						</tbody>
-					</table>
-				</div>
+						</tr>
+					</tbody>
+				</table>
 			</div>
-</div>
-</div>
+		</div>
+	</div>
+
 

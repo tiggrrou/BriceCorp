@@ -1,23 +1,21 @@
 
 <!-- Formulaire de creation de conseiller -->
 
-
-
-<div class="panel panel-info" layout="colomn">
+<div class="panel panel-info " >
 
 	<!-- Default panel contents -->
-	<div class="panel-heading" flex>
+	<div class="panel-heading" >
 		<span class="lead">Creation d'un nouveau conseiller</span>
 	</div>
 
 
-	<div class="panel-body" flex>
+	<div class="panel-body" >
 		<div class="formcontainer">
 			<form ng-submit="ctrl.creaCons()" name="formIscription"
 				class="form-horizontal">
 				<input type="hidden" ng-model="ctrl.user.id" />
 				<input type="hidden" ng-model="ctrl.user.TypeUser" value="2"/>				
-				<div class="row">
+
 					<div class="form-group col-md-12">
 						<label class="col-md-2 control-lable" for="file">Prenom</label>
 						<div class="col-md-7">
@@ -30,8 +28,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="row">
+
 					<div class="form-group col-md-12">
 						<label class="col-md-2 control-lable" for="file">Nom</label>
 						<div class="col-md-7">
@@ -43,7 +40,7 @@
 									obligatoire</span>
 							</div>
 						</div>
-					</div>
+
 				</div>
 				<div class="row">
 					<div class="form-group col-md-12">
@@ -76,8 +73,7 @@
 				
 				
 				
-				
-								<div class="row">
+
 					<div class="form-group col-md-12">
 						<label class="col-md-2 control-lable" for="file">Confirmez votre mail</label>
 						<div class="col-md-7">
@@ -90,8 +86,8 @@
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="row">
+
+
 					<div class="form-group col-md-12">
 						<label class="col-md-2 control-lable" for="file">Adresse postale</label>
 						<div class="col-md-7">
@@ -104,8 +100,8 @@
 							</div>
 						</div>
 					</div>
-				</div>
-								<div class="row">
+
+
 					<div class="form-group col-md-12">
 						<label class="col-md-2 control-lable" for="file">Code Postal</label>
 						<div class="col-md-7">
@@ -118,9 +114,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
-	
-				<div class="row">
+
 					<div class="form-actions floatRight">
 						<input type="submit" value="Ajouter"
 							class="btn btn-primary btn-sm"
@@ -130,4 +124,3 @@
 			</form>
 		</div>
 	</div>
-</div>
