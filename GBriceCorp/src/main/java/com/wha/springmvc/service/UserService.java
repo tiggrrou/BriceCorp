@@ -40,5 +40,7 @@ public interface UserService {
 	boolean checkPassword(User user, String mdp);
 	
 	public void saveConseiller(Conseiller conseiller);
+
+	List<User> getUser_Admin_Cons();
 	
 }

@@ -405,7 +405,26 @@ function trier_par(tri){
     	$location.path("/admin/Admin_EditCons");
     	
     };
+    
+    /* Recuperation de la liste des conseillers (en format user pour le moment) */
+    function getListCons(){
 
+
+         UserService.getListCons()
+             .then(
+            		 function(d){
+         				$scope.cons_admin = d;
+         				console.log(d);
+         			},
+         			function (errResponse){
+         				console.error('Error while getting list of cons ')
+         			});
+         };
+ 	
+ 	$scope.redir_edit_cons = function () {
+     	$location.path("/admin/Admin_EditCons");
+     	
+     };
 
 	    
     // Fonctions Print
