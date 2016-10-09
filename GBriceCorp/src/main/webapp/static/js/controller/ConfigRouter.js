@@ -24,7 +24,7 @@ App.config(['$routeProvider',function($routeProvider) {
 	})
 	.when("/cons/Cons_DemCli" , {
 		templateUrl:"static/views/Cons_DemCli.html",
-		controller: 'UserController',	
+		controller: 'DemandeController',	
 	    activetab: 'conseiller_demandesclient'		
 	})
 	.when("/cons/Cons_RechCli" , {
@@ -34,7 +34,7 @@ App.config(['$routeProvider',function($routeProvider) {
 	})
 	.when("/cons/Cons_RechCpt" , {
 		templateUrl:"static/views/Cons_RechCpt.html",
-		controller: 'UserController',	
+		controller: 'CompteController',	
 	    activetab: 'conseiller_recherchecompte'		
 	})
 	.when("/cons/Cons_ValCheq" , {

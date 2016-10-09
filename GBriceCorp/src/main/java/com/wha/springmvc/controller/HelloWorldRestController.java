@@ -16,8 +16,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.wha.springmvc.model.Compte;
 import com.wha.springmvc.model.Conseiller;
+import com.wha.springmvc.model.Dem_ModificationCompte;
 import com.wha.springmvc.model.User;
 import com.wha.springmvc.service.CompteService;
+import com.wha.springmvc.service.DemandeService;
 import com.wha.springmvc.service.UserService;
  
 @RestController
@@ -28,7 +30,22 @@ public class HelloWorldRestController {
     
     @Autowired
     CompteService compteService;  //Service which will do all data retrieval/manipulation work
+
+    @Autowired
+    DemandeService demandeService;  //Service which will do all data retrieval/manipulation work
+
+    //-------------------Retrieve All Demandes--------------------------------------------------------
+    
+    @RequestMapping(value = "/demandes", method = RequestMethod.GET)
+    public ResponseEntity<List<Dem_ModificationCompte>> listAllDemande() {
+        List<Dem_ModificationCompte> demandes = demandeService.findAllDemandes();
+        if(demandes.isEmpty()){
+            return new ResponseEntity<List<Dem_ModificationCompte>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
+        }
+        return new ResponseEntity<List<Dem_ModificationCompte>>(demandes, HttpStatus.OK);
+    }
  
+    
     
     //-------------------Retrieve All Users--------------------------------------------------------
      
@@ -56,7 +73,7 @@ public class HelloWorldRestController {
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
  
-     
+  
      
     //-------------------Create a User--------------------------------------------------------
      
@@ -124,7 +141,7 @@ public class HelloWorldRestController {
     }
     
     //------------------- get Demandes --------------------------------------------------------
-    
+    //non utilisée car service dedié créé
     @RequestMapping(value = "/user/demandes/{idClient}&{idConseiller}", method = RequestMethod.GET ,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> getDemandes(@PathVariable("idClient") String idClient, @PathVariable("idConseiller") String idConseiller) {
         //TODO obtenir les bonnes demandes
@@ -177,7 +194,7 @@ public class HelloWorldRestController {
         List<Compte> listComptes = compteService.findByClientId(ID);        
         return new ResponseEntity<List<Compte>>(listComptes ,HttpStatus.OK);
     }
-    
+/**    
   //------------------- Liste des users de type --------------------------------------------------------
     
     @RequestMapping(value = "/user/Conseiller/{typeUser}", method = RequestMethod.GET)
@@ -186,7 +203,20 @@ public class HelloWorldRestController {
     	List<User> listUsers = userService.trouveParType(typeUser);   
 		return new ResponseEntity<List<User>>(listUsers ,HttpStatus.OK);
     }
-	
+*/	
+  //-------------------Retrieve Conseiller Users--------------------------------------------------------
+    
+    @RequestMapping(value = "/user/Conseiller/{id}", method = RequestMethod.GET)
+    public ResponseEntity<List<User>> listUser_Cons(@PathVariable("id") long id) {
+        System.out.println("Fetching Clients du Conseiller with id " + id);
+        List<User> users = userService.getUser_Cons(id);
+        System.out.println("cou" + users);
+        if(users.isEmpty()){
+            return new ResponseEntity<List<User>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
+        }
+        return new ResponseEntity<List<User>>(users, HttpStatus.OK);
+    }   
+    
   //-------------------Create a Conseiller--------------------------------------------------------
     
     @RequestMapping(value = "/user/ADMIN/creaCons", method = RequestMethod.POST)

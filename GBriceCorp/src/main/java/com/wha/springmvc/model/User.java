@@ -54,7 +54,7 @@ public class User {
 		id=0;
 	}
 	
-	public User(long id, String nom,String prenom, String address, String email, String login, String mdp, int type){
+	public User(long id, String nom,String prenom, String address, String email, String login, String mdp, int type, int telephone){
 		this.id = id;
 		this.nom = nom;
 		this.prenom = prenom;		
@@ -63,6 +63,7 @@ public class User {
 		this.identifiant = login;
 		this.motDePasse = mdp;
 		this.typeUser = type;
+		this.telephone = telephone;
 	}
 	//#endregion
 	

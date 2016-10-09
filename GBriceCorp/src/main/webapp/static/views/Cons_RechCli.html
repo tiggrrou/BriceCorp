@@ -1,11 +1,7 @@
 
 <!-- Tableau d'affichage des clients -->
 
-	<div class="panel panel-info" ng-init="Clients=[
-{Nom:'MoreL',Prenom:'Brice', Adresse:'24 rue Emile blandin 44400 REZE'},
-{Nom:'dsvsv',Prenom:'dsvsv', Adresse:'24 rue Emile blandin 44400 REZE'},
-{Nom:'MorsdvsveL',Prenom:'sdvdsvdsvdssdvdsvdsvd', Adresse:'24 rue Emile blandin 44400 REZE'}
-]">
+	<div class="panel panel-info" ng-init="ctrl.getClients_Cons()">
 
 		<!-- Default panel contents -->
 		<div class="panel-heading" >
@@ -22,10 +18,10 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="Client in Clients| filter:search:strict | orderBy:tripar ">
-							<td>{{Client.Nom}}</td>
-							<td>{{Client.Prenom}}</td>
-							<td>{{Client.Adresse}}</td>
+						<tr ng-repeat="Client in clients_cons | filter:search:strict | orderBy:tripar " ng-click="ctrl.detailCompte(Client.id)">
+							<td>{{Client.nom}}</td>
+							<td>{{Client.prenom}}</td>
+							<td>{{Client.adresse}}</td>
 						</tr>
 					</tbody>
 				</table>

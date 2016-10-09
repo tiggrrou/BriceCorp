@@ -14,8 +14,8 @@ public class Administrateur extends User {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Administrateur(long id, String nom, String prenom, String address, String email, String login, String mdp) {
-		super(id, nom, prenom, address, email, login, mdp, TypeUtilisateur.Administrateur.getType());
+	public Administrateur(long id, String nom, String prenom, String address, String email, String login, String mdp, int telephone) {
+		super(id, nom, prenom, address, email, login, mdp, TypeUtilisateur.Administrateur.getType(), telephone);
 		// TODO Auto-generated constructor stub
 	}
 

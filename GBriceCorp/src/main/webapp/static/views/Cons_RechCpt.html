@@ -27,12 +27,11 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="Compte in Comptes  | filter:search:strict | orderBy:tripar " ng-click="ctrl.detailCompte(Compte.Iban)">
+						<tr ng-repeat="Compte in comptes  | filter:search:strict | orderBy:tripar " ng-click="ctrl.detailCompte(Compte.id)">
 
-							<td >{{Compte.Iban}}</td>
-							<td >{{Compte.Nom}}</td>
-							<td >{{Compte.Prenom}}</td>
-							<td >{{Compte.Solde}}</td>							
+							<td>{{Compte.libelle}}</td>
+								<td>{{Compte.id}} </td>
+								<td>{{Compte.solde}}</td>						
 
 						</tr>
 					</tbody>

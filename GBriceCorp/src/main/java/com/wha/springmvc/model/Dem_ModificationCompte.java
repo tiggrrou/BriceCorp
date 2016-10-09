@@ -21,7 +21,7 @@ public class Dem_ModificationCompte extends Demande {
 	/**
 	 * volonté de passer en compte rémunérateur
 	 */
-	private boolean remunerateur;
+	private int remunerateur;
 	//#endregion
 	//#region Accesseurs
 	public String getCompteID() {
@@ -36,10 +36,10 @@ public class Dem_ModificationCompte extends Demande {
 	public void setDecouvert(int decouvert) {
 		this.decouvert = decouvert;
 	}
-	public boolean isRemunerateur() {
+	public int isRemunerateur() {
 		return remunerateur;
 	}
-	public void setRemunerateur(boolean remunerateur) {
+	public void setRemunerateur(int remunerateur) {
 		this.remunerateur = remunerateur;
 	}
 	//#endregion
@@ -50,7 +50,7 @@ public class Dem_ModificationCompte extends Demande {
 	 * @param decouvert
 	 * @param remunerateur
 	 */
-	public Dem_ModificationCompte(long clientID, String compteID, int decouvert, boolean remunerateur) {
+	public Dem_ModificationCompte(long clientID, String compteID, int decouvert, int remunerateur) {
 		super(clientID);
 		this.compteID = compteID;
 		this.decouvert = decouvert;

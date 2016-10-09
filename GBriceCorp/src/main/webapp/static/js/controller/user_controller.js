@@ -24,6 +24,8 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
 	var self = this;
 	self.nav_cache_methode = nav_cache_methode;
 
+	
+	// Responsive des div partie_commune et banniere en fonction de la navbar
     function nav_cache_methode(){
     	
     	if ($scope.nav_cache){
@@ -174,7 +176,7 @@ function trier_par(tri){
  };
  
  // Fonctions User
- self.user={id:null,prenom:'',nom:'',adresse:'',mail:'',identifiant:'',motDePasse:''};
+ self.user={id:null,nom:'',prenom:'',adresse:'',mail:'',identifiant:'',motDePasse:'',typeUser:'',telephone:''};
  self.users=[];
  self.submit = submit;
  self.edit = edit;
@@ -190,6 +192,7 @@ function trier_par(tri){
             .then(
             function(d) {
                 self.users = d;
+                console.log(d);
             },
             function(errResponse){
                 console.error('Error while fetching Users');
@@ -284,10 +287,16 @@ function trier_par(tri){
     self.searchClients = searchClients;
     self.getClient = getClient; 
     self.getNotifs = getNotifs;
-    
+    self.inscription_Client=inscription_Client;
 
 
- 	
+    function inscription_Client() {
+    	self.user.typeUser = 3;
+        console.log('Saving New User', self.user);
+        createUser(self.user);
+
+    window.history.back();
+};
  	
     function searchClients() {
     	// je lance la recherche avec le nom et prenom du client et l'ID du conseiller
@@ -334,7 +343,7 @@ function trier_par(tri){
     self.conseiller={id:null,nom:'',prenom:'',matricule:''};
     self.conseillers = [];
     self.detailCompte = detailCompte;
-    
+    self.getClients_Cons=getClients_Cons;
     
     
   //Fonction du lien par ngclick dans le ng-repeat du recherche compte
@@ -357,6 +366,19 @@ function trier_par(tri){
     			});
     };
     
+    function getClients_Cons(){
+    	// je récupère un client en fonction de son ID
+    	console.log(JSON.parse(sessionStorage.getItem("currentUser")).id)
+    	UserService.getClients_Cons(JSON.parse(sessionStorage.getItem("currentUser")).id)
+    	.then(
+    			function(d){
+    				$scope.clients_cons = d;
+    				console.log(d);
+    			},
+    			function (errResponse){
+    				console.error('Error while getting a client from an ID')
+    			});
+    };
   
     
     // Fonctions Admin
@@ -398,7 +420,7 @@ function trier_par(tri){
     
 
     function reset(){
-        self.user={id:null,prenom:'',nom:'',adresse:'',mail:'',identifiant:'',motDePasse:''};
+        self.user={id:null,prenom:'',nom:'',adresse:'',mail:'',identifiant:'',motDePasse:'',usertype:''};
         $scope.myForm.$setPristine(); //reset Form
     };  
    

@@ -11,11 +11,12 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         deleteUser:deleteUser,
         connectUser:connectUser,
         recherche_userParType:recherche_userParType,
-        creaCons2:creaCons2
+        creaCons2:creaCons2,
+        getClients_Cons:getClients_Cons
     };
-    
+
     var user = {
-    		id:null,nom:'',prenom:'',adresse:'',codepostal:'',mail:'',identifiant:'',motDePasse:'',typeUser:'',telephone:''
+    		id:null,nom:'',prenom:'',adresse:'',mail:'',identifiant:'',motDePasse:'',typeUser:'',telephone:''
     		};
 
     return factory;
@@ -176,5 +177,19 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         return deferred.promise;
     }
 
-    
+    /**
+     * Demande au serveur un client par son ID
+     */
+    function getClients_Cons(idCons) {
+    	var deferred = $q.defer();
+    	$http.get(REST_SERVICE_URI+'Conseiller/'+idCons)
+		.then(
+		function (response){
+			deferred.resolve(response.data);
+		},
+		function (errResponse){
+			console.error('Error while getting client list du conseiller'+idCons);
+		})
+		return deferred.promise;
+    }
 }]);

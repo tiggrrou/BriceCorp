@@ -3,11 +3,7 @@
 
 
 
-<div class="panel panel-info" ng-init="Demandes=[
-{Nom:'MoreL',Prenom:'Brice', Adresse:'24 rue Emile blandin 44400 REZE', Type:'Virement', Edition:'true', Attente:'false'},
-{Nom:'dsvsv',Prenom:'dsvsv', Adresse:'24 rue Emile blandin 44400 REZE', Type:'Ouverture', Edition:'false', Attente:'true'},
-{Nom:'MorsdvsveL',Prenom:'sdvdsvdsvdssdvdsvdsvd', Adresse:'24 rue Emile blandin 44400 REZE',Type:'Chequier', Edition:'true', Attente:'false'}
-]">
+<div class="panel panel-info" >
 
 	<!-- Default panel contents -->
 	<div class="panel-heading" >
@@ -33,11 +29,11 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="demande in Demandes  | filter:search:strict | orderBy:tripar ">
-								<td>{{demande.Nom}}</td>
-								<td>{{demande.Prenom}}</td>
-								<td>{{demande.Adresse}}</td>
-								<td>{{demande.Type}}</td>
+							<tr ng-repeat="demande in demandes  | filter:search:strict | orderBy:tripar ">
+								<td>{{demandes.clientID}}</td>
+								<td>{{demandes.compteID}}</td>
+								<td>{{demandes.decouvert}}</td>
+								<td>{{demandes.remunerateur}}</td>
 
 								<td align=center>
 <img class="icone_liste" src="static/imgs/crayon.png" ng-hide="{{demande.Edition}}" ng-click="" />

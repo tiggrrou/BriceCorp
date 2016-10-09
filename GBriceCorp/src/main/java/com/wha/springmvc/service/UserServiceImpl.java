@@ -26,6 +26,8 @@ public class UserServiceImpl implements UserService {
 		return users;
 	}
 
+	
+	
 	public User findById(long id) {
 		for (User user : users) {
 			if (user.getId() == id) {
@@ -51,6 +53,15 @@ public class UserServiceImpl implements UserService {
 		}
 		return null;
 	}
+	public User trouveParMail(String mail) {
+		for (User user : users) {
+	if (user.getMail().equalsIgnoreCase(mail)) {
+		return user;
+	}
+}
+return null;
+}	
+	
 
 	public List<User> trouveParType(int typeUser) {
 		List<User> listeusers = new ArrayList<User>();
@@ -122,10 +133,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public boolean isUserExist(User user) {
-		
-		
-		
-		return trouveParNom(user.getNom()) != null && trouveParPrenom(user.getPrenom()) != null;
+		return trouveParMail(user.getMail()) != null;
 	}
 
 	public void deleteAllUsers() {
@@ -135,25 +143,28 @@ public class UserServiceImpl implements UserService {
 	private static List<User> populateDummyUsers() {
 		List<User> users = new ArrayList<User>();
 		/*users.add(new User(counter.incrementAndGet(), "Sam", "PARIS", "sam@abc.com", "a", "a",TypeUtilisateur.Administrateur.getType()));*/
-		users.add(new User(3, "Sam", "Sam","PARIS", "sam@abc.com", "a", "a",TypeUtilisateur.Administrateur.getType()));
-		users.add(new User(1, "wajih","wajih", "rue albert 1er COLOMBES", "wajih@formation.com", "b",
-				"b", TypeUtilisateur.Conseiller.getType()));
-		users.add(new User(2, "Tomy","Tomy", "ALBAMA", "tomy@abc.com", "c", "c",TypeUtilisateur.Client.getType()));
-		users.add(new User(4, "Sophie","Sophie", "TEXAS", "sophie@def.com", "d", "d",TypeUtilisateur.Client.getType()));
-		users.add(new User(5, "John","John", "CALIFORNIA", "john@ijk.com", "e", "e",TypeUtilisateur.Client.getType()));
-		users.add(new User(6, "prenom cons2","nom cons2", "rue machion truc", "wajih@formation.com", "f",
-				"f", TypeUtilisateur.Conseiller.getType()));
-		users.add(new User(7, "Conseiller3","dsfdfge", "rue rgrege", "wajih@formation.com", "g",
-				"g", TypeUtilisateur.Conseiller.getType()));
+		users.add(new User(3, "Sam", "Sam","PARIS", "sam@abc.com", "a", "a",TypeUtilisateur.Administrateur.getType(),546));
+		users.add(new User(1, "wajih","wajih", "rue albert 1er COLOMBES", "wajih@formation.com", "b","b", TypeUtilisateur.Conseiller.getType(),564654));
+		users.add(new User(2, "Tomy","Tomy", "ALBAMA", "tomy@abc.com", "c", "c",TypeUtilisateur.Client.getType(),654654));
+		users.add(new User(4, "Sophie","Sophie", "TEXAS", "sophie@def.com", "d", "d",TypeUtilisateur.Client.getType(),564654));
+		users.add(new User(5, "John","John", "CALIFORNIA", "john@ijk.com", "e", "e",TypeUtilisateur.Client.getType(),65465));
+		users.add(new User(6, "prenom cons2","nom cons2", "rue machion truc", "wajih@formation.com", "f","f", TypeUtilisateur.Conseiller.getType(),56464));
+		users.add(new User(7, "Conseiller3","dsfdfge", "rue rgrege", "wajih@formation.com", "g","g", TypeUtilisateur.Conseiller.getType(),564645));
 		return users;
 	}
+
+
 	
 	@Override
 	public void saveConseiller(Conseiller conseiller) {
 		conseiller.setId(counter.incrementAndGet());
 		conseiller.setMatricule((int) counter.incrementAndGet());
 		users.add(conseiller);
-		
+	}
+
+	@Override
+	public List<User> getUser_Cons(long id) {
+		return trouveParType(3);
 	}
 
 }

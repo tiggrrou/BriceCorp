@@ -15,6 +15,10 @@ public interface UserService {
 	
 	User trouveParPrenom(String prenom);
 
+	User trouveParMail(String mail);
+	
+	List<User> getUser_Cons(long id); 
+
 	List<User> trouveParType(int typeUser);
 	
 	User findByLogin(String login);
