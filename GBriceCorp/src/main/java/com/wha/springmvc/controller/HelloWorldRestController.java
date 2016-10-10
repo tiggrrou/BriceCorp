@@ -17,6 +17,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.wha.springmvc.model.Client;
 import com.wha.springmvc.model.Compte;
 import com.wha.springmvc.model.Conseiller;
+import com.wha.springmvc.model.Dem_Chequier;
+import com.wha.springmvc.model.Dem_CreationClient;
 import com.wha.springmvc.model.Dem_ModificationCompte;
 import com.wha.springmvc.model.User;
 import com.wha.springmvc.service.CompteService;
@@ -35,18 +37,55 @@ public class HelloWorldRestController {
     @Autowired
     DemandeService demandeService;  //Service which will do all data retrieval/manipulation work
 
-    //-------------------Retrieve All Demandes--------------------------------------------------------
+    //-------------------Retrieve All Demandes de modif compte--------------------------------------------------------
     
-    @RequestMapping(value = "/demandes", method = RequestMethod.GET)
-    public ResponseEntity<List<Dem_ModificationCompte>> listAllDemande() {
-        List<Dem_ModificationCompte> demandes = demandeService.findAllDemandes();
+    @RequestMapping(value = "/demande/modifcompte", method = RequestMethod.GET)
+    public ResponseEntity<List<Dem_ModificationCompte>> listAllDemandeModifCompte() {
+    	System.out.println("fetch demandes modif compte");
+        List<Dem_ModificationCompte> demandes = demandeService.findAllDemandesModifCompte();
         if(demandes.isEmpty()){
             return new ResponseEntity<List<Dem_ModificationCompte>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
         }
         return new ResponseEntity<List<Dem_ModificationCompte>>(demandes, HttpStatus.OK);
     }
- 
+
+    //-------------------Retrieve All Demandes d inscription attribuee ou non--------------------------------------------------------
     
+    @RequestMapping(value = "/demande/inscription/{id}", method = RequestMethod.GET)
+    public ResponseEntity<List<Dem_CreationClient>> listAllDemandeIscription(@PathVariable("id") long id) {
+    	System.out.println("fetch demandes inscription " + id);
+        List<Dem_CreationClient> demandes = demandeService.findAllDemandesCreationClient(id);
+        if(demandes.isEmpty()){
+            return new ResponseEntity<List<Dem_CreationClient>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
+        }
+        return new ResponseEntity<List<Dem_CreationClient>>(demandes, HttpStatus.OK);
+    }
+    
+    //-------------------Retrieve All Demandes de chequier--------------------------------------------------------
+    
+    @RequestMapping(value = "/demande/chequier", method = RequestMethod.GET)
+    public ResponseEntity<List<Dem_Chequier>> listAllDemandeChequier() {
+    	System.out.println("fetch demandes chequier");
+        List<Dem_Chequier> demandes = demandeService.listAllDemandeChequier();
+        if(demandes.isEmpty()){
+            return new ResponseEntity<List<Dem_Chequier>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
+        }
+        return new ResponseEntity<List<Dem_Chequier>>(demandes, HttpStatus.OK);
+    }
+    //-------------------Create demande d'inscription--------------------------------------------------------
+    
+    @RequestMapping(value = "/demande/inscription", method = RequestMethod.POST)
+    public ResponseEntity<Void> DemandeInscription(@RequestBody Client client,    UriComponentsBuilder ucBuilder) {
+        System.out.println("Creating demande inscription " + client);
+
+       
+ 
+        demandeService.createDemandeInscription(client);
+ 
+        return new ResponseEntity<Void>( HttpStatus.CREATED);
+
+    }
+ 
     
     //-------------------Retrieve All Users--------------------------------------------------------
      
@@ -76,23 +115,7 @@ public class HelloWorldRestController {
  
   
      
-    //-------------------Create demande d'inscription--------------------------------------------------------
-     
-    @RequestMapping(value = "/user/", method = RequestMethod.POST)
-    public ResponseEntity<Void> createDemandeInscription(@RequestBody Client client,    UriComponentsBuilder ucBuilder) {
-        System.out.println("Creating demande inscription " + client.getNom());
-
-        if (userService.isUserExist(client)) {
-            System.out.println("A User with name " + client.getNom() + " already exist");
-            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-        }
- 
-        userService.createDemandeInscription(client);
- 
-        return new ResponseEntity<Void>( HttpStatus.CREATED);
-
-    }
- 
+   
     
      
     //------------------- Update a User --------------------------------------------------------
@@ -140,14 +163,7 @@ public class HelloWorldRestController {
         	return new ResponseEntity<User>(HttpStatus.NOT_ACCEPTABLE);
     }
     
-    //------------------- get Demandes --------------------------------------------------------
-    //non utilisée car service dedié créé
-    @RequestMapping(value = "/user/demandes/{idClient}&{idConseiller}", method = RequestMethod.GET ,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> getDemandes(@PathVariable("idClient") String idClient, @PathVariable("idConseiller") String idConseiller) {
-        //TODO obtenir les bonnes demandes
-    	return new ResponseEntity<User>(HttpStatus.OK);
 
-    }
     
     //------------------- get user --------------------------------------------------------
     

@@ -8,16 +8,16 @@ App.controller('CompteController', ['$scope','$location', '$route', 'CompteServi
 
     self.user;
     
-    self.demandes;
+
     
     self.notifications;
     
    self.edit = edit;
     self.remove = remove;
-    $scope.getDemandes = getDemandes;
+
     $scope.getComptes = getComptes;
     $scope.virement = virement;
-    $scope.writeDemDecou = writeDemDecou;
+
     
     function fetchAllComptes(){
         CompteService.fetchAllComptes()
@@ -79,19 +79,7 @@ App.controller('CompteController', ['$scope','$location', '$route', 'CompteServi
         deleteCompte(id);
     }
     
-    function getDemandes(){
-    	// je demande les demandes en fournissant l'id client et l'id conseiller
-    	// ces valeurs peuvent être nulles dans ce cas on récupère les demandes d'admissions des nouveaux clients
-    	CompteService.getDemandes(self.client.id,self.conseiller.id)
-    	.then(
-    			function(d){
-    				//je place les demandes récupérées dans demandes
-    				demandes = JSON.parse(sessionStorage.getItem("Demandes"));	
-    			},
-    			function (errResponse){
-    				console.error('Error while getting Clients request')
-    			});
-    }
+
     
     function getComptes(){
     	// je recupere les comptes d'un client en fonction de son ID
@@ -107,17 +95,7 @@ App.controller('CompteController', ['$scope','$location', '$route', 'CompteServi
     			});
     };
     
-    function writeDemDecou() {
-    	CompteService.writeDemDecou(JSON.parse(sessionStorage.getItem("User").id), compte.id, decouvert)
-    			.then(
-    					function(){
-    						// cas normal, pop up ?
-    						alert("Votre demande a bien été transmise")
-    					},
-    					function(messageErreurFromService){
-    						alert("Une erreur est survenue pendant la création de votre demande\n" + messageErreurFromService )
-    					})
-    }
+
 
     function virement()
     {

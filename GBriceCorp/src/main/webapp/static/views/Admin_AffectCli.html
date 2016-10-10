@@ -1,12 +1,7 @@
 
 
 
-	<div class="panel panel-info " ng-init="guests=[
-{Nom:'MoreL',Prenom:'Brice', Adresse:'24 rue Emile blandin 44400 REZE', Email:'brice_morle@hotmail.com'},
-{Nom:'dsvsv',Prenom:'dsvsv', Adresse:'24 rue Emile blandin 44400 REZE', Email:'brice_morle@hotmail.com'},
-{Nom:'MorsdvsveL',Prenom:'sdvdsvdsvdssdvdsvdsvd', Adresse:'24 rue Emile blandin 44400 REZE', Email:'brice_morle@hotmail.com'}
-]
-">
+	<div class="panel panel-info " ng-controller="DemandeController as dmdctrl" ng-init="dmdctrl.fetchAllDemandes('admin');">
 
 		<!-- Default panel contents -->
 		<div class="panel-heading" >
@@ -32,11 +27,11 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="guest in guests | filter:search:strict | orderBy:tripar ">
-							<td>{{guest.Nom}}</td>
-							<td>{{guest.Prenom}}</td>
-							<td>{{guest.Adresse}}</td>
-							<td>{{guest.Email}}</td>
+						<tr ng-repeat="demande in dmdctrl.demandes | filter:search:strict | orderBy:tripar ">
+							<td>{{demande.clientID}}</td>
+							<td>{{demande.idCompte}}</td>
+							<td>{{demande.type}}</td>
+							<td>{{demande.etat}}</td>
 
 							<td>
 										<div ng-init="ctrl.recherche_userParType(2);">

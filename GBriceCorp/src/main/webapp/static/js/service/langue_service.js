@@ -4,7 +4,6 @@ App.service('translationService', function($resource) {
             var languageFilePath = 'static/i18n/angular-locale_' + language + '.json';
             $resource(languageFilePath).get(function (data) {
                 $scope.translation = data;
-            	console.log(data);
             });
         };
     });

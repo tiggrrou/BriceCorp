@@ -129,6 +129,7 @@ public class Dem_CreationClient extends Demande {
 	public Dem_CreationClient(long clientID,long conseillerId, String nom, String prenom, String mail, String adresse, int telephone,
 			Justificatif domicile, Justificatif salaire, int revenu) {
 		super(clientID);
+		this.conseillerId = conseillerId;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.mail = mail;

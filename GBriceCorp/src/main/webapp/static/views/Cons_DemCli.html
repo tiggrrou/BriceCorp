@@ -3,11 +3,20 @@
 
 
 
-<div class="panel panel-info" >
+<div class="panel panel-info" ng-controller="DemandeController as dmdctrl" ng-init="dmdctrl.fetchAllDemandes('creation');">
 
 	<!-- Default panel contents -->
 	<div class="panel-heading" >
 		<span class="lead">Demande Clients en attente de traitement </span>
+
+						
+								<select class="form-control" id="sel1"
+									ng-change="dmdctrl.fetchAllDemandes(value)" ng-model="value">
+									<option value="creation" selected>Ouverture compte</option>
+									<option value="chequier" >Chequier</option>
+									<option value="modif" >Modification Compte</option>
+								</select>
+
 	</div>	
 	<!-- Tableau d'affichage des demandes d'ouverture -->
 
@@ -29,11 +38,11 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="demande in demandes  | filter:search:strict | orderBy:tripar ">
-								<td>{{demandes.clientID}}</td>
-								<td>{{demandes.compteID}}</td>
-								<td>{{demandes.decouvert}}</td>
-								<td>{{demandes.remunerateur}}</td>
+							<tr ng-repeat="demande in dmdctrl.demandes  | filter:search:strict | orderBy:tripar ">
+								<td>{{demande.clientID}}</td>
+								<td>{{demande.idCompte}}</td>
+								<td>{{demande.type}}</td>
+								<td>{{demande.etat}}</td>
 
 								<td align=center>
 <img class="icone_liste" src="static/imgs/crayon.png" ng-hide="{{demande.Edition}}" ng-click="" />

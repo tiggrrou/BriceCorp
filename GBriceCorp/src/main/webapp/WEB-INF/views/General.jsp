@@ -18,7 +18,9 @@
 <script
 	src="<c:url value='/static/js/controller/compte_controller.js' />"></script>
 <script src="<c:url value='/static/js/service/compte_service.js' />"></script>
-
+<script src="<c:url value='/static/js/service/demande_service.js' />"></script>
+<script
+	src="<c:url value='/static/js/controller/demande_controller.js' />"></script>
 <!-- Script pour routage -->
 <script src="<c:url value='/static/js/service/langue_service.js' />"></script>
 <script
@@ -41,7 +43,6 @@
 </head>
 
 <body ng-app="myApp" class="ng-cloak "
-	" 
 	ng-controller="UserController as ctrl">
 
 
@@ -97,7 +98,7 @@
 					<!-- Recherche client  -->
 					<a href="#/cons/Cons_RechCli" class="list-group-item"
 						ng-class="{active: $route.current.activetab == 'conseiller_rechercheclient'}"
-						ng-click="rechercheClient_cache = !rechercheClient_cache ; rechercheIBAN_cache = false">
+						ng-click="rechercheClient_cache = !rechercheClient_cache ;rechercheDemandes_cache = false; rechercheIBAN_cache = false">
 						<h4 class="list-group-item-heading">Recherche client</h4>
 						<p class="list-group-item-text">Rechercher un client</p>
 					</a>
@@ -121,7 +122,7 @@
 					<!-- Recherche IBAN  -->
 					<a href="#/cons/Cons_RechCpt" class="list-group-item"
 						ng-class="{active: $route.current.activetab == 'conseiller_recherchecompte'}"
-						ng-click="rechercheIBAN_cache = !rechercheIBAN_cache; rechercheClient_cache = false">
+						ng-click="rechercheIBAN_cache = !rechercheIBAN_cache;rechercheDemandes_cache = false; rechercheClient_cache = false">
 						<h4 class="list-group-item-heading">Recherche compte</h4>
 						<p class="list-group-item-text">Rechercher un compte par IBAN</p>
 					</a>
@@ -144,10 +145,11 @@
 					<!-- Tableau des demandes  -->
 					<a href="#/cons/Cons_DemCli" class="list-group-item"
 						ng-class="{active: $route.current.activetab == 'conseiller_demandesclient'}"
-						ng-click="ctrl.getDemandes; rechercheClient_cache = false; rechercheIBAN_cache = false">
+						ng-click="ctrl.getDemandes; rechercheDemandes_cache=!rechercheDemandes_cache; rechercheClient_cache = false; rechercheIBAN_cache = false">
 						<h4 class="list-group-item-heading">Demandes</h4>
-						<p class="list-group-item-text">Liste des demandes aÂ  traiter</p>
+						<p class="list-group-item-text">Liste des demandes a  traiter</p>
 					</a>
+					
 				</div>
 			</div>
 
@@ -239,44 +241,46 @@
 	</div>
 
 
-		<!-- banniere en fixe dans le header pour la deco -->
+	<!-- banniere en fixe dans le header pour la deco -->
 
-		<div id="banniere" class="col-xs-7 col-sm-9 col-lg-10">
-			<div class="nav_fleche col-xs-1" ng-hide="!nav_cache">
-				<img class="flechemenu " src="static/imgs/fleche-bas.png"
-					ng-click="ctrl.nav_cache_methode()" />
+	<div id="banniere" class="col-xs-7 col-sm-9 col-lg-10">
+		<div class="nav_fleche col-xs-1" ng-hide="!nav_cache">
+			<img class="flechemenu " src="static/imgs/fleche-bas.png"
+				ng-click="ctrl.nav_cache_methode()" />
+		</div>
+		<div class="session_name col-xs-8">
+			<h1 ng-hide="{{connexion_cache}}">{{translation.bienvenue}}
+				GestBank</h1>
+			<h1 ng-hide="{{admin_cache}}">Espace Administrateur</h1>
+			<h1 ng-hide="{{conseiller_cache}}">Espace Conseiller</h1>
+			<h1 ng-hide="{{client_cache}}">
+				Bienvenue <br /> {{ctrl.user.prenom}} {{ctrl.user.nom}}
+			</h1>
+		</div>
+		<div class="langue_connect col-xs-2">
+			<div>
+				<img class="langue center-block" src="static/imgs/en.png"
+					ng-hide="{{lang_cache}}" ng-click="ctrl.change_langue('fr')" /> <img
+					class="langue center-block" src="static/imgs/fr.png"
+					ng-hide="!{{lang_cache}}" ng-click="ctrl.change_langue('en')" />
 			</div>
-			<div class="session_name col-xs-8">
-				<h1 ng-hide="{{connexion_cache}}">{{translation.bienvenue}}
-					GestBank</h1>
-				<h1 ng-hide="{{admin_cache}}">Espace Administrateur</h1>
-				<h1 ng-hide="{{conseiller_cache}}">Espace Conseiller</h1>
-				<h1 ng-hide="{{client_cache}}">Bienvenue <br/> {{ctrl.user.prenom}} {{ctrl.user.nom}}</h1>
-			</div>
-			<div class="langue_connect col-xs-2">
-				<div>
-					<img class="langue center-block" src="static/imgs/en.png"
-						ng-hide="{{lang_cache}}" ng-click="ctrl.change_langue('fr')" /> <img
-						class="langue center-block" src="static/imgs/fr.png"
-						ng-hide="!{{lang_cache}}" ng-click="ctrl.change_langue('en')" />
-				</div>
-				<div>
-					<input type="button" class="btn btn-danger center-block"
-						value="Deconnexion" ng-click="ctrl.session_delete()"
-						ng-hide="!{{connexion_cache}}" />
-				</div>
+			<div>
+				<input type="button" class="btn btn-danger center-block"
+					value="Deconnexion" ng-click="ctrl.session_delete()"
+					ng-hide="!{{connexion_cache}}" />
 			</div>
 		</div>
+	</div>
 
 
 	<div id="partie_commune" class="col-xs-7 col-sm-9 col-lg-10">
 
 		<div class="generic-container">
-	
+
 			<div class="ng-view "></div>
 
 
-	
+
 		</div>
 	</div>
 

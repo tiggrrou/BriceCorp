@@ -150,8 +150,8 @@ function trier_par(tri){
  }else{
 		console.log("une session existe");
 		var utilisateur = JSON.parse(sessionStorage.getItem("currentUser"));
-		console.log("utilisateur.typeUser" +utilisateur.typeUser);
-		console.log("utilisateur.nom" +utilisateur.nom);
+		console.log("utilisateur.typeUser " +utilisateur.typeUser);
+		console.log("utilisateur.nom " +utilisateur.nom);
  	$scope.connexion_cache=true;
  	$scope.admin_cache=true;
  	$scope.conseiller_cache=true;
@@ -186,10 +186,11 @@ function trier_par(tri){
  self.reset = reset; 
  self.getMyUserBack = getMyUserBack;
  self.recherche_userParType = recherche_userParType;
-  
+  self.fetchAllUsers = fetchAllUsers;
     
     
     function fetchAllUsers(){
+    	console.log("coucou")
         UserService.fetchAllUsers()
             .then(
             function(d) {
@@ -281,35 +282,17 @@ function trier_par(tri){
     
    
     // Fonctions Client
-    self.client={id:null,nom:'',prenom:'',adresse:'',mail:'',login:'',mdp:'',telephone:'',revenus:'',dateOuverture:null,datecloture:null,conseillerID:null};
+    self.client={id:null,nom:'',prenom:'',adresse:'',mail:'',login:'',mdp:'',telephone:'',revenus:'',dateOuverture:null,dateCloture:null,conseillerID:null};
     self.clients=[];
-    self.demandes = [];
-    self.getDemandes = getDemandes;    
+ 
     self.notifications;
     self.searchClients = searchClients;
     self.getClient = getClient; 
     self.getNotifs = getNotifs;
-    self.inscription_Client=inscription_Client;
 
 
-    function inscription_Client() {
 
-    	
-        console.log('Saving New User', self.client);
-            
-        UserService.createDemandeInscription(self.client)
-        .then(
-        		function(d) {
-        			// envoi d'un mail de confirmation de demande
-
-        		},
-        function(errResponse){
-            console.error('Error while creating User');
-        }
-    );
-
-    window.history.back();
-};
+  
 
 
  	
@@ -367,19 +350,7 @@ function trier_par(tri){
    }     
     
     
-    function getDemandes(){
-    	// je demande les demandes en fournissant l'id client et l'id conseiller
-    	// ces valeurs peuvent être nulles dans ce cas on récupère les demandes d'admissions des nouveaux clients
-    	UserService.getDemandes(self.client.id,self.conseiller.id)
-    	.then(
-    			function(d){
-    				//je place les demandes récupérées dans demandes
-    				demandes = JSON.parse(sessionStorage.getItem("Demandes"));	
-    			},
-    			function (errResponse){
-    				console.error('Error while getting Clients request')
-    			});
-    };
+   
     
     function getClients_Cons(){
     	// je récupère un client en fonction de son ID
