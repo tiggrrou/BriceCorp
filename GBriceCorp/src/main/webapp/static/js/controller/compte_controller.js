@@ -4,9 +4,7 @@ App.controller('CompteController', ['$scope','$location', '$route', 'CompteServi
     var self = this;
     self.compte;
     self.comptes;
-    $scope.compteCredite;
-    $scope.compteDebiteur;
-    $scope.montant;
+    $scope.virement;
 
     self.user;
     
@@ -123,9 +121,12 @@ App.controller('CompteController', ['$scope','$location', '$route', 'CompteServi
 
     function virement()
     {
-    	var idCompteDebiteur = $scope.compteDebiteur.split("-")[1].trim();
-    	var idCompteCrediteur = $scope.compteCredite.split("-")[1].trim();
-    	CompteService.virement(idCompteDebiteur, idCompteCrediteur, $scope.montant)
+//    	var idCompteDebiteur = $scope.compteDebiteur.split("-")[1].trim();
+//    	var idCompteCrediteur = $scope.compteCredite.split("-")[1].trim();
+//    	CompteService.virement(idCompteDebiteur, idCompteCrediteur, $scope.montant)
+    	CompteService.virement(	$scope.virement.compteDebiteur, 
+    							$scope.virement.compteCredite, 
+    							$scope.virement.montant)
     		.then(
     				function(){
     					alert("Votre virement a bien ete effectue, retour a la synthese des comptes");

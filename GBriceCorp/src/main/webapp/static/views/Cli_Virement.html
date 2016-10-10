@@ -23,11 +23,11 @@
 								<label class="col-md-2 control-lable" for="file">Compte
 									a debiter</label>
 								<div class="col-md-7">
-									<select ng-model="compteDebiteur"
+									<select ng-model="virement.compteDebiteur"
 										name="debiter" class="form-control input-sm">
 										<option name="liste_comptes"
-											ng-repeat="Compte in comptes">{{Compte.libelle}}
-											- {{Compte.id}} - {{Compte.solde}}</option>
+											ng-repeat="Compte in comptes" value="{{Compte.id}}">
+											{{Compte.libelle}} , {{Compte.id}} , {{Compte.solde}}</option>
 									</select>
 									<div class="has-error" ng-show="formVirement">
 										<span ng-show="formConnexion.prenom.$error.required">Champ
@@ -41,11 +41,11 @@
 								<label class="col-md-2 control-lable" for="file">Compte
 									a crediter</label>
 								<div class="col-md-7">
-									<select ng-model="compteCredite"
+									<select ng-model="virement.compteCredite"
 										name="crediter" class="form-control input-sm">
-										<option name="liste_comptes"
-											ng-repeat="Compte in comptes">{{Compte.libelle}}
-											- {{Compte.id}} - {{Compte.solde}}</option>
+										<option name="liste_comptes" 
+											ng-repeat="Compte in comptes" value="{{Compte.id}}">{{Compte.libelle}}
+											, {{Compte.id}} , {{Compte.solde}}</option>
 										<option name="liste_comptes">Autre</option>
 									</select>
 									<div class="has-error" ng-show="formVirement.$dirty">
@@ -60,7 +60,7 @@
 								<label class="col-md-2 control-lable" for="file">Montant
 									a transferer</label>
 								<div class="col-md-7">
-									<input type="text" ng-model="montant"
+									<input type="text" ng-model="virement.montant"
 										name="montant" class="form-control input-sm"
 										placeholder="Entrez votre montant" required />
 									<div class="has-error" ng-show="formVirement.$dirty">

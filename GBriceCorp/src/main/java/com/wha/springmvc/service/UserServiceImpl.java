@@ -141,7 +141,7 @@ return null;
 	}
 
 	private static List<User> populateDummyUsers() {
-		List<User> users = new ArrayList<User>();
+		users = new ArrayList<User>();
 		/*users.add(new User(counter.incrementAndGet(), "Sam", "PARIS", "sam@abc.com", "a", "a",TypeUtilisateur.Administrateur.getType()));*/
 		users.add(new User(3, "Sam", "Sam","PARIS", "sam@abc.com", "a", "a",TypeUtilisateur.Administrateur.getType(),546));
 		users.add(new User(1, "wajih","wajih", "rue albert 1er COLOMBES", "wajih@formation.com", "b","b", TypeUtilisateur.Conseiller.getType(),564654));
@@ -151,6 +151,8 @@ return null;
 		users.add(new User(6, "prenom cons2","nom cons2", "rue machion truc", "wajih@formation.com", "f","f", TypeUtilisateur.Conseiller.getType(),56464));
 		users.add(new User(7, "Conseiller3","dsfdfge", "rue rgrege", "wajih@formation.com", "g","g", TypeUtilisateur.Conseiller.getType(),564645));
 		return users;
+		
+		
 	}
 
 

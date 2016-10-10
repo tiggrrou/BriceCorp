@@ -1,6 +1,7 @@
 package com.wha.springmvc.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class Client extends User {
 
@@ -24,6 +25,8 @@ public class Client extends User {
 	 * ID du conseiller attitré au client
 	 */
 	private long conseillerID;
+	
+	private List<Compte> comptes;
 	//#endregion
 
 	//#region Accesseurs
@@ -58,6 +61,14 @@ public class Client extends User {
 	public void setConseillerID(long conseillerID) {
 		this.conseillerID = conseillerID;
 	}
+	
+	public List<Compte> getComptes() {
+		return comptes;
+	}
+
+	public void setComptes(List<Compte> comptes) {
+		this.comptes = comptes;
+	}
 	//#endregion 
 
 	//#region Constructeur
@@ -84,6 +95,17 @@ public class Client extends User {
 		this.dateOuverture = dateOuverture;
 		this.dateCloture = dateCloture;
 		this.conseillerID = conseillerID;
+	}
+	
+	public Client(User user, int revenus, Date debut, Date fin, long idCons){
+		super(user.getId(), user.getNom(), user.getPrenom(), 
+				user.getAdresse(), user.getMail(), user.getIdentifiant(), 
+				user.getMotDePasse(), TypeUtilisateur.Conseiller.getType(),user.getTelephone());
+		this.revenus = revenus;
+		this.dateOuverture = debut;
+		this.dateCloture = fin;
+		this.conseillerID = idCons;
+		
 	}
 	//#endregion
 	

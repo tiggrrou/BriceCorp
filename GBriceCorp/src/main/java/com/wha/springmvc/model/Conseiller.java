@@ -4,6 +4,7 @@
 package com.wha.springmvc.model;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Nicolas Lourdeau
@@ -26,6 +27,8 @@ public class Conseiller extends User {
 	 * Date de fin de contrat
 	 */
 	private Date finContrat;
+	
+	private List<Client> clients;
 	//#endregion
 
 	//#region Accesseurs
@@ -65,6 +68,16 @@ public class Conseiller extends User {
 		this.matricule = matricule;
 		this.debutContrat = debutContrat;
 		this.finContrat = finContrat;
+	}
+	
+	public Conseiller(User user, int mat, Date debut, Date fin){
+		super(user.getId(), user.getNom(), user.getPrenom(), 
+				user.getAdresse(), user.getMail(), user.getIdentifiant(), 
+				user.getMotDePasse(), TypeUtilisateur.Conseiller.getType(),user.getTelephone());
+		this.matricule = mat;
+		this.debutContrat = debut;
+		this.finContrat = fin;
+		
 	}
 	
 	//#endregion
