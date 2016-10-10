@@ -107,12 +107,12 @@
 
 							<div class="form-group ">
 								<label class=" control-lable" for="file">Prenom</label> <input
-									type="text" ng-model="search.Prenom" name="prenom"
+									type="text" ng-model="search.prenom" name="prenom"
 									class="form-control input-sm" placeholder="Prenom du client" />
 							</div>
 							<div class="form-group ">
 								<label class=" control-lable" for="file">Nom</label> <input
-									type="text" ng-model="search.Nom" name="nom"
+									type="text" ng-model="search.nom" name="nom"
 									class="form-control input-sm" placeholder="Nom du client" />
 							</div>
 						</form>
@@ -133,8 +133,8 @@
 
 							<div class="form-group ">
 								<label class=" control-lable" for="file">IBAN</label> <input
-									type="text" ng-model="search.Iban" name="iban"
-									class="form-control input-sm" placeholder="IBAN a  rechercher" />
+									type="text" ng-model="search.id" name="iban"
+									class="form-control input-sm" placeholder="IBAN aÂ  rechercher" />
 
 
 							</div>
@@ -146,7 +146,7 @@
 						ng-class="{active: $route.current.activetab == 'conseiller_demandesclient'}"
 						ng-click="ctrl.getDemandes; rechercheClient_cache = false; rechercheIBAN_cache = false">
 						<h4 class="list-group-item-heading">Demandes</h4>
-						<p class="list-group-item-text">Liste des demandes a  traiter</p>
+						<p class="list-group-item-text">Liste des demandes aÂ  traiter</p>
 					</a>
 				</div>
 			</div>
@@ -284,7 +284,7 @@
 	<script>
 		gp_currencySymbols()
 	</script>
-	<!-- Responsive a  faire
+	<!-- Responsive aÂ  faire
 	<script>
 	App.controller('cache_menu', function($scope) {
 		
