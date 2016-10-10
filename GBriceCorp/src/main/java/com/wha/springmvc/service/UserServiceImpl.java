@@ -167,4 +167,11 @@ return null;
 		return trouveParType(3);
 	}
 
+
+
+	@Override
+	public List<User> getUser_Admin_Cons() {
+		return trouveParType(2);
+	}
+
 }

@@ -160,6 +160,23 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         );
         return deferred.promise;
     }
+    
+    function getListeCons() {
+        var deferred = $q.defer();
+
+        $http.get(REST_SERVICE_URI+'/Admin/Conseillers')
+            .then(
+            function (response) {
+                deferred.resolve(response.data);
+            },
+            function(errResponse){
+                console.error('Error while deleting User');
+                deferred.reject(errResponse);
+            }
+        );
+        return deferred.promise;
+    }
+    
 	
 	 /* Ajout d'un conseiller puis refresh de la liste des users */
     function creaCons2(conseiller) {

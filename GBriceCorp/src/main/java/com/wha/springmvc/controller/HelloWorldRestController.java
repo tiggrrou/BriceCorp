@@ -217,6 +217,18 @@ public class HelloWorldRestController {
         return new ResponseEntity<List<User>>(users, HttpStatus.OK);
     }   
     
+//-------------------Retrieve Admin Conseillers --------------------------------------------------------
+    
+    @RequestMapping(value = "/user/Admin/Conseillers", method = RequestMethod.GET)
+    public ResponseEntity<List<User>> listUser_Admin_Cons() {
+        List<User> users = userService.getUser_Admin_Cons();
+        System.out.println(users);
+        if(users.isEmpty()){
+            return new ResponseEntity<List<User>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
+        }
+        return new ResponseEntity<List<User>>(users, HttpStatus.OK);
+    }
+    
   //-------------------Create a Conseiller--------------------------------------------------------
     
     @RequestMapping(value = "/user/ADMIN/creaCons", method = RequestMethod.POST)
