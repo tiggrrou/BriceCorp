@@ -2,6 +2,7 @@ package com.wha.springmvc.service;
 
 import java.util.List;
 
+import com.wha.springmvc.model.Client;
 import com.wha.springmvc.model.Conseiller;
 import com.wha.springmvc.model.User;
 
@@ -23,7 +24,7 @@ public interface UserService {
 	
 	User findByLogin(String login);
 	
-	void saveUser(User user);
+	void createDemandeInscription(Client client);
 	
 	void updateUser(User user);
 	

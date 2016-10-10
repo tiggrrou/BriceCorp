@@ -6,7 +6,7 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
 
     var factory = {
         fetchAllUsers: fetchAllUsers,
-        createUser: createUser,
+        createDemandeInscription: createDemandeInscription,
         updateUser:updateUser,
         deleteUser:deleteUser,
         connectUser:connectUser,
@@ -42,7 +42,7 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
 
     
     /* Ajout d'un user puis refresh de la liste des users */
-    function createUser(user) {
+    function createDemandeInscription(user) {
         var deferred = $q.defer();
         $http.post(REST_SERVICE_URI, user)
             .then(
@@ -56,6 +56,8 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         );
         return deferred.promise;
     }
+    
+    
 
     /* update un user puis refresh de la liste des users */
     function updateUser(user, id) {

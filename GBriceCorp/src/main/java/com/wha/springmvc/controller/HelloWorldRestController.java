@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.wha.springmvc.model.Client;
 import com.wha.springmvc.model.Compte;
 import com.wha.springmvc.model.Conseiller;
 import com.wha.springmvc.model.Dem_ModificationCompte;
@@ -75,22 +76,21 @@ public class HelloWorldRestController {
  
   
      
-    //-------------------Create a User--------------------------------------------------------
+    //-------------------Create demande d'inscription--------------------------------------------------------
      
     @RequestMapping(value = "/user/", method = RequestMethod.POST)
-    public ResponseEntity<Void> createUser(@RequestBody User user,    UriComponentsBuilder ucBuilder) {
-        System.out.println("Creating User " + user.getNom());
- 
-        if (userService.isUserExist(user)) {
-            System.out.println("A User with name " + user.getNom() + " already exist");
+    public ResponseEntity<Void> createDemandeInscription(@RequestBody Client client,    UriComponentsBuilder ucBuilder) {
+        System.out.println("Creating demande inscription " + client.getNom());
+
+        if (userService.isUserExist(client)) {
+            System.out.println("A User with name " + client.getNom() + " already exist");
             return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }
  
-        userService.saveUser(user);
+        userService.createDemandeInscription(client);
  
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri());
-        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+        return new ResponseEntity<Void>( HttpStatus.CREATED);
+
     }
  
     

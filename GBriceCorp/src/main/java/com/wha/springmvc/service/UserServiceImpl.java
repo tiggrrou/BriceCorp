@@ -1,13 +1,19 @@
 package com.wha.springmvc.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.stereotype.Service;
 
+import com.wha.springmvc.model.Client;
 import com.wha.springmvc.model.Conseiller;
+import com.wha.springmvc.model.Dem_CreationClient;
+import com.wha.springmvc.model.Demande;
+import com.wha.springmvc.model.Justificatif;
+import com.wha.springmvc.model.TypeJustificatif;
 import com.wha.springmvc.model.TypeUtilisateur;
 import com.wha.springmvc.model.User;
 
@@ -17,9 +23,14 @@ public class UserServiceImpl implements UserService {
 	private static final AtomicLong counter = new AtomicLong();
 
 	private static List<User> users;
-
+	private static List<Client> clients;
+	private static List<Conseiller> conseillers;
+	
+	private static List<Demande> demandes;
 	static {
 		users = populateDummyUsers();
+		conseillers = populateDummyConseillers();
+		clients = populateDummyClients();
 	}
 
 	public List<User> findAllUsers() {
@@ -112,9 +123,10 @@ return null;
 		return "identification incorrecte";
 	}
 
-	public void saveUser(User user) {
-		user.setId(counter.incrementAndGet());
-		users.add(user);
+	public void createDemandeInscription(Client client) {
+
+	demandes.add(new Dem_CreationClient(18, 12, client.getNom(), client.getPrenom(), client.getMail(), client.getAdresse(), client.getTelephone(),
+			new Justificatif(00, new Date(), TypeJustificatif.Domicile), new Justificatif(00, new Date(), TypeJustificatif.Salaire), client.getRevenus()));	
 	}
 
 	public void updateUser(User user) {
@@ -155,6 +167,28 @@ return null;
 		
 	}
 
+	
+	private static List<Conseiller> populateDummyConseillers() {
+		conseillers = new ArrayList<Conseiller>();
+		
+		conseillers.add(new Conseiller(1, "wajih","wajih", "rue albert 1er COLOMBES", "wajih@formation.com", "b","b", TypeUtilisateur.Conseiller.getType(),564654, new Date(), new Date()));
+		conseillers.add(new Conseiller(6, "prenom cons2","nom cons2", "rue machion truc", "wajih@formation.com", "f","f", TypeUtilisateur.Conseiller.getType(),56464, new Date(), new Date()));
+		conseillers.add(new Conseiller(7, "Conseiller3","dsfdfge", "rue rgrege", "wajih@formation.com", "g","g", TypeUtilisateur.Conseiller.getType(),564645, new Date(), new Date()));
+		return conseillers;
+		
+		
+	}
+
+	private static List<Client> populateDummyClients() {
+		clients = new ArrayList<Client>();
+	
+		clients.add(new Client(2, "Tomy","Tomy", "ALBAMA", "tomy@abc.com", "c", "c",TypeUtilisateur.Client.getType(),654654, new Date(), new Date(), 0));
+		clients.add(new Client(4, "Sophie","Sophie", "TEXAS", "sophie@def.com", "d", "d",TypeUtilisateur.Client.getType(),564654, new Date(), new Date(), 0));
+		clients.add(new Client(5, "John","John", "CALIFORNIA", "john@ijk.com", "e", "e",TypeUtilisateur.Client.getType(),65465, new Date(), new Date(), 0));
+		return clients;
+		
+		
+	}
 
 	
 	@Override

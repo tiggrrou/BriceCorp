@@ -17,13 +17,13 @@
 			<div class="formcontainer">
 				<form ng-submit="ctrl.inscription_Client()" name="formIscription"
 					class="form-horizontal" method="post">
-					<input type="hidden" ng-model="ctrl.user.id" />
-					<input type="hidden" ng-model="ctrl.user.typeUser" />					
+
+						
 					<div class="row">
 						<div class="form-group col-md-12">
 							<label class="col-md-2 control-lable" for="file">Prenom</label>
 							<div class="col-md-7">
-								<input type="text" ng-model="ctrl.user.prenom" name="prenom"
+								<input type="text" ng-model="ctrl.client.prenom" name="prenom"
 									class="form-control input-sm" placeholder="Entez votre prenom"
 									required />
 								<div class="has-error" ng-show="formInscription.$dirty">
@@ -37,7 +37,7 @@
 						<div class="form-group col-md-12">
 							<label class="col-md-2 control-lable" for="file">Nom</label>
 							<div class="col-md-7">
-								<input type="text" ng-model="ctrl.user.nom" name="nom"
+								<input type="text" ng-model="ctrl.client.nom" name="nom"
 									class="form-control input-sm" placeholder="Entrez votre prenom"
 									required />
 								<div class="has-error" ng-show="formInscription.$dirty">
@@ -51,7 +51,7 @@
 						<div class="form-group col-md-12">
 							<label class="col-md-2 control-lable" for="file">Telephone</label>
 							<div class="col-md-7">
-								<input type="tel" ng-model="ctrl.user.telephone"
+								<input type="tel" ng-model="ctrl.client.telephone"
 									name="telephone" class="form-control input-sm"
 									placeholder="Entez votre telephone" required />
 								<div class="has-error" ng-show="formInscription.$dirty">
@@ -66,7 +66,7 @@
 							<label class="col-md-2 control-lable" for="file">Adresse
 								mail</label>
 							<div class="col-md-7">
-								<input type="email" ng-model="ctrl.user.mail" name="mail"
+								<input type="email" ng-model="ctrl.client.mail" name="mail"
 									class="form-control input-sm" placeholder="Entrez votre email"
 									required />
 								<div class="has-error" ng-show="formInscription.$dirty">
@@ -83,7 +83,7 @@
 							<label class="col-md-2 control-lable" for="file">Adresse
 								postale</label>
 							<div class="col-md-7">
-								<input type="text" ng-model="ctrl.user.adresse" name="adresse"
+								<input type="text" ng-model="ctrl.client.adresse" name="adresse"
 									class="form-control input-sm"
 									placeholder="Entrez votre adresse" required />
 								<div class="has-error" ng-show="formInscription.$dirty">
@@ -98,9 +98,9 @@
 							<label class="col-md-2 control-lable" for="file">Code
 								Postal</label>
 							<div class="col-md-7">
-								<input type="text" ng-model="ctrl.user.codepostal"
+								<input type="text" ng-model="ctrl.client.revenus"
 									name="codepostal" class="form-control input-sm"
-									placeholder="Entez votre codepostal" required />
+									placeholder="Entez votre revenu moyen estime" required />
 								<div class="has-error" ng-show="formInscription.$dirty">
 									<span ng-show="formConnexion.codepostal.$error.required">Champ
 										obligatoire</span>

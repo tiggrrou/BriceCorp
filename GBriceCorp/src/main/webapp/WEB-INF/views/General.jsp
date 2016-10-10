@@ -251,7 +251,7 @@
 					GestBank</h1>
 				<h1 ng-hide="{{admin_cache}}">Espace Administrateur</h1>
 				<h1 ng-hide="{{conseiller_cache}}">Espace Conseiller</h1>
-				<h1 ng-hide="{{client_cache}}">Bienvenue {{ctrl.client.nom}}</h1>
+				<h1 ng-hide="{{client_cache}}">Bienvenue <br/> {{ctrl.user.prenom}} {{ctrl.user.nom}}</h1>
 			</div>
 			<div class="langue_connect col-xs-2">
 				<div>

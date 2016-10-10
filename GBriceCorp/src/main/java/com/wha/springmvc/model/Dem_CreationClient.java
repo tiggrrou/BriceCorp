@@ -4,6 +4,10 @@ public class Dem_CreationClient extends Demande {
 
 	//#region Attributs
 	/**
+	 * id du conseiller attribue à cette demande
+	 */
+	private long conseillerId;
+	/**
 	 * Nom du client potentiel
 	 */
 	private String nom;
@@ -38,6 +42,14 @@ public class Dem_CreationClient extends Demande {
 	//#endregion
 
 	//#region Accesseurs
+	
+	public long getConseillerId() {
+		return conseillerId;
+	}
+
+	public void setConseillerId(long conseillerId) {
+		this.conseillerId = conseillerId;
+	}
 	public String getNom() {
 		return nom;
 	}
@@ -114,7 +126,7 @@ public class Dem_CreationClient extends Demande {
 	 * @param salaire
 	 * @param revenu
 	 */
-	public Dem_CreationClient(long clientID, String nom, String prenom, String mail, String adresse, int telephone,
+	public Dem_CreationClient(long clientID,long conseillerId, String nom, String prenom, String mail, String adresse, int telephone,
 			Justificatif domicile, Justificatif salaire, int revenu) {
 		super(clientID);
 		this.nom = nom;
@@ -133,5 +145,7 @@ public class Dem_CreationClient extends Demande {
 	public Dem_CreationClient(long clientID) {
 		super(clientID);
 	}
+
+	
 	
 }

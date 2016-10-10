@@ -23,8 +23,9 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
 
 	// General
 	var self = this;
-	self.nav_cache_methode = nav_cache_methode;
 
+	self.nav_cache_methode = nav_cache_methode;
+self.user = JSON.parse(sessionStorage.getItem("currentUser"));
 	
 	// Responsive des div partie_commune et banniere en fonction de la navbar
     function nav_cache_methode(){
@@ -177,7 +178,7 @@ function trier_par(tri){
  };
  
  // Fonctions User
- self.user={id:null,nom:'',prenom:'',adresse:'',mail:'',identifiant:'',motDePasse:'',typeUser:'',telephone:''};
+
  self.users=[];
  self.submit = submit;
  self.edit = edit;
@@ -278,10 +279,10 @@ function trier_par(tri){
     	self.user = JSON.parse(sessionStorage.getItem("currentUser"));
     }
     
-  
+   
     // Fonctions Client
-    self.client={id:null,nom:'',prenom:''};
-    self.clients;
+    self.client={id:null,nom:'',prenom:'',adresse:'',mail:'',login:'',mdp:'',telephone:'',revenus:'',dateOuverture:null,datecloture:null,conseillerID:null};
+    self.clients=[];
     self.demandes = [];
     self.getDemandes = getDemandes;    
     self.notifications;
@@ -292,12 +293,25 @@ function trier_par(tri){
 
 
     function inscription_Client() {
-    	self.user.typeUser = 3;
-        console.log('Saving New User', self.user);
-        createUser(self.user);
+
+    	
+        console.log('Saving New User', self.client);
+            
+        UserService.createDemandeInscription(self.client)
+        .then(
+        		function(d) {
+        			// envoi d'un mail de confirmation de demande
+
+        		},
+        function(errResponse){
+            console.error('Error while creating User');
+        }
+    );
 
     window.history.back();
 };
+
+
  	
     function searchClients() {
     	// je lance la recherche avec le nom et prenom du client et l'ID du conseiller
@@ -385,7 +399,7 @@ function trier_par(tri){
     // Fonctions Admin
     self.creaCons = creaCons;
     self.getListeCons = getListeCons;
-	
+	self.printToCart = printToCart;
     /* Ajout d'un conseiller puis refresh de la liste des users */
    function creaCons(){
 
@@ -431,6 +445,7 @@ function trier_par(tri){
 	    
     // Fonctions Print
 	 function printToCart(printSectionId){
+		 console.log("coucou" + printSectionId)
           var innerContents = document.getElementById(printSectionId).innerHTML;
           var popupWindow = window.open('', '_blank', 'width=600,height=700,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no');
           popupWindow.document.open();
