@@ -24,6 +24,7 @@ App.factory('CompteService', ['$http', '$q', function($http, $q){
     				deferred.reject(reponseServeur);
     			}
     	)
+    	return deferred.promise;
     } 
     
     
@@ -38,6 +39,7 @@ App.factory('CompteService', ['$http', '$q', function($http, $q){
     			function (){
     				deferred.reject();
     			})
+    			return deferred.promise;
     }
     
     /**

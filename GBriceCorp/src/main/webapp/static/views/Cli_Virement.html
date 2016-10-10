@@ -16,7 +16,7 @@
 
 			<div class="panel-body" >
 				<div class="formcontainer">
-					<form ng-submit="CompteController.virement()" name="formVirement"
+					<form ng-submit="virement()" name="formVirement"
 						class="form-horizontal">
 						<div class="row">
 							<div class="form-group col-md-12">
@@ -60,7 +60,7 @@
 								<label class="col-md-2 control-lable" for="file">Montant
 									a transferer</label>
 								<div class="col-md-7">
-									<input type="text" ng-model="CompteController.montant"
+									<input type="text" ng-model="montant"
 										name="montant" class="form-control input-sm"
 										placeholder="Entrez votre montant" required />
 									<div class="has-error" ng-show="formVirement.$dirty">

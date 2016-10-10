@@ -253,7 +253,7 @@ public class HelloWorldRestController {
     		Compte debit = compteService.findById(debiteur);
     		Compte credit = compteService.findById(crediteur);
     		debit.setSolde(debit.getSolde()- montant);
-    		credit.setSolde(credit.getSolde()- montant);
+    		credit.setSolde(credit.getSolde()+ montant);
     		
         /*if (userService.isUserExist(user)) {
             System.out.println("A User with name " + user.getNom() + " already exist");

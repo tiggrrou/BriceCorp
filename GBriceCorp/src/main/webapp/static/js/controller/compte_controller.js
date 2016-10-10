@@ -4,8 +4,9 @@ App.controller('CompteController', ['$scope','$location', '$route', 'CompteServi
     var self = this;
     self.compte;
     self.comptes;
-    self.compteCredite;
-    self.compteDebiteur;
+    $scope.compteCredite;
+    $scope.compteDebiteur;
+    $scope.montant;
 
     self.user;
     
@@ -122,11 +123,13 @@ App.controller('CompteController', ['$scope','$location', '$route', 'CompteServi
 
     function virement()
     {
-    	CompteService.virement(self.compteDebiteur.id, self.compteCredite.id, self.montant)
+    	var idCompteDebiteur = $scope.compteDebiteur.split("-")[1].trim();
+    	var idCompteCrediteur = $scope.compteCredite.split("-")[1].trim();
+    	CompteService.virement(idCompteDebiteur, idCompteCrediteur, $scope.montant)
     		.then(
     				function(){
-    					alert("Votre virement a bien été effectué")
-    					getComptes();
+    					alert("Votre virement a bien ete effectue, retour a la synthese des comptes");
+    					$location.path("cli/");
     				},
     				function(messageErreurFromService){
     					alert("Une erreur est survenue pendant le traitement de votre opération")

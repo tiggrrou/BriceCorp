@@ -26,7 +26,7 @@ public class CompteServiceImpl implements CompteService {
 
 	public Compte findById(String id) {
 		for (Compte compte : comptes) {
-			if (compte.getID() == id) {
+			if (compte.getID().equals(id)) {
 				return compte;
 			}
 		}
@@ -82,7 +82,7 @@ public class CompteServiceImpl implements CompteService {
 	}
 
 	private static List<Compte> populateDummyComptes() {
-		List<Compte> comptes = new ArrayList<Compte>();
+		comptes = new ArrayList<Compte>();
 		/*comptes.add(String iD, String libelle, long clientID, int decouvert, float tauxDecouvert);*/
 		comptes.add(new Compte("1", "Compte Courant", 4, 0, (float) 0.5, (float) 650));
 		comptes.add(new Compte("2", "Compte Joint non-rémunéré", 4, 0, (float) 0.5, (float) 16500));
