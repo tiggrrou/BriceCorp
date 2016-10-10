@@ -18,6 +18,7 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
 	 *  self.getClient = getClient;
 	 *  self.getNotifs = getNotifs;
 	 *  self.detailCompte = detailCompte;
+	 *  self.getListeCons = getListeCons;
 	 * */
 
 	// General
@@ -383,6 +384,7 @@ function trier_par(tri){
     
     // Fonctions Admin
     self.creaCons = creaCons;
+    self.getListeCons = getListeCons;
 	
     /* Ajout d'un conseiller puis refresh de la liste des users */
    function creaCons(){
@@ -407,10 +409,10 @@ function trier_par(tri){
     };
     
     /* Recuperation de la liste des conseillers (en format user pour le moment) */
-    function getListCons(){
+    function getListeCons(){
 
 
-         UserService.getListCons()
+         UserService.getListeCons()
              .then(
             		 function(d){
          				$scope.cons_admin = d;

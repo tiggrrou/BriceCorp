@@ -12,7 +12,8 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         connectUser:connectUser,
         recherche_userParType:recherche_userParType,
         creaCons2:creaCons2,
-        getClients_Cons:getClients_Cons
+        getClients_Cons:getClients_Cons,
+        getListeCons:getListeCons
     };
 
     var user = {
