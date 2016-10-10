@@ -29,7 +29,15 @@ App.factory('CompteService', ['$http', '$q', function($http, $q){
     
     function virement(compteDebiteurID, compteCrediteID, montant)
     {
-    	
+    	var deferred = $q.defer();
+    	$http.post(REST_SERVICE_URI_COMPTES+'virement/'+compteDebiteurID+"&"+compteCrediteID+"&"+montant)
+    	.then(
+    			function (){
+    				deferred.resolve();
+    			},
+    			function (){
+    				deferred.reject();
+    			})
     }
     
     /**

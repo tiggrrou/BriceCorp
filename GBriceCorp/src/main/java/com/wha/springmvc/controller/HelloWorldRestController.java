@@ -232,4 +232,22 @@ public class HelloWorldRestController {
  
         return new ResponseEntity<Void>( HttpStatus.CREATED);
     }
+    
+  //------------------- Virement --------------------------------------------------------
+    @RequestMapping(value = "/compte/virement/{Debiteur}&{Crediteur}&{Montant}", method = RequestMethod.POST)
+    public ResponseEntity<Void> virement(	@PathVariable("Debiteur") String debiteur,
+    										@PathVariable("Crediteur") String crediteur,
+    										@PathVariable("Montant") float montant){
+    		Compte debit = compteService.findById(debiteur);
+    		Compte credit = compteService.findById(crediteur);
+    		debit.setSolde(debit.getSolde()- montant);
+    		credit.setSolde(credit.getSolde()- montant);
+    		
+        /*if (userService.isUserExist(user)) {
+            System.out.println("A User with name " + user.getNom() + " already exist");
+            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+        }*/
+ 
+        return new ResponseEntity<Void>( HttpStatus.OK);
+    }
 }

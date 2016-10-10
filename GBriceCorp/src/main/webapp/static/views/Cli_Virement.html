@@ -6,7 +6,7 @@
 		CompteController.compteCredite  = compte reçevant l'argent -->
 	<!--  j'obtiens les comptes pour les placer dans les listes -->
 
-		<div class="panel panel-info" ng-init="CompteController.getComptes();">
+		<div class="panel panel-info" ng-init="getComptes();">
 
 			<!-- Default panel contents -->
 			<div class="panel-heading" >
@@ -23,11 +23,11 @@
 								<label class="col-md-2 control-lable" for="file">Compte
 									a debiter</label>
 								<div class="col-md-7">
-									<select ng-model="CompteController.compteDebiteur"
+									<select ng-model="compteDebiteur"
 										name="debiter" class="form-control input-sm">
 										<option name="liste_comptes"
-											ng-repeat="Compte in CompteController.comptes">{{Compte.Libelle}}
-											- {{Compte.Iban}} - {{Compte.Solde}}</option>
+											ng-repeat="Compte in comptes">{{Compte.libelle}}
+											- {{Compte.id}} - {{Compte.solde}}</option>
 									</select>
 									<div class="has-error" ng-show="formVirement">
 										<span ng-show="formConnexion.prenom.$error.required">Champ
@@ -41,11 +41,11 @@
 								<label class="col-md-2 control-lable" for="file">Compte
 									a crediter</label>
 								<div class="col-md-7">
-									<select ng-model="CompteController.compteCredite"
+									<select ng-model="compteCredite"
 										name="crediter" class="form-control input-sm">
 										<option name="liste_comptes"
-											ng-repeat="Compte in CompteController.comptes">{{Compte.Libelle}}
-											- {{Compte.Iban}} - {{Compte.Solde}}</option>
+											ng-repeat="Compte in comptes">{{Compte.libelle}}
+											- {{Compte.id}} - {{Compte.solde}}</option>
 										<option name="liste_comptes">Autre</option>
 									</select>
 									<div class="has-error" ng-show="formVirement.$dirty">

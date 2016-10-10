@@ -4,6 +4,8 @@ App.controller('CompteController', ['$scope','$location', '$route', 'CompteServi
     var self = this;
     self.compte;
     self.comptes;
+    self.compteCredite;
+    self.compteDebiteur;
 
     self.user;
     
@@ -13,13 +15,10 @@ App.controller('CompteController', ['$scope','$location', '$route', 'CompteServi
     
    self.edit = edit;
     self.remove = remove;
-    self.getDemandes = getDemandes;
-    self.getComptes = getComptes;
-    self.virement = virement;
-    
-    console.log("coucou j'existe !");
-    
-console.log(getComptes());
+    $scope.getDemandes = getDemandes;
+    $scope.getComptes = getComptes;
+    $scope.virement = virement;
+    $scope.writeDemDecou = writeDemDecou;
     
     function fetchAllComptes(){
         CompteService.fetchAllComptes()
