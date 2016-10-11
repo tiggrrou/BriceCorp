@@ -43,9 +43,9 @@ public class DemandeServiceImpl implements DemandeService {
 		
 		if(id == 0){
 		for (Dem_CreationClient demandecreationcli : demandescreationcli) {
-			if (demandecreationcli.getClientID() == id) {
+			if (demandecreationcli.getClientID() == id && demandecreationcli.getConseillerId() == 0) {
 				listedemandecreationpartype.add(demandecreationcli);
-				System.out.println(demandecreationcli);
+
 			}
 		}
 		}else{
@@ -63,11 +63,22 @@ public class DemandeServiceImpl implements DemandeService {
 	@Override
 	public List<Dem_Chequier> listAllDemandeChequier() {
 		// TODO Auto-generated method stub
-		return demandeschequier;
+		return demandeschequier;		
 	}
 	
 	
-	
+	@Override
+	public boolean attribution(long id_demande, long id_conseiller) {
+		System.out.println("coucou" + id_demande + " "+ id_conseiller);
+		for (Dem_CreationClient demandecreationcli : demandescreationcli) {
+			if (demandecreationcli.getID() == id_demande) {
+				demandecreationcli.setConseillerId(id_conseiller);
+				System.out.println(demandecreationcli);
+				return true;
+			}
+		}
+		return false;
+	}
 
 
 	@Override
@@ -75,7 +86,7 @@ public class DemandeServiceImpl implements DemandeService {
 System.out.println("creation demande inscription de "+ client);
 demandescreationcli.add(new Dem_CreationClient(0, 0, client.getNom(), client.getPrenom(), client.getMail(), client.getAdresse(), client.getTelephone(),
 			new Justificatif(00, new Date(), TypeJustificatif.Domicile), new Justificatif(00, new Date(), TypeJustificatif.Salaire), 1200));	
-	System.out.println("creation de la demande "+ demandescreationcli);
+
 	}
 
 
@@ -106,6 +117,8 @@ demandescreationcli.add(new Dem_CreationClient(0, 0, client.getNom(), client.get
 		demandeschequier.add(new Dem_Chequier(4, "5"));
 	return demandeschequier;
 	}
+
+
 
 
 	

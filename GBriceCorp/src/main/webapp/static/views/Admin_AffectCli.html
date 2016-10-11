@@ -15,31 +15,31 @@
 
 		<div class="panel-body" >
 			<div class="tablecontainer">
-				<table class="table table-hover">
+				<table class="table table-hover" >
 					<thead>
 						<tr>
 							<th ng-click="ctrl.trier_par('Nom')">Nom</th>
 							<th ng-click="ctrl.trier_par('Prenom')">Prenom</th>
 							<th ng-click="ctrl.trier_par('Adresse')">Adresse</th>
 							<th ng-click="ctrl.trier_par('Email')">Email</th>
+						<th ng-click="ctrl.trier_par('Revenus')">Revenus</th>							
 							<th width="20%">Attribution</th>
 
 						</tr>
 					</thead>
 					<tbody>
 						<tr ng-repeat="demande in dmdctrl.demandes | filter:search:strict | orderBy:tripar ">
-							<td>{{demande.clientID}}</td>
-							<td>{{demande.idCompte}}</td>
-							<td>{{demande.type}}</td>
-							<td>{{demande.etat}}</td>
-
+							<td>{{demande.nom}}</td>
+							<td>{{demande.prenom}}</td>
+							<td>{{demande.adresse}}</td>
+							<td>{{demande.mail}}</td>
+							<td>{{demande.revenu}}</td>
 							<td>
-										<div ng-init="ctrl.recherche_userParType(2);">
+										<div ng-init="ctrl.getListeCons()">
 									<form name="formValidation" class="form-horizontal">
 										<select class="form-control" id="sel1"
-											ng-change="validation_attribution()" ng-model="v">
-											<option value="conseiller.id" selected=selected>"conseiller	actuel"</option>
-											<option ng-repeat="conseiller in ctrl.conseillers"
+											ng-change="dmdctrl.validation_attribution({{demande.id}},value)" ng-model="value">
+											<option ng-repeat="conseiller in cons_admin"
 												value="{{conseiller.id}}">{{conseiller.nom}}</option>
 										</select>
 									</form>

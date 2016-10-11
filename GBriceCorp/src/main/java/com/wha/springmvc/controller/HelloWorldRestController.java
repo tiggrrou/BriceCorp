@@ -1,5 +1,6 @@
 package com.wha.springmvc.controller;
  
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,16 +38,42 @@ public class HelloWorldRestController {
     @Autowired
     DemandeService demandeService;  //Service which will do all data retrieval/manipulation work
 
+ //-------------------Attribution du conseiller à une demande d'ouverture de compte--------------------------------------------------------
+    
+    @RequestMapping(value = "/demande/attribution/{id_demande}&{id_conseiller}", method = RequestMethod.PUT)
+    public ResponseEntity<Boolean> attribution(@PathVariable("id_demande") long id_demande, @PathVariable("id_conseiller") long id_conseiller) {
+    	System.out.println("Attribution du conseiller" + id_conseiller + " a la demande " + id_demande);
+        boolean attribution = demandeService.attribution(id_demande,id_conseiller);
+        if(!attribution){
+            return new ResponseEntity<Boolean>(attribution,HttpStatus.NOT_FOUND);
+        }else{
+        return new ResponseEntity<Boolean>(attribution, HttpStatus.OK);
+        }
+        
+    }
+
+    
     //-------------------Retrieve All Demandes de modif compte--------------------------------------------------------
     
     @RequestMapping(value = "/demande/modifcompte", method = RequestMethod.GET)
-    public ResponseEntity<List<Dem_ModificationCompte>> listAllDemandeModifCompte() {
+    public ResponseEntity<List[<Dem_ModificationCompte>][<User>]> listAllDemandeModifCompte() {
     	System.out.println("fetch demandes modif compte");
         List<Dem_ModificationCompte> demandes = demandeService.findAllDemandesModifCompte();
         if(demandes.isEmpty()){
             return new ResponseEntity<List<Dem_ModificationCompte>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
+        }else{
+        	demande_user = new List<>();
+
+    		for (Dem_ModificationCompte demande : demandes) {
+    			demande_user. userService.findById(demande.getClientID());
+    				
+    			}
+    		}
+        	
+        	
+        	return new ResponseEntity<List<Dem_ModificationCompte>>(demandes, HttpStatus.OK);
         }
-        return new ResponseEntity<List<Dem_ModificationCompte>>(demandes, HttpStatus.OK);
+        
     }
 
     //-------------------Retrieve All Demandes d inscription attribuee ou non--------------------------------------------------------

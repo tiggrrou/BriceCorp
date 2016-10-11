@@ -147,6 +147,14 @@ public class Dem_CreationClient extends Demande {
 		super(clientID);
 	}
 
+	@Override
+	public String toString() {
+		return "Dem_CreationClient [getConseillerId()=" + getConseillerId() + ", getNom()=" + getNom()
+				+ ", getPrenom()=" + getPrenom() + ", getMail()=" + getMail() + ", getAdresse()=" + getAdresse()
+				+ ", getTelephone()=" + getTelephone() + ", getDomicile()=" + getDomicile() + ", getSalaire()="
+				+ getSalaire() + ", getRevenu()=" + getRevenu() + "]";
+	}
+
 	
 	
 }

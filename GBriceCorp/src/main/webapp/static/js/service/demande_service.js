@@ -10,12 +10,28 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
     	fetchAllDemandesInscription:fetchAllDemandesInscription,
     	createDemandeInscription:createDemandeInscription,
         writeDemDecou:writeDemDecou,
-        getDemandes:getDemandes
+        getDemandes:getDemandes,
+        attributionConseiller:attributionConseiller
     };
     return factory;
     
     
-
+    function attributionConseiller(id_demande,id_conseiller){
+    	
+    	  var deferred = $q.defer();
+          $http.put(REST_SERVICE_URI+'attribution/'+id_demande+"&"+id_conseiller)
+              .then(
+              function (response) {
+                  deferred.resolve(response.data);
+              },
+              function(errResponse){
+                  console.error('Error while fetching Demandes inscription');
+                  deferred.reject(errResponse);
+              }
+          );
+          return deferred.promise;
+    	
+    }
     /*recherche de toutes les demandes de modification de compte */
     function fetchAllDemandesModifCompte() {
 

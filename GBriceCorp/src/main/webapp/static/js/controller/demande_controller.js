@@ -10,12 +10,24 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	 self.fetchAllDemandes=fetchAllDemandes;
 	 self.getDemandes=getDemandes;
 	 self.writeDemDecou=writeDemDecou;
-	 
+	 self.validation_attribution=validation_attribution;
  // Fonctions User
 	 self.demande={clientID:'',compteID:'',decouvert:'',remunerateur:''};
 	 self.demandes=[];
 
-
+	 function validation_attribution(id_demande,id_conseiller){
+		 console.log("id_demande " + id_demande+ "i d_conseiller " + id_conseiller)
+	    	DemandeService.attributionConseiller(id_demande,id_conseiller)
+            .then(
+                    function(d) {
+                    	fetchAllDemandes("admin")
+                    	console.log(d)
+                    },
+            function(errResponse){
+                console.error('Error while fetching Demandes');
+            }
+        );	 
+	 }
 
     
     function fetchAllDemandes(value){
