@@ -4,18 +4,22 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.wha.springmvc.dao.DemandeDao;
+import com.wha.springmvc.dao.UserDao;
 import com.wha.springmvc.model.Client;
 import com.wha.springmvc.model.Dem_Chequier;
 import com.wha.springmvc.model.Dem_CreationClient;
 import com.wha.springmvc.model.Dem_ModificationCompte;
 import com.wha.springmvc.model.Justificatif;
 import com.wha.springmvc.model.TypeJustificatif;
-import com.wha.springmvc.model.User;
 
 
 @Service("demandeService")
+@Transactional
 public class DemandeServiceImpl implements DemandeService {
 
 
@@ -28,11 +32,26 @@ public class DemandeServiceImpl implements DemandeService {
 		demandeschequier = populateDummyDemandeschequier();
 	}
 	
+	@Autowired
+	private DemandeDao dao;
+
+	// private static final AtomicLong counter = new AtomicLong();
+	//
+	// private static List<User> users;
+	//
+	// static{
+	// users= populateDummyUsers();
+	// }
+
+//	public List<User> findAllUsers() {
+//		return dao.findAllUsers();
+//	}
 	
-	@Override
+	
+	
 	public List<Dem_ModificationCompte> findAllDemandesModifCompte() {
 		// TODO Auto-generated method stub
-		return demandesmodifcompte;
+		return dao.findAllDemandesModifCompte();
 	}
 
 	@Override
@@ -85,7 +104,7 @@ public class DemandeServiceImpl implements DemandeService {
 	public void createDemandeInscription(Client client) {
 System.out.println("creation demande inscription de "+ client);
 demandescreationcli.add(new Dem_CreationClient(0, 0, client.getNom(), client.getPrenom(), client.getMail(), client.getAdresse(), client.getTelephone(),
-			new Justificatif(00, new Date(), TypeJustificatif.Domicile), new Justificatif(00, new Date(), TypeJustificatif.Salaire), 1200));	
+			new Justificatif(00, new Date(), TypeJustificatif.Domicile), new Justificatif(00, new Date(), TypeJustificatif.Salaire), client.getRevenus()));	
 
 	}
 
@@ -104,10 +123,10 @@ demandescreationcli.add(new Dem_CreationClient(0, 0, client.getNom(), client.get
 	private static List<Dem_CreationClient> populateDummyDemandescreationcli() {
 		demandescreationcli = new ArrayList<Dem_CreationClient>();
 		demandescreationcli.add(new Dem_CreationClient(0, 1, "MOREL", "brice", "brice@fezf.com", "25 e dez de z", 676762393,
-			new Justificatif(00, new Date(), TypeJustificatif.Domicile), new Justificatif(00, new Date(), TypeJustificatif.Salaire), 1200));
+			new Justificatif(00, new Date(), TypeJustificatif.Domicile), new Justificatif(00, new Date(), TypeJustificatif.Salaire), 2000));
 		
 		demandescreationcli.add(new Dem_CreationClient(0, 0, "gdfgd", "dfgdhds", "brdfhs.com", "25dfh z", 676762393,
-				new Justificatif(00, new Date(), TypeJustificatif.Domicile), new Justificatif(00, new Date(), TypeJustificatif.Salaire), 1200));
+				new Justificatif(00, new Date(), TypeJustificatif.Domicile), new Justificatif(00, new Date(), TypeJustificatif.Salaire), 1000));
 	return demandescreationcli;
 	}
 	

@@ -3,10 +3,15 @@
  */
 package com.wha.springmvc.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /**
  * @author Nicolas Lourdeau
  *
  */
+@Entity
+@Table(name="demande_modificationcompte")
 public class Dem_ModificationCompte extends Demande {
 
 	//#region Attributs
