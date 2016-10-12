@@ -31,19 +31,19 @@
 							<tr>
 								<th ng-click="ctrl.trier_par('Nom')">Nom</th>
 								<th ng-click="ctrl.trier_par('Prenom')">Prenom</th>
-								<th ng-click="ctrl.trier_par('Ressource')">Ressource</th>
+								<th ng-click="ctrl.trier_par('date')">Date creation</th>
 								<th width="10%" ng-click="ctrl.trier_par('Action')">Action</th>
 
 							</tr>
 						</thead>
 						<tbody>
 							<tr ng-repeat="demande in dmdctrl.demandes  | filter:search:strict | orderBy:tripar ">
-								<td>{{demande.nom}}</td>
-								<td>{{demande.prenom}}</td>
-								<td>{{demande.revenu}}</td>
+								<td>{{(demande[1]!=null)?demande[1].nom:demande[0].nom}}</td>
+								<td>{{(demande[1]!=null)?demande[1].prenom:demande[0].prenom}}</td>
+								<td>{{(demande[1]!=null)?demande[1].nom:demande[0].nom}}</td>
 								<td align=center>
-<img class="icone_liste" src="static/imgs/crayon.png" ng-hide="{{demande.etat}}=='EnCours'" ng-click="" />
-		<img class="icone_liste" src="static/imgs/sablier.png" ng-hide="{{demande.etat}}=='EnAttente'" ng-click="" />
+<img class="icone_liste" src="static/imgs/crayon.png" ng-hide="{{(demande[0].etat=='EnCours')?false:true}}" ng-click="" />
+<img class="icone_liste" src="static/imgs/sablier.png" ng-hide="{{(demande[0].etat=='EnAttente')?false:true}}" ng-click="" />
 								</td>
 							</tr>
 						</tbody>

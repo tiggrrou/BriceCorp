@@ -15,6 +15,9 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	 self.demande={clientID:'',compteID:'',decouvert:'',remunerateur:''};
 	 self.demandes=[];
 
+	 
+	 
+	 
 	 function validation_attribution(id_demande,id_conseiller){
 		 console.log("id_demande " + id_demande+ "i d_conseiller " + id_conseiller)
 	    	DemandeService.attributionConseiller(id_demande,id_conseiller)

@@ -29,16 +29,16 @@
 					</thead>
 					<tbody>
 						<tr ng-repeat="demande in dmdctrl.demandes | filter:search:strict | orderBy:tripar ">
-							<td>{{demande.nom}}</td>
-							<td>{{demande.prenom}}</td>
-							<td>{{demande.adresse}}</td>
-							<td>{{demande.mail}}</td>
-							<td>{{demande.revenu}}</td>
+							<td>{{(demande[1]!=null)?demande[1].nom:demande[0].nom}}</td>
+							<td>{{(demande[1]!=null)?demande[1].prenom:demande[0].prenom}}</td>
+							<td>{{(demande[1]!=null)?demande[1].adresse:demande[0].adresse}}</td>
+							<td>{{(demande[1]!=null)?demande[1].mail:demande[0].mail}}</td>
+							<td>{{(demande[1]!=null)?demande[1].revenu:demande[0].revenu}}</td>
 							<td>
 										<div ng-init="ctrl.getListeCons()">
 									<form name="formValidation" class="form-horizontal">
 										<select class="form-control" id="sel1"
-											ng-change="dmdctrl.validation_attribution({{demande.id}},value)" ng-model="value">
+											ng-change="dmdctrl.validation_attribution({{demande[0].id}},value)" ng-model="value">
 											<option ng-repeat="conseiller in cons_admin"
 												value="{{conseiller.id}}">{{conseiller.nom}}</option>
 										</select>
