@@ -2,39 +2,44 @@ package com.wha.springmvc.dao;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.wha.springmvc.model.Client;
 import com.wha.springmvc.model.Dem_Chequier;
 import com.wha.springmvc.model.Dem_CreationClient;
 import com.wha.springmvc.model.Dem_ModificationCompte;
 import com.wha.springmvc.model.Demande;
-import com.wha.springmvc.model.User;
 
+
+@Repository("userDoa")
 public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements DemandeDao {
 
 	@Override
-	public void createDemandeInscription(Client client) {
-		// TODO Auto-generated method stub
+	public void createDemandeInscription(Dem_CreationClient demandecreationclient) {
+		persist(demandecreationclient);
 
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Dem_ModificationCompte> findAllDemandesModifCompte() {
-		List<Dem_ModificationCompte> demandemodificationcompte = getEntityManager().createQuery("FROM demande_modification")
+		List<Dem_ModificationCompte> demandemodificationcompte = getEntityManager().createQuery("FROM Dem_ModificationCompte")
 				.getResultList();
 		return demandemodificationcompte;
 	}
 
 	@Override
-	public List<Dem_CreationClient> findAllDemandesCreationClient(long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Dem_CreationClient> findAllDemandesCreationClient() {
+		List<Dem_CreationClient> demandecreationclient = getEntityManager().createQuery("FROM Dem_CreationClient")
+				.getResultList();
+		return demandecreationclient;
 	}
 
 	@Override
 	public List<Dem_Chequier> listAllDemandeChequier() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Dem_Chequier> demandechequier = getEntityManager().createQuery("FROM Dem_Chequier")
+				.getResultList();
+		return demandechequier;
 	}
 
 	@Override

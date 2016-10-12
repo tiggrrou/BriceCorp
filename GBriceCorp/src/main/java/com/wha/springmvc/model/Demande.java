@@ -3,20 +3,29 @@
  */
 package com.wha.springmvc.model;
 
+import java.io.Serializable;
+import java.util.Date;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * @author Nicolas Lourdeau
  *
  */
+
 @Entity
-@Table(name="demande")
-public abstract class Demande {
+@Table(name = "Demande")
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Demande implements Serializable {
 
 	//#region Attributs
 	private static int nbDemandes = 0;
@@ -32,14 +41,23 @@ public abstract class Demande {
 
 	 * ID du client (peut être nul si demande d'inscription)
 	 */
-	
+	@Column(name = "clientID")
 	private long clientID;
 	/**
 
 	 * Traduit l'état d'une demande (en cours/refusée/acceptée)
 	 */
-	@NotNull
+
 	private String etat;
+	
+	/**
+
+	 * Traduit la date de creatin de la demande
+	 */
+	@Temporal(TemporalType.DATE)
+	private Date dateCreation;
+	
+
 	//#endregion 
 	
 	//#region Accesseurs
@@ -61,8 +79,15 @@ public abstract class Demande {
 	public void setEtat(String etat) {
 		this.etat = etat;
 	}
+	public Date getDateCreation() {
+		return dateCreation;
+	}
+	public void setDateCreation(Date dateCreation) {
+		this.dateCreation = dateCreation;
+	}	
 	//#endregion
 	
+
 	//#region constructeur
 	/**
 	 * @param iD
@@ -71,10 +96,11 @@ public abstract class Demande {
 	 */
 	public Demande(long clientID) {
 		super();
-		nbDemandes++;
-		this.ID = nbDemandes;
+
+		this.ID = ID;
 		this.clientID = clientID;
 		this.etat = EtatDemande.EnCours.toString();
+		this.dateCreation = new Date();
 	}
 	//#endregion
 	

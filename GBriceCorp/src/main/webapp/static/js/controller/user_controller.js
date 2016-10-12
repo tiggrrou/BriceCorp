@@ -12,7 +12,7 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
 	 *  self.edit = edit;
 	 *  self.remove = remove;
 	 *  self.reset = reset;
-	 *  self.getMyUserBack = getMyUserBack;
+
 	 *  self.getDemandes = getDemandes;
 	 *  self.searchClients = searchClients;
 	 *  self.getClient = getClient;
@@ -25,7 +25,7 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
 	var self = this;
 
 	self.nav_cache_methode = nav_cache_methode;
-self.user = JSON.parse(sessionStorage.getItem("currentUser"));
+
 	
 	// Responsive des div partie_commune et banniere en fonction de la navbar
     function nav_cache_methode(){
@@ -100,8 +100,8 @@ function trier_par(tri){
  self.connect = connect;
  self.connexion = connexion;
  self.session_delete = session_delete;
- 
- 
+ self.curentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+
  function connect() {
  	connexion(self.user.identifiant, self.user.motDePasse);
  };
@@ -110,8 +110,8 @@ function trier_par(tri){
  	UserService.connectUser(login, pwd)
  		.then(
  		function(d) {
- 			var user = JSON.parse(sessionStorage.getItem("currentUser"));
- 			var userType = (user == null)? 0 : user.typeUser;
+ 			 
+ 			var userType = (self.curentUser == null)? 0 : self.curentUser.typeUser;
 
  			switch(userType){
  			case 0 : 
@@ -140,7 +140,7 @@ function trier_par(tri){
  	);
  }; 
 
- if(sessionStorage.getItem("currentUser") == null)
+ if(self.curentUser == null)
  {
  	console.log("pas de session");
  	$scope.connexion_cache=false;
@@ -149,22 +149,22 @@ function trier_par(tri){
  	$scope.client_cache=true;
  }else{
 		console.log("une session existe");
-		var utilisateur = JSON.parse(sessionStorage.getItem("currentUser"));
-		console.log("utilisateur.typeUser " +utilisateur.typeUser);
-		console.log("utilisateur.nom " +utilisateur.nom);
+		
+		console.log("utilisateur.typeUser " +self.curentUser.typeUser);
+		console.log("utilisateur.nom " +self.curentUser.nom);
  	$scope.connexion_cache=true;
  	$scope.admin_cache=true;
  	$scope.conseiller_cache=true;
  	$scope.client_cache=true;
-		if(utilisateur.typeUser == 1)
+		if(self.curentUser.typeUser == 1)
 		{
 	    	$scope.admin_cache=false;
 		}
-		else if(utilisateur.typeUser == 2)
+		else if(self.curentUser.typeUser == 2)
 		{
 			$scope.conseiller_cache=false;
 		}
-		else if(utilisateur.typeUser == 3)
+		else if(self.curentUser.typeUser == 3)
 		{
 			$scope.client_cache=false;
 		} 
@@ -184,13 +184,13 @@ function trier_par(tri){
  self.edit = edit;
  self.remove = remove;
  self.reset = reset; 
- self.getMyUserBack = getMyUserBack;
+
  self.recherche_userParType = recherche_userParType;
   self.fetchAllUsers = fetchAllUsers;
     
     
     function fetchAllUsers(){
-    	console.log("coucou")
+
         UserService.fetchAllUsers()
             .then(
             function(d) {
@@ -275,10 +275,7 @@ function trier_par(tri){
     			})
     };
     
-    function getMyUserBack()
-    {
-    	self.user = JSON.parse(sessionStorage.getItem("currentUser"));
-    }
+
     
    
     // Fonctions Client
@@ -437,7 +434,7 @@ function trier_par(tri){
           var innerContents = document.getElementById(printSectionId).innerHTML;
           var popupWindow = window.open('', '_blank', 'width=600,height=700,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no');
           popupWindow.document.open();
-          popupWindow.document.write('<html><head><link rel="stylesheet" type="text/css" href="static/css/print.css" /></head><body >' + innerContents + '</html>');
+          popupWindow.document.write('<html><head><link rel="stylesheet" type="text/css" href="static/css/print.css" window.print(); /></head><body >' + innerContents + '</html>');
           popupWindow.document.close();
         };
 

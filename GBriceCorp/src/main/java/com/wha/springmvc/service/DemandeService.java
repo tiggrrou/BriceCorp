@@ -9,7 +9,7 @@ import com.wha.springmvc.model.Dem_ModificationCompte;
 
 public interface DemandeService {
 
-	public void createDemandeInscription(Client client);
+	public void createDemandeInscription(Dem_CreationClient demandecreationclient);
 	
 	
 	public List<Dem_ModificationCompte> findAllDemandesModifCompte();

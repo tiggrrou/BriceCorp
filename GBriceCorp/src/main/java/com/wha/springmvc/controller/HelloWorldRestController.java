@@ -138,17 +138,17 @@ public class HelloWorldRestController {
     //-------------------Create demande d'inscription--------------------------------------------------------
     
     @RequestMapping(value = "/demande/inscription", method = RequestMethod.POST)
-    public ResponseEntity<Void> DemandeInscription(@RequestBody Client client,    UriComponentsBuilder ucBuilder) {
-        System.out.println("Creating demande inscription " + client);
+    public ResponseEntity<Void> DemandeInscription(@RequestBody Dem_CreationClient demande_inscription) {
+        System.out.println("Creating demande inscription " + demande_inscription);
 
-       
+        
  
-        demandeService.createDemandeInscription(client);
+        demandeService.createDemandeInscription(demande_inscription);
  
         return new ResponseEntity<Void>( HttpStatus.CREATED);
 
     }
- 
+   
     
     //-------------------Retrieve All Users--------------------------------------------------------
      

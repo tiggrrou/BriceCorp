@@ -80,14 +80,6 @@ public class JpaConfiguration {
 		txManager.setEntityManagerFactory(emf);
 		return txManager;
 	}
-	
-	
-	
-	
-	
-	
-	public JpaConfiguration() {
-		// TODO Auto-generated constructor stub
-	}
+
 
 }

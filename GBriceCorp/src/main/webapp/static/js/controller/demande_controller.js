@@ -12,11 +12,12 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	 self.writeDemDecou=writeDemDecou;
 	 self.validation_attribution=validation_attribution;
  // Fonctions User
-	 self.demande={clientID:'',compteID:'',decouvert:'',remunerateur:''};
+	 self.demande={};
 	 self.demandes=[];
 
-	 
-	 
+
+
+	 self.demande_inscription={clientID:0,conseillerId:0,nom:'',prenom:'',mail:'',adresse:'',telephone:0,revenu:0};
 	 
 	 function validation_attribution(id_demande,id_conseiller){
 		 console.log("id_demande " + id_demande+ "i d_conseiller " + id_conseiller)
@@ -79,32 +80,22 @@ self.demandes = '';
         },
         function(errResponse){
             console.error('Error while fetching Demandes');
-        }
-);
-	
-}
-    
-    
-    };
+        });}    };
 
-    self.client={id:null,nom:'',prenom:'',adresse:'',mail:'',login:'',mdp:'',telephone:'',revenus:'',dateOuverture:null,dateCloture:null,conseillerID:null};
-    self.clients=[];
+
   function inscription_Client() {
-
-    	
-        console.log('Saving New Client', self.client);
-            
-        DemandeService.createDemandeInscription(self.client)
+  
+	  
+        console.log(self.demande_inscription);
+        DemandeService.createDemandeInscription(self.demande_inscription)
         .then(
         		function(d) {
         			// envoi d'un mail de confirmation de demande
-
         		},
         function(errResponse){
             console.error('Error while creating Client');
         }
     );
-
     window.history.back();
 };
 

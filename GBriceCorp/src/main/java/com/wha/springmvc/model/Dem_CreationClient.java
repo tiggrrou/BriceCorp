@@ -1,43 +1,65 @@
 package com.wha.springmvc.model;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Dem_CreationClient")
+@PrimaryKeyJoinColumn(name = "id")
 public class Dem_CreationClient extends Demande {
 
 	//#region Attributs
 	/**
 	 * id du conseiller attribue à cette demande
 	 */
+	@Column(name = "conseillerId")
 	private long conseillerId;
 	/**
 	 * Nom du client potentiel
 	 */
+	@Column(name = "nom")
 	private String nom;
 	/**
 	 * Prénom du client potentiel
 	 */
+	@Column(name = "prenom")
 	private String prenom;
 	/**
 	 * Mail du client potentiel
 	 */
+	@Column(name = "mail")
 	private String mail;
 	/**
 	 * Adresse du client potentiel
 	 */
+	@Column(name = "adresse")
 	private String adresse;
 	/**
 	 * telephone du client potentiel
 	 */
+	@Column(name = "telephone")
 	private int telephone;
 	/**
 	 * Justificatif de domicile
 	 */
-	private Justificatif domicile;
+	@OneToMany
+	private List<Justificatif> domicile;
 	/**
 	 * Justificatif du salaire
 	 */
-	private Justificatif salaire;
+	@OneToMany
+	private List<Justificatif> salaire;
 	/**
 	 * revenu mensuel du client
 	 */
+	@Column(name = "revenu")
 	private int revenu;
 	//#endregion
 
@@ -90,20 +112,20 @@ public class Dem_CreationClient extends Demande {
 		this.telephone = telephone;
 	}
 
-	public Justificatif getDomicile() {
+	public Collection<Justificatif> getDomicile() {
 		return domicile;
 	}
 
 	public void setDomicile(Justificatif domicile) {
-		this.domicile = domicile;
+		this.domicile = (List<Justificatif>) domicile;
 	}
 
-	public Justificatif getSalaire() {
+	public Collection<Justificatif> getSalaire() {
 		return salaire;
 	}
 
 	public void setSalaire(Justificatif salaire) {
-		this.salaire = salaire;
+		this.salaire = (List<Justificatif>) salaire;
 	}
 
 	public int getRevenu() {
@@ -122,12 +144,11 @@ public class Dem_CreationClient extends Demande {
 	 * @param mail
 	 * @param adresse
 	 * @param telephone
-	 * @param domicile
-	 * @param salaire
+	 * @param justificatif
+	 * @param justificatif2
 	 * @param revenu
 	 */
-	public Dem_CreationClient(long clientID,long conseillerId, String nom, String prenom, String mail, String adresse, int telephone,
-			Justificatif domicile, Justificatif salaire, int revenu) {
+	public Dem_CreationClient(long clientID,long conseillerId, String nom, String prenom, String mail, String adresse, int telephone, int revenu) {
 		super(clientID);
 		this.conseillerId = conseillerId;
 		this.nom = nom;
@@ -135,8 +156,6 @@ public class Dem_CreationClient extends Demande {
 		this.mail = mail;
 		this.adresse = adresse;
 		this.telephone = telephone;
-		this.domicile = domicile;
-		this.salaire = salaire;
 		this.revenu = revenu;
 	}
 

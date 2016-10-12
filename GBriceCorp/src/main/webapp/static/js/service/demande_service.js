@@ -83,9 +83,10 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
     }
     
     /* Ajout d'une demande d'inscription d'un client */
-    function createDemandeInscription(client) {
+    function createDemandeInscription(demande_inscription) {
+    	console.log(demande_inscription)
         var deferred = $q.defer();
-        $http.post(REST_SERVICE_URI+'inscription/', client)
+        $http.post(REST_SERVICE_URI+'inscription/', demande_inscription)
             .then(
             function (response) {
                 deferred.resolve(response.data);

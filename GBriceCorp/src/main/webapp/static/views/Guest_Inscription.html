@@ -18,6 +18,14 @@
 		<div class="formcontainer">
 			<form ng-submit="dmdctrl.inscription_Client()" name="formIscription"
 				class="form-horizontal" method="post">
+				<input type="hidden" ng-model="ctrl.demande_inscription.clientID" />
+				<input type="hidden"
+					ng-model="ctrl.demande_inscription.conseillerId" /> <input
+					type="hidden" ng-model="ctrl.demande_inscription.domicile" /> <input
+					type="hidden" ng-model="ctrl.demande_inscription.salaire" />
+
+
+
 				<div class="row">
 					<div class="form-actions ">
 						<a href="#/" class="btn btn-warning btn-sm floatLeft"> Retour
@@ -31,9 +39,9 @@
 					<div class="form-group col-md-12">
 						<label class="col-md-2 control-lable" for="file">Prenom</label>
 						<div class="col-md-7">
-							<input type="text" ng-model="dmdctrl.client.prenom" name="prenom"
-								class="form-control input-sm" placeholder="Entez votre prenom"
-								required />
+							<input type="text" ng-model="dmdctrl.demande_inscription.prenom"
+								name="prenom" class="form-control input-sm"
+								placeholder="Entez votre prenom" required />
 							<div class="has-error" ng-show="formInscription.$dirty">
 								<span ng-show="formConnexion.prenom.$error.required">Champ
 									obligatoire</span>
@@ -45,9 +53,9 @@
 					<div class="form-group col-md-12">
 						<label class="col-md-2 control-lable" for="file">Nom</label>
 						<div class="col-md-7">
-							<input type="text" ng-model="dmdctrl.client.nom" name="nom"
-								class="form-control input-sm" placeholder="Entrez votre prenom"
-								required />
+							<input type="text" ng-model="dmdctrl.demande_inscription.nom"
+								name="nom" class="form-control input-sm"
+								placeholder="Entrez votre prenom" required />
 							<div class="has-error" ng-show="formInscription.$dirty">
 								<span ng-show="formConnexion.nom.$error.required">Champ
 									obligatoire</span>
@@ -59,7 +67,8 @@
 					<div class="form-group col-md-12">
 						<label class="col-md-2 control-lable" for="file">Telephone</label>
 						<div class="col-md-7">
-							<input type="tel" ng-model="dmdctrl.client.telephone"
+							<input type="tel"
+								ng-model="dmdctrl.demande_inscription.telephone"
 								name="telephone" class="form-control input-sm"
 								placeholder="Entez votre telephone" required />
 							<div class="has-error" ng-show="formInscription.$dirty">
@@ -74,9 +83,9 @@
 						<label class="col-md-2 control-lable" for="file">Adresse
 							mail</label>
 						<div class="col-md-7">
-							<input type="email" ng-model="dmdctrl.client.mail" name="mail"
-								class="form-control input-sm" placeholder="Entrez votre email"
-								required />
+							<input type="email" ng-model="dmdctrl.demande_inscription.mail"
+								name="mail" class="form-control input-sm"
+								placeholder="Entrez votre email" required />
 							<div class="has-error" ng-show="formInscription.$dirty">
 								<span ng-show="formConnexion.email.$error.required">Champ
 									obligatoire</span>
@@ -91,7 +100,7 @@
 						<label class="col-md-2 control-lable" for="file">Adresse
 							postale</label>
 						<div class="col-md-7">
-							<input type="text" ng-model="dmdctrl.client.adresse"
+							<input type="text" ng-model="dmdctrl.demande_inscription.adresse"
 								name="adresse" class="form-control input-sm"
 								placeholder="Entrez votre adresse" required />
 							<div class="has-error" ng-show="formInscription.$dirty">
@@ -106,7 +115,7 @@
 						<label class="col-md-2 control-lable" for="file">Revenus
 							brut mensuel estime</label>
 						<div class="col-md-7">
-							<input type="text" ng-model="dmdctrl.client.revenus"
+							<input type="text" ng-model="dmdctrl.demande_inscription.revenu"
 								name="codepostal" class="form-control input-sm"
 								placeholder="Entez votre revenu moyen estime" required />
 							<div class="has-error" ng-show="formInscription.$dirty">

@@ -3,18 +3,29 @@
  */
 package com.wha.springmvc.model;
 
+import java.io.Serializable;
 import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * @author Nicolas Lourdeau
  *
  */
-public class Justificatif {
+
+@Entity
+public class Justificatif implements Serializable{
 //#region Attributs
+	
+	@Id
 	private long ID;
 	
 	private long clientID;
 	
+	@Temporal(TemporalType.DATE)
 	private Date date;
 	
 	private TypeJustificatif type;

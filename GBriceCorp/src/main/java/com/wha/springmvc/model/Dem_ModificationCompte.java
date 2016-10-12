@@ -3,7 +3,9 @@
  */
 package com.wha.springmvc.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
@@ -11,23 +13,28 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name="demande_modificationcompte")
+@Table(name = "Dem_ModificationCompte")
+@PrimaryKeyJoinColumn(name = "id")
 public class Dem_ModificationCompte extends Demande {
 
 	//#region Attributs
 	/**
 	 * ID du compte à modifier
 	 */
+	@Column(name = "compteID")
 	private String compteID;
 	/**
 	 * Demande de modification d'autorisation de découvert
 	 */
+	@Column(name = "decouvert")
 	private int decouvert;
 	/**
 	 * volonté de passer en compte rémunérateur
 	 */
-	private Boolean remunerateur;
+	@Column(name = "remunerateur")
+	private boolean remunerateur;
 	//#endregion
+	
 	//#region Accesseurs
 	public String getCompteID() {
 		return compteID;
@@ -47,7 +54,10 @@ public class Dem_ModificationCompte extends Demande {
 	public void setRemunerateur(boolean remunerateur) {
 		this.remunerateur = remunerateur;
 	}
+	
+	
 	//#endregion
+	
 	//#region Constructeurs
 	/**
 	 * @param clientID
