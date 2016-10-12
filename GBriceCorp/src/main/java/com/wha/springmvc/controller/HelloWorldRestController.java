@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +24,7 @@ import com.wha.springmvc.model.User;
 import com.wha.springmvc.service.CompteService;
 import com.wha.springmvc.service.DemandeService;
 import com.wha.springmvc.service.UserService;
+
  
 @RestController
 public class HelloWorldRestController {
@@ -56,25 +56,28 @@ public class HelloWorldRestController {
     //-------------------Retrieve All Demandes de modif compte--------------------------------------------------------
     
     @RequestMapping(value = "/demande/modifcompte", method = RequestMethod.GET)
-    public ResponseEntity<List[<Dem_ModificationCompte>][<User>]> listAllDemandeModifCompte() {
+    public ResponseEntity<List<List<Object>>> listAllDemandeModifCompte() {
     	System.out.println("fetch demandes modif compte");
         List<Dem_ModificationCompte> demandes = demandeService.findAllDemandesModifCompte();
+    	List<List<Object>> demandes_user = new ArrayList();
+    	List<Object> demande_user = new ArrayList();
         if(demandes.isEmpty()){
-            return new ResponseEntity<List<Dem_ModificationCompte>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
+            return new ResponseEntity<List<List<Object>>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
         }else{
-        	demande_user = new List<>();
+
 
     		for (Dem_ModificationCompte demande : demandes) {
-    			demande_user. userService.findById(demande.getClientID());
-    				
+    			demande_user.add(demande);
+    			demande_user.add(userService.findById(demande.getClientID()));   	
+    			demandes_user.add(demande_user);   
     			}
+    		
     		}
         	
         	
-        	return new ResponseEntity<List<Dem_ModificationCompte>>(demandes, HttpStatus.OK);
+        	return new ResponseEntity<List<List<Object>>>(demandes_user, HttpStatus.OK);
         }
-        
-    }
+
 
     //-------------------Retrieve All Demandes d inscription attribuee ou non--------------------------------------------------------
     
