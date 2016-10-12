@@ -60,13 +60,14 @@ public class HelloWorldRestController {
     	System.out.println("fetch demandes modif compte");
         List<Dem_ModificationCompte> demandes = demandeService.findAllDemandesModifCompte();
     	List<List<Object>> demandes_user = new ArrayList();
-    	List<Object> demande_user = new ArrayList();
+
         if(demandes.isEmpty()){
             return new ResponseEntity<List<List<Object>>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
         }else{
 
 
     		for (Dem_ModificationCompte demande : demandes) {
+    	    	List<Object> demande_user = new ArrayList();   			
     			demande_user.add(demande);
     			demande_user.add(userService.findById(demande.getClientID()));   	
     			demandes_user.add(demande_user);   
@@ -82,26 +83,58 @@ public class HelloWorldRestController {
     //-------------------Retrieve All Demandes d inscription attribuee ou non--------------------------------------------------------
     
     @RequestMapping(value = "/demande/inscription/{id}", method = RequestMethod.GET)
-    public ResponseEntity<List<Dem_CreationClient>> listAllDemandeIscription(@PathVariable("id") long id) {
+    public ResponseEntity<List<List<Object>>> listAllDemandeIscription(@PathVariable("id") long id) {
     	System.out.println("fetch demandes inscription " + id);
         List<Dem_CreationClient> demandes = demandeService.findAllDemandesCreationClient(id);
+    	List<List<Object>> demandes_user = new ArrayList();
+
         if(demandes.isEmpty()){
-            return new ResponseEntity<List<Dem_CreationClient>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
+            return new ResponseEntity<List<List<Object>>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
+        }else{
+
+
+    		for (Dem_CreationClient demande : demandes) {
+    	    	List<Object> demande_user = new ArrayList();   			
+    			demande_user.add(demande);
+    			demande_user.add(null);   	
+    			demandes_user.add(demande_user);   
+    			}
+    		
+    		}
+        	
+        	
+        	return new ResponseEntity<List<List<Object>>>(demandes_user, HttpStatus.OK);
         }
-        return new ResponseEntity<List<Dem_CreationClient>>(demandes, HttpStatus.OK);
-    }
     
     //-------------------Retrieve All Demandes de chequier--------------------------------------------------------
     
     @RequestMapping(value = "/demande/chequier", method = RequestMethod.GET)
-    public ResponseEntity<List<Dem_Chequier>> listAllDemandeChequier() {
+    public ResponseEntity<List<List<Object>>> listAllDemandeChequier() {
     	System.out.println("fetch demandes chequier");
         List<Dem_Chequier> demandes = demandeService.listAllDemandeChequier();
-        if(demandes.isEmpty()){
-            return new ResponseEntity<List<Dem_Chequier>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
-        }
-        return new ResponseEntity<List<Dem_Chequier>>(demandes, HttpStatus.OK);
+
+    List<List<Object>> demandes_user = new ArrayList();
+
+    if(demandes.isEmpty()){
+        return new ResponseEntity<List<List<Object>>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
+    }else{
+
+
+		for (Dem_Chequier demande : demandes) {
+	    	List<Object> demande_user = new ArrayList();   			
+			demande_user.add(demande);
+			demande_user.add(userService.findById(demande.getClientID()));   	
+			demandes_user.add(demande_user);   
+			}
+		
+		}
+    	
+    	
+    	return new ResponseEntity<List<List<Object>>>(demandes_user, HttpStatus.OK);
     }
+    
+    
+    
     //-------------------Create demande d'inscription--------------------------------------------------------
     
     @RequestMapping(value = "/demande/inscription", method = RequestMethod.POST)
@@ -275,18 +308,19 @@ public class HelloWorldRestController {
         return new ResponseEntity<List<User>>(users, HttpStatus.OK);
     }
     
-  //-------------------Create a Conseiller--------------------------------------------------------
+    
+    //-------------------Create a Conseiller--------------------------------------------------------
     
     @RequestMapping(value = "/user/ADMIN/creaCons", method = RequestMethod.POST)
-    public ResponseEntity<Void> creaCons3(@RequestBody Conseiller conseiller) {
-        System.out.println("Creating a conseiller " + conseiller);
+    public ResponseEntity<Void> creaCons3(@RequestBody User user) {
+        System.out.println("Creating a conseiller " + user);
  
         /*if (userService.isUserExist(user)) {
             System.out.println("A User with name " + user.getNom() + " already exist");
             return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }*/
  
-        userService.saveConseiller(conseiller);
+        userService.saveConseiller(user);
  
         return new ResponseEntity<Void>( HttpStatus.CREATED);
     }
