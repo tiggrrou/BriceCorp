@@ -198,10 +198,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void saveConseiller(Conseiller conseiller) {
-		conseiller.setId(counter.incrementAndGet());
-		conseiller.setMatricule((int) counter.incrementAndGet());
+	public void saveConseiller(User user) {
+		int consMatricule =(int) counter.incrementAndGet();
+		Date dateDeb = new Date();
+		Date dateFin = null;
+		Conseiller conseiller = new Conseiller (user,consMatricule, dateDeb, dateFin);
 		users.add(conseiller);
+		conseillers.add(conseiller);
 	}
 
 	@Override

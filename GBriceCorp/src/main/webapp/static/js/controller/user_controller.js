@@ -371,6 +371,8 @@ function trier_par(tri){
     self.creaCons = creaCons;
     self.getListeCons = getListeCons;
 	self.printToCart = printToCart;
+	
+	
     /* Ajout d'un conseiller puis refresh de la liste des users */
    function creaCons(){
 
