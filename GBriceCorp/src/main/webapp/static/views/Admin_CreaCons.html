@@ -13,13 +13,13 @@
 		<div class="formcontainer">
 			<form ng-submit="ctrl.creaCons()" name="formIscription"
 				class="form-horizontal">
-				<input type="hidden" ng-model="ctrl.user.id" />
-				<input type="hidden" ng-model="ctrl.user.TypeUser" value="2"/>				
+				<input type="hidden" ng-model="ctrl.cons.id" />
+				<input type="hidden" ng-model="ctrl.cons.TypeUser" value="2"/>				
 
 					<div class="form-group col-md-12">
 						<label class="col-md-2 control-lable" for="file">Prenom</label>
 						<div class="col-md-7">
-							<input type="text" ng-model="ctrl.user.prenom" name="prenom"
+							<input type="text" ng-model="ctrl.cons.prenom" name="prenom"
 								class="form-control input-sm"
 								placeholder="Entez votre prenom" required />
 							<div class="has-error" ng-show="formInscription.$dirty">
@@ -32,7 +32,7 @@
 					<div class="form-group col-md-12">
 						<label class="col-md-2 control-lable" for="file">Nom</label>
 						<div class="col-md-7">
-							<input type="text" ng-model="ctrl.user.nom"
+							<input type="text" ng-model="ctrl.cons.nom"
 								name="nom" class="form-control input-sm"
 								placeholder="Entrez votre prenom" required />
 							<div class="has-error" ng-show="formInscription.$dirty">
@@ -46,7 +46,7 @@
 					<div class="form-group col-md-12">
 						<label class="col-md-2 control-lable" for="file">Telephone</label>
 						<div class="col-md-7">
-							<input type="tel" ng-model="ctrl.user.telephone" name="telephone"
+							<input type="tel" ng-model="ctrl.cons.telephone" name="telephone"
 								class="form-control input-sm"
 								placeholder="Entez votre telephone" required />
 							<div class="has-error" ng-show="formInscription.$dirty">
@@ -60,7 +60,7 @@
 					<div class="form-group col-md-12">
 						<label class="col-md-2 control-lable" for="file">Adresse mail</label>
 						<div class="col-md-7">
-							<input type="email" ng-model="ctrl.user.mail"
+							<input type="email" ng-model="ctrl.cons.mail"
 								name="mail" class="form-control input-sm"
 								placeholder="Entrez votre email" required />
 							<div class="has-error" ng-show="formInscription.$dirty">
@@ -77,7 +77,7 @@
 					<div class="form-group col-md-12">
 						<label class="col-md-2 control-lable" for="file">Confirmez votre mail</label>
 						<div class="col-md-7">
-							<input type="email" ng-model="ctrl.user.conf_mail" name="conf_mail"
+							<input type="email" ng-model="ctrl.cons.conf_mail" name="conf_mail"
 								class="form-control input-sm"
 								placeholder="confirmation" required />
 							<div class="has-error" ng-show="formInscription.$dirty">
@@ -91,7 +91,7 @@
 					<div class="form-group col-md-12">
 						<label class="col-md-2 control-lable" for="file">Adresse postale</label>
 						<div class="col-md-7">
-							<input type="text" ng-model="ctrl.user.adresse"
+							<input type="text" ng-model="ctrl.cons.adresse"
 								name="adresse" class="form-control input-sm"
 								placeholder="Entrez votre adresse" required />
 							<div class="has-error" ng-show="formInscription.$dirty">
@@ -105,7 +105,7 @@
 					<div class="form-group col-md-12">
 						<label class="col-md-2 control-lable" for="file">Code Postal</label>
 						<div class="col-md-7">
-							<input type="text" ng-model="ctrl.user.codepostal" name="codepostal"
+							<input type="text" ng-model="ctrl.cons.codepostal" name="codepostal"
 								class="form-control input-sm"
 								placeholder="Entez votre codepostal" required />
 							<div class="has-error" ng-show="formInscription.$dirty">
@@ -120,7 +120,7 @@
 							class="btn btn-primary btn-sm"
 							ng-disabled="formConnexion.$invalid">
 					</div>
-				</div>
+				
 			</form>
 		</div>
 	</div>

@@ -118,7 +118,7 @@ App.config(['$routeProvider',function($routeProvider) {
 		controller: 'UserController',	
 	    activetab: 'admin_recherchecons'		
 	})
-	.when("/admin/Admin_EditCons" , {
+	.when("/admin/Admin_EditCons/:consId" , {
 		templateUrl:"static/views/Admin_EditCons.html",
 		controller: 'UserController',	
 	    activetab: 'admin_recherchecons'		

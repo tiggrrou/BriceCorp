@@ -43,5 +43,7 @@ public interface UserService {
 	public void saveConseiller(User user);
 
 	List<User> getUser_Admin_Cons();
+
+	Conseiller findConsById(long idCons);
 	
 }

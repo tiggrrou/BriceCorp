@@ -1,6 +1,6 @@
 'use strict';
 
-App.controller('UserController', ['$scope', '$location', '$resource', '$route', 'UserService', 'translationService', function($scope, $location, $resource, $route, UserService, translationService) {
+App.controller('UserController', ['$scope', '$location', '$resource', '$route', 'UserService', 'translationService', '$routeParams' ,function($scope, $location, $resource, $route, UserService, translationService, $routeParams) {
 	
 	/*Index fonctions
 	 *  self.change_langue = change_langue;
@@ -369,10 +369,31 @@ function trier_par(tri){
     
     // Fonctions Admin
     self.creaCons = creaCons;
+    $scope.cons;
+    self.cons;
     self.getListeCons = getListeCons;
 	self.printToCart = printToCart;
+	self.getConsById = getConsById;
+	$scope.consId;
 	
 	
+	console.log($routeParams.consId);
+	
+	 /* Recherche d'un conseiller par son ID */
+	function getConsById(){
+    	// je récupère un client en fonction de son ID
+		if ($routeParams.consId != null){
+    	UserService.getConsById($routeParams.consId)
+    	.then(
+    			function(d){
+    				self.cons = d;
+    			},
+    			function (errResponse){
+    				console.error('Error while getting a cons from an ID')
+    			});
+		}
+    };
+    
     /* Ajout d'un conseiller puis refresh de la liste des users */
    function creaCons(){
 
@@ -390,10 +411,7 @@ function trier_par(tri){
         );
     };
 	
-	$scope.redir_edit_cons = function () {
-    	$location.path("/admin/Admin_EditCons");
-    	
-    };
+    
     
     /* Recuperation de la liste des conseillers (en format user pour le moment) */
     function getListeCons(){
@@ -410,10 +428,7 @@ function trier_par(tri){
          			});
          };
  	
- 	$scope.redir_edit_cons = function () {
-     	$location.path("/admin/Admin_EditCons");
-     	
-     };
+
 
 	    
     // Fonctions Print

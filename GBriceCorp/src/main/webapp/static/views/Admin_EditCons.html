@@ -1,9 +1,9 @@
 <!-- Formulaire d'edition d'un conseiller -->
-<div class="panel panel-info" >
+<div class="panel panel-info" ng-init= ctrl.getConsById()>
 
 	<!-- Default panel contents -->
 	<div class="panel-heading">
-		<span class="lead">Edition de conseiller  {{conseiller}}</span>
+		<span class="lead">Edition de conseiller  </span>
 	</div>
 
 	<!-- action="envoiMailConfirmation.php"-->
@@ -18,7 +18,8 @@
 						<div class="col-md-7">
 							<input type="text" ng-model="ctrl.cons.prenom" name="prenom"
 								class="form-control input-sm"
-								value="'user.prenom'" />
+								
+								 />
 						</div>
 					</div>
 				</div>
@@ -49,7 +50,7 @@
 						<div class="col-md-7">
 							<input type="email" ng-model="ctrl.cons.mail" name="mail"
 								class="form-control input-sm"
-								value={{conseiller.email}} />
+								value="user.mail" />
 						</div>
 					</div>
 				</div>

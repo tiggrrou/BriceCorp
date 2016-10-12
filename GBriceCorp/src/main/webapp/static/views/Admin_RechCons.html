@@ -36,13 +36,13 @@
 					<tbody>
 						<tr
 							ng-repeat="Conseiller in cons_admin | filter:search:strict | orderBy:tripar ">
-							<td>{{Conseiller.nom}}</td>
+							<td ng-model= "cons.nom">{{Conseiller.nom}}</td>
 							<td>{{Conseiller.prenom}}</td>
 							<td>{{Conseiller.adresse}}</td>
 							<td>
-								<!-- <a href="#/admin/Admin_EditCons?{{Conseiller.id}}"> --> <img
+								 <a href="#/admin/Admin_EditCons/{{Conseiller.id}}"><img
 								class="icone_liste" src="static/imgs/crayon.png"
-								ng-click="redir_edit_cons()" /> </a>
+								 /> </a>
 							</td>
 							<td>
 								<!--<a href="#/admin/Admin_DelCons?{{Conseiller.id}}"> --> <img

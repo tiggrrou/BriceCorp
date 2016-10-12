@@ -142,9 +142,6 @@ public class HelloWorldRestController {
         }
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
- 
-  
-     
    
     
      
@@ -275,6 +272,19 @@ public class HelloWorldRestController {
         return new ResponseEntity<List<User>>(users, HttpStatus.OK);
     }
     
+  //-------------------Retrieve Single Conseiller--------------------------------------------------------
+    
+    @RequestMapping(value = "/user/ADMIN/EditCons/{idCons}", method = RequestMethod.GET)
+    public ResponseEntity<Conseiller> getCons(@PathVariable("idCons") long idCons) {
+        System.out.println("Fetching Conseiller with id " + idCons);
+        Conseiller conseiller = userService.findConsById(idCons);
+        if (conseiller == null) {
+            System.out.println("Conseiller with id " + idCons + " not found");
+            return new ResponseEntity<Conseiller>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<Conseiller>(conseiller, HttpStatus.OK);
+    }
+ 
     
     //-------------------Create a Conseiller--------------------------------------------------------
     

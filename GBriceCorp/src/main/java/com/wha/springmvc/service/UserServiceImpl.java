@@ -217,4 +217,14 @@ public class UserServiceImpl implements UserService {
 		return trouveParType(2);
 	}
 
+	@Override
+	public Conseiller findConsById(long idCons) {
+			for (Conseiller conseiller : conseillers) {
+				if (conseiller.getId() == idCons) {
+					return conseiller;
+				}
+			}
+			return null;
+	}
+
 }

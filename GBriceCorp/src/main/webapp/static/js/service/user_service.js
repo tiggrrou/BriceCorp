@@ -12,7 +12,8 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         recherche_userParType:recherche_userParType,
         creaCons2:creaCons2,
         getClients_Cons:getClients_Cons,
-        getListeCons:getListeCons
+        getListeCons:getListeCons,
+        getConsById:getConsById
     };
 
     var user = {
@@ -193,6 +194,22 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
 		},
 		function (errResponse){
 			console.error('Error while getting client list du conseiller'+idCons);
+		})
+		return deferred.promise;
+    }
+    
+    /**
+     * Demande au serveur un conseiller par son ID
+     */
+    function getConsById(idCons) {
+    	var deferred = $q.defer();
+    	$http.get(REST_SERVICE_URI+'ADMIN/EditCons/'+idCons)
+		.then(
+		function (response){
+			deferred.resolve(response.data);
+		},
+		function (errResponse){
+			console.error('Error while getting conseiller by id'+idCons);
 		})
 		return deferred.promise;
     }
