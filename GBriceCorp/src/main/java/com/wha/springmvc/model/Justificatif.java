@@ -68,9 +68,9 @@ public class Justificatif implements Serializable{
 	 * @param clientID
 	 * @param date
 	 */
-	public Justificatif(long clientID, Date date, TypeJustificatif type) {
+	public Justificatif(long clientID, TypeJustificatif type) {
 		this.clientID = clientID;
-		this.date = date;
+		this.date = new Date();
 		this.type = type;
 	}
 	

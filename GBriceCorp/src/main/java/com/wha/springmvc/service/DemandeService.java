@@ -2,7 +2,6 @@ package com.wha.springmvc.service;
 
 import java.util.List;
 
-import com.wha.springmvc.model.Client;
 import com.wha.springmvc.model.Dem_Chequier;
 import com.wha.springmvc.model.Dem_CreationClient;
 import com.wha.springmvc.model.Dem_ModificationCompte;

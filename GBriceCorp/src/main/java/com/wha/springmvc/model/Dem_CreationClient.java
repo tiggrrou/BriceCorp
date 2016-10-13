@@ -1,7 +1,5 @@
 package com.wha.springmvc.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -49,13 +47,13 @@ public class Dem_CreationClient extends Demande {
 	/**
 	 * Justificatif de domicile
 	 */
-	@OneToMany
-	private List<Justificatif> domicile;
-	/**
-	 * Justificatif du salaire
-	 */
-	@OneToMany
-	private List<Justificatif> salaire;
+//	@OneToMany
+//	private List<Justificatif> domicile;
+//	/**
+//	 * Justificatif du salaire
+//	 */
+//	@OneToMany
+//	private List<Justificatif> salaire;
 	/**
 	 * revenu mensuel du client
 	 */
@@ -112,21 +110,21 @@ public class Dem_CreationClient extends Demande {
 		this.telephone = telephone;
 	}
 
-	public Collection<Justificatif> getDomicile() {
-		return domicile;
-	}
-
-	public void setDomicile(Justificatif domicile) {
-		this.domicile = (List<Justificatif>) domicile;
-	}
-
-	public Collection<Justificatif> getSalaire() {
-		return salaire;
-	}
-
-	public void setSalaire(Justificatif salaire) {
-		this.salaire = (List<Justificatif>) salaire;
-	}
+//	public Collection<Justificatif> getDomicile() {
+//		return domicile;
+//	}
+//
+//	public void setDomicile(Justificatif domicile) {
+//		this.domicile = (List<Justificatif>) domicile;
+//	}
+//
+//	public Collection<Justificatif> getSalaire() {
+//		return salaire;
+//	}
+//
+//	public void setSalaire(Justificatif salaire) {
+//		this.salaire = (List<Justificatif>) salaire;
+//	}
 
 	public int getRevenu() {
 		return revenu;
@@ -137,6 +135,7 @@ public class Dem_CreationClient extends Demande {
 	}
 	//#endregion
 
+	//#region Constructeurs
 	/**
 	 * @param clientID
 	 * @param nom
@@ -159,21 +158,32 @@ public class Dem_CreationClient extends Demande {
 		this.revenu = revenu;
 	}
 
+	
 	/**
 	 * @param clientID
+	 * @param nom
+	 * @param prenom
+	 * @param mail
+	 * @param adresse
+	 * @param telephone
+	 * @param justificatif
+	 * @param justificatif2
+	 * @param revenu
 	 */
-	public Dem_CreationClient(long clientID) {
-		super(clientID);
+
+
+	public Dem_CreationClient() {
+		super(0);
 	}
+
 
 	@Override
 	public String toString() {
 		return "Dem_CreationClient [getConseillerId()=" + getConseillerId() + ", getNom()=" + getNom()
 				+ ", getPrenom()=" + getPrenom() + ", getMail()=" + getMail() + ", getAdresse()=" + getAdresse()
-				+ ", getTelephone()=" + getTelephone() + ", getDomicile()=" + getDomicile() + ", getSalaire()="
-				+ getSalaire() + ", getRevenu()=" + getRevenu() + "]";
+				+ ", getTelephone()=" + getTelephone() + ", getRevenu()=" + getRevenu() + "]";
 	}
 
-	
+	//#endregion
 	
 }

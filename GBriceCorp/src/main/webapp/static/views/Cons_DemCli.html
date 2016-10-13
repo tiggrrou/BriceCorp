@@ -37,10 +37,10 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="demande in dmdctrl.demandes  | filter:search:strict | orderBy:tripar " href="#/cons/Cons_ValModif?demande.id" >
+							<tr ng-repeat="demande in dmdctrl.demandes  | filter:search:strict | orderBy:tripar " ng-click="ctrl.detailDemande((demande[1]!=null)?demande[1].id:demande[0].id)" >
 								<td>{{(demande[1]!=null)?demande[1].nom:demande[0].nom}}</td>
 								<td>{{(demande[1]!=null)?demande[1].prenom:demande[0].prenom}}</td>
-								<td>{{(demande[1]!=null)?demande[1].nom:demande[0].nom}}</td>
+								<td>{{(demande[1]!=null)?demande[1].dateCreation:demande[0].dateCreation}}</td>
 								<td align=center>
 <img class="icone_liste" src="static/imgs/crayon.png" ng-hide="{{(demande[0].etat=='EnCours')?false:true}}"  />
 <img class="icone_liste" src="static/imgs/sablier.png" ng-hide="{{(demande[0].etat=='EnAttente')?false:true}}" />

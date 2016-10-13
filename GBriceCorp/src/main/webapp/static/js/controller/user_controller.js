@@ -110,6 +110,9 @@ function trier_par(tri){
  	UserService.connectUser(login, pwd)
  		.then(
  		function(d) {
+ 			sessionStorage.setItem("currentUser",JSON.stringify(d));
+ 			
+ 			 self.curentUser = JSON.parse(sessionStorage.getItem("currentUser"));
  			 
  			var userType = (self.curentUser == null)? 0 : self.curentUser.typeUser;
 
@@ -339,7 +342,13 @@ function trier_par(tri){
     self.conseillers = [];
     self.detailCompte = detailCompte;
     self.getClients_Cons=getClients_Cons;
+    self.detailDemande=detailDemande;
     
+
+    	  function detailDemande(demande_id){
+     	 $location.path("/cons/Cons_ValModif/" + demande_id);
+      }     	
+    	
     
   //Fonction du lien par ngclick dans le ng-repeat du recherche compte
    function detailCompte(iban){
@@ -394,8 +403,8 @@ function trier_par(tri){
     /* Ajout d'un conseiller puis refresh de la liste des users */
    function creaCons(){
 
-
-        UserService.creaCons2(self.user)
+console.log(self.cons)
+        UserService.creaCons2(self.cons)
             .then(
             		function(d){
             			$location.path("admin/");	

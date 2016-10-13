@@ -68,7 +68,7 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         $http.get(REST_SERVICE_URI+'connect/'+login+"&"+ pwd)
             .then(
             function (response) {
-            	sessionStorage.setItem("currentUser",JSON.stringify(response.data));
+            	
                 deferred.resolve(response.data);
                 // je suis co receptionner session + envoyer message à routeur
                 console.log('eh eh connexion réussie');

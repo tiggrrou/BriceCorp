@@ -42,7 +42,7 @@ public abstract class Demande implements Serializable {
 	 * ID du client (peut être nul si demande d'inscription)
 	 */
 	@Column(name = "clientID")
-	private long clientID;
+	protected long clientID;
 	/**
 
 	 * Traduit l'état d'une demande (en cours/refusée/acceptée)
