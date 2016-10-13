@@ -3,12 +3,20 @@
  */
 package com.wha.springmvc.model;
 
+import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+
 /**
  * @author Nicolas Lourdeau
  *
  */
+@Entity
+@Table(name = "Administrateur")
+@PrimaryKeyJoinColumn(name = "id")
 public class Administrateur extends User {
 
+	
 	public Administrateur() {
 		super();
 		// TODO Auto-generated constructor stub

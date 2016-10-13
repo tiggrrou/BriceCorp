@@ -3,10 +3,17 @@
  */
 package com.wha.springmvc.model;
 
+import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+
 /**
  * @author Nicolas Lourdeau
  *
  */
+@Entity
+@Table(name = "CompteRemunerateur")
+@PrimaryKeyJoinColumn(name = "id")
 public class CompteRemunerateur extends Compte {
 
 	//#region Attributs

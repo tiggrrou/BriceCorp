@@ -5,16 +5,32 @@ package com.wha.springmvc.model;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 /**
+
  * @author Nicolas Lourdeau
  *
  */
+@Entity
+@Table(name = "Compte")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Compte {
 
 	//#region Attributs
 	/**
 	 * ID d'un compte (correspond à l'IBAN)
 	 */
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private String ID;
 	/**
 	 * Libellé de description du compte
@@ -23,14 +39,17 @@ public class Compte {
 	/**
 	 * Date d'ouverture du compte
 	 */
+	@Temporal(TemporalType.DATE)
 	private Date dateOuverture;
 	/**
 	 * Date de cloture du compte
 	 */
+	@Temporal(TemporalType.DATE)
 	private Date dateCloture;
 	/**
 	 * ID du client possédant le compte
 	 */
+	
 	private long clientID;
 	/**
 	 * Booléen traduisant l'activité sur le compte

@@ -6,10 +6,19 @@ package com.wha.springmvc.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 /**
  * @author Nicolas Lourdeau
  *
  */
+@Entity
+@Table(name = "Conseiller")
+@PrimaryKeyJoinColumn(name = "id")
 public class Conseiller extends User {
 
 	//#region Attributs
@@ -21,11 +30,13 @@ public class Conseiller extends User {
 	/**
 	 * Date de début de contrat
 	 */
+	@Temporal(TemporalType.DATE)
 	private Date debutContrat;
 	
 	/**
 	 * Date de fin de contrat
 	 */
+	@Temporal(TemporalType.DATE)
 	private Date finContrat;
 	
 	private List<Client> clients;

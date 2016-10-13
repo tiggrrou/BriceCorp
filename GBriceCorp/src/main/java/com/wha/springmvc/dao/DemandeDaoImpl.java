@@ -11,13 +11,12 @@ import com.wha.springmvc.model.Dem_ModificationCompte;
 import com.wha.springmvc.model.Demande;
 
 
-@Repository("userDoa")
+@Repository("userDaa")
 public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements DemandeDao {
 
 	@Override
 	public void createDemandeInscription(Dem_CreationClient demandecreationclient) {
 		persist(demandecreationclient);
-
 	}
 
 	@SuppressWarnings("unchecked")

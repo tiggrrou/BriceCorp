@@ -3,6 +3,15 @@ package com.wha.springmvc.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+@Entity
+@Table(name = "Client")
+@PrimaryKeyJoinColumn(name = "id")
 public class Client extends User {
 
 	//#region Attributs
@@ -14,11 +23,13 @@ public class Client extends User {
 	/**
 	 * Date d'ouverture de l'espace client
 	 */
+	@Temporal(TemporalType.DATE)
 	private Date dateOuverture;
 	
 	/**
 	 * Date de cloture de l'espace client
 	 */
+	@Temporal(TemporalType.DATE)
 	private Date dateCloture;
 	
 	/**

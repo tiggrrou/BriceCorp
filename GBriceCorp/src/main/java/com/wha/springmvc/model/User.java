@@ -1,11 +1,24 @@
 package com.wha.springmvc.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Compte")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
 
 	//#region Variables
 	/**
 	 * ID de l'utilisateur
 	 */
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	
 	/**

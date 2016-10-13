@@ -5,16 +5,30 @@ package com.wha.springmvc.model;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 /**
  * @author Nicolas Lourdeau
  *
  */
+@Entity
+@Table(name = "Mouvement")
 public abstract class Mouvement {
 
 	//#region Attributs
 	/**
 	 * ID d'un mouvement
 	 */
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long ID;
 	/**
 	 * montant du mouvement (toujours positif)
@@ -23,6 +37,7 @@ public abstract class Mouvement {
 	/**
 	 * date d'impact du mouvement sur le compte
 	 */
+	@Temporal(TemporalType.DATE)
 	private Date dateMouvement;
 	/**
 	 * référence au compte auquel est lié le mouvement

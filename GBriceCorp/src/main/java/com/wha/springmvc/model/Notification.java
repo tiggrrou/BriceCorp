@@ -5,15 +5,29 @@ package com.wha.springmvc.model;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 /**
  * @author Nicolas Lourdeau
  *
  */
+@Entity
+@Table(name = "Notification")
 public class Notification {
 	// #region Attributs
 	/**
 	 * ID de la notification
 	 */
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long ID;
 	/**
 	 * ID du client à qui est adressée la notification
@@ -26,6 +40,7 @@ public class Notification {
 	/**
 	 * Date d'émission de la notification
 	 */
+	@Temporal(TemporalType.DATE)
 	private Date dateNotif;
 	/**
 	 * Message accompagnant la notification
