@@ -6,13 +6,12 @@ import org.springframework.stereotype.Repository;
 
 import com.wha.springmvc.model.Compte;
 import com.wha.springmvc.model.CompteRemunerateur;
-import com.wha.springmvc.model.User;
 
 @Repository("compteDao")
 public class CompteDaoImpl extends AbstractDao<Integer, Compte> implements CompteDao {
 
 	@Override
-	public Compte findCById(String compteid) {
+	public Compte findCById(long compteid) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -36,7 +35,7 @@ public class CompteDaoImpl extends AbstractDao<Integer, Compte> implements Compt
 	}
 
 	@Override
-	public void deleteCompteById(String compteid) {
+	public void deleteCompteById(long compteid) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -54,7 +53,7 @@ public class CompteDaoImpl extends AbstractDao<Integer, Compte> implements Compt
 	}
 
 	@Override
-	public Compte findCRById(String compteremid) {
+	public Compte findCRById(long compteremid) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -77,7 +76,7 @@ public class CompteDaoImpl extends AbstractDao<Integer, Compte> implements Compt
 	}
 
 	@Override
-	public void deleteCompteRemunerateurById(String compteremid) {
+	public void deleteCompteRemunerateurById(long compteremid) {
 		// TODO Auto-generated method stub
 		
 	}

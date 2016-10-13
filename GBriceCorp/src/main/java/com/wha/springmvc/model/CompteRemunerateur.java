@@ -64,7 +64,7 @@ public class CompteRemunerateur extends Compte {
 		// TODO Auto-generated constructor stub
 	}
 
-	public CompteRemunerateur(String iD, String libelle, long clientID, int decouvert, float tauxDecouvert, int seuil, float tauxRemuneration) {
+	public CompteRemunerateur(long iD, String libelle, long clientID, int decouvert, float tauxDecouvert, int seuil, float tauxRemuneration) {
 		super(iD, libelle, clientID, decouvert, tauxDecouvert);
 		this.seuil = seuil;
 		this.tauxRemuneration = tauxRemuneration;

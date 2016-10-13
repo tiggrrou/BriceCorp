@@ -1,98 +1,66 @@
 package com.wha.springmvc.service;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.wha.springmvc.dao.CompteDao;
 import com.wha.springmvc.model.Compte;
 
 @Service("compteService")
+@Transactional
 public class CompteServiceImpl implements CompteService {
+
+	@Autowired
+	private CompteDao dao;
 
 	private static final AtomicLong counter = new AtomicLong();
 
-	private static List<Compte> comptes;
-
-	static {
-		comptes = populateDummyComptes();
-	}
-
 	public List<Compte> findAllComptes() {
-		return comptes;
+return dao.findAllComptes();
 	}
 
-	public Compte findById(String id) {
-		for (Compte compte : comptes) {
-			if (compte.getID().equals(id)) {
-				return compte;
-			}
-		}
-		return null;
+	public Compte findById(long compteid) {
+		return dao.findCById(compteid);
 	}
-	
+
 	public List<Compte> findByClientId(long clientId) {
-		List<Compte> clientComptes = new ArrayList<Compte>();
-		for (Compte c: comptes){
-			if (c.getClientID() == clientId){
-				clientComptes.add(c);			
-			}
-		}		
-		return clientComptes;
+		return dao.findCByClientId(clientId);
 	}
 
 	public Compte findByLibelle(String name) {
-		for (Compte compte : comptes) {
-			if (compte.getLibelle().equalsIgnoreCase(name)) {
-				return compte;
-			}
-		}
+//
+//		for (Compte compte : comptes) {
+//			if (compte.getLibelle().equalsIgnoreCase(name)) {
+//				return compte;
+//			}
+//		}
 		return null;
 	}
 
-
-	public void saveCompte(Compte compte, String id) {
-		compte.setID(id);
-		comptes.add(compte);
+	public void saveCompte(Compte compte, long id) {
+		dao.saveCompte(compte);
 	}
 
 	public void updateCompte(Compte compte) {
-		int index = comptes.indexOf(compte);
-		comptes.set(index, compte);
+//		int index = comptes.indexOf(compte);
+//		comptes.set(index, compte);
 	}
 
-	public void deleteCompteById(String id) {
+	public void deleteCompteById(long compteid) {
 
-		for (Iterator<Compte> iterator = comptes.iterator(); iterator.hasNext();) {
-			Compte compte = iterator.next();
-			if (compte.getID() == id) {
-				iterator.remove();
-			}
-		}
+		dao.deleteCompteById(compteid);
 	}
-
+// ce serai pas plutot une comparaison sur le libelle et l'idclient ?
 	public boolean isCompteExist(Compte compte) {
-		return findById(compte.getID()) != null;
+		return dao.findCById(compte.getID()) != null;
 	}
 
 	public void deleteAllComptes() {
-		comptes.clear();
-	}
-
-	private static List<Compte> populateDummyComptes() {
-		comptes = new ArrayList<Compte>();
-		/*comptes.add(String iD, String libelle, long clientID, int decouvert, float tauxDecouvert);*/
-		comptes.add(new Compte("1", "Compte Courant", 4, 0, (float) 0.5, (float) 650));
-		comptes.add(new Compte("2", "Compte Joint non-rémunéré", 4, 0, (float) 0.5, (float) 16500));
-		comptes.add(new Compte("3", "Compte Vampire", 2, 0, (float) 0.5, (float) 6500));
-		comptes.add(new Compte("4", "Compte de blanchiement d'argent", 2, 0, (float) 0.5, (float) 654));
-		comptes.add(new Compte("33", "Compte Joint rémunéré", 5, 0, (float) 0.5, (float) 700));
-		comptes.add(new Compte("12", "Compte Courant", 5, 0,(float) 0.5, (float) 6500));
-		comptes.add(new Compte("44", "Compte à retraits différés", 5, 0,(float) 0.5, (float) 60));
-		comptes.add(new Compte("90", "Compte Courant",5, 0, (float) 0.5, (float) 6));		
-		return comptes;
+		dao.deleteAllComptes();
 	}
 
 }

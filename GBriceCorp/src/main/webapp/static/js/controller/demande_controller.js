@@ -1,6 +1,6 @@
 'use strict';
 
-App.controller('DemandeController', ['$scope', '$location', '$resource', '$route', 'DemandeService', function($scope, $location, $resource, $route, DemandeService) {
+App.controller('DemandeController', ['$scope', '$location', '$resource', '$route', 'DemandeService', '$routeParams', function($scope, $location, $resource, $route, DemandeService,$routeParams) {
 	
 
 
@@ -8,14 +8,45 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	var self = this;
 	 self.inscription_Client=inscription_Client;
 	 self.fetchAllDemandes=fetchAllDemandes;
-	 self.getDemandes=getDemandes;
+
 	 self.writeDemDecou=writeDemDecou;
 	 self.validation_attribution=validation_attribution;
+	    self.detailDemande=detailDemande;
+	    
+
+
+  	  
  // Fonctions User
 	 self.demande={};
 	 self.demandes=[];
 
 
+	 
+ 	  function detailDemande(demande_type, demande_id){
+ 		 console.log(demande_type);
+ 		 if(demande_type== "modif"){
+ 	 	   	 $location.path("/cons/Cons_DetailCompte/" + demande_id);
+ 		 }else if (demande_type == "creation"){
+ 	 	   	 $location.path("/cons/Cons_DetailCompte/" + demande_id); 
+ 		 }else if (demande_type == "chequier"){
+ 	 	   	 $location.path("/cons/Cons_ValCheq/" + demande_id);
+ 		 }
+ 	    }     	
+ 	  	
+ 		console.log("routeparam" + $routeParams.demande_id)
+ 	 function findDemandeById(){
+	console.log($routeParams.demande_id)
+ 	DemandeService.findDemandeById($routeParams.demande_id)
+ 		.then(
+ 				function(d){
+ 					demandes = d;
+                	console.log(d)
+ 				},
+ 				function (errResponse){
+ 					console.error('Error while getting Clients request')
+ 				});
+ 	};
+ 	
 
 	 self.demande_inscription={clientID:0,conseillerId:0,nom:'',prenom:'',mail:'',adresse:'',telephone:0,revenu:0};
 	 
@@ -35,12 +66,14 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 
     
     function fetchAllDemandes(value){
+    	$scope.demande_type = "";
 console.log(value)
 self.demandes = '';
     if(value == "modif"){
     	DemandeService.fetchAllDemandesModifCompte()
             .then(
             function(d) {
+            	$scope.demande_type = "modif";
             	self.demandes = d;
             	console.log(d)
             },
@@ -52,6 +85,7 @@ self.demandes = '';
     	DemandeService.fetchAllDemandesInscription(JSON.parse(sessionStorage.getItem("currentUser")).id)
 	        .then(
 	        function(d) {
+            	$scope.demande_type = "creation";
 	        	self.demandes = d;
 	            console.log(d)
 	        },
@@ -63,6 +97,7 @@ self.demandes = '';
     	DemandeService.fetchAllDemandesChequier()
 	        .then(
 	        function(d) {
+            	$scope.demande_type = "chequier";
 	        	self.demandes = d;
 	            console.log(d)
 	        },
@@ -75,6 +110,7 @@ self.demandes = '';
     	DemandeService.fetchAllDemandesInscription(0)
         .then(
         function(d) {
+        	$scope.demande_type = "admin";
         	self.demandes = d;
             console.log(d)
         },
@@ -99,19 +135,7 @@ self.demandes = '';
     window.history.back();
 };
 
-function getDemandes(){
-	// je demande les demandes en fournissant l'id client et l'id conseiller
-	// ces valeurs peuvent être nulles dans ce cas on récupère les demandes d'admissions des nouveaux clients
-	DemandeService.getDemandes(self.client.id,self.conseiller.id)
-	.then(
-			function(d){
-				//je place les demandes récupérées dans demandes
-				demandes = JSON.parse(sessionStorage.getItem("Demandes"));	
-			},
-			function (errResponse){
-				console.error('Error while getting Clients request')
-			});
-};
+
 
 function writeDemDecou() {
 	DemandeService.writeDemDecou(JSON.parse(sessionStorage.getItem("User").id), compte.id, decouvert)

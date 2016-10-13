@@ -11,6 +11,7 @@ import com.wha.springmvc.dao.DemandeDao;
 import com.wha.springmvc.model.Dem_Chequier;
 import com.wha.springmvc.model.Dem_CreationClient;
 import com.wha.springmvc.model.Dem_ModificationCompte;
+import com.wha.springmvc.model.Demande;
 
 
 @Service("demandeService")
@@ -79,6 +80,12 @@ public class DemandeServiceImpl implements DemandeService {
 	public void createDemandeInscription(Dem_CreationClient demandecreationclient) {
 
 		dao.createDemandeInscription(demandecreationclient);	
+	}
+
+	@Override
+	public Demande findDemandeById(long id_demande) {
+		return dao.findDemandeById(id_demande);
+
 	}
 
 

@@ -8,7 +8,7 @@ import com.wha.springmvc.model.CompteRemunerateur;
 public interface CompteDao {
 
 	
-	Compte findCById(String compteid);
+	Compte findCById(long compteid);
 	
 	List<Compte> findCByClientId(long clientId);
 	
@@ -16,7 +16,7 @@ public interface CompteDao {
 	
 	void updateCompte(Compte compte);
 	
-	void deleteCompteById(String compteid);
+	void deleteCompteById(long compteid);
 
 	List<Compte> findAllComptes(); 
 	
@@ -24,7 +24,7 @@ public interface CompteDao {
 	
 	
 	
-	Compte findCRById(String compteremid);
+	Compte findCRById(long compteremid);
 	
 	List<CompteRemunerateur> findCRByClientId(long compteremid);
 	
@@ -32,7 +32,7 @@ public interface CompteDao {
 	
 	void updateCompteRemunerateur(CompteRemunerateur compteremunerateur);
 	
-	void deleteCompteRemunerateurById(String compteremid);
+	void deleteCompteRemunerateurById(long compteremid);
 
 	List<CompteRemunerateur> findAllComptesRemunerateur(); 
 	

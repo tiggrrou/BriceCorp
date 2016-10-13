@@ -8,17 +8,17 @@ import com.wha.springmvc.model.Compte;
 
 public interface CompteService {
 	
-	Compte findById(String id);
+	Compte findById(long id);
 	
 	Compte findByLibelle(String name);
 	
 	List<Compte> findByClientId(long clientId);
 	
-	void saveCompte(Compte compte, String id);
+	void saveCompte(Compte compte, long id);
 	
 	void updateCompte(Compte compte);
 	
-	void deleteCompteById(String id);
+	void deleteCompteById(long id);
 
 	List<Compte> findAllComptes(); 
 	

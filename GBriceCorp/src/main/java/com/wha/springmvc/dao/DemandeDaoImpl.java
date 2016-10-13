@@ -4,14 +4,14 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.wha.springmvc.model.Client;
+import com.wha.springmvc.model.Conseiller;
 import com.wha.springmvc.model.Dem_Chequier;
 import com.wha.springmvc.model.Dem_CreationClient;
 import com.wha.springmvc.model.Dem_ModificationCompte;
 import com.wha.springmvc.model.Demande;
 
 
-@Repository("userDaa")
+@Repository("demandeDao")
 public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements DemandeDao {
 
 	@Override
@@ -27,6 +27,7 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 		return demandemodificationcompte;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Dem_CreationClient> findAllDemandesCreationClient() {
 		List<Dem_CreationClient> demandecreationclient = getEntityManager().createQuery("FROM Dem_CreationClient")
@@ -34,6 +35,7 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 		return demandecreationclient;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Dem_Chequier> listAllDemandeChequier() {
 		List<Dem_Chequier> demandechequier = getEntityManager().createQuery("FROM Dem_Chequier")
@@ -47,6 +49,14 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 		return false;
 	}
 	//#region Attributs
+
+	@Override
+	public Demande findDemandeById(long id_demande) {
+		Demande demande = (Demande) getEntityManager()
+				.createQuery("SELECT d FROM Demande d WHERE d.id = :id").setParameter("id", id_demande)
+				.getSingleResult();
+return demande;
+	}
 
 	//#endregion
 

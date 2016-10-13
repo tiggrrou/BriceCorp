@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -39,6 +40,7 @@ public class Conseiller extends User {
 	@Temporal(TemporalType.DATE)
 	private Date finContrat;
 	
+	@OneToMany
 	private List<Client> clients;
 	//#endregion
 
@@ -72,24 +74,19 @@ public class Conseiller extends User {
 	//#region Constructeurs
 	public Conseiller() {
 		super();
+		this.debutContrat = new Date();
 	}
 
-	public Conseiller(long id, String nom, String prenom, String address, String email, String login, String mdp, int telephone, int matricule, Date debutContrat, Date finContrat) {
-		super(id, nom, prenom, address, email, login, mdp, TypeUtilisateur.Conseiller.getType(),telephone);
-		this.matricule = matricule;
-		this.debutContrat = debutContrat;
-		this.finContrat = finContrat;
-	}
-	
-	public Conseiller(User user, int mat, Date debut, Date fin){
-		super(user.getId(), user.getNom(), user.getPrenom(), 
-				user.getAdresse(), user.getMail(), user.getIdentifiant(), 
-				user.getMotDePasse(), TypeUtilisateur.Conseiller.getType(),user.getTelephone());
-		this.matricule = mat;
-		this.debutContrat = debut;
-		this.finContrat = fin;
-		
+
+
+	@Override
+	public String toString() {
+		return "Conseiller [getMatricule()=" + getMatricule() + ", getDebutContrat()=" + getDebutContrat()
+				+ ", getFinContrat()=" + getFinContrat() + "]";
 	}
 	
 	//#endregion
+	
+	
+	
 }

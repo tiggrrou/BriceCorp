@@ -9,7 +9,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Compte")
+@Table(name = "User")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User {
 
@@ -64,7 +64,7 @@ public class User {
 	
 	//#region Constructeurs
 	public User(){
-		id=0;
+
 	}
 	
 	public User(long id, String nom,String prenom, String address, String email, String login, String mdp, int type, int telephone){

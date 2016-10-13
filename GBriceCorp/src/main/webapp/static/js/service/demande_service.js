@@ -10,8 +10,8 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
     	fetchAllDemandesInscription:fetchAllDemandesInscription,
     	createDemandeInscription:createDemandeInscription,
         writeDemDecou:writeDemDecou,
-        getDemandes:getDemandes,
-        attributionConseiller:attributionConseiller
+        attributionConseiller:attributionConseiller,
+        findDemandeById:findDemandeById
     };
     return factory;
     
@@ -101,7 +101,7 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
     
     function writeDemDecou (userID, compteID, decouvert) {
     	var deferred = $q.defer();
-    	$http.post(REST_SERVICE_URI_COMPTES+'decouvert/'+userID+"&"+compteID+"&"+decouvert)
+    	$http.post(REST_SERVICE_URI+'decouvert/'+userID+"&"+compteID+"&"+decouvert)
     	.then(
     			//reponse OK du serveur
     			function (){
@@ -115,12 +115,12 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
     	return deferred.promise;
     } 
     
-    function getDemandes(idClient,idConseiller) {
+    function findDemandeById(idDemande) {
+    	console.log(idDemande)
     	var deferred = $q.defer();
-    	$http.get(REST_SERVICE_URI_COMPTES+'demandes/'+idClient+"&"+idConseiller)
+    	$http.get(REST_SERVICE_URI+idDemande)
     		.then(
     		function (response){
-    			sessionStorage.setItem("Demandes",JOSN.stringify(response.data));
     			deferred.resolve(response.data);
     		},
     		function (errResponse){

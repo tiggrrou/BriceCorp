@@ -14,7 +14,8 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         getClients_Cons:getClients_Cons,
         getListeCons:getListeCons,
         getConsById:getConsById,
-        updateCons:updateCons
+        updateCons:updateCons,
+        createAdmin:createAdmin
     };
 
     var user = {
@@ -87,19 +88,7 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         return deferred.promise;
     }
     
-    function getDemandes(idClient,idConseiller) {
-    	var deferred = $q.defer();
-    	$http.get(REST_SERVICE_URI+'demandes/'+idClient+"&"+idConseiller)
-    		.then(
-    		function (response){
-    			sessionStorage.setItem("Demandes",JOSN.stringify(response.data));
-    			deferred.resolve(response.data);
-    		},
-    		function (errResponse){
-    			console.error('Error while getting clients request')
-    		})
-    		return deferred.promise;
-    }
+
     
     /**
      * Demande au serveur un client par son ID
@@ -184,10 +173,10 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
     }
     
     /* update un conseiller puis refresh de la liste des users/conseillers */
-    function updateCons(cons, id) {
+    function updateCons(cons) {
     	console.log('conseiller en update ' + cons);
         var deferred = $q.defer();
-        $http.put(REST_SERVICE_URI+"consEdit"+id, cons)
+        $http.put(REST_SERVICE_URI+"consEdit", cons)
             .then(
             function (response) {
                 deferred.resolve(response.data);
@@ -231,4 +220,23 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
 		})
 		return deferred.promise;
     }
+    
+    
+    
+    /* Ajout d'un conseiller puis refresh de la liste des users */
+    function createAdmin(admin) {
+        var deferred = $q.defer();
+        $http.post(REST_SERVICE_URI +"ADMIN", admin)
+            .then(
+            function (response) {
+                deferred.resolve(response.data);
+            },
+            function(errResponse){
+                console.error('Error while creating Conseiller');
+                deferred.reject(errResponse);
+            }
+        );
+        return deferred.promise;
+    }
+    
 }]);

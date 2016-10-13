@@ -13,7 +13,6 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
 	 *  self.remove = remove;
 	 *  self.reset = reset;
 
-	 *  self.getDemandes = getDemandes;
 	 *  self.searchClients = searchClients;
 	 *  self.getClient = getClient;
 	 *  self.getNotifs = getNotifs;
@@ -24,6 +23,12 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
 	// General
 	var self = this;
 
+	    
+	    
+	    
+	    
+	    
+	    
 	self.nav_cache_methode = nav_cache_methode;
 
 	
@@ -342,13 +347,7 @@ function trier_par(tri){
     self.conseillers = [];
     self.detailCompte = detailCompte;
     self.getClients_Cons=getClients_Cons;
-    self.detailDemande=detailDemande;
-    
 
-    	  function detailDemande(demande_id){
-     	 $location.path("/cons/Cons_ValModif/" + demande_id);
-      }     	
-    	
     
   //Fonction du lien par ngclick dans le ng-repeat du recherche compte
    function detailCompte(iban){
@@ -384,7 +383,7 @@ function trier_par(tri){
 	$scope.consId;
 	
 	
-	console.log($routeParams.consId);
+
 	
 	 /* Recherche d'un conseiller par son ID */
 	function getConsById(){
@@ -401,14 +400,16 @@ function trier_par(tri){
 		}
     };
     
-    console.log('recharge : ' + self.cons);
+
     
     //* valdation d'edition conseiller 
     function validEditCons() {
     		console.log('conseiller en cours : ' + self.cons);
-            UserService.updateCons(self.cons, self.cons.id)
+            UserService.updateCons(self.cons)
             .then(
-                    fetchAllUsers,
+            		function(d){
+            			$location.path("admin/Admin_RechCons");	
+        			},
                     function(errResponse){
                         console.error('Error while updating Conseiller' + errResponse);
                     }
@@ -418,14 +419,12 @@ function trier_par(tri){
     
     /* Ajout d'un conseiller puis refresh de la liste des users */
    function creaCons(){
-
+       console.log(self.cons)
         UserService.creaCons2(self.cons)
             .then(
             		function(d){
-            			$location.path("admin/");	
+            			$location.path("admin/Admin_RechCons");	
         			},
-            
-            
             function(errResponse){
                 console.error('Error while creating User');
             }
@@ -434,16 +433,13 @@ function trier_par(tri){
 	
     
     
-    /* Recuperation de la liste des conseillers (en format user pour le moment) */
+    /* Recuperation de la liste des conseillers  */
     function getListeCons(){
-
-
          UserService.getListeCons()
              .then(
             		 function(d){
          				$scope.cons_admin = d;
-         				console.log(d);
-         			},
+           			},
          			function (errResponse){
          				console.error('Error while getting list of cons ')
          			});
@@ -469,4 +465,24 @@ function trier_par(tri){
         $scope.myForm.$setPristine(); //reset Form
     };  
    
+    
+	self.create_admin=create_admin;
+	
+
+	
+	 function create_admin(){
+		 var admin={prenom:'Admin',nom:'Admin',adresse:'-',mail:'aa@aa.com',identifiant:'a',motDePasse:'1',typeUser:'1',telephone:'13456',matricule:'999'};
+		 console.log(admin)
+	        UserService.createAdmin(admin)
+	            .then(
+	            		 function(d){
+	          				console.log(d);
+	          			},
+	            function(errResponse){
+	                console.error('Error while creating User');
+	            }
+	        );
+	    };
+	    
+	    
 }]);

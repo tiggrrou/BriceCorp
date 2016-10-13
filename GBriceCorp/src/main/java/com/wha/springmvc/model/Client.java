@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -36,7 +37,8 @@ public class Client extends User {
 	 * ID du conseiller attitré au client
 	 */
 	private long conseillerID;
-	
+
+	@OneToMany
 	private List<Compte> comptes;
 	//#endregion
 
@@ -119,5 +121,13 @@ public class Client extends User {
 		
 	}
 	//#endregion
+
+	@Override
+	public String toString() {
+		return "Client [getRevenus()=" + getRevenus() + ", getDateOuverture()=" + getDateOuverture()
+				+ ", getDateCloture()=" + getDateCloture() + ", getConseillerID()=" + getConseillerID()
+				+ ", getComptes()=" + getComptes() + "]";
+	}
+	
 	
 }

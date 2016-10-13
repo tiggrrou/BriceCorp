@@ -37,24 +37,24 @@ App.config(['$routeProvider',function($routeProvider) {
 		controller: 'CompteController',	
 	    activetab: 'conseiller_recherchecompte'		
 	})
-	.when("/cons/Cons_ValCheq:demId" , {
+	.when("/cons/Cons_ValCheq:demande_id" , {
 		templateUrl:"static/views/Cons_ValCheq.html",
 		controller: 'DemandeController',	
 	    activetab: 'conseiller_demandesclient'	
 	})
-	.when("/cons/Cons_ValDecou:demId" , {
+	.when("/cons/Cons_ValDecou:demande_id" , {
 		templateUrl:"static/views/Cons_ValDecou.html",
 		controller: 'DemandeController',	
 	    activetab: 'conseiller_demandesclient'
 	})
-	.when("/cons/Cons_ValModif:demId" , {
+	.when("/cons/Cons_ValModif:demande_id" , {
 		templateUrl:"static/views/Cons_ValModif.html",
 		controller: 'DemandeController',	
 	    activetab: 'conseiller_demandesclient'	
 	})
-	.when("/cons/Cons_DetailCompte" , {
+	.when("/cons/Cons_DetailCompte:demande_id" , {
 			templateUrl:"static/views/ConsClient_DetailCompte.html",
-			controller: 'UserController',	
+			controller: 'DemandeController',	
 		    activetab: 'conseiller_recherchecompte'			
 		})
 	

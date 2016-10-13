@@ -16,15 +16,28 @@ import javax.persistence.Table;
 @PrimaryKeyJoinColumn(name = "id")
 public class Administrateur extends User {
 
+	private int matricule;
 	
+	
+	
+	public int getMatricule() {
+		return matricule;
+	}
+
+	public void setMatricule(int matricule) {
+		this.matricule = matricule;
+	}
+
 	public Administrateur() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Administrateur(long id, String nom, String prenom, String address, String email, String login, String mdp, int telephone) {
-		super(id, nom, prenom, address, email, login, mdp, TypeUtilisateur.Administrateur.getType(), telephone);
-		// TODO Auto-generated constructor stub
+	@Override
+	public String toString() {
+		return "Administrateur [getMatricule()=" + getMatricule() + "]";
 	}
+
+
 
 }

@@ -109,7 +109,38 @@
 					</div>
 				</div>
 
+				<div class="row">
 
+					<div class="form-group col-md-12">
+						<label class="col-md-5 control-lable text-right" for="file">Identifiant
+							</label>
+						<div class="col-md-7">
+							<input type="text" ng-model="ctrl.cons.identifiant" name="identifiant"
+								class="form-control input-sm" placeholder=""
+								required />
+							<div class="has-error" ng-show="formInscription.$dirty">
+								<span ng-show="formConnexion.adresse.$error.required">Champ
+									obligatoire</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+
+					<div class="form-group col-md-12">
+						<label class="col-md-5 control-lable text-right" for="file">Mot de Passe
+							</label>
+						<div class="col-md-7">
+							<input type="text" ng-model="ctrl.cons.motDePasse" name="motDePasse"
+								class="form-control input-sm" placeholder=""
+								required />
+							<div class="has-error" ng-show="formInscription.$dirty">
+								<span ng-show="formConnexion.adresse.$error.required">Champ
+									obligatoire</span>
+							</div>
+						</div>
+					</div>
+				</div>
 
 				<div class="row">
 

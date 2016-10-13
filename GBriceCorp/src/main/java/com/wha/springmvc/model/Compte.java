@@ -31,7 +31,7 @@ public class Compte {
 	 */
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private String ID;
+	private long ID;
 	/**
 	 * Libellé de description du compte
 	 */
@@ -128,10 +128,10 @@ public class Compte {
 	public void setTauxDecouvert(float tauxDecouvert) {
 		this.tauxDecouvert = tauxDecouvert;
 	}
-	public String getID() {
+	public long getID() {
 		return ID;
 	}
-	public void setID(String iD) {
+	public void setID(long iD) {
 		ID = iD;
 	}
 	//#endregion
@@ -149,7 +149,7 @@ public class Compte {
 	 * @param decouvert
 	 * @param tauxDecouvert
 	 */
-	public Compte(String iD, String libelle, long clientID, int decouvert, float tauxDecouvert) {
+	public Compte(long iD, String libelle, long clientID, int decouvert, float tauxDecouvert) {
 		super();
 		ID = iD;
 		this.libelle = libelle;
@@ -171,7 +171,7 @@ public class Compte {
 	 * @param decouvert
 	 * @param tauxDecouvert
 	 */
-	public Compte(String iD, String libelle, long clientID, int decouvert, float tauxDecouvert, float solde) {
+	public Compte(long iD, String libelle, long clientID, int decouvert, float tauxDecouvert, float solde) {
 		super();
 		ID = iD;
 		this.libelle = libelle;

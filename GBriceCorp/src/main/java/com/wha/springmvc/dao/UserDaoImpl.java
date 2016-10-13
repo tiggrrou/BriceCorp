@@ -6,6 +6,7 @@ import javax.persistence.NoResultException;
 
 import org.springframework.stereotype.Repository;
 
+import com.wha.springmvc.model.Administrateur;
 import com.wha.springmvc.model.Client;
 import com.wha.springmvc.model.Conseiller;
 import com.wha.springmvc.model.User;
@@ -27,22 +28,29 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 
 	@Override
 	public void updateConseiller(Conseiller conseiller) {
-		// TODO Auto-generated method stub
-
+		Conseiller oldcons = findConsById(conseiller.getId());
+		oldcons.setNom(conseiller.getNom());
+		oldcons.setPrenom(conseiller.getPrenom());
+		oldcons.setAdresse(conseiller.getAdresse());
+		oldcons.setMail(conseiller.getMail());
+		oldcons.setFinContrat(conseiller.getFinContrat());
+		oldcons.setTelephone(conseiller.getTelephone());
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Conseiller> findAllConseillers() {
-		@SuppressWarnings("unchecked")
-		List<Conseiller> conseillers = getEntityManager().createQuery("FROM Conseiller").getResultList();
+
+		List<Conseiller> conseillers = getEntityManager().createQuery("SELECT c FROM Conseiller c").getResultList();
 		return conseillers;
 	}
 
 	@Override
 	public Conseiller findConsById(long idCons) {
 		try {
-			Conseiller conseiller = (Conseiller) getEntityManager().createQuery("SELECT c FROM Conseiller c WHERE c.id = id")
-					.setParameter("id", idCons).getSingleResult();
+			Conseiller conseiller = (Conseiller) getEntityManager()
+					.createQuery("SELECT c FROM Conseiller c WHERE c.id = :id").setParameter("id", idCons)
+					.getSingleResult();
 			return conseiller;
 		} catch (NoResultException ex) {
 			return null;
@@ -71,19 +79,52 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Client> findAllClients() {
-		List<Client> client = getEntityManager().createQuery("FROM Client").getResultList();
-		return client;
+		List<Client> clients = getEntityManager().createQuery("FROM Client").getResultList();
+		return clients;
 	}
 
 	@Override
 	public Client findCliById(long idcli) {
 		try {
-			Client client = (Client) getEntityManager().createQuery("SELECT c FROM Client c WHERE c.id = id")
+			Client client = (Client) getEntityManager().createQuery("SELECT c FROM Client c WHERE c.id = :id")
 					.setParameter("id", idcli).getSingleResult();
 			return client;
 		} catch (NoResultException ex) {
 			return null;
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Client> listeDeClientDuConseiller(long idConseiller) {
+		try {
+			List<Client> clients = getEntityManager()
+					.createQuery("SELECT c FROM Client c WHERE c.conseillerID = :idConseiller")
+					.setParameter("idConseiller", idConseiller).getResultList();
+			return clients;
+		} catch (NoResultException ex) {
+			return null;
+		}
+	}
+
+	@Override
+	public User connexion(String login, String mdp) {
+		System.out.println(login + " /" + mdp);
+		try {
+			User user = (User) getEntityManager()
+					.createQuery("SELECT u FROM User u WHERE u.identifiant = :login AND u.motDePasse = :mdp")
+					.setParameter("login", login).setParameter("mdp", mdp).getSingleResult();
+			return user;
+		} catch (NoResultException ex) {
+			return null;
+		}
+	}
+
+	@Override
+	public void createAdmin(Administrateur admin) {
+		System.out.println(admin);
+		persist(admin);
+
 	}
 
 }

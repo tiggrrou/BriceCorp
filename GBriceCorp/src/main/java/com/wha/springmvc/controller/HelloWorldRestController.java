@@ -12,14 +12,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
 
+import com.wha.springmvc.model.Administrateur;
 import com.wha.springmvc.model.Client;
 import com.wha.springmvc.model.Compte;
 import com.wha.springmvc.model.Conseiller;
 import com.wha.springmvc.model.Dem_Chequier;
 import com.wha.springmvc.model.Dem_CreationClient;
 import com.wha.springmvc.model.Dem_ModificationCompte;
+import com.wha.springmvc.model.Demande;
 import com.wha.springmvc.model.User;
 import com.wha.springmvc.service.CompteService;
 import com.wha.springmvc.service.DemandeService;
@@ -38,7 +39,29 @@ public class HelloWorldRestController {
     @Autowired
     DemandeService demandeService;  //Service which will do all data retrieval/manipulation work
 
- //-------------------Attribution du conseiller à une demande d'ouverture de compte--------------------------------------------------------
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////DEMANDES////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+  //-------------------Retrieve Demande by Id--------------------------------------------------------
+    
+    @RequestMapping(value = "/demande/{id_demande}", method = RequestMethod.GET)
+    public ResponseEntity<List<Object>> demandeById(@PathVariable("id_demande") long id_demande) {
+    	System.out.println("fetch demande " + id_demande);
+        Demande demande = demandeService.findDemandeById(id_demande);
+    	
+        if(demande.isEmpty()){
+            return new ResponseEntity<List<Object>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
+        }else{
+    	    	List<Object> demande_user = new ArrayList();   			
+    			demande_user.add(demande);
+    			demande_user.add(userService.findCliById(demande.getClientID()));   	
+    		 	return new ResponseEntity<List<Object>>(demande_user, HttpStatus.OK);
+    			}
+     		}
+
+    
+    //-------------------Attribution du conseiller à une demande d'ouverture de compte--------------------------------------------------------
     
     @RequestMapping(value = "/demande/attribution/{id_demande}&{id_conseiller}", method = RequestMethod.PUT)
     public ResponseEntity<Boolean> attribution(@PathVariable("id_demande") long id_demande, @PathVariable("id_conseiller") long id_conseiller) {
@@ -69,7 +92,7 @@ public class HelloWorldRestController {
     		for (Dem_ModificationCompte demande : demandes) {
     	    	List<Object> demande_user = new ArrayList();   			
     			demande_user.add(demande);
-    			demande_user.add(userService.findById(demande.getClientID()));   	
+    			demande_user.add(userService.findCliById(demande.getClientID()));   	
     			demandes_user.add(demande_user);   
     			}
     		
@@ -123,7 +146,7 @@ public class HelloWorldRestController {
 		for (Dem_Chequier demande : demandes) {
 	    	List<Object> demande_user = new ArrayList();   			
 			demande_user.add(demande);
-			demande_user.add(userService.findById(demande.getClientID()));   	
+			demande_user.add(userService.findCliById(demande.getClientID()));   	
 			demandes_user.add(demande_user);   
 			}
 		
@@ -150,82 +173,39 @@ public class HelloWorldRestController {
     }
    
     
-    //-------------------Retrieve All Users--------------------------------------------------------
-     
-    @RequestMapping(value = "/user/", method = RequestMethod.GET)
-    public ResponseEntity<List<User>> listAllUsers() {
-        List<User> users = userService.findAllUsers();
-        if(users.isEmpty()){
-            return new ResponseEntity<List<User>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
-        }
-        return new ResponseEntity<List<User>>(users, HttpStatus.OK);
-    }
+  
  
- 
+
     
-    //-------------------Retrieve Single User--------------------------------------------------------
-     
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> getUser(@PathVariable("id") long id) {
-        System.out.println("Fetching User with id " + id);
-        User user = userService.findById(id);
-        if (user == null) {
-            System.out.println("User with id " + id + " not found");
-            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<User>(user, HttpStatus.OK);
-    }
-   
-    
-     
-    //------------------- Update a User --------------------------------------------------------
-     
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<User> updateUser(@PathVariable("id") long id, @RequestBody User user) {
-        System.out.println("Updating User " + id);
-         
-        User currentUser = userService.findById(id);
-         
-        if (currentUser==null) {
-            System.out.println("User with id " + id + " not found");
-            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
-        }
- 
-        currentUser.setNom(user.getNom());
-        currentUser.setAdresse(user.getAdresse());
-        currentUser.setMail(user.getMail());
-         
-        userService.updateUser(currentUser);
-        return new ResponseEntity<User>(currentUser, HttpStatus.OK);
-    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////CONNEXION///////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
  
     //------------------- Login a User --------------------------------------------------------
     
     @RequestMapping(value = "/user/connect/{login}&{password}", method = RequestMethod.GET ,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> connectUser(@PathVariable("login") String login, @PathVariable("password") String pwd) {
-        System.out.println("logging User " + login);
+        System.out.println("logging User " + login + " / " + pwd);
          
-        User currentUser = userService.findByLogin(login);
-        
+        User currentUser = userService.connexion(login,pwd);
+        System.out.println(currentUser);
         if (currentUser==null) {
             System.out.println("User with login " + login + " not found");
             return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
-        }
-         
-        String responseConnect = userService.connexion(login, pwd);
-        System.out.println(responseConnect);
-        if ("identification réussie".equalsIgnoreCase(responseConnect))
-        {
+        }else{
         	//TODO routage vers bonne page
         	return new ResponseEntity<User>(currentUser,HttpStatus.OK);
         }
-        else 
-        	return new ResponseEntity<User>(HttpStatus.NOT_ACCEPTABLE);
+         
     }
     
 
+
     
-    //------------------- get user --------------------------------------------------------
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////DEMANDES////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////   
+    //------------------- get Client --------------------------------------------------------
     
     @RequestMapping(value = "/user/client/{idClient}", method = RequestMethod.GET ,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> getClient(@PathVariable("idClient") String idClient) {
@@ -234,76 +214,45 @@ public class HelloWorldRestController {
 
     }
     
-    //------------------- Delete a User --------------------------------------------------------
-     
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<User> deleteUser(@PathVariable("id") long id) {
-        System.out.println("Fetching & Deleting User with id " + id);
- 
-        User user = userService.findById(id);
-        if (user == null) {
-            System.out.println("Unable to delete. User with id " + id + " not found");
-            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
-        }
- 
-        userService.deleteUserById(id);
-        return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
-    }
- 
-     
+  
     
-    //------------------- Delete All Users --------------------------------------------------------
-     
-    @RequestMapping(value = "/user/", method = RequestMethod.DELETE)
-    public ResponseEntity<User> deleteAllUsers() {
-        System.out.println("Deleting All Users");
- 
-        userService.deleteAllUsers();
-        return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
-    }
-    
-  //------------------- Liste Compte d'un client --------------------------------------------------------
-    
-    @RequestMapping(value = "/compte/{idClient}", method = RequestMethod.GET)
-    public ResponseEntity<List<Compte>> getListeClientComptes(@PathVariable("idClient") long ID) {
-    	System.out.println("compte"+ID);
-        List<Compte> listComptes = compteService.findByClientId(ID);        
-        return new ResponseEntity<List<Compte>>(listComptes ,HttpStatus.OK);
-    }
-/**    
-  //------------------- Liste des users de type --------------------------------------------------------
-    
-    @RequestMapping(value = "/user/Conseiller/{typeUser}", method = RequestMethod.GET)
-    public ResponseEntity<List<User>> trouveParType(@PathVariable("typeUser") int typeUser) {
 
-    	List<User> listUsers = userService.trouveParType(typeUser);   
-		return new ResponseEntity<List<User>>(listUsers ,HttpStatus.OK);
-    }
-*/	
+
+    
+ 
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////CONSEILLER//////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
   //-------------------Retrieve Conseiller Users--------------------------------------------------------
     
-    @RequestMapping(value = "/user/Conseiller/{id}", method = RequestMethod.GET)
-    public ResponseEntity<List<User>> listUser_Cons(@PathVariable("id") long id) {
-        System.out.println("Fetching Clients du Conseiller with id " + id);
-        List<User> users = userService.getUser_Cons(id);
-        System.out.println("cou" + users);
-        if(users.isEmpty()){
-            return new ResponseEntity<List<User>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
+    @RequestMapping(value = "/user/Conseiller/{idConseiller}", method = RequestMethod.GET)
+    public ResponseEntity<List<Client>> listUser_Cons(@PathVariable("idConseiller") long idConseiller) {
+        System.out.println("Fetching Clients du Conseiller with id " + idConseiller);
+        List<Client> clients = userService.listeDeClientDuConseiller(idConseiller);
+        if(clients.isEmpty()){
+            return new ResponseEntity<List<Client>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
         }
-        return new ResponseEntity<List<User>>(users, HttpStatus.OK);
+        return new ResponseEntity<List<Client>>(clients, HttpStatus.OK);
     }   
     
-//-------------------Retrieve Admin Conseillers --------------------------------------------------------
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////ADMIN///////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+//-------------------Retrieve all Conseillers --------------------------------------------------------
     
     @RequestMapping(value = "/user/Admin/Conseillers", method = RequestMethod.GET)
-    public ResponseEntity<List<User>> listUser_Admin_Cons() {
-        List<User> users = userService.getUser_Admin_Cons();
-        System.out.println(users);
-        if(users.isEmpty()){
-            return new ResponseEntity<List<User>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
+    public ResponseEntity<List<Conseiller>> listUser_Admin_Cons() {
+        System.out.println("Fetching all Conseillers");
+        List<Conseiller> conseillers = userService.findAllConseillers();
+        System.out.println(conseillers);
+        if(conseillers.isEmpty()){
+            return new ResponseEntity<List<Conseiller>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
         }
-        return new ResponseEntity<List<User>>(users, HttpStatus.OK);
+        return new ResponseEntity<List<Conseiller>>(conseillers, HttpStatus.OK);
     }
+    
     
   //-------------------Retrieve Single Conseiller--------------------------------------------------------
     
@@ -322,48 +271,51 @@ public class HelloWorldRestController {
     //-------------------Create a Conseiller--------------------------------------------------------
     
     @RequestMapping(value = "/user/ADMIN/creaCons", method = RequestMethod.POST)
-    public ResponseEntity<Void> creaCons3(@RequestBody User user) {
-        System.out.println("Creating a conseiller " + user);
+    public ResponseEntity<Void> creaCons3(@RequestBody Conseiller conseiller) {
+        System.out.println("Creating a conseiller " + conseiller);
  
         /*if (userService.isUserExist(user)) {
             System.out.println("A User with name " + user.getNom() + " already exist");
             return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }*/
  
-        userService.saveConseiller(user);
+        userService.createConseiller(conseiller);
  
         return new ResponseEntity<Void>( HttpStatus.CREATED);
     }
     
   //------------------- Update a Conseiller --------------------------------------------------------
     
-    @RequestMapping(value = "/user/consEdit{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Conseiller> updateCons(@PathVariable("id") long id, @RequestBody Conseiller cons) {
-        System.out.println("Updating Conseiller " + id);
+    @RequestMapping(value = "/user/consEdit", method = RequestMethod.PUT)
+    public ResponseEntity<Conseiller> updateCons(@RequestBody Conseiller cons) {
+        System.out.println("Updating du Conseiller " + cons.getNom());
          
-        Conseiller currentCons = userService.findConsById(id);
+        userService.updateConseiller(cons);
          
-        if (currentCons==null) {
-            System.out.println("Cons with id " + id + " not found");
-            return new ResponseEntity<Conseiller>(HttpStatus.NOT_FOUND);
-        }
+       return new ResponseEntity<Conseiller>(cons, HttpStatus.OK);
+    }
  
-        currentCons.setNom(cons.getNom());
-        currentCons.setPrenom(cons.getPrenom());
-        currentCons.setAdresse(cons.getAdresse());
-        currentCons.setMail(cons.getMail());
-        currentCons.setTelephone(cons.getTelephone());
-        currentCons.setDebutContrat(cons.getDebutContrat());
-        currentCons.setFinContrat(cons.getFinContrat());
-         
-        /*userService.updateCons(currentCons);*/
-        return new ResponseEntity<Conseiller>(currentCons, HttpStatus.OK);
+    
+  //-------------------Create a Admin--------------------------------------------------------
+    
+    @RequestMapping(value = "/user/ADMIN", method = RequestMethod.POST)
+    public ResponseEntity<Void> creaAdmin(@RequestBody Administrateur admin) {
+        System.out.println("Creating an Admin" + admin.getNom());
+
+
+        userService.createAdmin(admin);
+ 
+        return new ResponseEntity<Void>( HttpStatus.CREATED);
     }
     
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////COMPTE//////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
   //------------------- Virement --------------------------------------------------------
     @RequestMapping(value = "/compte/virement/{Debiteur}&{Crediteur}&{Montant}", method = RequestMethod.POST)
-    public ResponseEntity<Void> virement(	@PathVariable("Debiteur") String debiteur,
-    										@PathVariable("Crediteur") String crediteur,
+    public ResponseEntity<Void> virement(	@PathVariable("Debiteur") long debiteur,
+    										@PathVariable("Crediteur") long crediteur,
     										@PathVariable("Montant") float montant){
     		Compte debit = compteService.findById(debiteur);
     		Compte credit = compteService.findById(crediteur);
@@ -377,4 +329,20 @@ public class HelloWorldRestController {
  
         return new ResponseEntity<Void>( HttpStatus.OK);
     }
+    
+    
+    
+  //------------------- Liste Compte d'un client --------------------------------------------------------
+    
+    @RequestMapping(value = "/compte/{idClient}", method = RequestMethod.GET)
+    public ResponseEntity<List<Compte>> getListeClientComptes(@PathVariable("idClient") long ID) {
+    	System.out.println("compte"+ID);
+        List<Compte> listComptes = compteService.findByClientId(ID);        
+        return new ResponseEntity<List<Compte>>(listComptes ,HttpStatus.OK);
+    }
+
+    
+    
+    
+    
 }

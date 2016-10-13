@@ -19,15 +19,13 @@ import javax.persistence.TemporalType;
  * @author Nicolas Lourdeau
  *
  */
-@Entity
-@Table(name = "Notification")
+
 public class Notification {
 	// #region Attributs
 	/**
 	 * ID de la notification
 	 */
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+
 	private long ID;
 	/**
 	 * ID du client à qui est adressée la notification
@@ -40,7 +38,7 @@ public class Notification {
 	/**
 	 * Date d'émission de la notification
 	 */
-	@Temporal(TemporalType.DATE)
+
 	private Date dateNotif;
 	/**
 	 * Message accompagnant la notification
