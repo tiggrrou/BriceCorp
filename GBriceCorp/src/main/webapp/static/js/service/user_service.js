@@ -181,6 +181,22 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         );
         return deferred.promise;
     }
+    
+    /* update un conseiller puis refresh de la liste des users/conseillers */
+    function updateCons(cons, id) {
+        var deferred = $q.defer();
+        $http.put(REST_SERVICE_URI+"consEdit"+id, cons)
+            .then(
+            function (response) {
+                deferred.resolve(response.data);
+            },
+            function(errResponse){
+                console.error('Error while updating Conseiller');
+                deferred.reject(errResponse);
+            }
+        );
+        return deferred.promise;
+    }
 
     /**
      * Demande au serveur un client par son ID
