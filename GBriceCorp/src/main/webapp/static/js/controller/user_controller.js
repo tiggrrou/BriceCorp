@@ -400,6 +400,18 @@ function trier_par(tri){
 		}
     };
     
+    //* valdation d'edition conseiller 
+    function validEditCons() {
+            UserService.updateCons(self.cons, self.cons.id)
+            .then(
+                    fetchAllUsers,
+                    function(errResponse){
+                        console.error('Error while updating Conseiller' + errResponse);
+                    }
+                );
+            };
+        
+    
     /* Ajout d'un conseiller puis refresh de la liste des users */
    function creaCons(){
 
