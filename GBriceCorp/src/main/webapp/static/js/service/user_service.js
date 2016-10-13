@@ -13,7 +13,8 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         creaCons2:creaCons2,
         getClients_Cons:getClients_Cons,
         getListeCons:getListeCons,
-        getConsById:getConsById
+        getConsById:getConsById,
+        updateCons:updateCons
     };
 
     var user = {
@@ -176,6 +177,23 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
             },
             function(errResponse){
                 console.error('Error while creating Conseiller');
+                deferred.reject(errResponse);
+            }
+        );
+        return deferred.promise;
+    }
+    
+    /* update un conseiller puis refresh de la liste des users/conseillers */
+    function updateCons(cons, id) {
+    	console.log('conseiller en update ' + cons);
+        var deferred = $q.defer();
+        $http.put(REST_SERVICE_URI+"consEdit"+id, cons)
+            .then(
+            function (response) {
+                deferred.resolve(response.data);
+            },
+            function(errResponse){
+                console.error('Error while updating Conseiller');
                 deferred.reject(errResponse);
             }
         );

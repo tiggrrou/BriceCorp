@@ -335,6 +335,31 @@ public class HelloWorldRestController {
         return new ResponseEntity<Void>( HttpStatus.CREATED);
     }
     
+  //------------------- Update a Conseiller --------------------------------------------------------
+    
+    @RequestMapping(value = "/user/consEdit{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Conseiller> updateCons(@PathVariable("id") long id, @RequestBody Conseiller cons) {
+        System.out.println("Updating Conseiller " + id);
+         
+        Conseiller currentCons = userService.findConsById(id);
+         
+        if (currentCons==null) {
+            System.out.println("Cons with id " + id + " not found");
+            return new ResponseEntity<Conseiller>(HttpStatus.NOT_FOUND);
+        }
+ 
+        currentCons.setNom(cons.getNom());
+        currentCons.setPrenom(cons.getPrenom());
+        currentCons.setAdresse(cons.getAdresse());
+        currentCons.setMail(cons.getMail());
+        currentCons.setTelephone(cons.getTelephone());
+        currentCons.setDebutContrat(cons.getDebutContrat());
+        currentCons.setFinContrat(cons.getFinContrat());
+         
+        /*userService.updateCons(currentCons);*/
+        return new ResponseEntity<Conseiller>(currentCons, HttpStatus.OK);
+    }
+    
   //------------------- Virement --------------------------------------------------------
     @RequestMapping(value = "/compte/virement/{Debiteur}&{Crediteur}&{Montant}", method = RequestMethod.POST)
     public ResponseEntity<Void> virement(	@PathVariable("Debiteur") String debiteur,
