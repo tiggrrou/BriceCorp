@@ -9,7 +9,7 @@
 	<!-- action="envoiMailConfirmation.php"-->
 	<div class="panel-body">
 		<div class="formcontainer">
-			<form ng-submit="ctrl.validEditCons()" name="formIscription"
+			<form ng-submit="ctrl.validEditCons()" name="formEdition"
 				class="form-horizontal" method="post">
 				<input type="hidden" ng-model="ctrl.cons.id" />
 				<div class="row">
@@ -92,11 +92,15 @@
 
 
 				<div class="row">
+
+
 					<div class="form-actions floatRight">
-						<input type="submit" value="Valider"
-							class="btn btn-primary btn-sm">
+						<input type="submit" value="Ajouter"
+							class="btn btn-primary btn-sm"
+							ng-disabled="formConnexion.$invalid">
 					</div>
 				</div>
+				
 			</form>
 		</div>
 	</div>
@@ -120,7 +124,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="c in ctrl.Cons">
+				<tr ng-repeat="c in ctrl.UsersCons">
 					<td><span ng-bind="c.id"></span></td>
 					<td><span ng-bind="c.prenom"></span></td>
 					<td><span ng-bind="c.nom"></span></td>

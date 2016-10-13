@@ -227,4 +227,13 @@ public class UserServiceImpl implements UserService {
 			return null;
 	}
 
+	@Override
+	public void updateCons(Conseiller currentCons) {
+		System.out.println("Conseiller " + currentCons);
+		int index = conseillers.indexOf(currentCons);
+		conseillers.set(index, currentCons);
+		users.set(index, currentCons);
+		
+	}
+
 }

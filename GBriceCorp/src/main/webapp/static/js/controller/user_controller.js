@@ -380,6 +380,7 @@ function trier_par(tri){
     self.getListeCons = getListeCons;
 	self.printToCart = printToCart;
 	self.getConsById = getConsById;
+	self.validEditCons = validEditCons;
 	$scope.consId;
 	
 	
@@ -400,8 +401,11 @@ function trier_par(tri){
 		}
     };
     
+    console.log('recharge : ' + self.cons);
+    
     //* valdation d'edition conseiller 
     function validEditCons() {
+    		console.log('conseiller en cours : ' + self.cons);
             UserService.updateCons(self.cons, self.cons.id)
             .then(
                     fetchAllUsers,
@@ -415,7 +419,6 @@ function trier_par(tri){
     /* Ajout d'un conseiller puis refresh de la liste des users */
    function creaCons(){
 
-console.log(self.cons)
         UserService.creaCons2(self.cons)
             .then(
             		function(d){

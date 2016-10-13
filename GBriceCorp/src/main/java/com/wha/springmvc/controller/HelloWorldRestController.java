@@ -356,7 +356,7 @@ public class HelloWorldRestController {
         currentCons.setDebutContrat(cons.getDebutContrat());
         currentCons.setFinContrat(cons.getFinContrat());
          
-        userService.updateCons(currentCons);
+        /*userService.updateCons(currentCons);*/
         return new ResponseEntity<Conseiller>(currentCons, HttpStatus.OK);
     }
     

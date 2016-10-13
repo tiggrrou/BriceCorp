@@ -45,5 +45,7 @@ public interface UserService {
 	List<User> getUser_Admin_Cons();
 
 	Conseiller findConsById(long idCons);
+
+	void updateCons(Conseiller currentCons);
 	
 }
