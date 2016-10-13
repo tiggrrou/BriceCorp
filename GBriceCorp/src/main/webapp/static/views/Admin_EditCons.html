@@ -9,7 +9,7 @@
 	<!-- action="envoiMailConfirmation.php"-->
 	<div class="panel-body">
 		<div class="formcontainer">
-			<form ng-submit="ctrl.submit()" name="formIscription"
+			<form ng-submit="ctrl.validEditCons()" name="formIscription"
 				class="form-horizontal" method="post">
 				<input type="hidden" ng-model="ctrl.cons.id" />
 				<div class="row">
@@ -29,7 +29,7 @@
 						<div class="col-md-7">
 							<input type="text" ng-model="ctrl.cons.nom" name="nom"
 								class="form-control input-sm"
-								value="user.nom" />
+								 />
 						</div>
 					</div>
 				</div>
@@ -39,7 +39,7 @@
 						<div class="col-md-7">
 							<input type="tel" ng-model="ctrl.cons.telephone" name="telephone"
 								class="form-control input-sm"
-								value="'user.telephone" />
+								 />
 						</div>
 					</div>
 				</div>
@@ -50,7 +50,7 @@
 						<div class="col-md-7">
 							<input type="email" ng-model="ctrl.cons.mail" name="mail"
 								class="form-control input-sm"
-								value="user.mail" />
+								 />
 						</div>
 					</div>
 				</div>
@@ -63,19 +63,18 @@
 						<div class="col-md-7">
 							<input type="text" ng-model="ctrl.cons.adresse" name="adresse"
 								class="form-control input-sm"
-								value="Entrez la nouvelle adresse" />
+								 />
 						</div>
 					</div>
 				</div>
-				
 				<div class="row">
 					<div class="form-group col-md-12">
 						<label class="col-md-2 control-lable" for="file">Date de
 							debut de contrat</label>
 						<div class="col-md-7">
-							<input type="text" ng-model="ctrl.cons.dateDebContrat"
+							<input type="text" ng-model="ctrl.cons.debutContrat"
 								name="dateDebContrat" class="form-control input-sm"
-								value="ATTENTION: NECESSITE L'AVAL VOTRE DIRECTEUR D'AGENCE!" />
+								/>
 						</div>
 					</div>
 				</div>
@@ -84,7 +83,7 @@
 						<label class="col-md-2 control-lable" for="file">Date de
 							fin de contrat</label>
 						<div class="col-md-7">
-							<input type="text" ng-model="ctrl.cons.dateFinContrat"
+							<input type="text" ng-model="ctrl.cons.finContrat"
 								name="dateFinContrat" class="form-control input-sm"
 								value="ATTENTION: NECESSITE L'AVAL VOTRE DIRECTEUR D'AGENCE!" />
 						</div>
