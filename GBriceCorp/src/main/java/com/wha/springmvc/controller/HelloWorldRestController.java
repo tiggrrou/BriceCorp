@@ -307,7 +307,41 @@ public class HelloWorldRestController {
          
        return new ResponseEntity<Conseiller>(cons, HttpStatus.OK);
     }
+    
+//-------------------Attribution d'un client a un conseiller--------------------------------------------------------
+    
+    @RequestMapping(value = "/demande/attribution/{idCons}&{idCli}", method = RequestMethod.PUT)
+    public ResponseEntity<Boolean> attributionCli2Cons(@PathVariable("idCons") long idCons, @PathVariable("idCli") long idCli) {
+    	System.out.println("Attribution du conseiller" + idCons + " au client " + idCli);
+        boolean attributionCli2Cons = userService.attributionCli2Cons(idCons,idCli);
+        if(!attributionCli2Cons){
+            return new ResponseEntity<Boolean>(attributionCli2Cons,HttpStatus.NOT_FOUND);
+        }else{
+        return new ResponseEntity<Boolean>(attributionCli2Cons, HttpStatus.OK);
+        }
+        
+    }
+    
+  //------------------- Delete a User --------------------------------------------------------
+    
+    @RequestMapping(value = "/user/delCons{idCons}", method = RequestMethod.DELETE)
+    public ResponseEntity<Conseiller> deleteCons(@PathVariable("idCons") long idCons) {
+        System.out.println("Fetching & Deleting Conseiller with id " + idCons);
  
+        Conseiller cons = userService.findConsById(idCons);
+        if (cons == null) {
+            System.out.println("Unable to delete. Cons with id " + idCons + " not found");
+            return new ResponseEntity<Conseiller>(HttpStatus.NOT_FOUND);
+        }
+ 
+        userService.deleteConseiller(idCons);
+        return new ResponseEntity<Conseiller>(HttpStatus.NO_CONTENT);
+    }
+ 
+ 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////AUTRES///////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
     
   //-------------------Create a Admin--------------------------------------------------------
     

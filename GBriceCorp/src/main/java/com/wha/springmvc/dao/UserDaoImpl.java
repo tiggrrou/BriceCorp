@@ -106,6 +106,15 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		return clients;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Client> findClientsFromConsID(long consID) {
+		List<Client> clients = getEntityManager().createQuery("FROM Client C where C.conseillerID = :consID")
+					.setParameter("consID", consID).getResultList();
+		return clients;
+	}
+
+	
 	@Override
 	public Client findCliById(long idcli) {
 		try {
@@ -156,6 +165,17 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		
 
 
+	@Override
+	public boolean attributionCli2Cons(long idCons, long idCli) {
+		
+		for (Client clientEnAffectation : findAllClients()) {
+			if (clientEnAffectation.getId() == idCli) {
+				clientEnAffectation.setConseillerID(idCons);
+				System.out.println(clientEnAffectation);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override

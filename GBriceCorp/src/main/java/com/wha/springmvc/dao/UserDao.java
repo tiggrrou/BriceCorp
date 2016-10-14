@@ -26,7 +26,7 @@ public interface UserDao {
 	
 	public void addcompte(Compte compte, long client_id);
 	
-	
+	List<Client> findClientsFromConsID (long consID);
 	
 	public void createConseiller(Conseiller conseiller);
 
@@ -40,8 +40,12 @@ public interface UserDao {
 	
 	List<Client> listeDeClientDuConseiller(long idConseiller); 
 	
-
+	public boolean attributionCli2Cons(long idCons, long idCli);
+	
 	
 	public void createAdmin(Administrateur admin);
+
+	
+	
 	
 }

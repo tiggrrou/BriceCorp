@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.wha.springmvc.dao.UserDao;
 import com.wha.springmvc.model.Administrateur;
 import com.wha.springmvc.model.Client;
-import com.wha.springmvc.model.Compte;
 import com.wha.springmvc.model.Conseiller;
 import com.wha.springmvc.model.Dem_CreationClient;
 import com.wha.springmvc.model.TypeUtilisateur;
@@ -82,8 +81,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void deleteConseiller(long id) {
-		// TODO Auto-generated method stub
+	public void deleteConseiller(long idCons) {
+		dao.deleteConseiller(idCons);
 
 	}
 
@@ -94,13 +93,19 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<Client> listeDeClientDuConseiller(long idConseiller) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.findClientsFromConsID(idConseiller);
 	}
 
 	@Override
 	public void createAdmin(Administrateur admin) {
 		dao.createAdmin(admin);
+	}
+	
+	@Override
+	public boolean attributionCli2Cons(long idCons, long idCli) {
+		
+		return dao.attributionCli2Cons(idCons,idCli);
+		
 	}
 
 	@Override
@@ -113,5 +118,6 @@ public class UserServiceImpl implements UserService {
 	public void addcompte(Compte compte, long client_id) {
 		dao.addcompte(compte, client_id);
 	}
+
 
 }
