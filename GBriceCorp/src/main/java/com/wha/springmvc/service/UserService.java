@@ -57,8 +57,6 @@ public interface UserService {
 
 	
 
-	public void creationClient(long id_conseiller, Dem_CreationClient demande_inscription);
-
 	public void addcompte(Compte compte, long client_id);
 
 	

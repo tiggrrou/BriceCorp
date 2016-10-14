@@ -108,6 +108,7 @@ public class UserServiceImpl implements UserService {
 		
 	}
 
+
 	@Override
 	public void creationClient(long id_conseiller, Dem_CreationClient demande_inscription) {
 		dao.createClient(id_conseiller, demande_inscription);

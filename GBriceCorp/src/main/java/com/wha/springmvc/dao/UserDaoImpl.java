@@ -154,15 +154,21 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 	}
 
 	@Override
-	public void createAdmin(Administrateur admin) {
-		
+	public void createAdmin(Administrateur admin) {				
 		try {
 			Administrateur administrateur = (Administrateur) getEntityManager().createQuery("SELECT a FROM Administrateur a ").getSingleResult();
 		} catch (NoResultException ex) {
 			System.out.println(admin);
 			persist(admin);
 		}
-		
+		try {
+			Administrateur administrateur = (Administrateur) getEntityManager().createQuery("SELECT a FROM Administrateur a ").getSingleResult();
+		} catch (NoResultException ex) {
+			System.out.println(admin);
+			persist(admin);}
+		}
+
+
 
 
 	@Override
@@ -182,6 +188,7 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 	public void addcompte(Compte compte, long client_id) {
 			Client client = findCliById(client_id);
 			client.getComptes().add(compte);
+
 	}
 
 }
