@@ -27,7 +27,7 @@ App.config(['$routeProvider',function($routeProvider) {
 		controller: 'DemandeController',	
 	    activetab: 'conseiller_demandesclient'		
 	})
-	.when("/cons/Cons_RechCli/:cliId" , {
+	.when("/cons/Cons_RechCli" , {
 		templateUrl:"static/views/Cons_RechCli.html",
 		controller: 'UserController',	
 	    activetab: 'conseiller_rechercheclient'		

@@ -13,7 +13,7 @@
 
 
 
-		<div class="panel-body" >
+		<div class="panel-body" ng-init="ctrl.getListeCons()">
 			<div class="tablecontainer">
 				<table class="table table-hover" >
 					<thead>
@@ -35,11 +35,12 @@
 							<td>{{(demande[1]!=null)?demande[1].mail:demande[0].mail}}</td>
 							<td>{{(demande[1]!=null)?demande[1].revenu:demande[0].revenu}}</td>
 							<td>
-										<div ng-init="ctrl.getListeCons()">
+										<div>
 									<form name="formValidation" class="form-horizontal">
 										<select class="form-control" id="sel1"
 											ng-change="dmdctrl.validation_attribution({{demande[0].id}},value)" ng-model="value">
-											<option ng-repeat="conseiller in cons_admin"
+											<option value="">Select</option>
+											<option ng-repeat="conseiller in cons_admin" 
 												value="{{conseiller.id}}">{{conseiller.nom}}</option>
 										</select>
 									</form>
