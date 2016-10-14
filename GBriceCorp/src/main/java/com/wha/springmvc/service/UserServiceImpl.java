@@ -11,6 +11,7 @@ import com.wha.springmvc.dao.UserDao;
 import com.wha.springmvc.model.Administrateur;
 import com.wha.springmvc.model.Client;
 import com.wha.springmvc.model.Conseiller;
+import com.wha.springmvc.model.Dem_CreationClient;
 import com.wha.springmvc.model.TypeUtilisateur;
 import com.wha.springmvc.model.User;
 
@@ -42,7 +43,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void createConseiller(Conseiller conseiller) {
 		conseiller.setTypeUser(TypeUtilisateur.Conseiller.getType());
-
 		dao.createConseiller(conseiller);
 	}
 
@@ -56,11 +56,6 @@ public class UserServiceImpl implements UserService {
 		dao.updateConseiller(conseiller);
 	}
 
-	@Override
-	public void createClient(Client client) {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public void deleteClient(long id) {
@@ -106,6 +101,19 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void createAdmin(Administrateur admin) {
 		dao.createAdmin(admin);
+	}
+	
+	@Override
+	public boolean attributionCli2Cons(long idCons, long idCli) {
+		
+		return dao.attributionCli2Cons(idCons,idCli);
+		
+	}
+
+	@Override
+	public void creationClient(long id_conseiller, Dem_CreationClient demande_inscription) {
+		dao.createClient(id_conseiller,demande_inscription);
+		
 	}
 
 }

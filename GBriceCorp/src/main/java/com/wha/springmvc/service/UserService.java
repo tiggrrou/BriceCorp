@@ -5,6 +5,7 @@ import java.util.List;
 import com.wha.springmvc.model.Administrateur;
 import com.wha.springmvc.model.Client;
 import com.wha.springmvc.model.Conseiller;
+import com.wha.springmvc.model.Dem_CreationClient;
 import com.wha.springmvc.model.User;
 
 
@@ -19,8 +20,6 @@ public interface UserService {
 	
 	
 
-	
-	public void createClient(Client client);
 	
 	public void deleteClient(long id);
 
@@ -43,6 +42,7 @@ public interface UserService {
 
 	Conseiller findConsById(long idCons);
 	
+	public boolean attributionCli2Cons(long idCons, long idCli);
 	
 	
 	List<Client> listeDeClientDuConseiller(long idConseiller); 
@@ -51,6 +51,10 @@ public interface UserService {
 	
 	
 	public void createAdmin(Administrateur admin);
+	
+	public void creationClient(long id_conseiller, Dem_CreationClient demande_inscription);
+
+	
 
 	
 }
