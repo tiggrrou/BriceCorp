@@ -13,9 +13,11 @@ self.validation_Demande=validation_Demande;
 	 self.validation_attribution=validation_attribution;
 	    self.detailDemande=detailDemande;
 	    
-
-
-  	  
+	    $scope.menuDemandesCons = [{"id":"creation", "valeur" :"Ouverture compte"},
+	                               {"id":"chequier", "valeur" :"Chequier"},
+	                               {"id":"modif", "valeur" :"Modification compte"}];
+	    
+	    $scope.value = $scope.menuDemandesCons[0].id;
  // Fonctions User
 	 self.demande={};
 	 self.demandes=[];

@@ -3,7 +3,7 @@
 
 
 
-<div class="panel panel-info" ng-controller="DemandeController as dmdctrl" ng-init="dmdctrl.findDemandeById();">
+<div class="panel panel-info" ng-controller="DemandeController as dmdctrl" ng-init="dmdctrl.findDemandeById(); dmdctrl.fetchAllDemandes(value);">
 
 	<!-- Default panel contents -->
 	<div class="panel-heading" >
@@ -11,10 +11,10 @@
 
 						
 								<select class="form-control" id="sel1"
-									ng-change="dmdctrl.fetchAllDemandes(value)" ng-model="value">
-									<option value="creation" selected>Ouverture compte</option>
-									<option value="chequier" >Chequier</option>
-									<option value="modif" >Modification Compte</option>
+									ng-change="dmdctrl.fetchAllDemandes(value)" ng-model="value"  >
+									 <option ng-repeat="itemMenu in menuDemandesCons" 
+                      						value="{{itemMenu.id}}">{{itemMenu.valeur}}     
+             						 </option>
 								</select>
 
 	</div>	

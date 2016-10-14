@@ -94,8 +94,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<Client> listeDeClientDuConseiller(long idConseiller) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.findClientsFromConsID(idConseiller);
 	}
 
 	@Override

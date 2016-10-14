@@ -23,7 +23,7 @@ public interface UserDao {
 
 	Client findCliById(long idClient);
 	
-
+	List<Client> findClientsFromConsID (long consID);
 	
 	
 	
