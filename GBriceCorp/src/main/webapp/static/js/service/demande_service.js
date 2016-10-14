@@ -11,10 +11,27 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
     	createDemandeInscription:createDemandeInscription,
         writeDemDecou:writeDemDecou,
         attributionConseiller:attributionConseiller,
-        findDemandeById:findDemandeById
+        findDemandeById:findDemandeById,
+        validation_CreationCompteClient:validation_CreationCompteClient
     };
     return factory;
-    
+ 
+    function validation_CreationCompteClient(demande,id_conseiller){
+    	console.log(demande)
+  	  var deferred = $q.defer();
+        $http.put(REST_SERVICE_URI+'validationcreation/'+id_conseiller,demande[0])
+            .then(
+            function (response) {
+                deferred.resolve(response.data);
+            },
+            function(errResponse){
+                console.error('Error while fetching Demandes inscription');
+                deferred.reject(errResponse);
+            }
+        );
+        return deferred.promise;
+  	
+  }
     
     function attributionConseiller(id_demande,id_conseiller){
     	
