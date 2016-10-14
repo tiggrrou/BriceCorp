@@ -19,7 +19,7 @@ public class Client extends User {
 	/**
 	 * revenus d'un client
 	 */
-	private int revenus;
+	private int revenu;
 	
 	/**
 	 * Date d'ouverture de l'espace client
@@ -43,12 +43,12 @@ public class Client extends User {
 	//#endregion
 
 	//#region Accesseurs
-	public int getRevenus() {
-		return this.revenus;
+	public int getRevenu() {
+		return this.revenu;
 	}
 
-	public void setRevenus(int revenus) {
-		this.revenus = revenus;
+	public void setRevenu(int revenu) {
+		this.revenu = revenu;
 	}
 
 	public Date getDateOuverture() {
@@ -87,44 +87,16 @@ public class Client extends User {
 	//#region Constructeur
 	public Client() {
 		super();
+		this.dateOuverture = new Date();
 	}
 	
-	/**
-	 * Constructeur d'un client héritant de la super class User
-	 * @param id
-	 * @param username
-	 * @param address
-	 * @param email
-	 * @param login
-	 * @param mdp
-	 * @param revenus
-	 * @param dateOuverture
-	 * @param dateCloture
-	 * @param conseillerID
-	 */
-	public Client(long id, String nom, String prenom, String address, String email, String login, String mdp, int telephone, int revenus, Date dateOuverture, Date dateCloture, long conseillerID) {
-		super(id, nom, prenom, address, email, login, mdp, TypeUtilisateur.Client.getType(), telephone);
-		this.revenus = revenus;
-		this.dateOuverture = dateOuverture;
-		this.dateCloture = dateCloture;
-		this.conseillerID = conseillerID;
-	}
+
 	
-	public Client(User user, int revenus, Date debut, Date fin, long idCons){
-		super(user.getId(), user.getNom(), user.getPrenom(), 
-				user.getAdresse(), user.getMail(), user.getIdentifiant(), 
-				user.getMotDePasse(), TypeUtilisateur.Conseiller.getType(),user.getTelephone());
-		this.revenus = revenus;
-		this.dateOuverture = debut;
-		this.dateCloture = fin;
-		this.conseillerID = idCons;
-		
-	}
 	//#endregion
 
 	@Override
 	public String toString() {
-		return "Client [getRevenus()=" + getRevenus() + ", getDateOuverture()=" + getDateOuverture()
+		return "Client [getRevenu()=" + getRevenu() + ", getDateOuverture()=" + getDateOuverture()
 				+ ", getDateCloture()=" + getDateCloture() + ", getConseillerID()=" + getConseillerID()
 				+ ", getComptes()=" + getComptes() + "]";
 	}

@@ -466,14 +466,12 @@ function trier_par(tri){
     };  
    
     
-	self.create_admin=create_admin;
+	self.populate_dummy=populate_dummy;
 	
 
 	
-	 function create_admin(){
-		 var admin={prenom:'Admin',nom:'Admin',adresse:'-',mail:'aa@aa.com',identifiant:'a',motDePasse:'1',typeUser:'1',telephone:'13456',matricule:'999'};
-		 console.log(admin)
-	        UserService.createAdmin(admin)
+	 function populate_dummy(){
+	        UserService.populate_dummy()
 	            .then(
 	            		 function(d){
 	          				console.log(d);

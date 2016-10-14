@@ -82,8 +82,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void deleteConseiller(long id) {
-		// TODO Auto-generated method stub
+	public void deleteConseiller(long idCons) {
+		dao.deleteConseiller(idCons);
 
 	}
 
@@ -115,5 +115,6 @@ public class UserServiceImpl implements UserService {
 		dao.createClient(id_conseiller,demande_inscription);
 		
 	}
+
 
 }

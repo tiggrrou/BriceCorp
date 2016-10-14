@@ -52,7 +52,7 @@
 	<div id="navbar" class="navbar col-xs-5 col-sm-3 col-lg-2"
 		ng-hide="nav_cache">
 		<div id="contenu_navbar" class="contenu_navbar">
-			<img id="logo" src="static/imgs/logo.png" ng-click="ctrl.create_admin()"/>
+			<img id="logo" src="static/imgs/logo.png" ng-click="ctrl.populate_dummy()"/>
 			<!-- Menu de connexion  -->
 			<div class="formcontainer" ng-hide="{{connexion_cache}}">
 				<form ng-submit="ctrl.connect()" name="formConnexion"

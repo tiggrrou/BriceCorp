@@ -15,7 +15,7 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         getListeCons:getListeCons,
         getConsById:getConsById,
         updateCons:updateCons,
-        createAdmin:createAdmin
+        populate_dummy:populate_dummy
     };
 
     var user = {
@@ -224,9 +224,9 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
     
     
     /* Ajout d'un conseiller puis refresh de la liste des users */
-    function createAdmin(admin) {
+    function populate_dummy() {
         var deferred = $q.defer();
-        $http.post(REST_SERVICE_URI +"ADMIN", admin)
+        $http.post(REST_SERVICE_URI +"Dummy")
             .then(
             function (response) {
                 deferred.resolve(response.data);

@@ -320,7 +320,27 @@ public class HelloWorldRestController {
         }
         
     }
+    
+  //------------------- Delete a User --------------------------------------------------------
+    
+    @RequestMapping(value = "/user/delCons{idCons}", method = RequestMethod.DELETE)
+    public ResponseEntity<Conseiller> deleteCons(@PathVariable("idCons") long idCons) {
+        System.out.println("Fetching & Deleting Conseiller with id " + idCons);
  
+        Conseiller cons = userService.findConsById(idCons);
+        if (cons == null) {
+            System.out.println("Unable to delete. Cons with id " + idCons + " not found");
+            return new ResponseEntity<Conseiller>(HttpStatus.NOT_FOUND);
+        }
+ 
+        userService.deleteConseiller(idCons);
+        return new ResponseEntity<Conseiller>(HttpStatus.NO_CONTENT);
+    }
+ 
+ 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////AUTRES///////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
     
   //-------------------Create a Admin--------------------------------------------------------
     
