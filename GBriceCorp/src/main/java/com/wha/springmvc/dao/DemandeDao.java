@@ -20,4 +20,6 @@ public interface DemandeDao {
 	public boolean attribution(long id_demande,long id_conseiller);
 	
 	public Demande findDemandeById(long id_demande);
+	
+	public void suppressionDemande(long id_demande);
 }

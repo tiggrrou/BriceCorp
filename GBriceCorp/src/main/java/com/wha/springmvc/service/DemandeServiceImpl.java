@@ -88,6 +88,12 @@ public class DemandeServiceImpl implements DemandeService {
 
 	}
 
+	@Override
+	public void suppressionDemande(long id_demande) {
+			dao.suppressionDemande(id_demande);
+		
+	}
+
 
 
 	

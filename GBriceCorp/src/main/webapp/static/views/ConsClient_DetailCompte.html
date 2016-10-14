@@ -1,10 +1,13 @@
 
 
-<div class="div_view" ng-controller="DemandeController as dmdctrl" ng-init="dmdctrl.fetchAllDemandes('creation');">
+<div class="div_view" ng-controller="DemandeController as dmdctrl" ng-init="dmdctrl.findDemandeById();">
 		<div class=" panel panel-default  ">
-
+<a ng-click="dmdctrl.validation_Demande(dmdctrl.demande)" class="btn btn-warning btn-sm floatLeft"> Valider
+						</a>
 			<div class="panel-heading ">
-				<span class="lead">Compte de MOREL Brice</span>
+				<span class="lead" >Compte de {{(dmdctrl.demande[1]!=null)?dmdctrl.demande[1].nom:dmdctrl.demande[0].nom}}
+				{{(dmdctrl.demande[1]!=null)?dmdctrl.demande[1].prenom:dmdctrl.demande[0].prenom}}
+				</span>
 			</div>
 			<ul class="list-group">
 				<li class="list-group-item">24 rue Emile Blandin 44400 REZE</li>

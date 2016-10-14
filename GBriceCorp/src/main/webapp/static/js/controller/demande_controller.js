@@ -8,7 +8,7 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	var self = this;
 	 self.inscription_Client=inscription_Client;
 	 self.fetchAllDemandes=fetchAllDemandes;
-
+self.validation_Demande=validation_Demande;
 	 self.writeDemDecou=writeDemDecou;
 	 self.validation_attribution=validation_attribution;
 	    self.detailDemande=detailDemande;
@@ -22,24 +22,46 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 
 
 	 
- 	  function detailDemande(demande_type, demande_id){
- 		 console.log(demande_type);
- 		 if(demande_type== "modif"){
- 	 	   	 $location.path("/cons/Cons_DetailCompte/" + demande_id);
- 		 }else if (demande_type == "creation"){
- 	 	   	 $location.path("/cons/Cons_DetailCompte/" + demande_id); 
- 		 }else if (demande_type == "chequier"){
- 	 	   	 $location.path("/cons/Cons_ValCheq/" + demande_id);
+ 	  function detailDemande(demande){
+ 		 console.log(demande[0].type);
+ 		(demande[1]!=null)?demande[1].type:demande[0].type
+ 				
+ 				
+ 		 if(demande[0].type== 2){
+ 	 	   	 $location.path("/cons/Cons_DetailCompte/" + demande[0].id);
+ 		 }else if (demande[0].type == 1){
+ 	 	   	 $location.path("/cons/Cons_DetailCompte/" + demande[0].id); 
+ 		 }else if (demande[0].type == 3){
+ 	 	   	 $location.path("/cons/Cons_ValCheq/" + demande[0].id);
  		 }
  	    }     	
  	  	
- 		console.log("routeparam" + $routeParams.demande_id)
- 	 function findDemandeById(){
-	console.log($routeParams.demande_id)
+ 	 
+ 	 function validation_Demande(demande){
+     	console.log(JSON.parse(sessionStorage.getItem("currentUser")).id)
+     	
+     	var currentUser_id = JSON.parse(sessionStorage.getItem("currentUser")).id;
+ 	if(demande[0].type == 1){
+    	console.log("creation client")
+	DemandeService.validation_CreationCompteClient(demande,currentUser_id)
+        .then(
+                function(d) {
+
+                	console.log(d)
+                },
+        function(errResponse){
+            console.error('Error while fetching Demandes');
+        }
+    );	 
+ 	}
+	 };
+ 	 
+ 	
+if($routeParams.demande_id){
  	DemandeService.findDemandeById($routeParams.demande_id)
  		.then(
  				function(d){
- 					demandes = d;
+ 					self.demande = d;
                 	console.log(d)
  				},
  				function (errResponse){
@@ -51,7 +73,7 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	 self.demande_inscription={clientID:0,conseillerId:0,nom:'',prenom:'',mail:'',adresse:'',telephone:0,revenu:0};
 	 
 	 function validation_attribution(id_demande,id_conseiller){
-		 console.log("id_demande " + id_demande+ "i d_conseiller " + id_conseiller)
+		 console.log("id_demande " + id_demande+ "id_conseiller " + id_conseiller)
 	    	DemandeService.attributionConseiller(id_demande,id_conseiller)
             .then(
                     function(d) {
@@ -73,7 +95,7 @@ self.demandes = '';
     	DemandeService.fetchAllDemandesModifCompte()
             .then(
             function(d) {
-            	$scope.demande_type = "modif";
+
             	self.demandes = d;
             	console.log(d)
             },
@@ -85,7 +107,7 @@ self.demandes = '';
     	DemandeService.fetchAllDemandesInscription(JSON.parse(sessionStorage.getItem("currentUser")).id)
 	        .then(
 	        function(d) {
-            	$scope.demande_type = "creation";
+
 	        	self.demandes = d;
 	            console.log(d)
 	        },
@@ -97,7 +119,7 @@ self.demandes = '';
     	DemandeService.fetchAllDemandesChequier()
 	        .then(
 	        function(d) {
-            	$scope.demande_type = "chequier";
+
 	        	self.demandes = d;
 	            console.log(d)
 	        },
@@ -110,7 +132,7 @@ self.demandes = '';
     	DemandeService.fetchAllDemandesInscription(0)
         .then(
         function(d) {
-        	$scope.demande_type = "admin";
+
         	self.demandes = d;
             console.log(d)
         },

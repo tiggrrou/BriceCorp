@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 import com.wha.springmvc.model.Administrateur;
 import com.wha.springmvc.model.Client;
 import com.wha.springmvc.model.Conseiller;
+import com.wha.springmvc.model.Dem_CreationClient;
+import com.wha.springmvc.model.TypeUtilisateur;
 import com.wha.springmvc.model.User;
 
 @Repository("userDao")
@@ -58,9 +60,19 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 	}
 
 	@Override
-	public void createClient(Client client) {
+	public void createClient(long id_conseiller, Dem_CreationClient demande_inscription) {
+		Client client = new Client();
+		client.setTypeUser(TypeUtilisateur.Client.getType());
+		client.setIdentifiant("c");
+		client.setMotDePasse("c");
+		client.setNom(demande_inscription.getNom());
+		client.setPrenom(demande_inscription.getPrenom());		
+		client.setAdresse(demande_inscription.getAdresse());
+		client.setMail(demande_inscription.getMail());
+		client.setTelephone(demande_inscription.getTelephone());
+		client.setRevenu(demande_inscription.getRevenu());
+		client.setConseillerID(id_conseiller);			
 		persist(client);
-
 	}
 
 	@Override
@@ -122,8 +134,15 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 
 	@Override
 	public void createAdmin(Administrateur admin) {
-		System.out.println(admin);
-		persist(admin);
+		
+		try {
+			Administrateur administrateur = (Administrateur) getEntityManager().createQuery("SELECT a FROM Administrateur a ").getSingleResult();
+		} catch (NoResultException ex) {
+			System.out.println(admin);
+			persist(admin);
+		}
+		
+
 
 	}
 

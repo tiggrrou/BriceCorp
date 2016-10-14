@@ -21,6 +21,7 @@ import com.wha.springmvc.model.Dem_Chequier;
 import com.wha.springmvc.model.Dem_CreationClient;
 import com.wha.springmvc.model.Dem_ModificationCompte;
 import com.wha.springmvc.model.Demande;
+import com.wha.springmvc.model.TypeUtilisateur;
 import com.wha.springmvc.model.User;
 import com.wha.springmvc.service.CompteService;
 import com.wha.springmvc.service.DemandeService;
@@ -43,7 +44,18 @@ public class HelloWorldRestController {
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////DEMANDES////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////
-  //-------------------Retrieve Demande by Id--------------------------------------------------------
+ 
+//-------------------Validation Creation Client--------------------------------------------------------
+    
+    @RequestMapping(value = "/demande/validationcreation/{id_conseil}", method = RequestMethod.PUT)
+    public ResponseEntity<Void> demandeById(@PathVariable("id_conseil") long id_conseiller, @RequestBody Dem_CreationClient demande_inscription) {
+    	System.out.println("validation de la demande d'isncription " + demande_inscription.getID());
+    	userService.creationClient(id_conseiller,demande_inscription);
+		demandeService.suppressionDemande(demande_inscription.getID());
+        
+		return new ResponseEntity<Void>( HttpStatus.CREATED);
+    }
+    //-------------------Retrieve Demande by Id--------------------------------------------------------
     
     @RequestMapping(value = "/demande/{id_demande}", method = RequestMethod.GET)
     public ResponseEntity<List<Object>> demandeById(@PathVariable("id_demande") long id_demande) {
@@ -298,12 +310,42 @@ public class HelloWorldRestController {
     
   //-------------------Create a Admin--------------------------------------------------------
     
-    @RequestMapping(value = "/user/ADMIN", method = RequestMethod.POST)
-    public ResponseEntity<Void> creaAdmin(@RequestBody Administrateur admin) {
-        System.out.println("Creating an Admin" + admin.getNom());
+    @RequestMapping(value = "/user/Dummy", method = RequestMethod.POST)
+    public ResponseEntity<Void> populateDummy() {
+        System.out.println("Populate Dummy");
 
-
+        Administrateur admin = new Administrateur();
+        admin.setTypeUser(TypeUtilisateur.Administrateur.getType());
+        admin.setNom("NomAdmin");
+        admin.setPrenom("PrenomAdmin");
+        admin.setMail("mailadmin@bidul");
+        admin.setAdresse("85 adresse de l'admin 88954 rennes");
+        admin.setMatricule(1111);
+        admin.setMotDePasse("a");
+        admin.setTelephone(13456);
+        admin.setIdentifiant("a");
         userService.createAdmin(admin);
+        
+        Conseiller conseiller = new Conseiller();
+        conseiller.setNom("NomConseiller1");
+        conseiller.setPrenom("PrenomConseiller1");
+        conseiller.setAdresse("35 rue du machin 58650 Saint Machin");
+        conseiller.setIdentifiant("b");
+        conseiller.setMotDePasse("b");
+        conseiller.setMail("machintruc@bidul.com");
+        conseiller.setMatricule(12345);
+        conseiller.setTelephone(11111111);
+        userService.createConseiller(conseiller);
+      
+        Dem_CreationClient demande_inscription = new Dem_CreationClient();
+        demande_inscription.setNom("NomClient1");
+        demande_inscription.setPrenom("PrenomClient1");
+        demande_inscription.setAdresse("25 adresse du client 1 44896 Paris");
+        demande_inscription.setMail("mailClient1@bidul");
+        demande_inscription.setRevenu(2500);
+        demande_inscription.setTelephone(78987);
+        userService.creationClient(2, demande_inscription);
+       
  
         return new ResponseEntity<Void>( HttpStatus.CREATED);
     }

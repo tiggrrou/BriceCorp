@@ -51,6 +51,10 @@ public abstract class Demande implements Serializable {
 	private String etat;
 
 	/**
+	 * 1 : Creation, 2 : Modification, 3 : Chequier
+	 */	
+	private int type;
+	/**
 	 * 
 	 * Traduit la date de creatin de la demande
 	 */
@@ -91,7 +95,18 @@ public abstract class Demande implements Serializable {
 	public void setDateCreation(Date dateCreation) {
 		this.dateCreation = dateCreation;
 	}
+	
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
+	
 	// #endregion
+
+
 
 	// #region constructeur
 	/**
