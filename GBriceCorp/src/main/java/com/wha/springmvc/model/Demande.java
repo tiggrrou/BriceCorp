@@ -114,11 +114,8 @@ public abstract class Demande implements Serializable {
 	 * @param clientID
 	 * @param etat
 	 */
-	public Demande(long clientID) {
+	public Demande() {
 		super();
-
-		this.ID = ID;
-		this.clientID = clientID;
 		this.etat = EtatDemande.EnCours.toString();
 		this.dateCreation = new Date();
 	}

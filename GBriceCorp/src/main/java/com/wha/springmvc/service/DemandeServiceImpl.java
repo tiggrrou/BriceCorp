@@ -94,6 +94,18 @@ public class DemandeServiceImpl implements DemandeService {
 		
 	}
 
+	@Override
+	public void createDemandeChequier(Dem_Chequier demandechequier) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void createDemandeModificationCompte(Dem_ModificationCompte demandeModificationCompte) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 
 	

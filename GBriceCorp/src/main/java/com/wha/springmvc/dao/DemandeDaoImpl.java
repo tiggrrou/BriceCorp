@@ -20,6 +20,18 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 		persist(demandecreationclient);
 	}
 
+	@Override
+	public void createDemandeChequier(Dem_Chequier demandechequier) {
+		demandechequier.setType(3);
+		persist(demandechequier);
+	}
+
+	@Override
+	public void createDemandeModificationCompte(Dem_ModificationCompte demandeModificationCompte) {
+		demandeModificationCompte.setType(2);
+		persist(demandeModificationCompte);
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Dem_ModificationCompte> findAllDemandesModifCompte() {
@@ -61,5 +73,6 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 		Demande demande = findDemandeById(id_demande);
 		delete(demande);
 	}
+
 
 }

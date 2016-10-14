@@ -15,24 +15,25 @@ public class Dem_Chequier extends Demande {
 
 	//#region Attributs
 	@Column(name = "idCompte")
-	private String idCompte;
+	private int idCompte;
 	//#endregion
 	//#region Accesseurs
 
-	public String getIdCompte() {
+	public int getIdCompte() {
 		return idCompte;
 	}
 
-	public void setIdCompte(String idCompte) {
-		this.idCompte = idCompte;
+	public void setIdCompte(int i) {
+		this.idCompte = i;
 	}
 
 	//#endregion
 	//#region Constructeurs
-	public Dem_Chequier(long clientID, String idCompte) {
-		super(clientID);
-		
-		this.idCompte = idCompte;
+	
+	
+	public Dem_Chequier() {
+		super();
+
 	}
 	//#endregion 
 

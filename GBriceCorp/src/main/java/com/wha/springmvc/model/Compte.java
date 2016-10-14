@@ -11,9 +11,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.ManyToAny;
 
 /**
 
@@ -46,11 +50,7 @@ public class Compte {
 	 */
 	@Temporal(TemporalType.DATE)
 	private Date dateCloture;
-	/**
-	 * ID du client possédant le compte
-	 */
-	
-	private long clientID;
+
 	/**
 	 * Booléen traduisant l'activité sur le compte
 	 */
@@ -91,12 +91,6 @@ public class Compte {
 	}
 	public void setDateCloture(Date dateCloture) {
 		this.dateCloture = dateCloture;
-	}
-	public long getClientID() {
-		return clientID;
-	}
-	public void setClientID(long clientID) {
-		this.clientID = clientID;
 	}
 	public boolean isActif() {
 		return actif;
@@ -139,51 +133,17 @@ public class Compte {
 	//#region Constructeurs
 	public Compte(){
 		
-	}
-	
-	/**
-	 * Constructeur avec les champs pouvant être renseignés
-	 * @param iD
-	 * @param libelle
-	 * @param clientID
-	 * @param decouvert
-	 * @param tauxDecouvert
-	 */
-	public Compte(long iD, String libelle, long clientID, int decouvert, float tauxDecouvert) {
-		super();
-		ID = iD;
-		this.libelle = libelle;
+		
 		this.dateOuverture = new Date();
-		this.dateCloture = null;
-		this.clientID = clientID;
 		this.actif = true;
 		this.solde = 0;
 		this.soldeAgio = 0;
-		this.decouvert = decouvert;
-		this.tauxDecouvert = tauxDecouvert;
+		this.decouvert = 0;
+		this.tauxDecouvert = 0;
+		
 	}
-	
-	/**
-	 * Constructeur pour dummy  BDD
-	 * @param iD
-	 * @param libelle
-	 * @param clientID
-	 * @param decouvert
-	 * @param tauxDecouvert
-	 */
-	public Compte(long iD, String libelle, long clientID, int decouvert, float tauxDecouvert, float solde) {
-		super();
-		ID = iD;
-		this.libelle = libelle;
-		this.dateOuverture = new Date();
-		this.dateCloture = null;
-		this.clientID = clientID;
-		this.actif = true;
-		this.solde = solde;
-		this.soldeAgio = 0;
-		this.decouvert = decouvert;
-		this.tauxDecouvert = tauxDecouvert;
-	}
+
+
 	//#endregion
 	
 	

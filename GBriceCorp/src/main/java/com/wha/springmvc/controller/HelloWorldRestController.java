@@ -50,9 +50,10 @@ public class HelloWorldRestController {
     @RequestMapping(value = "/demande/validationcreation/{id_conseil}", method = RequestMethod.PUT)
     public ResponseEntity<Void> demandeById(@PathVariable("id_conseil") long id_conseiller, @RequestBody Dem_CreationClient demande_inscription) {
     	System.out.println("validation de la demande d'isncription " + demande_inscription.getID());
+
     	userService.creationClient(id_conseiller,demande_inscription);
 		demandeService.suppressionDemande(demande_inscription.getID());
-        
+
 		return new ResponseEntity<Void>( HttpStatus.CREATED);
     }
     //-------------------Retrieve Demande by Id--------------------------------------------------------
@@ -215,13 +216,13 @@ public class HelloWorldRestController {
 
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////DEMANDES////////////////////////////////////////////////
+    ////////////////////////////////////////////Clients////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////   
     //------------------- get Client --------------------------------------------------------
     
     @RequestMapping(value = "/user/client/{idClient}", method = RequestMethod.GET ,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> getClient(@PathVariable("idClient") String idClient) {
-        //TODO obtenir le client
+    	
     	return new ResponseEntity<User>(HttpStatus.OK);
 
     }
@@ -338,15 +339,49 @@ public class HelloWorldRestController {
         userService.createConseiller(conseiller);
       
         Dem_CreationClient demande_inscription = new Dem_CreationClient();
-        demande_inscription.setNom("NomClient1");
-        demande_inscription.setPrenom("PrenomClient1");
-        demande_inscription.setAdresse("25 adresse du client 1 44896 Paris");
-        demande_inscription.setMail("mailClient1@bidul");
-        demande_inscription.setRevenu(2500);
-        demande_inscription.setTelephone(78987);
-        userService.creationClient(2, demande_inscription);
-       
+        demande_inscription.setNom("NomClient2");
+        demande_inscription.setPrenom("PrenomClient2");
+        demande_inscription.setAdresse("48 rue du client 2 88665 Marseille");
+        demande_inscription.setMail("mailClient2@bidul");
+        demande_inscription.setRevenu(5000);
+        demande_inscription.setTelephone(457577);
+        demandeService.createDemandeInscription(demande_inscription);
+
+        Dem_Chequier demande_chequier = new Dem_Chequier();
+        demande_chequier.setIdCompte(1);
+        demande_chequier.setClientID(3);
+        demandeService.createDemandeChequier(demande_chequier);
  
+        Dem_ModificationCompte demande_modification = new Dem_ModificationCompte();
+        demande_modification.setClientID(3);
+        demande_modification.setDecouvert(500);
+        demande_modification.setCompteID(2);
+        demande_modification.setRemunerateur(true);
+        demandeService.createDemandeModificationCompte(demande_modification);
+        
+        Dem_CreationClient demande_inscription2 = new Dem_CreationClient();
+        demande_inscription2.setNom("NomClient1");
+        demande_inscription2.setPrenom("PrenomClient1");
+        demande_inscription2.setAdresse("25 adresse du client 1 44896 Paris");
+        demande_inscription2.setMail("mailClient1@bidul");
+        demande_inscription2.setRevenu(2500);
+        demande_inscription2.setTelephone(78987);
+        userService.creationClient(2, demande_inscription2);
+       
+
+ 
+        Conseiller conseiller2 = new Conseiller();
+        conseiller2.setNom("NomConseiller2");
+        conseiller2.setPrenom("PrenomConseiller2");
+        conseiller2.setAdresse("48 rue du conseiller2 44600 Saint martin");
+        conseiller2.setIdentifiant("d");
+        conseiller2.setMotDePasse("d");
+        conseiller2.setMail("machintruc@bidul.com");
+        conseiller2.setMatricule(145);
+        conseiller2.setTelephone(11111);
+        userService.createConseiller(conseiller2);
+        
+        
         return new ResponseEntity<Void>( HttpStatus.CREATED);
     }
     

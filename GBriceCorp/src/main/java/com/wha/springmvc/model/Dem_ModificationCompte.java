@@ -22,7 +22,7 @@ public class Dem_ModificationCompte extends Demande {
 	 * ID du compte à modifier
 	 */
 	@Column(name = "compteID")
-	private String compteID;
+	private int compteID;
 	/**
 	 * Demande de modification d'autorisation de découvert
 	 */
@@ -36,10 +36,10 @@ public class Dem_ModificationCompte extends Demande {
 	//#endregion
 	
 	//#region Accesseurs
-	public String getCompteID() {
+	public int getCompteID() {
 		return compteID;
 	}
-	public void setCompteID(String compteID) {
+	public void setCompteID(int compteID) {
 		this.compteID = compteID;
 	}
 	public int getDecouvert() {
@@ -59,25 +59,11 @@ public class Dem_ModificationCompte extends Demande {
 	//#endregion
 	
 	//#region Constructeurs
-	/**
-	 * @param clientID
-	 * @param compteID
-	 * @param decouvert
-	 * @param remunerateur
-	 */
-	public Dem_ModificationCompte(long clientID, String compteID, int decouvert, boolean remunerateur) {
-		super(clientID);
-		this.compteID = compteID;
-		this.decouvert = decouvert;
-		this.remunerateur = remunerateur;
+
+	public Dem_ModificationCompte() {
+		super();
 	}
-	/**
-	 * @param clientID
-	 */
-	public Dem_ModificationCompte(long clientID) {
-		super(clientID);
-		// TODO Auto-generated constructor stub
-	}
+
 	//#endregion
 	
 }

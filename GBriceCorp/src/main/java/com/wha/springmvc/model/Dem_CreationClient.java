@@ -134,28 +134,6 @@ public class Dem_CreationClient extends Demande {
 	//#endregion
 
 	//#region Constructeurs
-	/**
-	 * @param clientID
-	 * @param nom
-	 * @param prenom
-	 * @param mail
-	 * @param adresse
-	 * @param telephone
-	 * @param justificatif
-	 * @param justificatif2
-	 * @param revenu
-	 */
-	public Dem_CreationClient(long clientID,long conseillerId, String nom, String prenom, String mail, String adresse, int telephone, int revenu) {
-		super(clientID);
-		this.conseillerId = conseillerId;
-		this.nom = nom;
-		this.prenom = prenom;
-		this.mail = mail;
-		this.adresse = adresse;
-		this.telephone = telephone;
-		this.revenu = revenu;
-	}
-
 	
 	/**
 	 * @param clientID
@@ -168,10 +146,8 @@ public class Dem_CreationClient extends Demande {
 	 * @param justificatif2
 	 * @param revenu
 	 */
-
-
 	public Dem_CreationClient() {
-		super(0);
+		super();
 	}
 
 

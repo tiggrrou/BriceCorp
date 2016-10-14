@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.wha.springmvc.model.Administrateur;
 import com.wha.springmvc.model.Client;
+import com.wha.springmvc.model.Compte;
 import com.wha.springmvc.model.Conseiller;
 import com.wha.springmvc.model.Dem_CreationClient;
 import com.wha.springmvc.model.User;
@@ -52,6 +53,8 @@ public interface UserService {
 	public void createAdmin(Administrateur admin);
 
 	public void creationClient(long id_conseiller, Dem_CreationClient demande_inscription);
+
+	public void addcompte(Compte compte, long client_id);
 
 	
 }

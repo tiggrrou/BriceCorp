@@ -10,6 +10,13 @@ import com.wha.springmvc.model.Demande;
 public interface DemandeDao {
 
 	public void createDemandeInscription(Dem_CreationClient demandecreationclient);
+	
+	public void createDemandeChequier(Dem_Chequier demandechequier);
+	
+	public void createDemandeModificationCompte(Dem_ModificationCompte demandeModificationCompte);
+
+	
+	
 		
 	public List<Dem_ModificationCompte> findAllDemandesModifCompte();
 	

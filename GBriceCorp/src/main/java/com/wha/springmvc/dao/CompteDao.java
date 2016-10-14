@@ -12,7 +12,7 @@ public interface CompteDao {
 	
 	List<Compte> findCByClientId(long clientId);
 	
-	void saveCompte(Compte compte);
+	public long saveCompte(Compte compte);
 	
 	void updateCompte(Compte compte);
 	

@@ -1,5 +1,6 @@
 package com.wha.springmvc.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.wha.springmvc.model.Administrateur;
 import com.wha.springmvc.model.Client;
+import com.wha.springmvc.model.Compte;
 import com.wha.springmvc.model.Conseiller;
 import com.wha.springmvc.model.Dem_CreationClient;
 import com.wha.springmvc.model.TypeUtilisateur;
@@ -73,6 +75,15 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		client.setRevenu(demande_inscription.getRevenu());
 		client.setConseillerID(id_conseiller);			
 		persist(client);
+		System.out.println(client.getId());
+		List<Compte> newComptes = new ArrayList<Compte>();
+		
+  	  	Compte compte = new Compte();
+  	  	compte.setLibelle("Compte courant");
+
+  	    newComptes.add(compte);
+  	  	client.setComptes(newComptes);
+
 	}
 
 	@Override
@@ -126,6 +137,7 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 			User user = (User) getEntityManager()
 					.createQuery("SELECT u FROM User u WHERE u.identifiant = :login AND u.motDePasse = :mdp")
 					.setParameter("login", login).setParameter("mdp", mdp).getSingleResult();
+			System.out.println(user);
 			return user;
 		} catch (NoResultException ex) {
 			return null;
@@ -144,6 +156,12 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		
 
 
+	}
+
+	@Override
+	public void addcompte(Compte compte, long client_id) {
+			Client client = findCliById(client_id);
+			client.getComptes().add(compte);
 	}
 
 }

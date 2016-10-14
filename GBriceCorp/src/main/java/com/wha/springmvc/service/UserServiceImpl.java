@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.wha.springmvc.dao.UserDao;
 import com.wha.springmvc.model.Administrateur;
 import com.wha.springmvc.model.Client;
+import com.wha.springmvc.model.Compte;
 import com.wha.springmvc.model.Conseiller;
 import com.wha.springmvc.model.Dem_CreationClient;
 import com.wha.springmvc.model.TypeUtilisateur;
@@ -55,7 +56,6 @@ public class UserServiceImpl implements UserService {
 	public void updateConseiller(Conseiller conseiller) {
 		dao.updateConseiller(conseiller);
 	}
-
 
 	@Override
 	public void deleteClient(long id) {
@@ -105,8 +105,13 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void creationClient(long id_conseiller, Dem_CreationClient demande_inscription) {
-		dao.createClient(id_conseiller,demande_inscription);
-		
+		dao.createClient(id_conseiller, demande_inscription);
+
+	}
+
+	@Override
+	public void addcompte(Compte compte, long client_id) {
+		dao.addcompte(compte, client_id);
 	}
 
 }

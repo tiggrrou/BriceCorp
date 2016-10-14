@@ -3,6 +3,7 @@ package com.wha.springmvc.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -38,8 +39,9 @@ public class Client extends User {
 	 */
 	private long conseillerID;
 
-	@OneToMany
+	@OneToMany(cascade={CascadeType.ALL})
 	private List<Compte> comptes;
+	
 	//#endregion
 
 	//#region Accesseurs

@@ -23,9 +23,9 @@ public class CompteDaoImpl extends AbstractDao<Integer, Compte> implements Compt
 	}
 
 	@Override
-	public void saveCompte(Compte compte) {
+	public long saveCompte(Compte compte) {
 		persist(compte);
-		
+		return compte.getID();
 	}
 
 	@Override

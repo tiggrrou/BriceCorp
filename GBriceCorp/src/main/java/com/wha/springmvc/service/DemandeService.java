@@ -11,6 +11,12 @@ public interface DemandeService {
 
 	public void createDemandeInscription(Dem_CreationClient demandecreationclient);
 	
+	public void createDemandeChequier(Dem_Chequier demandechequier);
+	
+	public void createDemandeModificationCompte(Dem_ModificationCompte demandeModificationCompte);
+
+	
+	
 	
 	public List<Dem_ModificationCompte> findAllDemandesModifCompte();
 	
@@ -23,6 +29,7 @@ public interface DemandeService {
 	public Demande findDemandeById(long id_demande);
 
 
+	
 	public void suppressionDemande(long id_demande);
 
 }
