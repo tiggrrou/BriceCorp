@@ -72,14 +72,12 @@ if($routeParams.demande_id){
  	};
  	
 
-	 self.demande_inscription={clientID:0,conseillerId:0,nom:'',prenom:'',mail:'',adresse:'',telephone:0,revenu:0};
-	 
+ 
 	 function validation_attribution(id_demande,id_conseiller){
 		 console.log("id_demande " + id_demande+ "id_conseiller " + id_conseiller)
 	    	DemandeService.attributionConseiller(id_demande,id_conseiller)
             .then(
                     function(d) {
-                    	fetchAllDemandes("admin")
                     	console.log(d)
                     },
             function(errResponse){

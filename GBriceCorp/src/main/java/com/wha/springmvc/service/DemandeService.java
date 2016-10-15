@@ -24,7 +24,7 @@ public interface DemandeService {
 	
 	public List<Dem_Chequier> listAllDemandeChequier();
 	
-	public boolean attribution(long id_demande,long id_conseiller);
+	public void attribution(long id_demande,long id_conseiller);
 	
 	public Demande findDemandeById(long id_demande);
 

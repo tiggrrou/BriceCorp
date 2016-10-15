@@ -62,16 +62,9 @@ public class DemandeServiceImpl implements DemandeService {
 	
 	
 	@Override
-	public boolean attribution(long id_demande, long id_conseiller) {
-
-//		for (Dem_CreationClient demandecreationcli : dao.findAllDemandesCreationClient()) {
-//			if (demandecreationcli.getID() == id_demande) {
-//				demandecreationcli.setConseillerId(id_conseiller);
-//				System.out.println(demandecreationcli);
-//				return true;
-//			}
-//		}
-		return false;
+	public void attribution(long id_demande,long id_conseiller){
+		System.out.println("Attribution du conseiller" +id_conseiller + " a la demande " + id_demande);
+		dao.attribution(id_demande,id_conseiller);
 	}
 
 

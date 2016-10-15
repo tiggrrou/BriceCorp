@@ -1,7 +1,7 @@
 
 
 
-	<div class="panel panel-info " >
+	<div class="panel panel-info " ng-controller="DemandeController as dmdctrl">
 
 		<!-- Default panel contents -->
 		<div class="panel-heading" >
@@ -38,7 +38,7 @@
 										<div>
 									<form name="formValidation" class="form-horizontal">
 										<select class="form-control" id="sel1"
-											ng-change="dmdctrl.validation_attribution({{demande[0].id}},value)" ng-model="value">
+											ng-change="dmdctrl.validation_attribution({{demande.id}},value)" ng-model="value">
 											<option value="">Select</option>
 											<option ng-repeat="Conseiller in ctrl.curentUser.conseillers" 
 												value="{{Conseiller.id}}">{{Conseiller.nom}}</option>

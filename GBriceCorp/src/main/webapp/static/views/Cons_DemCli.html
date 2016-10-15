@@ -37,13 +37,13 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="demande in dmdctrl.demandes  | filter:search:strict | orderBy:tripar " ng-click="dmdctrl.detailDemande(demande)" >
-								<td>{{(demande[1]!=null)?demande[1].nom:demande[0].nom}}</td>
-								<td>{{(demande[1]!=null)?demande[1].prenom:demande[0].prenom}}</td>
-								<td>{{(demande[1]!=null)?demande[1].dateCreation:demande[0].dateCreation}}</td>
+							<tr ng-repeat="demande in ctrl.curentUser.demandes  | filter:search:strict | orderBy:tripar " ng-click="dmdctrl.detailDemande(demande)" >
+								<td>{{demande.nom}}</td>
+								<td>{{demande.prenom}}</td>
+								<td>{{demande.dateCreation}}</td>
 								<td align=center>
-<img class="icone_liste" src="static/imgs/crayon.png" ng-hide="{{(demande[0].etat=='EnCours')?false:true}}"  />
-<img class="icone_liste" src="static/imgs/sablier.png" ng-hide="{{(demande[0].etat=='EnAttente')?false:true}}" />
+<img class="icone_liste" src="static/imgs/crayon.png" ng-hide="{{(demande.etat=='EnCours')?false:true}}"  />
+<img class="icone_liste" src="static/imgs/sablier.png" ng-hide="{{(demande.etat=='EnAttente')?false:true}}" />
 								</td>
 							</tr>
 						</tbody>

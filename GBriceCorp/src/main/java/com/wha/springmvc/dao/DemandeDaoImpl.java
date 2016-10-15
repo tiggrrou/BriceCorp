@@ -1,10 +1,12 @@
 package com.wha.springmvc.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
 import com.wha.springmvc.model.Administrateur;
+import com.wha.springmvc.model.Conseiller;
 import com.wha.springmvc.model.Dem_Chequier;
 import com.wha.springmvc.model.Dem_CreationClient;
 import com.wha.springmvc.model.Dem_ModificationCompte;
@@ -16,9 +18,10 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 	@Override
 	public void createDemandeInscription(Dem_CreationClient demandecreationclient) {
 		demandecreationclient.setType(1);
-		
-Administrateur admin = (Administrateur) getEntityManager().createQuery("SELECT a FROM Administrateur a WHERE a.id = 1").getSingleResult();
-		
+
+		Administrateur admin = (Administrateur) getEntityManager()
+				.createQuery("SELECT a FROM Administrateur a WHERE a.id = 1").getSingleResult();
+
 		List<Dem_CreationClient> listDemandes = admin.getDemandeCreationClient();
 		listDemandes.add(demandecreationclient);
 		admin.setDemandeCreationClient(listDemandes);
@@ -59,10 +62,46 @@ Administrateur admin = (Administrateur) getEntityManager().createQuery("SELECT a
 		return demandechequier;
 	}
 
-	@Override
-	public boolean attribution(long id_demande, long id_conseiller) {
-		// TODO Auto-generated method stub
-		return false;
+	@Override	
+	public void attribution(long id_demande,long id_conseiller){
+
+		Demande demande = (Demande) getEntityManager()
+				.createQuery("SELECT d FROM Demande d WHERE d.id = :id").setParameter("id", id_demande)
+				.getSingleResult();
+		
+		
+		System.out.println("Demande a transferer : "+ demande);
+		
+		
+		Conseiller conseiller = (Conseiller) getEntityManager()
+				.createQuery("SELECT c FROM Conseiller c WHERE c.id = :id").setParameter("id", id_conseiller)
+				.getSingleResult();
+		List<Demande> listDemandes = conseiller.getDemandes();
+		listDemandes.add(demande);
+		conseiller.setDemandes(listDemandes);
+			
+		System.out.println("Conseiller a modifier "+conseiller);
+		
+	Administrateur admin = (Administrateur) getEntityManager().createQuery("SELECT a FROM Administrateur a WHERE a.id = 1").getSingleResult();
+		
+	List<Dem_CreationClient> listDemandeCreation = admin.getDemandeCreationClient();
+	List<Dem_CreationClient> newListDemandeCreation = new ArrayList<Dem_CreationClient>();
+	
+	
+	    for (Dem_CreationClient demandeCreation : listDemandeCreation ){
+		      
+			    if (demandeCreation.getID() != demande.getID()) {
+			    	newListDemandeCreation.add(demandeCreation);
+			    } 
+		    }
+	    System.out.println("Nouvelle liste des demandes "+newListDemandeCreation);
+	    admin.setDemandeCreationClient(newListDemandeCreation);
+	    
+		System.out.println("Conseiller a modifier "+admin);
+	
+
+	
+	
 	}
 
 	@Override
@@ -77,6 +116,7 @@ Administrateur admin = (Administrateur) getEntityManager().createQuery("SELECT a
 		Demande demande = findDemandeById(id_demande);
 		delete(demande);
 	}
+
 
 
 }
