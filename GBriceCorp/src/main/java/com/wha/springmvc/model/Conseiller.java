@@ -6,6 +6,7 @@ package com.wha.springmvc.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -40,8 +41,11 @@ public class Conseiller extends User {
 	@Temporal(TemporalType.DATE)
 	private Date finContrat;
 	
-	@OneToMany
+	@OneToMany(mappedBy="conseiller")
 	private List<Client> clients;
+	
+	@OneToMany(cascade={CascadeType.ALL})
+	private List<Demande> demandes;
 	//#endregion
 
 	//#region Accesseurs
@@ -49,6 +53,8 @@ public class Conseiller extends User {
 	public int getMatricule() {
 		return this.matricule;
 	}
+
+
 
 	public void setMatricule(int matricule) {
 		this.matricule = matricule;
@@ -69,7 +75,27 @@ public class Conseiller extends User {
 	public void setFinContrat(Date finContrat) {
 		this.finContrat = finContrat;
 	}	
+	
+	public List<Client> getClients() {
+		return clients;
+	}
+
+	public void setClients(List<Client> clients) {
+		this.clients = clients;
+	}	
+	
+	public List<Demande> getDemandes() {
+		return demandes;
+	}
+
+	public void setDemandes(List<Demande> demandes) {
+		this.demandes = demandes;
+	}	
 	//#endregion 
+
+
+
+
 
 	//#region Constructeurs
 	public Conseiller() {
@@ -77,13 +103,15 @@ public class Conseiller extends User {
 		this.debutContrat = new Date();
 	}
 
-
-
 	@Override
 	public String toString() {
-		return "Conseiller [getMatricule()=" + getMatricule() + ", getDebutContrat()=" + getDebutContrat()
-				+ ", getFinContrat()=" + getFinContrat() + "]";
+		return "Conseiller [getMatricule()=" + getMatricule()
+				+ ", getDebutContrat()=" + getDebutContrat() + ", getFinContrat()=" + getFinContrat()
+				+ ", getClients()=" + getClients() + ", getDemandes()=" + getDemandes() + "]";
 	}
+
+
+
 	
 	//#endregion
 	

@@ -10,9 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.wha.springmvc.dao.UserDao;
 import com.wha.springmvc.model.Administrateur;
 import com.wha.springmvc.model.Client;
+import com.wha.springmvc.model.Compte;
 import com.wha.springmvc.model.Conseiller;
 import com.wha.springmvc.model.Dem_CreationClient;
-import com.wha.springmvc.model.TypeUtilisateur;
 import com.wha.springmvc.model.User;
 
 @Service("userService")
@@ -41,9 +41,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void createConseiller(Conseiller conseiller) {
-		conseiller.setTypeUser(TypeUtilisateur.Conseiller.getType());
-		dao.createConseiller(conseiller);
+	public void addConseillerToAdmin(Conseiller conseiller){
+
+		dao.addConseillerToAdmin(conseiller);
 	}
 
 	@Override
@@ -100,18 +100,19 @@ public class UserServiceImpl implements UserService {
 	public void createAdmin(Administrateur admin) {
 		dao.createAdmin(admin);
 	}
-	
-	@Override
-	public boolean attributionCli2Cons(long idCons, long idCli) {
-		
-		return dao.attributionCli2Cons(idCons,idCli);
-		
-	}
+
+	//l'attribution du conseiller se fait au niveau de la demande et non du client
+//	@Override
+//	public boolean attributionCli2Cons(long idCons, long idCli) {
+//		
+//		return dao.attributionCli2Cons(idCons,idCli);
+//		
+//	}
 
 
 	@Override
-	public void creationClient(long id_conseiller, Dem_CreationClient demande_inscription) {
-		dao.createClient(id_conseiller, demande_inscription);
+	public void createClient(Conseiller conseiller, Dem_CreationClient demande_inscription){
+		dao.createClient(conseiller, demande_inscription);
 
 	}
 

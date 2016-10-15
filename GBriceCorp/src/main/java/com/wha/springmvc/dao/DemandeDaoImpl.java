@@ -4,8 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.wha.springmvc.model.Client;
-import com.wha.springmvc.model.Conseiller;
+import com.wha.springmvc.model.Administrateur;
 import com.wha.springmvc.model.Dem_Chequier;
 import com.wha.springmvc.model.Dem_CreationClient;
 import com.wha.springmvc.model.Dem_ModificationCompte;
@@ -17,7 +16,12 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 	@Override
 	public void createDemandeInscription(Dem_CreationClient demandecreationclient) {
 		demandecreationclient.setType(1);
-		persist(demandecreationclient);
+		
+Administrateur admin = (Administrateur) getEntityManager().createQuery("SELECT a FROM Administrateur a WHERE a.id = 1").getSingleResult();
+		
+		List<Dem_CreationClient> listDemandes = admin.getDemandeCreationClient();
+		listDemandes.add(demandecreationclient);
+		admin.setDemandeCreationClient(listDemandes);
 	}
 
 	@Override

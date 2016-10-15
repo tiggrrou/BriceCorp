@@ -24,11 +24,6 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
 	var self = this;
 
 	    
-	    
-	    
-	    
-	    
-	    
 	self.nav_cache_methode = nav_cache_methode;
 
 	
@@ -106,7 +101,7 @@ function trier_par(tri){
  self.connexion = connexion;
  self.session_delete = session_delete;
  self.curentUser = JSON.parse(sessionStorage.getItem("currentUser"));
-
+ console.log(self.curentUser)
  function connect() {
  	connexion(self.user.identifiant, self.user.motDePasse);
  };
@@ -117,7 +112,7 @@ function trier_par(tri){
  		function(d) {
  			sessionStorage.setItem("currentUser",JSON.stringify(d));
  			
- 			 self.curentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+ 			self.curentUser = JSON.parse(sessionStorage.getItem("currentUser"));
  			 
  			var userType = (self.curentUser == null)? 0 : self.curentUser.typeUser;
 
@@ -139,7 +134,6 @@ function trier_par(tri){
  				$location.path("/");
  				break;
  			}
- 			console.log(d);
  	        location.reload();
  		}, 
  		function (errResponse){
@@ -150,16 +144,11 @@ function trier_par(tri){
 
  if(self.curentUser == null)
  {
- 	console.log("pas de session");
  	$scope.connexion_cache=false;
  	$scope.admin_cache=true;
  	$scope.conseiller_cache=true;
  	$scope.client_cache=true;
  }else{
-		console.log("une session existe");
-		
-		console.log("utilisateur.typeUser " +self.curentUser.typeUser);
-		console.log("utilisateur.nom " +self.curentUser.nom);
  	$scope.connexion_cache=true;
  	$scope.admin_cache=true;
  	$scope.conseiller_cache=true;
@@ -203,7 +192,6 @@ function trier_par(tri){
             .then(
             function(d) {
                 self.users = d;
-                console.log(d);
             },
             function(errResponse){
                 console.error('Error while fetching Users');

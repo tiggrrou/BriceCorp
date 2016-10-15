@@ -51,8 +51,8 @@ public class HelloWorldRestController {
     public ResponseEntity<Void> demandeById(@PathVariable("id_conseil") long id_conseiller, @RequestBody Dem_CreationClient demande_inscription) {
     	System.out.println("validation de la demande d'isncription " + demande_inscription.getID());
 
-    	userService.creationClient(id_conseiller,demande_inscription);
-		demandeService.suppressionDemande(demande_inscription.getID());
+//    	userService.creationClient(id_conseiller,demande_inscription);
+//		demandeService.suppressionDemande(demande_inscription.getID());
 
 		return new ResponseEntity<Void>( HttpStatus.CREATED);
     }
@@ -292,7 +292,7 @@ public class HelloWorldRestController {
             return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }*/
  
-        userService.createConseiller(conseiller);
+//        userService.createConseiller(conseiller);
  
         return new ResponseEntity<Void>( HttpStatus.CREATED);
     }
@@ -307,21 +307,22 @@ public class HelloWorldRestController {
          
        return new ResponseEntity<Conseiller>(cons, HttpStatus.OK);
     }
-    
-//-------------------Attribution d'un client a un conseiller--------------------------------------------------------
-    
-    @RequestMapping(value = "/demande/attribution/{idCons}&{idCli}", method = RequestMethod.PUT)
-    public ResponseEntity<Boolean> attributionCli2Cons(@PathVariable("idCons") long idCons, @PathVariable("idCli") long idCli) {
-    	System.out.println("Attribution du conseiller" + idCons + " au client " + idCli);
-        boolean attributionCli2Cons = userService.attributionCli2Cons(idCons,idCli);
-        if(!attributionCli2Cons){
-            return new ResponseEntity<Boolean>(attributionCli2Cons,HttpStatus.NOT_FOUND);
-        }else{
-        return new ResponseEntity<Boolean>(attributionCli2Cons, HttpStatus.OK);
-        }
-        
-    }
-    
+
+  //l'attribution du conseiller se fait au niveau de la demande et non du client    
+////-------------------Attribution d'un client a un conseiller--------------------------------------------------------
+//    
+//    @RequestMapping(value = "/demande/attribution/{idCons}&{idCli}", method = RequestMethod.PUT)
+//    public ResponseEntity<Boolean> attributionCli2Cons(@PathVariable("idCons") long idCons, @PathVariable("idCli") long idCli) {
+//    	System.out.println("Attribution du conseiller" + idCons + " au client " + idCli);
+//        boolean attributionCli2Cons = userService.attributionCli2Cons(idCons,idCli);
+//        if(!attributionCli2Cons){
+//            return new ResponseEntity<Boolean>(attributionCli2Cons,HttpStatus.NOT_FOUND);
+//        }else{
+//        return new ResponseEntity<Boolean>(attributionCli2Cons, HttpStatus.OK);
+//        }
+//        
+//    }
+//    
   //------------------- Delete a User --------------------------------------------------------
     
     @RequestMapping(value = "/user/delCons{idCons}", method = RequestMethod.DELETE)
@@ -355,11 +356,11 @@ public class HelloWorldRestController {
         admin.setPrenom("PrenomAdmin");
         admin.setMail("mailadmin@bidul");
         admin.setAdresse("85 adresse de l'admin 88954 rennes");
-        admin.setMatricule(1111);
         admin.setMotDePasse("a");
         admin.setTelephone(13456);
         admin.setIdentifiant("a");
         userService.createAdmin(admin);
+
         
         Conseiller conseiller = new Conseiller();
         conseiller.setNom("NomConseiller1");
@@ -370,7 +371,7 @@ public class HelloWorldRestController {
         conseiller.setMail("machintruc@bidul.com");
         conseiller.setMatricule(12345);
         conseiller.setTelephone(11111111);
-        userService.createConseiller(conseiller);
+        userService.addConseillerToAdmin(conseiller);
       
         Dem_CreationClient demande_inscription = new Dem_CreationClient();
         demande_inscription.setNom("NomClient2");
@@ -380,41 +381,44 @@ public class HelloWorldRestController {
         demande_inscription.setRevenu(5000);
         demande_inscription.setTelephone(457577);
         demandeService.createDemandeInscription(demande_inscription);
-
-        Dem_Chequier demande_chequier = new Dem_Chequier();
-        demande_chequier.setIdCompte(1);
-        demande_chequier.setClientID(3);
-        demandeService.createDemandeChequier(demande_chequier);
- 
-        Dem_ModificationCompte demande_modification = new Dem_ModificationCompte();
-        demande_modification.setClientID(3);
-        demande_modification.setDecouvert(500);
-        demande_modification.setCompteID(2);
-        demande_modification.setRemunerateur(true);
-        demandeService.createDemandeModificationCompte(demande_modification);
-        
-        Dem_CreationClient demande_inscription2 = new Dem_CreationClient();
-        demande_inscription2.setNom("NomClient1");
-        demande_inscription2.setPrenom("PrenomClient1");
-        demande_inscription2.setAdresse("25 adresse du client 1 44896 Paris");
-        demande_inscription2.setMail("mailClient1@bidul");
-        demande_inscription2.setRevenu(2500);
-        demande_inscription2.setTelephone(78987);
-        userService.creationClient(2, demande_inscription2);
-       
-
- 
-        Conseiller conseiller2 = new Conseiller();
-        conseiller2.setNom("NomConseiller2");
-        conseiller2.setPrenom("PrenomConseiller2");
-        conseiller2.setAdresse("48 rue du conseiller2 44600 Saint martin");
-        conseiller2.setIdentifiant("d");
-        conseiller2.setMotDePasse("d");
-        conseiller2.setMail("machintruc@bidul.com");
-        conseiller2.setMatricule(145);
-        conseiller2.setTelephone(11111);
-        userService.createConseiller(conseiller2);
-        
+//
+//        Dem_CreationClient demande_inscription2 = new Dem_CreationClient();
+//        demande_inscription2.setNom("NomClient1");
+//        demande_inscription2.setPrenom("PrenomClient1");
+//        demande_inscription2.setAdresse("25 adresse du client 1 44896 Paris");
+//        demande_inscription2.setMail("mailClient1@bidul");
+//        demande_inscription2.setRevenu(2500);
+//        demande_inscription2.setTelephone(78987);
+//        Conseiller conseillerpourclient = userService.findConsById(2);
+//        userService.createClient(conseillerpourclient, demande_inscription2);
+//        
+//        Dem_Chequier demande_chequier = new Dem_Chequier();
+//        demande_chequier.setIdCompte(1);
+//        demande_chequier.setClientID(3);
+//        demandeService.addDemandeChequierToCons(conseillerpourclient,demande_chequier);
+// 
+//        Dem_ModificationCompte demande_modification = new Dem_ModificationCompte();
+//        demande_modification.setClientID(3);
+//        demande_modification.setDecouvert(500);
+//        demande_modification.setCompteID(2);
+//        demande_modification.setRemunerateur(true);
+//        demandeService.addDemandeModificationCompteToCons(conseillerpourclient,demande_modification);
+//        
+//       
+//       
+//
+// 
+//        Conseiller conseiller2 = new Conseiller();
+//        conseiller2.setNom("NomConseiller2");
+//        conseiller2.setPrenom("PrenomConseiller2");
+//        conseiller2.setAdresse("48 rue du conseiller2 44600 Saint martin");
+//        conseiller2.setIdentifiant("d");
+//        conseiller2.setMotDePasse("d");
+//        conseiller2.setMail("machintruc@bidul.com");
+//        conseiller2.setMatricule(145);
+//        conseiller2.setTelephone(11111);
+//        userService.createConseiller(conseiller2);
+//        
         
         return new ResponseEntity<Void>( HttpStatus.CREATED);
     }

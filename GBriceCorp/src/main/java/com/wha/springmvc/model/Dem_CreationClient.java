@@ -12,11 +12,7 @@ import javax.persistence.Table;
 public class Dem_CreationClient extends Demande {
 
 	//#region Attributs
-	/**
-	 * id du conseiller attribue à cette demande
-	 */
-	@Column(name = "conseillerId")
-	private long conseillerId;
+
 	/**
 	 * Nom du client potentiel
 	 */
@@ -61,13 +57,7 @@ public class Dem_CreationClient extends Demande {
 
 	//#region Accesseurs
 	
-	public long getConseillerId() {
-		return conseillerId;
-	}
 
-	public void setConseillerId(long conseillerId) {
-		this.conseillerId = conseillerId;
-	}
 	public String getNom() {
 		return nom;
 	}
@@ -153,7 +143,7 @@ public class Dem_CreationClient extends Demande {
 
 	@Override
 	public String toString() {
-		return "Dem_CreationClient [getConseillerId()=" + getConseillerId() + ", getNom()=" + getNom()
+		return "Dem_CreationClient [getNom()=" + getNom()
 				+ ", getPrenom()=" + getPrenom() + ", getMail()=" + getMail() + ", getAdresse()=" + getAdresse()
 				+ ", getTelephone()=" + getTelephone() + ", getRevenu()=" + getRevenu() + "]";
 	}

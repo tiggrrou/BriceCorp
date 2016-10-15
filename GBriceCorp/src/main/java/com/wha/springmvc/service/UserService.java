@@ -33,7 +33,7 @@ public interface UserService {
 
 	
 	
-	public void createConseiller(Conseiller conseiller);
+	public void addConseillerToAdmin(Conseiller conseiller);
 
 	public void deleteConseiller(long id);
 
@@ -43,7 +43,7 @@ public interface UserService {
 
 	Conseiller findConsById(long idCons);
 	
-	public boolean attributionCli2Cons(long idCons, long idCli);
+
 	
 	
 	List<Client> listeDeClientDuConseiller(long idConseiller); 
@@ -53,7 +53,7 @@ public interface UserService {
 	
 	public void createAdmin(Administrateur admin);
 	
-	public void creationClient(long id_conseiller, Dem_CreationClient demande_inscription);
+	public void createClient(Conseiller conseiller, Dem_CreationClient demande_inscription);
 
 	
 

@@ -20,18 +20,20 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "Justificatif")
 public class Justificatif implements Serializable{
-//#region Attributs
+	
+	
+	//#region Attributs
 	
 	@Id
 	private long ID;
-	
-	private long clientID;
 	
 	@Temporal(TemporalType.DATE)
 	private Date date;
 	
 	private TypeJustificatif type;
 	//#endregion
+
+	
 	//#region Accesseurs
 	public long getID() {
 		return ID;
@@ -40,15 +42,7 @@ public class Justificatif implements Serializable{
 	public void setID(long iD) {
 		ID = iD;
 	}
-
-	public long getClientID() {
-		return clientID;
-	}
-
-	public void setClientID(long clientID) {
-		this.clientID = clientID;
-	}
-
+	
 	public Date getDate() {
 		return date;
 	}
@@ -56,8 +50,7 @@ public class Justificatif implements Serializable{
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	//#endregion
-
+	
 	public TypeJustificatif getType() {
 		return this.type;
 	}
@@ -65,13 +58,15 @@ public class Justificatif implements Serializable{
 	public void setType(TypeJustificatif type) {
 		this.type = type;
 	}
+	//#endregion
+
+
 
 	/**
 	 * @param clientID
 	 * @param date
 	 */
 	public Justificatif(long clientID, TypeJustificatif type) {
-		this.clientID = clientID;
 		this.date = new Date();
 		this.type = type;
 	}

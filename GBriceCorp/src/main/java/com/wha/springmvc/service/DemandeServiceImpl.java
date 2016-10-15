@@ -35,21 +35,21 @@ public class DemandeServiceImpl implements DemandeService {
 
 		List<Dem_CreationClient> listedemandecreationpartype = new ArrayList<Dem_CreationClient>();
 		
-		if(id == 0){
-		for (Dem_CreationClient demandecreationcli : dao.findAllDemandesCreationClient()) {
-			if (demandecreationcli.getClientID() == id && demandecreationcli.getConseillerId() == 0) {
-				listedemandecreationpartype.add(demandecreationcli);
-
-			}
-		}
-		}else{
-
-			for (Dem_CreationClient demandecreationcli : dao.findAllDemandesCreationClient()) {
-				if (demandecreationcli.getConseillerId() == id) {
-					listedemandecreationpartype.add(demandecreationcli);
-				}
-			}
-		}
+//		if(id == 0){
+//		for (Dem_CreationClient demandecreationcli : dao.findAllDemandesCreationClient()) {
+//			if (demandecreationcli.getClientID() == id && demandecreationcli.getConseillerId() == 0) {
+//				listedemandecreationpartype.add(demandecreationcli);
+//
+//			}
+//		}
+//		}else{
+//
+//			for (Dem_CreationClient demandecreationcli : dao.findAllDemandesCreationClient()) {
+//				if (demandecreationcli.getConseillerId() == id) {
+//					listedemandecreationpartype.add(demandecreationcli);
+//				}
+//			}
+//		}
 
 		return listedemandecreationpartype;
 	}
@@ -64,13 +64,13 @@ public class DemandeServiceImpl implements DemandeService {
 	@Override
 	public boolean attribution(long id_demande, long id_conseiller) {
 
-		for (Dem_CreationClient demandecreationcli : dao.findAllDemandesCreationClient()) {
-			if (demandecreationcli.getID() == id_demande) {
-				demandecreationcli.setConseillerId(id_conseiller);
-				System.out.println(demandecreationcli);
-				return true;
-			}
-		}
+//		for (Dem_CreationClient demandecreationcli : dao.findAllDemandesCreationClient()) {
+//			if (demandecreationcli.getID() == id_demande) {
+//				demandecreationcli.setConseillerId(id_conseiller);
+//				System.out.println(demandecreationcli);
+//				return true;
+//			}
+//		}
 		return false;
 	}
 

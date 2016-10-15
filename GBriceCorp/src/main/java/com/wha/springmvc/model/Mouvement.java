@@ -39,10 +39,8 @@ public abstract class Mouvement {
 	 */
 	@Temporal(TemporalType.DATE)
 	private Date dateMouvement;
-	/**
-	 * référence au compte auquel est lié le mouvement
-	 */
-	private long compteID;
+
+	
 	/**
 	 * libellé descriptif associé au mouvement
 	 */
@@ -65,14 +63,6 @@ public abstract class Mouvement {
 		this.montant = montant;
 	}
 
-	public long getCompteID() {
-		return this.compteID;
-	}
-
-	public void setCompteID(long compteID) {
-		this.compteID = compteID;
-	}
-
 	public String getLibelle() {
 		return this.libelle;
 	}
@@ -89,19 +79,22 @@ public abstract class Mouvement {
 		this.dateMouvement = dateMouvement;
 	}
 	// #endregion
+	
 	//#region Constructeurs 
 
-	public Mouvement(long iD, float montant, Date dateMouvement, long compteID, String libelle) {
-		super();
-		ID = iD;
-		this.montant = montant;
-		this.dateMouvement = dateMouvement;
-		this.compteID = compteID;
-		this.libelle = libelle;
+	public Mouvement() {
+		this.dateMouvement = new Date();
 	}
 
-	public Mouvement() {
-		super();
+	@Override
+	public String toString() {
+		return "Mouvement [getID()=" + getID() + ", getMontant()=" + getMontant() + ", getLibelle()=" + getLibelle()
+				+ ", getDateMouvement()=" + getDateMouvement() + "]";
 	}
+
+
 	//#endregion
+	
+	
+	
 }

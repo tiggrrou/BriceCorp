@@ -12,6 +12,8 @@ import com.wha.springmvc.model.Client;
 import com.wha.springmvc.model.Compte;
 import com.wha.springmvc.model.Conseiller;
 import com.wha.springmvc.model.Dem_CreationClient;
+import com.wha.springmvc.model.Demande;
+import com.wha.springmvc.model.Notification;
 import com.wha.springmvc.model.TypeUtilisateur;
 import com.wha.springmvc.model.User;
 
@@ -19,9 +21,29 @@ import com.wha.springmvc.model.User;
 public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 
 	@Override
-	public void createConseiller(Conseiller conseiller) {
+	public void addConseillerToAdmin(Conseiller conseiller){
+		conseiller.setTypeUser(TypeUtilisateur.Conseiller.getType());	
+		
+		List<Client> newClients = new ArrayList<Client>();
+		conseiller.setClients(newClients);
+
+		List<Demande> listDemandes = new ArrayList<Demande>();
+		conseiller.setDemandes(listDemandes);
+		
 		persist(conseiller);
 
+		
+		
+		Administrateur admin = (Administrateur) getEntityManager().createQuery("SELECT a FROM Administrateur a WHERE a.id = 1").getSingleResult();
+		
+		List<Conseiller> listConseillers = admin.getConseillers();
+		listConseillers.add(conseiller);
+		admin.setConseillers(listConseillers);
+		
+
+		
+		System.out.println(conseiller);
+		
 	}
 
 	@Override
@@ -62,7 +84,7 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 	}
 
 	@Override
-	public void createClient(long id_conseiller, Dem_CreationClient demande_inscription) {
+	public void createClient(Conseiller conseiller, Dem_CreationClient demande_inscription) {
 		Client client = new Client();
 		client.setTypeUser(TypeUtilisateur.Client.getType());
 		client.setIdentifiant("c");
@@ -73,17 +95,22 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		client.setMail(demande_inscription.getMail());
 		client.setTelephone(demande_inscription.getTelephone());
 		client.setRevenu(demande_inscription.getRevenu());
-		client.setConseillerID(id_conseiller);			
+		client.setConseiller(conseiller);			
 		persist(client);
-		System.out.println(client.getId());
-		List<Compte> newComptes = new ArrayList<Compte>();
 		
-  	  	Compte compte = new Compte();
-  	  	compte.setLibelle("Compte courant");
 
+		
+		List<Compte> newComptes = new ArrayList<Compte>();
+		Compte compte = new Compte();
+  	  	compte.setLibelle("Compte courant");
   	    newComptes.add(compte);
   	  	client.setComptes(newComptes);
 
+  	  	List<Notification> newNotification = new ArrayList<Notification>();
+  	  	Notification notification = new Notification();
+  	  	notification.setMessage("Votre Compte Courant est ouvert");
+  	  	newNotification.add(notification);
+  	  	client.setNotifications(newNotification);
 	}
 
 	@Override
@@ -141,12 +168,12 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 
 	@Override
 	public User connexion(String login, String mdp) {
-		System.out.println(login + " /" + mdp);
+		System.out.println(login+ " / " + mdp);
 		try {
 			User user = (User) getEntityManager()
 					.createQuery("SELECT u FROM User u WHERE u.identifiant = :login AND u.motDePasse = :mdp")
 					.setParameter("login", login).setParameter("mdp", mdp).getSingleResult();
-			System.out.println(user);
+System.out.println(user);
 			return user;
 		} catch (NoResultException ex) {
 			return null;
@@ -155,34 +182,31 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 
 	@Override
 	public void createAdmin(Administrateur admin) {				
-		try {
-			Administrateur administrateur = (Administrateur) getEntityManager().createQuery("SELECT a FROM Administrateur a ").getSingleResult();
-		} catch (NoResultException ex) {
-			System.out.println(admin);
 			persist(admin);
+
+			List<Dem_CreationClient> newDemandeCreationClient = new ArrayList<Dem_CreationClient>();
+			admin.setDemandeCreationClient(newDemandeCreationClient);
+			
+			List<Conseiller> newConseiller = new ArrayList<Conseiller>();
+			admin.setConseillers(newConseiller);
+
 		}
-		try {
-			Administrateur administrateur = (Administrateur) getEntityManager().createQuery("SELECT a FROM Administrateur a ").getSingleResult();
-		} catch (NoResultException ex) {
-			System.out.println(admin);
-			persist(admin);}
-		}
 
 
 
-
-	@Override
-	public boolean attributionCli2Cons(long idCons, long idCli) {
-		
-		for (Client clientEnAffectation : findAllClients()) {
-			if (clientEnAffectation.getId() == idCli) {
-				clientEnAffectation.setConseillerID(idCons);
-				System.out.println(clientEnAffectation);
-				return true;
-			}
-		}
-		return false;
-	}
+//
+//	@Override
+//	public boolean attributionCli2Cons(long idCons, long idCli) {
+//		
+//		for (Client clientEnAffectation : findAllClients()) {
+//			if (clientEnAffectation.getId() == idCli) {
+//				clientEnAffectation.setConseillerID(idCons);
+//				System.out.println(clientEnAffectation);
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
 
 	@Override
 	public void addcompte(Compte compte, long client_id) {

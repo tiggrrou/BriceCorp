@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -37,10 +38,18 @@ public class Client extends User {
 	/**
 	 * ID du conseiller attitré au client
 	 */
-	private long conseillerID;
+
+	@ManyToOne
+	private Conseiller conseiller;
 
 	@OneToMany(cascade={CascadeType.ALL})
+	private List<Justificatif> justificatifs;
+	
+	@OneToMany(cascade={CascadeType.ALL})
 	private List<Compte> comptes;
+
+	@OneToMany(cascade={CascadeType.ALL})
+	private List<Notification> notifications;
 	
 	//#endregion
 
@@ -69,14 +78,14 @@ public class Client extends User {
 		this.dateCloture = dateCloture;
 	}
 
-	public long getConseillerID() {
-		return this.conseillerID;
+	public Conseiller getConseiller() {
+		return conseiller;
 	}
 
-	public void setConseillerID(long conseillerID) {
-		this.conseillerID = conseillerID;
+	public void setConseiller(Conseiller conseiller) {
+		this.conseiller = conseiller;
 	}
-	
+
 	public List<Compte> getComptes() {
 		return comptes;
 	}
@@ -84,14 +93,24 @@ public class Client extends User {
 	public void setComptes(List<Compte> comptes) {
 		this.comptes = comptes;
 	}
+	public List<Notification> getNotifications() {
+		return notifications;
+	}
+	public void setNotifications(List<Notification> notifications) {
+		this.notifications = notifications;
+	}	
+	
 	//#endregion 
+
+
 
 	//#region Constructeur
 	public Client() {
 		super();
 		this.dateOuverture = new Date();
 	}
-	
+
+
 
 	
 	//#endregion
@@ -99,8 +118,8 @@ public class Client extends User {
 	@Override
 	public String toString() {
 		return "Client [getRevenu()=" + getRevenu() + ", getDateOuverture()=" + getDateOuverture()
-				+ ", getDateCloture()=" + getDateCloture() + ", getConseillerID()=" + getConseillerID()
-				+ ", getComptes()=" + getComptes() + "]";
+				+ ", getDateCloture()=" + getDateCloture() + ", getConseiller()=" + getConseiller() + ", getComptes()="
+				+ getComptes() + ", getNotifications()=" + getNotifications() + "]";
 	}
 	
 	

@@ -4,7 +4,9 @@
 package com.wha.springmvc.model;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -51,6 +53,9 @@ public class Compte {
 	@Temporal(TemporalType.DATE)
 	private Date dateCloture;
 
+	@OneToMany(cascade={CascadeType.ALL})
+	private List<Mouvement> mouvements;
+	
 	/**
 	 * Booléen traduisant l'activité sur le compte
 	 */
@@ -132,8 +137,6 @@ public class Compte {
 	
 	//#region Constructeurs
 	public Compte(){
-		
-		
 		this.dateOuverture = new Date();
 		this.actif = true;
 		this.solde = 0;

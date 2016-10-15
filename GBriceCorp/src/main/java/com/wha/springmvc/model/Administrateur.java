@@ -3,7 +3,12 @@
  */
 package com.wha.springmvc.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -16,16 +21,26 @@ import javax.persistence.Table;
 @PrimaryKeyJoinColumn(name = "id")
 public class Administrateur extends User {
 
-	private int matricule;
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	private List<Conseiller> conseillers;
+
+	@OneToMany(cascade={CascadeType.ALL})
+	private List<Dem_CreationClient> demandeCreationClient;	
 	
-	
-	
-	public int getMatricule() {
-		return matricule;
+	public List<Conseiller> getConseillers() {
+		return conseillers;
 	}
 
-	public void setMatricule(int matricule) {
-		this.matricule = matricule;
+	public void setConseillers(List<Conseiller> conseillers) {
+		this.conseillers = conseillers;
+	}
+
+	public List<Dem_CreationClient> getDemandeCreationClient() {
+		return demandeCreationClient;
+	}
+
+	public void setDemandeCreationClient(List<Dem_CreationClient> demandeCreationClient) {
+		this.demandeCreationClient = demandeCreationClient;
 	}
 
 	public Administrateur() {
@@ -35,8 +50,10 @@ public class Administrateur extends User {
 
 	@Override
 	public String toString() {
-		return "Administrateur [getMatricule()=" + getMatricule() + "]";
+		return "Administrateur [getConseillers()=" + getConseillers() + ", getDemande()=" + getDemandeCreationClient() + "]";
 	}
+
+
 
 
 

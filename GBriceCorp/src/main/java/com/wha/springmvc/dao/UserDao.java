@@ -15,7 +15,7 @@ public interface UserDao {
 	public User connexion(String login, String mdp);
 	
 	
-	public void createClient(long id_conseiller, Dem_CreationClient demande_inscription);
+	public void createClient(Conseiller conseiller, Dem_CreationClient demande_inscription);
 	
 	public void deleteClient(long idClient);
 
@@ -29,7 +29,7 @@ public interface UserDao {
 	
 	List<Client> findClientsFromConsID (long consID);
 	
-	public void createConseiller(Conseiller conseiller);
+	public void addConseillerToAdmin(Conseiller conseiller);
 
 	public void deleteConseiller(long idConseiller);
 
@@ -41,8 +41,9 @@ public interface UserDao {
 	
 	List<Client> listeDeClientDuConseiller(long idConseiller); 
 	
-	public boolean attributionCli2Cons(long idCons, long idCli);
+
 	
 	
 	public void createAdmin(Administrateur admin);
 
+}

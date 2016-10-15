@@ -19,18 +19,17 @@ import javax.persistence.TemporalType;
  * @author Nicolas Lourdeau
  *
  */
-
+@Entity
+@Table(name = "Notification")
 public class Notification {
 	// #region Attributs
 	/**
 	 * ID de la notification
 	 */
-
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long ID;
-	/**
-	 * ID du client à qui est adressée la notification
-	 */
-	private long ClientID;
+
 	/**
 	 * Booléen traduisant l'état de la notification lu ou non lu
 	 */
@@ -55,14 +54,7 @@ public class Notification {
 		this.ID = iD;
 	}
 
-	public long getClientID() {
-		return ClientID;
-	}
-
-	public void setClientID(long clientID) {
-		this.ClientID = clientID;
-	}
-
+	
 	public boolean isLu() {
 		return this.lu;
 	}
@@ -91,21 +83,13 @@ public class Notification {
 	// #region Constructeurs
 	/**
 	 * @param iD
-	 * @param clientID
 	 * @param message
 	 */
-	public Notification(long iD, long clientID, String message) {
-		this.ID = iD;
-		this.ClientID = clientID;
-		this.Message = message;
+	public Notification() {
 		this.dateNotif = new Date();
 		this.lu = false;
-
 	}
 
-	public Notification() {
-
-	}
 	// #endregion
 
 	// #region Méthodes héritées
