@@ -111,14 +111,20 @@ public class UserServiceImpl implements UserService {
 
 
 	@Override
-	public void createClient(Conseiller conseiller, Dem_CreationClient demande_inscription){
-		dao.createClient(conseiller, demande_inscription);
+	public void createClient(long idConseiller, Dem_CreationClient demande_inscription){
+		dao.createClient(idConseiller, demande_inscription);
 
 	}
 
 	@Override
 	public void addcompte(Compte compte, long client_id) {
 		dao.addcompte(compte, client_id);
+	}
+
+	@Override
+	public User refresh(long idUser) {
+
+		return dao.refresh(idUser);
 	}
 
 

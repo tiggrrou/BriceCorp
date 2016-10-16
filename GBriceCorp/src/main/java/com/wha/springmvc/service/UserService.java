@@ -17,7 +17,7 @@ public interface UserService {
 	
 	public User connexion(String login, String mdp);
 	
-
+	public User refresh(long idUser);
 	
 	
 
@@ -53,7 +53,7 @@ public interface UserService {
 	
 	public void createAdmin(Administrateur admin);
 	
-	public void createClient(Conseiller conseiller, Dem_CreationClient demande_inscription);
+	public void createClient(long idConseiller, Dem_CreationClient demande_inscription);
 
 	
 

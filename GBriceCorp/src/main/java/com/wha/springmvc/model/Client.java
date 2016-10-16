@@ -1,5 +1,6 @@
 package com.wha.springmvc.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "Client")
 @PrimaryKeyJoinColumn(name = "id")
-public class Client extends User {
+public class Client extends User  implements Serializable{
 
 	//#region Attributs
 	/**
@@ -40,6 +41,7 @@ public class Client extends User {
 	 */
 
 	@ManyToOne
+
 	private Conseiller conseiller;
 
 	@OneToMany(cascade={CascadeType.ALL})
@@ -78,8 +80,8 @@ public class Client extends User {
 		this.dateCloture = dateCloture;
 	}
 
-	public Conseiller getConseiller() {
-		return conseiller;
+	public long getConseiller() {
+		return conseiller.getId();
 	}
 
 	public void setConseiller(Conseiller conseiller) {
@@ -110,17 +112,19 @@ public class Client extends User {
 		this.dateOuverture = new Date();
 	}
 
-
-
-	
-	//#endregion
-
 	@Override
 	public String toString() {
 		return "Client [getRevenu()=" + getRevenu() + ", getDateOuverture()=" + getDateOuverture()
 				+ ", getDateCloture()=" + getDateCloture() + ", getConseiller()=" + getConseiller() + ", getComptes()="
 				+ getComptes() + ", getNotifications()=" + getNotifications() + "]";
 	}
+
+
+
+	
+	//#endregion
+
+
 	
 	
 }

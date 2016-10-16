@@ -230,11 +230,33 @@ public class HelloWorldRestController {
 
 	}
 
+	
+	// ------------------- refresh CurrentUser --------------------------------------------------------
+
+	@RequestMapping(value = "/user/{idUser}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<User> getClient(@PathVariable("idUser") long idUser) {
+
+		
+		System.out.println("Raffraishissement du User " +idUser);
+		try {
+			User currentUser = userService.refresh( idUser);
+			return new ResponseEntity<User>(currentUser, HttpStatus.OK);
+		} catch (NoResultException ex) {
+
+			return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+
+		}
+
+
+	}
+	
+	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////// Clients////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////
-	// ------------------- get Client
-	//////////////////////////////////////////////////////////////////////////////////////////////////// --------------------------------------------------------
+
+	
+	// ------------------- get Client --------------------------------------------------------
 
 	@RequestMapping(value = "/user/client/{idClient}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<User> getClient(@PathVariable("idClient") String idClient) {
@@ -246,8 +268,8 @@ public class HelloWorldRestController {
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////// CONSEILLER//////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////
-	// -------------------Retrieve Conseiller
-	//////////////////////////////////////////////////////////////////////////////////////////////////// Users--------------------------------------------------------
+
+	// -------------------Retrieve Conseiller Users--------------------------------------------------------
 
 	@RequestMapping(value = "/user/Conseiller/{idConseiller}", method = RequestMethod.GET)
 	public ResponseEntity<List<Client>> listUser_Cons(@PathVariable("idConseiller") long idConseiller) {
@@ -374,8 +396,7 @@ public class HelloWorldRestController {
 	//////////////////////////////////////////// AUTRES///////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// -------------------Create a
-	// Admin--------------------------------------------------------
+	// -------------------Create a Admin--------------------------------------------------------
 
 	@RequestMapping(value = "/user/Dummy", method = RequestMethod.POST)
 	public ResponseEntity<Void> populateDummy() {
@@ -419,9 +440,9 @@ public class HelloWorldRestController {
 		demande_inscription2.setMail("mailClient1@bidul");
 		demande_inscription2.setRevenu(2500);
 		demande_inscription2.setTelephone(78987);
-		demandeService.createDemandeInscription(demande_inscription);
+		demandeService.createDemandeInscription(demande_inscription2);
 		Conseiller conseillerpourclient = userService.findConsById(2);
-		userService.createClient(conseillerpourclient, demande_inscription2);
+		userService.createClient(conseillerpourclient.getId(), demande_inscription2);
 
 		// Dem_Chequier demande_chequier = new Dem_Chequier();
 		// demande_chequier.setIdCompte(1);

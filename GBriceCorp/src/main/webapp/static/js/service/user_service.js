@@ -15,7 +15,8 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         getListeCons:getListeCons,
         getConsById:getConsById,
         updateCons:updateCons,
-        populate_dummy:populate_dummy
+        populate_dummy:populate_dummy,
+        refreshUser:refreshUser
     };
 
     var user = {
@@ -43,7 +44,23 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
     
 
     
-  
+    
+    function refreshUser( id) {
+        var deferred = $q.defer();
+        $http.get(REST_SERVICE_URI+id)
+            .then(
+            function (response) {
+                deferred.resolve(response.data);
+            },
+            function(errResponse){
+                console.error('Error while refreshing CurrentUser');
+                deferred.reject(errResponse);
+            }
+        );
+        return deferred.promise;
+    }
+    
+    
     
 
     /* update un user puis refresh de la liste des users */
@@ -232,7 +249,7 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
                 deferred.resolve(response.data);
             },
             function(errResponse){
-                console.error('Error while creating Conseiller');
+                console.error('Error while populate Dummy');
                 deferred.reject(errResponse);
             }
         );

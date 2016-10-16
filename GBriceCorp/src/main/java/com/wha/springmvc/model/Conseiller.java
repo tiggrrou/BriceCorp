@@ -3,6 +3,7 @@
  */
 package com.wha.springmvc.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +22,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "Conseiller")
 @PrimaryKeyJoinColumn(name = "id")
-public class Conseiller extends User {
+public class Conseiller extends User implements Serializable{
 
 	//#region Attributs
 	/**
@@ -42,6 +43,7 @@ public class Conseiller extends User {
 	private Date finContrat;
 	
 	@OneToMany(mappedBy="conseiller")
+//	 @JsonSerialize(using = CustomListSerializer.class)
 	private List<Client> clients;
 	
 	@OneToMany(cascade={CascadeType.ALL})

@@ -185,7 +185,23 @@ function trier_par(tri){
  self.recherche_userParType = recherche_userParType;
   self.fetchAllUsers = fetchAllUsers;
     
-    
+if(self.curentUser != null){
+refreshUser();
+}
+
+function refreshUser(){
+
+    UserService.refreshUser(JSON.parse(sessionStorage.getItem("currentUser")).id)
+        .then(
+        function(d) {
+        	sessionStorage.setItem("currentUser",JSON.stringify(d));
+        },
+        function(errResponse){
+            console.error('Error while refreshing CurrentUser');
+        }
+    );
+};
+
     function fetchAllUsers(){
 
         UserService.fetchAllUsers()
@@ -347,7 +363,7 @@ function trier_par(tri){
     
     function getClients_Cons(){
     	// je récupère un client en fonction de son ID
-    	console.log(JSON.parse(sessionStorage.getItem("currentUser")).id)
+    
     	UserService.getClients_Cons(JSON.parse(sessionStorage.getItem("currentUser")).id)
     	.then(
     			function(d){
@@ -438,8 +454,7 @@ function trier_par(tri){
 	    
     // Fonctions Print
 	 function printToCart(printSectionId){
-		 console.log("coucou" + printSectionId)
-          var innerContents = document.getElementById(printSectionId).innerHTML;
+		  var innerContents = document.getElementById(printSectionId).innerHTML;
           var popupWindow = window.open('', '_blank', 'width=600,height=700,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no');
           popupWindow.document.open();
           popupWindow.document.write('<html><head><link rel="stylesheet" type="text/css" href="static/css/print.css" window.print(); /></head><body >' + innerContents + '</html>');
@@ -465,7 +480,7 @@ function trier_par(tri){
 	          				console.log(d);
 	          			},
 	            function(errResponse){
-	                console.error('Error while creating User');
+	                console.error('Error while populate Dummyr');
 	            }
 	        );
 	    };

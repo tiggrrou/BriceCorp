@@ -84,7 +84,7 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 	}
 
 	@Override
-	public void createClient(Conseiller conseiller, Dem_CreationClient demande_inscription) {
+	public void createClient(long idConseiller, Dem_CreationClient demande_inscription){
 		Client client = new Client();
 		client.setTypeUser(TypeUtilisateur.Client.getType());
 		client.setIdentifiant("c");
@@ -95,10 +95,6 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		client.setMail(demande_inscription.getMail());
 		client.setTelephone(demande_inscription.getTelephone());
 		client.setRevenu(demande_inscription.getRevenu());
-		client.setConseiller(conseiller);			
-		persist(client);
-		
-
 		
 		List<Compte> newComptes = new ArrayList<Compte>();
 		Compte compte = new Compte();
@@ -111,6 +107,23 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
   	  	notification.setMessage("Votre Compte Courant est ouvert");
   	  	newNotification.add(notification);
   	  	client.setNotifications(newNotification);
+  	  
+  	  	
+		persist(client);
+		Conseiller conseiller = findConsById(idConseiller);
+		client.setConseiller(conseiller);
+		
+//		Conseiller conseiller = (Conseiller) getEntityManager()
+//				.createQuery("SELECT c FROM Conseiller c WHERE c.id = :id").setParameter("id", idConseiller)
+//				.getSingleResult();
+//		
+//		List<Client> listClients = conseiller.getClients();
+//		listClients.add(client);
+//		conseiller.setClients(listClients);
+  	  
+
+  	  	System.out.println(conseiller);
+  	 
 	}
 
 	@Override
@@ -213,6 +226,19 @@ System.out.println(user);
 			Client client = findCliById(client_id);
 			client.getComptes().add(compte);
 
+	}
+
+	@Override
+	public User refresh(long idUser) {
+		try {
+			User user = (User) getEntityManager()
+					.createQuery("SELECT u FROM User u WHERE u.id = :id").setParameter("id", idUser)
+					.getSingleResult();
+			System.out.println(user);
+			return user;
+		} catch (NoResultException ex) {
+			return null;
+		}
 	}
 
 }

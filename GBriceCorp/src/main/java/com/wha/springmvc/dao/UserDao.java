@@ -13,9 +13,12 @@ import com.wha.springmvc.model.User;
 public interface UserDao {
 
 	public User connexion(String login, String mdp);
+	public User refresh(long idUser);
 	
 	
-	public void createClient(Conseiller conseiller, Dem_CreationClient demande_inscription);
+	
+	
+	public void createClient(long idConseiller, Dem_CreationClient demande_inscription);
 	
 	public void deleteClient(long idClient);
 
