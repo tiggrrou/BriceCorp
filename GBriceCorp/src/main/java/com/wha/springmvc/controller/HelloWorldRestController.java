@@ -442,36 +442,35 @@ public class HelloWorldRestController {
 		demande_inscription2.setTelephone(78987);
 		demandeService.createDemandeInscription(demande_inscription2);
 		Conseiller conseillerpourclient = userService.findConsById(2);
+		demandeService.attribution(demande_inscription2.getID(), conseillerpourclient.getId());
 		userService.createClient(conseillerpourclient.getId(), demande_inscription2);
-
-		// Dem_Chequier demande_chequier = new Dem_Chequier();
-		// demande_chequier.setIdCompte(1);
-		// demande_chequier.setClientID(3);
-		// demandeService.addDemandeChequierToCons(conseillerpourclient,demande_chequier);
-		//
-		// Dem_ModificationCompte demande_modification = new
-		// Dem_ModificationCompte();
-		// demande_modification.setClientID(3);
-		// demande_modification.setDecouvert(500);
-		// demande_modification.setCompteID(2);
-		// demande_modification.setRemunerateur(true);
-		// demandeService.addDemandeModificationCompteToCons(conseillerpourclient,demande_modification);
-		//
-		//
-		//
-		//
-		//
-		// Conseiller conseiller2 = new Conseiller();
-		// conseiller2.setNom("NomConseiller2");
-		// conseiller2.setPrenom("PrenomConseiller2");
-		// conseiller2.setAdresse("48 rue du conseiller2 44600 Saint martin");
-		// conseiller2.setIdentifiant("d");
-		// conseiller2.setMotDePasse("d");
-		// conseiller2.setMail("machintruc@bidul.com");
-		// conseiller2.setMatricule(145);
-		// conseiller2.setTelephone(11111);
-		// userService.createConseiller(conseiller2);
-		//
+		demandeService.suppressionDemande(demande_inscription2.getID());
+		
+		
+		Dem_Chequier demande_chequier = new Dem_Chequier();
+		demande_chequier.setIdCompte(1);
+		demande_chequier.setClientID(3);
+		demandeService.addDemandeChequierToCons(conseillerpourclient.getId(),demande_chequier);
+		
+		Dem_ModificationCompte demande_modification = new Dem_ModificationCompte();
+		demande_modification.setClientID(3);
+		demande_modification.setDecouvert(500);
+		demande_modification.setCompteID(2);
+		demande_modification.setRemunerateur(true);
+				
+		demandeService.addDemandeModificationCompteToCons(conseillerpourclient.getId(),demande_modification);
+		
+		Conseiller conseiller2 = new Conseiller();
+		conseiller2.setNom("NomConseiller2");
+		conseiller2.setPrenom("PrenomConseiller2");
+		conseiller2.setAdresse("48 rue du conseiller2 44600 Saint martin");
+		conseiller2.setIdentifiant("d");
+		conseiller2.setMotDePasse("d");
+		conseiller2.setMail("machintruc@bidul.com");
+		conseiller2.setMatricule(145);
+		conseiller2.setTelephone(18971);
+		userService.addConseillerToAdmin(conseiller2);
+		
 
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
