@@ -20,4 +20,6 @@ public interface CompteDao {
 	List<Compte> findAllComptes(); 
 	
 	void deleteAllComptes();
+	
+	public void mouvement(float montant, long compteDebiteurID, long compteCrediteurID);
 }

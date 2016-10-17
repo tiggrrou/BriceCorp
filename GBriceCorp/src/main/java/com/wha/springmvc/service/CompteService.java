@@ -26,5 +26,7 @@ public interface CompteService {
 	
 	public boolean isCompteExist(Compte compte);
 	
+	public void mouvement( float montant, long compteDebiteurID, long compteCrediteurID);
+	
 	
 }

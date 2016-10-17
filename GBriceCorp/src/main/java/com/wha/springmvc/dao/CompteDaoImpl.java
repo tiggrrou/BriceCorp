@@ -2,6 +2,8 @@ package com.wha.springmvc.dao;
 
 import java.util.List;
 
+import javax.persistence.NoResultException;
+
 import org.springframework.stereotype.Repository;
 
 import com.wha.springmvc.model.Compte;
@@ -11,14 +13,23 @@ public class CompteDaoImpl extends AbstractDao<Integer, Compte> implements Compt
 
 	@Override
 	public Compte findCById(long compteid) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			Compte compte = (Compte) getEntityManager()
+					.createQuery("SELECT C FROM Compte C WHERE C.id = :id").setParameter("id", compteid)
+					.getSingleResult();
+			return compte;
+		} catch (NoResultException ex) {
+			return null;
+		}
 	}
 
 	@Override
 	public List<Compte> findCByClientId(long clientId) {
-		// TODO Auto-generated method stub
-		return null;
+		@SuppressWarnings("unchecked")
+		List<Compte> comptes = getEntityManager().createQuery("SELECT c.comptes FROM Client c WHERE c.id = :id")
+				.setParameter("id", clientId)
+				.getResultList();
+		return comptes;
 	}
 
 	@Override
@@ -29,7 +40,19 @@ public class CompteDaoImpl extends AbstractDao<Integer, Compte> implements Compt
 
 	@Override
 	public void updateCompte(Compte compte) {
-		// TODO Auto-generated method stub
+		Compte cpt = findCById(compte.getID());
+		cpt.setActif(compte.isActif());
+		cpt.setDateCloture(compte.getDateCloture());
+		cpt.setDateOuverture(compte.getDateOuverture());
+		cpt.setDecouvert(compte.getDecouvert());
+		cpt.setLibelle(compte.getLibelle());
+		cpt.setMouvements(compte.getMouvements());
+		cpt.setSeuil(compte.getSeuil());
+		cpt.setSolde(compte.getSolde());
+		cpt.setSoldeAgio(compte.getSoldeAgio());
+		cpt.setSoldeRemuneration(compte.getSoldeRemuneration());
+		cpt.setTauxDecouvert(compte.getTauxDecouvert());
+		cpt.setTauxRemuneration(compte.getTauxRemuneration());
 		
 	}
 
@@ -48,6 +71,17 @@ public class CompteDaoImpl extends AbstractDao<Integer, Compte> implements Compt
 	@Override
 	public void deleteAllComptes() {
 		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouvement(float montant, long compteDebiteurID, long compteCrediteurID) {
+		Compte compteDebite = findCById(compteDebiteurID);
+		compteDebite.setSolde(compteDebite.getSolde() - montant);
+		
+		Compte compteCredite = findCById(compteCrediteurID);
+		compteCredite.setSolde(compteCredite.getSolde() + montant);
+		
 		
 	}
 

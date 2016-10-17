@@ -63,4 +63,10 @@ return dao.findAllComptes();
 		dao.deleteAllComptes();
 	}
 
+	@Override
+	public void mouvement(float montant, long compteDebiteurID, long compteCrediteurID) {
+		dao.mouvement(montant, compteDebiteurID, compteCrediteurID);
+		
+	}
+
 }

@@ -501,6 +501,10 @@ public class HelloWorldRestController {
 		demandeService.suppressionDemande(demande_inscription2.getID());
 		
 		Client client = userService.findCliById(3);
+		Compte cpt = new Compte();  	  	
+		cpt.setLibelle("Compte courant bis");
+		cpt.setSolde(2000);
+		userService.addcompte(cpt, 3);
 		System.out.println(client.getComptes());
 		Compte compte = new Compte();
 		for (Compte comptetmp : client.getComptes()) {
@@ -542,10 +546,11 @@ public class HelloWorldRestController {
 	@RequestMapping(value = "/compte/virement/{Debiteur}&{Crediteur}&{Montant}", method = RequestMethod.POST)
 	public ResponseEntity<Void> virement(@PathVariable("Debiteur") long debiteur,
 			@PathVariable("Crediteur") long crediteur, @PathVariable("Montant") float montant) {
-		Compte debit = compteService.findById(debiteur);
-		Compte credit = compteService.findById(crediteur);
-		debit.setSolde(debit.getSolde() - montant);
-		credit.setSolde(credit.getSolde() + montant);
+		compteService.mouvement(montant, debiteur ,crediteur);
+//		Compte debit = compteService.findById(debiteur);
+//		Compte credit = compteService.findById(crediteur);
+//		debit.setSolde(debit.getSolde() - montant);
+//		credit.setSolde(credit.getSolde() + montant);
 
 		/*
 		 * if (userService.isUserExist(user)) { System.out.println(

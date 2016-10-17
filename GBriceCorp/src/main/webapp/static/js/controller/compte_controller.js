@@ -89,18 +89,17 @@ App.controller('CompteController', ['$scope','$location', '$route', 'CompteServi
     
     function getComptes(){
     	// je recupere les comptes d'un client en fonction de son ID
-//    	var idCurrent = JSON.parse(sessionStorage.getItem("currentUser")).id;
-//    	CompteService.getComptesClient(idCurrent)
-//    	.then(
-//    			function(data){
-//    				console.log(data);
-//    				$scope.comptes = data;
-//    			},
-//    			function (errResponse){
-//    				console.error('Error while getting an account from an customer ID')
-//    			});
+    	var idCurrent = JSON.parse(sessionStorage.getItem("currentUser")).id;
+    	CompteService.getComptesClient(idCurrent)
+    	.then(
+    			function(data){
+    				console.log(data);
+    				$scope.comptes = data;
+    			},
+    			function (errResponse){
+    				console.error('Error while getting an account from an customer ID')
+    			});
     	
-    	$scope.comptes= JSON.parse(sessionStorage.getItem("currentUser")).comptes;
     };
     
 
