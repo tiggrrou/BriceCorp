@@ -36,6 +36,9 @@ public class Dem_ModificationCompte extends Demande {
 	 */
 	@Column(name = "remunerateur")
 	private boolean remunerateur;
+	
+	@Column(name = "libelle")
+	private String libelle;
 	//#endregion
 	
 	//#region Accesseurs
@@ -62,11 +65,17 @@ public class Dem_ModificationCompte extends Demande {
 	public void setRemunerateur(boolean remunerateur) {
 		this.remunerateur = remunerateur;
 	}
-	
+		public String getLibelle() {
+		return libelle;
+	}
+	public void setLibelle(String libelle) {
+		this.libelle = libelle;
+	}
 	
 	//#endregion
 	
 	//#region Constructeurs
+
 
 	public Dem_ModificationCompte() {
 		super();
@@ -74,7 +83,7 @@ public class Dem_ModificationCompte extends Demande {
 	@Override
 	public String toString() {
 		return "Dem_ModificationCompte [getCompte()=" + getCompte() + ", getDecouvert()=" + getDecouvert()
-				+ ", isRemunerateur()=" + isRemunerateur() + "]";
+				+ ", isRemunerateur()=" + isRemunerateur() + ", libelle :" +getLibelle() + "]";
 	}
 
 	//#endregion

@@ -30,7 +30,7 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 		 console.log("je fais une demande pour un nouveau compte");
  
 		 //$scope.demandeCreationCompte.client = JSON.parse(sessionStorage.getItem("currentUser"));
-		 $scope.demandeCreationCompte.decouvert =($scope.decouvert)? 0 : $scope.montantDecouvert;
+		 $scope.demandeCreationCompte.decouvert =($scope.decouvert)? $scope.montantDecouvert : 0 ;
 		 
 		 DemandeService.demandeNouveauCompte($scope.demandeCreationCompte, JSON.parse(sessionStorage.getItem("currentUser")).id).then(
 	 				function(){

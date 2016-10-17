@@ -288,7 +288,7 @@ function refreshUser(){
     				$scope.Conseillers = response;
     			},
     			function (errResponse){
-    				console.error('Error while getting Notifications')
+    				console.error('Error while function recherche_userParType')
     			})
     };
     
@@ -299,7 +299,7 @@ function refreshUser(){
     self.client={id:null,nom:'',prenom:'',adresse:'',mail:'',login:'',mdp:'',telephone:'',revenus:'',dateOuverture:null,dateCloture:null,conseillerID:null};
     self.clients=[];
  
-    self.notifications;
+    //$scope.notifications;
     self.searchClients = searchClients;
     self.getClient = getClient; 
     self.getNotifs = getNotifs;
@@ -340,14 +340,15 @@ function refreshUser(){
     
     function getNotifs(){
     	// je récupère les notifs associées à un client
-    	UserService.getNotifs(JSON.parse(sessionStorage.getItem("currentUser")).id)
-    	.then(
-    			function(dataFromService){
-    				notifications = JSON.parse(dataFromService);
-    			},
-    			function (errResponse){
-    				console.error('Error while getting Notifications')
-    			})
+//    	UserService.getNotifs(JSON.parse(sessionStorage.getItem("currentUser")).id)
+//    	.then(
+//    			function(dataFromService){
+//    				notifications = JSON.parse(dataFromService);
+//    			},
+//    			function (errResponse){
+//    				console.error('Error while getting Notifications')
+//    			})
+    	$scope.notifications = JSON.parse(sessionStorage.getItem("currentUser")).notifications;
     };
     
     
