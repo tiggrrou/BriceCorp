@@ -3,8 +3,11 @@
  */
 package com.wha.springmvc.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -21,8 +24,8 @@ public class Dem_ModificationCompte extends Demande {
 	/**
 	 * ID du compte à modifier
 	 */
-	@Column(name = "compteID")
-	private int compteID;
+	@ManyToOne
+	private Compte compte;
 	/**
 	 * Demande de modification d'autorisation de découvert
 	 */
@@ -36,15 +39,20 @@ public class Dem_ModificationCompte extends Demande {
 	//#endregion
 	
 	//#region Accesseurs
-	public int getCompteID() {
-		return compteID;
+
+
+	public Compte getCompte() {
+		return compte;
 	}
-	public void setCompteID(int compteID) {
-		this.compteID = compteID;
+	public void setCompte(Compte compte) {
+		this.compte = compte;
 	}
+	
+	
 	public int getDecouvert() {
 		return decouvert;
 	}
+
 	public void setDecouvert(int decouvert) {
 		this.decouvert = decouvert;
 	}
@@ -63,7 +71,15 @@ public class Dem_ModificationCompte extends Demande {
 	public Dem_ModificationCompte() {
 		super();
 	}
+	@Override
+	public String toString() {
+		return "Dem_ModificationCompte [getCompte()=" + getCompte() + ", getDecouvert()=" + getDecouvert()
+				+ ", isRemunerateur()=" + isRemunerateur() + "]";
+	}
 
 	//#endregion
+	
+	
+	
 	
 }

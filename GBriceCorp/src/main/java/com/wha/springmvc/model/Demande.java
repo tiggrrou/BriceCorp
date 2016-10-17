@@ -6,6 +6,7 @@ package com.wha.springmvc.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +14,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -28,7 +31,7 @@ import javax.persistence.TemporalType;
 public abstract class Demande implements Serializable {
 
 	// #region Attributs
-	private static int nbDemandes = 0;
+
 	/**
 	 * 
 	 * ID de la demande
@@ -41,8 +44,8 @@ public abstract class Demande implements Serializable {
 	 * 
 	 * ID du client (peut être nul si demande d'inscription)
 	 */
-	@Column(name = "clientID")
-	protected long clientID;
+	@ManyToOne
+	protected Client client;
 	/**
 	 * 
 	 * Traduit l'état d'une demande (en cours/refusée/acceptée)
@@ -72,12 +75,14 @@ public abstract class Demande implements Serializable {
 		this.ID = iD;
 	}
 
-	public long getClientID() {
-		return this.clientID;
+
+
+	public Client getClient() {
+		return client;
 	}
 
-	public void setClientID(long clientID) {
-		this.clientID = clientID;
+	public void setClient(Client client) {
+		this.client = client;
 	}
 
 	public String getEtat() {

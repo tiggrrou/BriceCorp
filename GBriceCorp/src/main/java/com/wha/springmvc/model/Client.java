@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -41,13 +42,12 @@ public class Client extends User  implements Serializable{
 	 */
 
 	@ManyToOne
-
 	private Conseiller conseiller;
 
-	@OneToMany(cascade={CascadeType.ALL})
+	@OneToMany(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
 	private List<Justificatif> justificatifs;
 	
-	@OneToMany(cascade={CascadeType.ALL})
+	@OneToMany(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
 	private List<Compte> comptes;
 
 	@OneToMany(cascade={CascadeType.ALL})
