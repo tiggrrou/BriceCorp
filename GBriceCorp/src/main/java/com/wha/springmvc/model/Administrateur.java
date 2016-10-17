@@ -24,7 +24,7 @@ public class Administrateur extends User {
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	private List<Conseiller> conseillers;
 
-	@OneToMany(cascade={CascadeType.ALL})
+	@OneToMany(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
 	private List<Dem_CreationClient> demandeCreationClient;	
 	
 	public List<Conseiller> getConseillers() {

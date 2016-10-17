@@ -338,7 +338,7 @@ public class HelloWorldRestController {
 
 	// -------------------Retrieve Single Conseiller--------------------------------------------------------
 
-	@RequestMapping(value = "/user/ADMIN/EditCons/{idCons}", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/ADMIN/Cons/{idCons}", method = RequestMethod.GET)
 	public ResponseEntity<Conseiller> getCons(@PathVariable("idCons") long idCons) {
 		System.out.println("Fetching Conseiller with id " + idCons);
 		Conseiller conseiller = userService.findConsById(idCons);

@@ -393,12 +393,9 @@ function refreshUser(){
 	self.validEditCons = validEditCons;
 	$scope.consId;
 	
-	
-
-	
 	 /* Recherche d'un conseiller par son ID */
 	function getConsById(){
-    	// je récupère un client en fonction de son ID
+    	// je récupère un conseiller en fonction de son ID
 		if ($routeParams.consId != null){
     	UserService.getConsById($routeParams.consId)
     	.then(

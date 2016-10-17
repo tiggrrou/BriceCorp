@@ -227,7 +227,7 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
      */
     function getConsById(idCons) {
     	var deferred = $q.defer();
-    	$http.get(REST_SERVICE_URI+'ADMIN/EditCons/'+idCons)
+    	$http.get(REST_SERVICE_URI+'ADMIN/Cons/'+idCons)
 		.then(
 		function (response){
 			deferred.resolve(response.data);
