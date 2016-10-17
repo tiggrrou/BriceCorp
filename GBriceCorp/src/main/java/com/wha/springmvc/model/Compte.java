@@ -182,6 +182,17 @@ public class Compte {
 		this.tauxDecouvert = 0;
 		
 	}
+	
+	
+	@Override
+	public String toString() {
+		return "Compte [getLibelle()=" + getLibelle() + ", getDateOuverture()=" + getDateOuverture()
+				+ ", getDateCloture()=" + getDateCloture() + ", isActif()=" + isActif() + ", getSolde()=" + getSolde()
+				+ ", getSoldeAgio()=" + getSoldeAgio() + ", getDecouvert()=" + getDecouvert() + ", getTauxDecouvert()="
+				+ getTauxDecouvert() + ", getID()=" + getID() + ", getMouvements()=" + getMouvements() + ", getSeuil()="
+				+ getSeuil() + ", getTauxRemuneration()=" + getTauxRemuneration() + ", getSoldeRemuneration()="
+				+ getSoldeRemuneration() + "]";
+	}
 
 
 	//#endregion
