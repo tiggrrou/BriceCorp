@@ -15,6 +15,9 @@ public interface DemandeDao {
 	
 	public void addDemandeModificationCompteToCons(long id_conseiller, Dem_ModificationCompte demandeModificationCompte);
 
+
+	public void modifEtat_Demande(long demande_id, String nouvelEtat);
+	
 	public void attribution(long id_demande,long id_conseiller);
 	
 		

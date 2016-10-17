@@ -12,14 +12,33 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
         writeDemDecou:writeDemDecou,
         attributionConseiller:attributionConseiller,
         findDemandeById:findDemandeById,
-        validation_CreationCompteClient:validation_CreationCompteClient
+        validation_CreationCompteClient:validation_CreationCompteClient,
+        modifEtat_Demande:modifEtat_Demande
     };
     return factory;
  
+    
+    function modifEtat_Demande(demandeid,nouvelEtat){
+    	  var deferred = $q.defer();
+          $http.put(REST_SERVICE_URI+'modifEtat_Demande/'+demandeid+"&"+nouvelEtat)
+              .then(
+              function (response) {
+                  deferred.resolve(response.data);
+              },
+              function(errResponse){
+                  console.error('Error while fetching Demandes inscription');
+                  deferred.reject(errResponse);
+              }
+          );
+          return deferred.promise;
+    	
+    }
+      
+    
+    
     function validation_CreationCompteClient(demande,id_conseiller){
-    	console.log(demande)
   	  var deferred = $q.defer();
-        $http.put(REST_SERVICE_URI+'validationcreation/'+id_conseiller,demande[0])
+        $http.put(REST_SERVICE_URI+'validationcreation/'+id_conseiller,demande)
             .then(
             function (response) {
                 deferred.resolve(response.data);

@@ -2,13 +2,7 @@
 
 <!-- Tableau d'affichage des comptes -->
 
-	<div class="panel panel-info" ng-init="Comptes=[
-{Iban:'1564567641654', Nom:'MoreL',Prenom:'Brice', Solde:'5800'},
-{Iban:'54354345354', Nom:'dfgfdg',Prenom:'Tangi', Solde:'580'},
-{Iban:'4534534537783', Nom:'ModfgdfreL',Prenom:'Nicolas', Solde:'800'},
-{Iban:'4537873783783', Nom:'dfgdfgsdfg',Prenom:'bernard', Solde:'50'},
-{Iban:'7837838354', Nom:'dfgdfsgdfgdfgsdfgdf',Prenom:'dfgfdgfd', Solde:'378'}
-]">
+	<div class="panel panel-info" >
 
 		<!-- Default panel contents -->
 		<div class="panel-heading" >
@@ -27,7 +21,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="Compte in comptes  | filter:search:strict | orderBy:tripar " ng-click="ctrl.detailCompte(Compte.id)">
+						<tr ng-repeat="Compte in ctrl.curentUser.clients.comptes  | filter:search:strict | orderBy:tripar " ng-click="ctrl.detailCompte(Compte.id)">
 
 							<td>{{Compte.libelle}}</td>
 								<td>{{Compte.id}} </td>

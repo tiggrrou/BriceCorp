@@ -1,7 +1,7 @@
 
 <!-- Tableau d'affichage des clients -->
 
-	<div class="panel panel-info" ng-init="ctrl.getClients_Cons()">
+	<div class="panel panel-info" >
 
 		<!-- Default panel contents -->
 		<div class="panel-heading" >
@@ -18,7 +18,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="Client in clients_cons | filter:search:strict | orderBy:tripar " ng-click="ctrl.detailCompte(Client.id)">
+						<tr ng-repeat="Client in ctrl.curentUser.clients | filter:search:strict | orderBy:tripar " ng-click="ctrl.detailCompte(Client.id)">
 							<td>{{Client.nom}}</td>
 							<td>{{Client.prenom}}</td>
 							<td>{{Client.adresse}}</td>

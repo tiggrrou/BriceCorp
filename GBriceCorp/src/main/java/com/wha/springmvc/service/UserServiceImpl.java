@@ -100,14 +100,7 @@ public class UserServiceImpl implements UserService {
 		dao.createAdmin(admin);
 	}
 
-	// l'attribution du conseiller se fait au niveau de la demande et non du
-	// client
-	// @Override
-	// public boolean attributionCli2Cons(long idCons, long idCli) {
-	//
-	// return dao.attributionCli2Cons(idCons,idCli);
-	//
-	// }
+
 
 	@Override
 	public void createClient(long idConseiller, Dem_CreationClient demande_inscription) {

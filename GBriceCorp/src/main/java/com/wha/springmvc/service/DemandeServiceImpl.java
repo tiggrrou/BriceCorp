@@ -99,6 +99,11 @@ dao.addDemandeModificationCompteToCons(id_conseiller, demandeModificationCompte)
 		
 	}
 
+	@Override
+	public void modifEtat_Demande(long demande_id, String nouvelEtat){
+dao.modifEtat_Demande(demande_id, nouvelEtat);
+	}
+
 
 
 	

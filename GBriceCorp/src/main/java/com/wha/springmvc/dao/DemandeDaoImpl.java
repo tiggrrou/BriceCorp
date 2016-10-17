@@ -134,6 +134,14 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 		delete(demande);
 	}
 
+	@Override
+	public void modifEtat_Demande(long demande_id, String nouvelEtat){
+
+		Demande demande2 = findDemandeById(demande_id);
+		demande2.setEtat(nouvelEtat);
+		
+	}
+
 
 
 }

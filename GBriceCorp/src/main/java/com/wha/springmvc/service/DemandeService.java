@@ -15,7 +15,9 @@ public interface DemandeService {
 	
 	public void addDemandeModificationCompteToCons(long id_conseiller, Dem_ModificationCompte demandeModificationCompte);
 
+	public void modifEtat_Demande(long demande_id, String nouvelEtat);
 	
+
 	
 	
 	public List<Dem_ModificationCompte> findAllDemandesModifCompte();

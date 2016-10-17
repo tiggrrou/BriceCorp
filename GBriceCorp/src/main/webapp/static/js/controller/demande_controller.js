@@ -15,7 +15,7 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	 self.demandeNouveauCompte = demandeNouveauCompte;
 	 self.uploadFile=uploadFile;   
 	 self.uploadFile=uploadFile;
-	    
+	 self.modifEtat_Demande=modifEtat_Demande;
 	    
 	    
 	    $scope.menuDemandesCons = [{"id":"creation", "valeur" :"Ouverture compte"},
@@ -27,6 +27,21 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	 self.demande={};
 	 self.demandes=[];
 
+	 
+	 function modifEtat_Demande(demande,nouvelEtat){
+    	DemandeService.modifEtat_Demande(demande.id,nouvelEtat)
+         .then(
+                 function(d) {
+                 	console.log(d)
+                 	$location.path("cons/");
+                 },
+         function(errResponse){
+             console.error('Error while fetching Demandes');
+         }
+     );	 
+	 }
+	 
+	 
 	 function demandeNouveauCompte(){
 		 console.log("je fais une demande pour un nouveau compte");
 		 DemandeService.demandeNouveauCompte().then(
@@ -56,51 +71,55 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	 }
 	 
  	  function detailDemande(demande){
- 		 console.log(demande[0].type);
- 		(demande[1]!=null)?demande[1].type:demande[0].type
- 				
- 				
- 		 if(demande[0].type== 2){
- 	 	   	 $location.path("/cons/Cons_DetailCompte/" + demande[0].id);
- 		 }else if (demande[0].type == 1){
- 	 	   	 $location.path("/cons/Cons_DetailCompte/" + demande[0].id); 
- 		 }else if (demande[0].type == 3){
- 	 	   	 $location.path("/cons/Cons_ValCheq/" + demande[0].id);
+ 		 console.log(demande.type);
+				
+ 		 if(demande.type== 1){
+ 	 	   	 $location.path("/cons/Cons_DetailCompte/" + demande.id);
+ 		 }else if (demande.type == 2){
+ 	 	   	 $location.path("/cons/Cons_DetailCompte/" + demande.id); 
+ 		 }else if (demande.type == 3){
+ 	 	   	 $location.path("/cons/Cons_ValCheq/" + demande.id);
  		 }
  	    }     	
- 	  	
+
+ 	 
+
+ 	  
+ 	 if($routeParams.demande_id != null){	
+ 			for (var i = 1; i < JSON.parse(sessionStorage.getItem("currentUser")).demandes.length ; i++) {
+ 			   if(JSON.parse(sessionStorage.getItem("currentUser")).demandes[i].id == $routeParams.demande_id ){
+ 				  $scope.demande =  JSON.parse(sessionStorage.getItem("currentUser")).demandes[i]; 
+ 				  console.log($scope.demande)
+ 			   }
+ 			}
+  	 }
+ 	 
+ 	 
  	 
  	 function validation_Demande(demande){
-     	console.log(JSON.parse(sessionStorage.getItem("currentUser")).id)
+     	console.log("demande " + demande)
      	
      	var currentUser_id = JSON.parse(sessionStorage.getItem("currentUser")).id;
- 	if(demande[0].type == 1){
+     	
+ 	if(demande.type == 1){
     	console.log("creation client")
 	DemandeService.validation_CreationCompteClient(demande,currentUser_id)
         .then(
                 function(d) {
-
                 	console.log(d)
                 },
         function(errResponse){
-            console.error('Error while fetching Demandes');
+            console.error('Error while fetching Creation Client');
         }
     );	 
  	}
+ 	console.log("type de la demande" + demande.type )
+ 	
 	 };
  	 
  	
-if($routeParams.demande_id){
- 	DemandeService.findDemandeById($routeParams.demande_id)
- 		.then(
- 				function(d){
- 					self.demande = d;
-                	console.log(d)
- 				},
- 				function (errResponse){
- 					console.error('Error while getting Clients request')
- 				});
- 	};
+
+
  	
 
  

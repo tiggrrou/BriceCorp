@@ -32,14 +32,14 @@
 								<th ng-click="ctrl.trier_par('Nom')">Nom</th>
 								<th ng-click="ctrl.trier_par('Prenom')">Prenom</th>
 								<th ng-click="ctrl.trier_par('date')">Date creation</th>
-								<th width="10%" ng-click="ctrl.trier_par('Action')">Action</th>
+								<th width="10%" ng-click="ctrl.trier_par('Action')">Etat</th>
 
 							</tr>
 						</thead>
 						<tbody>
 							<tr ng-repeat="demande in ctrl.curentUser.demandes  | filter:search:strict | orderBy:tripar " ng-click="dmdctrl.detailDemande(demande)" >
-								<td>{{demande.nom}}</td>
-								<td>{{demande.prenom}}</td>
+								<td>{{(demande.client!=null)?demande.client.nom:demande.nom}}</td>
+								<td>{{(demande.client!=null)?demande.client.prenom:demande.prenom}}</td>
 								<td>{{demande.dateCreation}}</td>
 								<td align=center>
 <img class="icone_liste" src="static/imgs/crayon.png" ng-hide="{{(demande.etat=='EnCours')?false:true}}"  />

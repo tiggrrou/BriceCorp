@@ -121,7 +121,7 @@ public abstract class Demande implements Serializable {
 	 */
 	public Demande() {
 		super();
-		this.etat = EtatDemande.EnCours.toString();
+		this.etat = EtatDemande.Cree.toString();
 		this.dateCreation = new Date();
 	}
 	// #endregion

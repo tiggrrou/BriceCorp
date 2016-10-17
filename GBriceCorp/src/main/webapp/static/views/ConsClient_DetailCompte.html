@@ -1,28 +1,57 @@
 
 
-<div class="div_view" ng-controller="DemandeController as dmdctrl" ng-init="dmdctrl.findDemandeById();">
-		<div class=" panel panel-default  ">
-<a ng-click="dmdctrl.validation_Demande(dmdctrl.demande)" class="btn btn-warning btn-sm floatLeft"> Valider
-						</a>
+
+		<div class=" panel panel-default  " ng-controller="DemandeController as dmdctrl">
+
 			<div class="panel-heading ">
-				<span class="lead" >Compte de {{(dmdctrl.demande[1]!=null)?dmdctrl.demande[1].nom:dmdctrl.demande[0].nom}}
+				<span class="lead" >Compte de {{prenom}} {{nom}} {{demande.prenom}} {{demande.nom}} {{demande.client.prenom}} {{demande.cleint.nom}}
 				{{(dmdctrl.demande[1]!=null)?dmdctrl.demande[1].prenom:dmdctrl.demande[0].prenom}}
 				</span>
 			</div>
 			<ul class="list-group">
-				<li class="list-group-item">24 rue Emile Blandin 44400 REZE</li>
-				<li class="list-group-item">tel: 0676762393</li>
-				<li class="list-group-item">email: brice_morel@hotmail.com</li>
+				<li class="list-group-item">{{adresse}}{{demande.adresse}}  {{demande.client.adresse}}</li>
+				<li class="list-group-item">tel: {{telephone}}{{demande.telephone}}  {{demande.client.telephone}}</li>
+				<li class="list-group-item">email: {{mail}}{{demande.mail}}  {{demande.client.mail}}</li>
+				<li class="list-group-item" ng-hide="{{(demande.id==null)?true:false}}">
+					<a href="#/" class="btn btn-warning btn-sm ">Retour</a>
+					<a class="btn btn-danger btn-sm "	ng-click="dmdctrl.modifEtat_Demande(demande,'Refusee')">Refus</a>	
+					<a class="btn btn-primary btn-sm "	ng-click="dmdctrl.modifEtat_Demande(demande, 'EnCours')">Attente </a>
+					<a class="btn btn-success btn-sm " ng-click="dmdctrl.validation_Demande(demande)">Valider</a>
+							
+							</li>
 			</ul>
+
 		</div>
-	<div id="ReleveSectionId" class="panel panel-default "
-			ng-init="mouvements=[
-{Libelle:'MoreL',Date:'30/11/2010', Montant:'150'},
-{Libelle:'MoreL',Date:'30/11/2010', Montant:'1590'},
-{Libelle:'MoreL',Date:'30/11/2010', Montant:'15990'},
-{Libelle:'MoreL',Date:'30/11/2010', Montant:'159990'},
-{Libelle:'MoreL',Date:'30/11/2010', Montant:'15999990'}
-]">
+		
+				<div class="panel panel-default">
+			<!-- Default panel contents -->
+			<div class="panel-heading">
+				<span class="lead">Documents disponible</span>
+			</div>
+			<div class="tablecontainer">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th ng-click="ctrl.trier_par('Nom')">Nom</th>
+							<th ng-click="ctrl.trier_par('Type')">Type</th>
+							<th ng-click="ctrl.trier_par('Datereception')">Date de reception</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="document in documents | orderBy:tripar ">
+							<td>{{document.Nom}}</td>
+							<td>{{document.Type}}</td>
+							<td>{{document.Datereception}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+<div class="div_view"  ng-repeat="compte in Comptes ">
+
+
+	<div id="ReleveSectionId" class="panel panel-default ">
 			<!-- Default panel contents -->
 			<div class="panel-heading">
 				<span class="lead">Releve de compte
@@ -50,9 +79,7 @@
 				</table>
 			</div>
 		</div>
-
-</div>
-<div class="div_view">
+		
 		<div id="RIBSectionId" class=" panel panel-default ">
 			<div class="panel-heading">
 				<span class="lead">Compte courant a remuneration
@@ -76,35 +103,5 @@
 		
 	
 
-		<div class="panel panel-default  "
-			ng-init="documents=[
-{Nom:'releve impot 2010', Type:'Imposition', Datereception:'30/11/2010'},
-{Nom:'domicle', Type:'quitance', Datereception:'30/11/2011'},
-{Nom:'dfdsf', Type:'Imposition', Datereception:'30/11/2000'},
-{Nom:'sdfdsf', Type:'dsfdsftion', Datereception:'30/18/2010'},
-]">
-			<!-- Default panel contents -->
-			<div class="panel-heading">
-				<span class="lead">Documents disponible</span>
-			</div>
-			<div class="tablecontainer">
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th ng-click="ctrl.trier_par('Nom')">Nom</th>
-							<th ng-click="ctrl.trier_par('Type')">Type</th>
-							<th ng-click="ctrl.trier_par('Datereception')">Date de
-								reception</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="document in documents | orderBy:tripar ">
-							<td>{{document.Nom}}</td>
-							<td>{{document.Type}}</td>
-							<td>{{document.Datereception}}</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
+
 		</div>
