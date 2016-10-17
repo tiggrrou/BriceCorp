@@ -95,7 +95,7 @@ App.config(['$routeProvider',function($routeProvider) {
 		controller: 'UserController',	
 	    activetab: 'client_notif'			
 	})
-	.when("/cli/Cli_DetailCompte" , {
+	.when("/cli/Cli_DetailCompte/:compte_id" , {
 		templateUrl:"static/views/ConsClient_DetailCompte.html",
 		controller: 'CompteController',	
 	    activetab: 'conseiller_demandesclient'			

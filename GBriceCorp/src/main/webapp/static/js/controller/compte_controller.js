@@ -1,6 +1,6 @@
 'use strict';
 
-App.controller('CompteController', ['$scope','$location', '$route', 'CompteService', function($scope,$location,$route, CompteService) {
+App.controller('CompteController', ['$scope','$location', '$route', '$routeParams', 'CompteService', function($scope,$location,$route,$routeParams, CompteService) {
     var self = this;
     self.compte;
     self.comptes;
@@ -19,7 +19,16 @@ App.controller('CompteController', ['$scope','$location', '$route', 'CompteServi
     self.getComptes = getComptes;
     $scope.virement = virement;
 
-    
+	 if($routeParams.compte_id != null){	
+			for (var i = 0; i < JSON.parse(sessionStorage.getItem("currentUser")).comptes.length ; i++) {
+			   if(JSON.parse(sessionStorage.getItem("currentUser")).comptes[i].id == $routeParams.compte_id ){
+				  $scope.comptes =  [JSON.parse(sessionStorage.getItem("currentUser")).comptes[i]]; 
+				  console.log($scope.comptes)
+			   }
+			}
+	 }
+	 
+	 
     function goToNouveauCompte()
     {
     	$location.path("/cli/Cli_NouvCompte");

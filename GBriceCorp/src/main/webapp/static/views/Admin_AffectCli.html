@@ -40,7 +40,7 @@
 										<select class="form-control" id="sel1"
 											ng-change="dmdctrl.validation_attribution({{demande.id}},chosenConsID)" ng-model="chosenConsID">
 											<option value="">Select</option>
-											<option ng-repeat="Conseiller in ctrl.curentUser.conseillers" 
+											<option ng-repeat="Conseiller in ctrl.currentUser.conseillers" 
 												value="{{Conseiller.id}}">{{Conseiller.nom}}</option>
 										</select>
 									</form>

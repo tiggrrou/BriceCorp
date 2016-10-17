@@ -28,7 +28,7 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	 self.demandes=[];
 	 self.demandeCreationClient;
 
-	 function getDemandesCreationClient (){
+	 function getDemandesCreationClient(){
 		 DemandeService.fetchAllDemandesInscription()
          .then(
                  function(d) {
@@ -78,26 +78,20 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
  
 	 }
 	 
- 	  function detailDemande(demande){
- 		 console.log(demande.type);
-				
- 		 if(demande.type== 1){
- 	 	   	 $location.path("/cons/Cons_DetailCompte/" + demande.id);
- 		 }else if (demande.type == 2){
- 	 	   	 $location.path("/cons/Cons_DetailCompte/" + demande.id); 
- 		 }else if (demande.type == 3){
- 	 	   	 $location.path("/cons/Cons_ValCheq/" + demande.id);
- 		 }
- 	    }     	
+ 	 function detailDemande(demande){
+  	   	 $location.path("/cons/Cons_DetailCompte/" + demande.id);
+  	 }     	
 
- 	 
+
 
  	  
  	 if($routeParams.demande_id != null){	
- 			for (var i = 1; i < JSON.parse(sessionStorage.getItem("currentUser")).demandes.length ; i++) {
+ 	 	
+ 			for (var i = 0; i < JSON.parse(sessionStorage.getItem("currentUser")).demandes.length ; i++) {
  			   if(JSON.parse(sessionStorage.getItem("currentUser")).demandes[i].id == $routeParams.demande_id ){
  				  $scope.demande =  JSON.parse(sessionStorage.getItem("currentUser")).demandes[i]; 
  				  console.log($scope.demande)
+ 				  $scope.comptes = [JSON.parse(sessionStorage.getItem("currentUser")).demandes[i].compte];
  			   }
  			}
   	 }
@@ -105,12 +99,8 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
  	 
  	 
  	 function validation_Demande(demande){
-     	console.log("demande " + demande)
-     	
-     	var currentUser_id = JSON.parse(sessionStorage.getItem("currentUser")).id;
-     	
+       	var currentUser_id = JSON.parse(sessionStorage.getItem("currentUser")).id;
  	if(demande.type == 1){
-    	console.log("creation client")
 	DemandeService.validation_CreationCompteClient(demande,currentUser_id)
         .then(
                 function(d) {
@@ -120,7 +110,28 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
             console.error('Error while fetching Creation Client');
         }
     );	 
- 	}
+ 	}else  	if(demande.type == 3){
+    	DemandeService.validation_CreationCompteClient(demande,currentUser_id)
+            .then(
+                    function(d) {
+                    	console.log(d)
+                    },
+            function(errResponse){
+                console.error('Error while fetching Creation Client');
+            }
+        );	 
+     	}else 	if(demande.type == 1){
+        	DemandeService.validation_CreationCompteClient(demande,currentUser_id)
+                .then(
+                        function(d) {
+                        	console.log(d)
+                        },
+                function(errResponse){
+                    console.error('Error while fetching Creation Client');
+                }
+            );	 
+         	}
+ 		
  	console.log("type de la demande" + demande.type )
  	
 	 };
