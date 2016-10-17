@@ -13,10 +13,25 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
         attributionConseiller:attributionConseiller,
         findDemandeById:findDemandeById,
         validation_CreationCompteClient:validation_CreationCompteClient,
+        demandeNouveauCompte:demandeNouveauCompte,
         modifEtat_Demande:modifEtat_Demande
     };
     return factory;
  
+  function demandeNouveauCompte(demande_NouveauCompte, idClient){
+    	 var deferred = $q.defer();
+         $http.post(REST_SERVICE_URI+'creationCompteBancaire/' + idClient,demande_NouveauCompte)
+             .then(
+             function (response) {
+                 deferred.resolve();
+             },
+             function(errResponse){
+                 console.error('Error while request of new compte');
+                 deferred.reject(errResponse);
+             }
+         );
+         return deferred.promise;
+    }
     
     function modifEtat_Demande(demandeid,nouvelEtat){
     	  var deferred = $q.defer();

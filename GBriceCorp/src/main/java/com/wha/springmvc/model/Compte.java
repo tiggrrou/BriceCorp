@@ -29,7 +29,6 @@ import org.hibernate.annotations.ManyToAny;
  */
 @Entity
 @Table(name = "Compte")
-@Inheritance(strategy = InheritanceType.JOINED)
 public class Compte {
 
 	//#region Attributs

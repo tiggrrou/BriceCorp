@@ -37,7 +37,7 @@ public class Notification {
 	/**
 	 * Date d'émission de la notification
 	 */
-
+	@Temporal(TemporalType.DATE)
 	private Date dateNotif;
 	/**
 	 * Message accompagnant la notification

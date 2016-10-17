@@ -41,7 +41,7 @@ public interface UserService {
 	
 	List<Conseiller> findAllConseillers();
 
-	Conseiller findConsById(long idCons);
+	public Conseiller findConsById(long idCons);
 	
 
 	

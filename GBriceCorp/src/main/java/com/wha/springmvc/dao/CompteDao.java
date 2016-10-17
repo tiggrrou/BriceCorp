@@ -3,7 +3,6 @@ package com.wha.springmvc.dao;
 import java.util.List;
 
 import com.wha.springmvc.model.Compte;
-import com.wha.springmvc.model.CompteRemunerateur;
 
 public interface CompteDao {
 
@@ -22,19 +21,5 @@ public interface CompteDao {
 	
 	void deleteAllComptes();
 	
-	
-	
-	Compte findCRById(long compteremid);
-	
-	List<CompteRemunerateur> findCRByClientId(long compteremid);
-	
-	void saveCompteRemunerateur(CompteRemunerateur compteremunerateur);
-	
-	void updateCompteRemunerateur(CompteRemunerateur compteremunerateur);
-	
-	void deleteCompteRemunerateurById(long compteremid);
-
-	List<CompteRemunerateur> findAllComptesRemunerateur(); 
-	
-	void deleteAllComptesRemunerateur();
+	public void mouvement(float montant, long compteDebiteurID, long compteCrediteurID);
 }

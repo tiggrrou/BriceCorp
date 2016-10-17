@@ -7,18 +7,11 @@
 		ctrl.getNotifs()
 		 -->
 
-	<div class="panel panel-info" ng-init="
-	Notifications=[
-{Libelle:'Virement du bordel vers la poubelle',Date:'15/08/2009', Lu:'false'},
-{Libelle:'Virement du hfgjhgjghj vers la poubelle',Date:'15/08/2009', Lu:'true'},
-{Libelle:'Vighjhgjhgjhg la poubelle',Date:'15/08/2009', Lu:'true'},
-{Libelle:'Virement du ghjhgjghjghj vers la poubelle',Date:'15/08/2009', Lu:'true'},
-{Libelle:'Vireghjhgjhgjubelle',Date:'15/08/2009', Lu:'true'}
-]">
+	<div class="panel panel-info" ng-init="ctrl.getNotifs();">
 
 		<!-- Default panel contents -->
 		<div class="panel-heading">
-			<span class="lead">Demandes Clients en attente de traitement </span>
+			<span class="lead">Demandes Clients en attente de traitement</span>
 		</div>
 		<!-- Tableau d'affichage des demandes d'ouverture -->
 
@@ -33,13 +26,13 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="Notification in Notifications| orderBy:tripar ">
-							<td>{{Notification.Libelle}}</td>
-							<td>{{Notification.Date}}</td>
+						<tr ng-repeat="Notification in notifications| orderBy:tripar ">
+							<td>{{Notification.message}}</td>
+							<td>{{Notification.dateNotif}}</td>
 							<td><img class="langue" src="static/imgs/drapeau.png"
-								ng-hide="{{Notification.Lu}}" ng-click="" /> <img
+								ng-hide="{{Notification.lu}}" ng-click="" /> <img
 								class="langue" src="static/imgs/delete.png"
-								ng-hide="!{{Notification.Lu}}" ng-click="" /></td>
+								ng-hide="!{{Notification.lu}}" ng-click="" /></td>
 
 						</tr>
 					</tbody>

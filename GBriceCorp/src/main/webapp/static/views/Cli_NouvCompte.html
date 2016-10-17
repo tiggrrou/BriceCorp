@@ -9,7 +9,7 @@
 				<div class="form-group">
 					<div class="row col-md-12">
 						<label class="col-md-2 control-label">Nom de votre compte</label>
-						<input class="col-md-2"type="text" name="nomCompte" ng-model="dmdCtrl.compte.libelle" >
+						<input class="col-md-2"type="text" name="nomCompte" ng-model="demandeCreationCompte.libelle" >
 					</div>
 					<div class="row col-md-12">
 						<label class="col-md-2 control-label">Autorisation de découvert ?</label>
@@ -21,11 +21,7 @@
 					</div>
 					<div class="row col-md-12">
 						<label class="col-md-2 control-label">Rémunération de compte ?</label> 
-						<input class="col-md-1" type="checkbox" name="checkRemun" ng-model="remuneration">
-					</div>
-					<div ng-show="remuneration" class="row col-md-12">
-						<label class="col-md-2 control-label">Pallier de rémunération</label> 
-						<input class="col-md-2" type="number" ng-model="pallierRemuneration">
+						<input class="col-md-1" type="checkbox" name="checkRemun" ng-model="demandeCreationCompte.remunerateur">
 					</div>
 					<div class="row col-md-12">
 						<div class="form-actions floatRight">

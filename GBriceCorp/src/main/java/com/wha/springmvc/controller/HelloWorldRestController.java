@@ -240,6 +240,22 @@ public class HelloWorldRestController {
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 
 	}
+	
+	// -------------------Create demande de nouveau compte bancaire
+	// --------------------------------------------------------
+
+	@RequestMapping(value = "/demande/creationCompteBancaire/{idClient}", method = RequestMethod.POST)
+	public ResponseEntity<Void> DemandeNouveauCompteBancaire(@RequestBody Dem_ModificationCompte demande_NouveauCompteBancaire,
+																@PathVariable("idClient") long idClient) {
+		Client client = userService.findCliById(idClient);
+		demande_NouveauCompteBancaire.setClient(client);
+		System.out.println("Creating demande inscription " + demande_NouveauCompteBancaire);
+
+		demandeService.addDemandeModificationCompteToCons(demande_NouveauCompteBancaire.getClient().getConseiller(),demande_NouveauCompteBancaire);
+
+		return new ResponseEntity<Void>(HttpStatus.CREATED);
+
+	}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////// CONNEXION///////////////////////////////////////////////
@@ -270,7 +286,7 @@ public class HelloWorldRestController {
 	public ResponseEntity<User> getClient(@PathVariable("idUser") long idUser) {
 
 		
-		System.out.println("Raffraishissement du User " +idUser);
+		System.out.println("Rafraichissement du User " +idUser);
 		try {
 			User currentUser = userService.refresh( idUser);
 			return new ResponseEntity<User>(currentUser, HttpStatus.OK);
@@ -443,6 +459,10 @@ public class HelloWorldRestController {
 		demandeService.suppressionDemande(demande_inscription2.getID());
 		
 		Client client = userService.findCliById(3);
+		Compte cpt = new Compte();  	  	
+		cpt.setLibelle("Compte courant bis");
+		cpt.setSolde(2000);
+		userService.addcompte(cpt, 3);
 		System.out.println(client.getComptes());
 		Compte compte = new Compte();
 		for (Compte comptetmp : client.getComptes()) {
@@ -483,10 +503,11 @@ public class HelloWorldRestController {
 	@RequestMapping(value = "/compte/virement/{Debiteur}&{Crediteur}&{Montant}", method = RequestMethod.POST)
 	public ResponseEntity<Void> virement(@PathVariable("Debiteur") long debiteur,
 			@PathVariable("Crediteur") long crediteur, @PathVariable("Montant") float montant) {
-		Compte debit = compteService.findById(debiteur);
-		Compte credit = compteService.findById(crediteur);
-		debit.setSolde(debit.getSolde() - montant);
-		credit.setSolde(credit.getSolde() + montant);
+		compteService.mouvement(montant, debiteur ,crediteur);
+//		Compte debit = compteService.findById(debiteur);
+//		Compte credit = compteService.findById(crediteur);
+//		debit.setSolde(debit.getSolde() - montant);
+//		credit.setSolde(credit.getSolde() + montant);
 
 		/*
 		 * if (userService.isUserExist(user)) { System.out.println(

@@ -8,8 +8,7 @@
 
 		<!-- Default panel contents -->
 		<div class="panel-heading">
-			<span class="lead">Demande de modification d'information
-				personnelles</span>
+			<span class="lead">Informations personnelles</span>
 		</div>
 		<div class="panel-body">
 			<div class="formcontainer">
@@ -63,7 +62,7 @@
 							<label class="col-md-2 control-label" for="file">Adresse
 								mail</label>
 							<div class="col-md-7">
-								<input type="email" ng-model="ctrl.user.email" name="email"
+								<input type="email" ng-model="ctrl.user.mail" name="email"
 									class="form-control input-sm" placeholder="Entrez votre email"
 									required />
 								<div class="has-error" ng-show="formInscription.$dirty">
@@ -74,10 +73,7 @@
 						</div>
 					</div>
 
-
-
-
-					<div class="row">
+					<div class="row" ng-show="formConnexion.email.$touched">
 						<div class="form-group col-md-12">
 							<label class="col-md-2 control-label" for="file">Confirmez
 								votre mail</label>

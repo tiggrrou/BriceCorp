@@ -2,24 +2,34 @@ package com.wha.springmvc.dao;
 
 import java.util.List;
 
+import javax.persistence.NoResultException;
+
 import org.springframework.stereotype.Repository;
 
 import com.wha.springmvc.model.Compte;
-import com.wha.springmvc.model.CompteRemunerateur;
 
 @Repository("compteDao")
 public class CompteDaoImpl extends AbstractDao<Integer, Compte> implements CompteDao {
 
 	@Override
 	public Compte findCById(long compteid) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			Compte compte = (Compte) getEntityManager()
+					.createQuery("SELECT C FROM Compte C WHERE C.id = :id").setParameter("id", compteid)
+					.getSingleResult();
+			return compte;
+		} catch (NoResultException ex) {
+			return null;
+		}
 	}
 
 	@Override
 	public List<Compte> findCByClientId(long clientId) {
-		// TODO Auto-generated method stub
-		return null;
+		@SuppressWarnings("unchecked")
+		List<Compte> comptes = getEntityManager().createQuery("SELECT c.comptes FROM Client c WHERE c.id = :id")
+				.setParameter("id", clientId)
+				.getResultList();
+		return comptes;
 	}
 
 	@Override
@@ -30,7 +40,19 @@ public class CompteDaoImpl extends AbstractDao<Integer, Compte> implements Compt
 
 	@Override
 	public void updateCompte(Compte compte) {
-		// TODO Auto-generated method stub
+		Compte cpt = findCById(compte.getID());
+		cpt.setActif(compte.isActif());
+		cpt.setDateCloture(compte.getDateCloture());
+		cpt.setDateOuverture(compte.getDateOuverture());
+		cpt.setDecouvert(compte.getDecouvert());
+		cpt.setLibelle(compte.getLibelle());
+		cpt.setMouvements(compte.getMouvements());
+		cpt.setSeuil(compte.getSeuil());
+		cpt.setSolde(compte.getSolde());
+		cpt.setSoldeAgio(compte.getSoldeAgio());
+		cpt.setSoldeRemuneration(compte.getSoldeRemuneration());
+		cpt.setTauxDecouvert(compte.getTauxDecouvert());
+		cpt.setTauxRemuneration(compte.getTauxRemuneration());
 		
 	}
 
@@ -53,43 +75,13 @@ public class CompteDaoImpl extends AbstractDao<Integer, Compte> implements Compt
 	}
 
 	@Override
-	public Compte findCRById(long compteremid) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<CompteRemunerateur> findCRByClientId(long compteremid) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void saveCompteRemunerateur(CompteRemunerateur compteremunerateur) {
-		persist(compteremunerateur);
-	}
-
-	@Override
-	public void updateCompteRemunerateur(CompteRemunerateur compteremunerateur) {
-		// TODO Auto-generated method stub
+	public void mouvement(float montant, long compteDebiteurID, long compteCrediteurID) {
+		Compte compteDebite = findCById(compteDebiteurID);
+		compteDebite.setSolde(compteDebite.getSolde() - montant);
 		
-	}
-
-	@Override
-	public void deleteCompteRemunerateurById(long compteremid) {
-		// TODO Auto-generated method stub
+		Compte compteCredite = findCById(compteCrediteurID);
+		compteCredite.setSolde(compteCredite.getSolde() + montant);
 		
-	}
-
-	@Override
-	public List<CompteRemunerateur> findAllComptesRemunerateur() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void deleteAllComptesRemunerateur() {
-		// TODO Auto-generated method stub
 		
 	}
 

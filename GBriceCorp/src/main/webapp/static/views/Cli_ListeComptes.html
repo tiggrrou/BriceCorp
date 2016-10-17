@@ -8,7 +8,6 @@
 				
 			</div>
 
-
 			<div class="panel-body" >
 				<div class="tablecontainer">
 					<table class="table table-hover">
@@ -20,8 +19,8 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr name="liste_comptes" ng-repeat="Compte in comptes  | orderBy:tripar " ng-click="ctrl.detailCompte(Compte.id)>
-								<td>{{Compte.libelle}}</td>
+							<tr name="liste_comptes" ng-repeat="Compte in comptes  | orderBy:tripar " ng-click="ctrl.detailCompte(Compte.id)">
+								<td >{{Compte.libelle}}</td>
 								<td>{{Compte.id}} </td>
 								<td>{{Compte.solde}}</td>
 							</tr>

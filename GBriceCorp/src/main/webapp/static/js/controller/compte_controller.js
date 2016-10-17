@@ -99,6 +99,7 @@ App.controller('CompteController', ['$scope','$location', '$route', 'CompteServi
     			function (errResponse){
     				console.error('Error while getting an account from an customer ID')
     			});
+    	
     };
     
 
