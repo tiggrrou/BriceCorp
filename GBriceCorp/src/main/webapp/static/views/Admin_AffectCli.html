@@ -1,7 +1,7 @@
 
 
 
-	<div class="panel panel-info " ng-controller="DemandeController as dmdctrl">
+	<div class="panel panel-info " ng-controller="DemandeController as dmdctrl" ng-init="dmdctrl.getDemandesCreationClient();">
 
 		<!-- Default panel contents -->
 		<div class="panel-heading" >
@@ -28,7 +28,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="demande in ctrl.currentUser.demandeCreationClient | filter:search:strict | orderBy:tripar ">
+						<tr ng-repeat="demande in dmdctrl.demandeCreationClient | filter:search:strict | orderBy:tripar ">
 							<td>{{demande.nom}}</td>
 							<td>{{demande.prenom}}</td>
 							<td>{{demande.adresse}}</td>
@@ -38,7 +38,7 @@
 										<div>
 									<form name="formValidation" class="form-horizontal">
 										<select class="form-control" id="sel1"
-											ng-change="dmdctrl.validation_attribution({{demande.id}},value); ctrl.refreshUser()" ng-model="value">
+											ng-change="dmdctrl.validation_attribution({{demande.id}},chosenConsID)" ng-model="chosenConsID">
 											<option value="">Select</option>
 											<option ng-repeat="Conseiller in ctrl.currentUser.conseillers" 
 												value="{{Conseiller.id}}">{{Conseiller.nom}}</option>

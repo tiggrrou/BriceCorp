@@ -18,7 +18,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="Client in ctrl.curentUser.clients | filter:search:strict | orderBy:tripar " ng-click="ctrl.detailCompte(Client.id)">
+						<tr ng-repeat="Client in ctrl.currentUser.clients | filter:search:strict | orderBy:tripar " ng-click="ctrl.detailCompte(Client.id)">
 							<td>{{Client.nom}}</td>
 							<td>{{Client.prenom}}</td>
 							<td>{{Client.adresse}}</td>

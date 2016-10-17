@@ -186,9 +186,9 @@ function trier_par(tri){
   self.fetchAllUsers = fetchAllUsers;
   self.getMyUserBack = getMyUserBack;
     
-if(self.currentUser != null){
-refreshUser();
-}
+//if(self.currentUser != null){
+//refreshUser();
+//}
 
 function getMyUserBack(){
 	self.user = JSON.parse(sessionStorage.getItem("currentUser"));
@@ -200,6 +200,7 @@ function refreshUser(){
         .then(
         function(d) {
         	sessionStorage.setItem("currentUser",JSON.stringify(d));
+        	self.currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
         },
         function(errResponse){
             console.error('Error while refreshing CurrentUser');

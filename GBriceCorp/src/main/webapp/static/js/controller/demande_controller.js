@@ -16,6 +16,7 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	 self.uploadFile=uploadFile;   
 	 self.uploadFile=uploadFile;
 	 self.modifEtat_Demande=modifEtat_Demande;
+	 self.getDemandesCreationClient = getDemandesCreationClient;
 	    
 	    $scope.menuDemandesCons = [{"id":"creation", "valeur" :"Ouverture compte"},
 	                               {"id":"chequier", "valeur" :"Chequier"},
@@ -25,7 +26,19 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
  // Fonctions User
 	 self.demande={};
 	 self.demandes=[];
+	 self.demandeCreationClient;
 
+	 function getDemandesCreationClient(){
+		 DemandeService.fetchAllDemandesInscription()
+         .then(
+                 function(d) {
+                	 self.demandeCreationClient = d;
+                 },
+         function(errResponse){
+             console.error('Error while fetching creation request');
+         }
+     );	 
+	 }
 	 
 	 function modifEtat_Demande(demande,nouvelEtat){
     	DemandeService.modifEtat_Demande(demande.id,nouvelEtat)
@@ -86,12 +99,8 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
  	 
  	 
  	 function validation_Demande(demande){
-     	console.log("demande " + demande)
-     	
-     	var currentUser_id = JSON.parse(sessionStorage.getItem("currentUser")).id;
-     	
+       	var currentUser_id = JSON.parse(sessionStorage.getItem("currentUser")).id;
  	if(demande.type == 1){
-    	console.log("creation client")
 	DemandeService.validation_CreationCompteClient(demande,currentUser_id)
         .then(
                 function(d) {
@@ -101,7 +110,28 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
             console.error('Error while fetching Creation Client');
         }
     );	 
- 	}
+ 	}else  	if(demande.type == 3){
+    	DemandeService.validation_CreationCompteClient(demande,currentUser_id)
+            .then(
+                    function(d) {
+                    	console.log(d)
+                    },
+            function(errResponse){
+                console.error('Error while fetching Creation Client');
+            }
+        );	 
+     	}else 	if(demande.type == 1){
+        	DemandeService.validation_CreationCompteClient(demande,currentUser_id)
+                .then(
+                        function(d) {
+                        	console.log(d)
+                        },
+                function(errResponse){
+                    console.error('Error while fetching Creation Client');
+                }
+            );	 
+         	}
+ 		
  	console.log("type de la demande" + demande.type )
  	
 	 };
@@ -117,7 +147,9 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	    	DemandeService.attributionConseiller(id_demande,id_conseiller)
             .then(
                     function(d) {
-                    	console.log(d)
+                    	console.log(d);
+                    	getDemandesCreationClient ();
+                    	
                     },
             function(errResponse){
                 console.error('Error while fetching Demandes');
