@@ -67,7 +67,8 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Dem_CreationClient> findAllDemandesCreationClient() {
-		List<Dem_CreationClient> demandecreationclient = getEntityManager().createQuery("FROM Dem_CreationClient")
+		List<Dem_CreationClient> demandecreationclient = getEntityManager()
+				.createQuery("SELECT A.demandeCreationClient FROM Administrateur A")
 				.getResultList();
 		return demandecreationclient;
 	}

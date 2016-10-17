@@ -101,16 +101,16 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
     }
  
     /*recherche de toutes les demandes d inscription */
-    function fetchAllDemandesInscription(value) {
+    function fetchAllDemandesInscription() {
 
         var deferred = $q.defer();
-        $http.get(REST_SERVICE_URI+'inscription/'+value)
+        $http.get(REST_SERVICE_URI+'inscription/')
             .then(
             function (response) {
                 deferred.resolve(response.data);
             },
             function(errResponse){
-                console.error('Error while fetching Demandes inscription');
+                console.error('Error while fetching inscription request');
                 deferred.reject(errResponse);
             }
         );

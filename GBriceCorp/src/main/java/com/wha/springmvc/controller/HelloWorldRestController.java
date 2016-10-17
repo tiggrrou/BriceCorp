@@ -180,28 +180,18 @@ public class HelloWorldRestController {
 		return new ResponseEntity<List<List<Object>>>(demandes_user, HttpStatus.OK);
 	}
 
-	// -------------------Retrieve All Demandes d inscription attribuee ou non--------------------------------------------------------
+	// -------------------Retrieve All Demandes d inscription non attribuees--------------------------------------------------------
 
-	@RequestMapping(value = "/demande/inscription/{id}", method = RequestMethod.GET)
-	public ResponseEntity<List<List<Object>>> listAllDemandeIscription(@PathVariable("id") long id) {
-		System.out.println("fetch demandes inscription " + id);
-		List<Dem_CreationClient> demandes = demandeService.findAllDemandesCreationClient(id);
-		List<List<Object>> demandes_user = new ArrayList();
+	@RequestMapping(value = "/demande/inscription/", method = RequestMethod.GET)
+	public ResponseEntity<List<Dem_CreationClient>> listAllDemandeIscription() {
+		System.out.println("fetch demandes inscription ");
+		List<Dem_CreationClient> demandes = demandeService.findAllDemandesCreationClient();
 
 		if (demandes.isEmpty()) {
-			return new ResponseEntity<List<List<Object>>>(HttpStatus.NO_CONTENT);
-		} else {
+			return new ResponseEntity<List<Dem_CreationClient>>(HttpStatus.NO_CONTENT);
+		} 
 
-			for (Dem_CreationClient demande : demandes) {
-				List<Object> demande_user = new ArrayList();
-				demande_user.add(demande);
-				demande_user.add(null);
-				demandes_user.add(demande_user);
-			}
-
-		}
-
-		return new ResponseEntity<List<List<Object>>>(demandes_user, HttpStatus.OK);
+		return new ResponseEntity<List<Dem_CreationClient>>(demandes, HttpStatus.OK);
 	}
 
 	// -------------------Retrieve All Demandes de chequier--------------------------------------------------------

@@ -16,6 +16,7 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	 self.uploadFile=uploadFile;   
 	 self.uploadFile=uploadFile;
 	 self.modifEtat_Demande=modifEtat_Demande;
+	 self.getDemandesCreationClient = getDemandesCreationClient;
 	    
 	    $scope.menuDemandesCons = [{"id":"creation", "valeur" :"Ouverture compte"},
 	                               {"id":"chequier", "valeur" :"Chequier"},
@@ -25,7 +26,19 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
  // Fonctions User
 	 self.demande={};
 	 self.demandes=[];
+	 self.demandeCreationClient;
 
+	 function getDemandesCreationClient (){
+		 DemandeService.fetchAllDemandesInscription()
+         .then(
+                 function(d) {
+                	 self.demandeCreationClient = d;
+                 },
+         function(errResponse){
+             console.error('Error while fetching creation request');
+         }
+     );	 
+	 }
 	 
 	 function modifEtat_Demande(demande,nouvelEtat){
     	DemandeService.modifEtat_Demande(demande.id,nouvelEtat)
@@ -123,7 +136,9 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	    	DemandeService.attributionConseiller(id_demande,id_conseiller)
             .then(
                     function(d) {
-                    	console.log(d)
+                    	console.log(d);
+                    	getDemandesCreationClient ();
+                    	
                     },
             function(errResponse){
                 console.error('Error while fetching Demandes');

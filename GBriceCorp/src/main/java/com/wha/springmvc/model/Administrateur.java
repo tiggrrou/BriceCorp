@@ -50,7 +50,7 @@ public class Administrateur extends User {
 
 	@Override
 	public String toString() {
-		return "Administrateur [getConseillers()=" + getConseillers() + ", getDemande()=" + getDemandeCreationClient() + "]";
+		return "Administrateur [getConseillers()=" + getConseillers() +"]";
 	}
 
 

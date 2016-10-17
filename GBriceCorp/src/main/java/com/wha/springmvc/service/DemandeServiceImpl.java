@@ -30,28 +30,9 @@ public class DemandeServiceImpl implements DemandeService {
 	}
 
 	@Override
-	public List<Dem_CreationClient> findAllDemandesCreationClient(long id) {
-		// TODO Auto-generated method stub
-
-		List<Dem_CreationClient> listedemandecreationpartype = new ArrayList<Dem_CreationClient>();
+	public List<Dem_CreationClient> findAllDemandesCreationClient() {
 		
-//		if(id == 0){
-//		for (Dem_CreationClient demandecreationcli : dao.findAllDemandesCreationClient()) {
-//			if (demandecreationcli.getClientID() == id && demandecreationcli.getConseillerId() == 0) {
-//				listedemandecreationpartype.add(demandecreationcli);
-//
-//			}
-//		}
-//		}else{
-//
-//			for (Dem_CreationClient demandecreationcli : dao.findAllDemandesCreationClient()) {
-//				if (demandecreationcli.getConseillerId() == id) {
-//					listedemandecreationpartype.add(demandecreationcli);
-//				}
-//			}
-//		}
-
-		return listedemandecreationpartype;
+		return dao.findAllDemandesCreationClient();
 	}
 
 	@Override

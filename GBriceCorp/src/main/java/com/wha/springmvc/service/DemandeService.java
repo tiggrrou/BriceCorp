@@ -22,7 +22,7 @@ public interface DemandeService {
 	
 	public List<Dem_ModificationCompte> findAllDemandesModifCompte();
 	
-	public List<Dem_CreationClient> findAllDemandesCreationClient(long id);
+	public List<Dem_CreationClient> findAllDemandesCreationClient();
 	
 	public List<Dem_Chequier> listAllDemandeChequier();
 	
