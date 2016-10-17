@@ -291,7 +291,7 @@ System.out.println(user);
 		    }
 		    
 		 // 3 -> Envoi du message
-		    Transport transport;
+		    Transport transport = null;
 		    try {
 		        transport = session.getTransport("smtp");
 		        transport.connect(LOGIN_SMTP1, PASSWORD_SMTP1);
