@@ -76,6 +76,18 @@ public class Compte {
 	 * Taux du découvert pour calcul de l'agio
 	 */
 	private float tauxDecouvert;
+	/**
+	 * Seuil avant renumeration
+	 */
+	private int seuil;
+	/**
+	 * Taux de rémunération 
+	 */
+	private float tauxRemuneration;
+	/**
+	 * Solde de rémunération pour le mois en cours
+	 */
+	private float soldeRemuneration;
 	//#endregion
 	
 	//#region accesseurs
@@ -133,8 +145,33 @@ public class Compte {
 	public void setID(long iD) {
 		ID = iD;
 	}
+	public List<Mouvement> getMouvements() {
+		return mouvements;
+	}
+	public void setMouvements(List<Mouvement> mouvements) {
+		this.mouvements = mouvements;
+	}
+	public int getSeuil() {
+		return seuil;
+	}
+	public void setSeuil(int seuil) {
+		this.seuil = seuil;
+	}
+	public float getTauxRemuneration() {
+		return tauxRemuneration;
+	}
+	public void setTauxRemuneration(float tauxRemuneration) {
+		this.tauxRemuneration = tauxRemuneration;
+	}
+	public float getSoldeRemuneration() {
+		return soldeRemuneration;
+	}
+	public void setSoldeRemuneration(float soldeRemuneration) {
+		this.soldeRemuneration = soldeRemuneration;
+	}
 	//#endregion
 	
+
 	//#region Constructeurs
 	public Compte(){
 		this.dateOuverture = new Date();

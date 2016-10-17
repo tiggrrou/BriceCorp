@@ -12,12 +12,18 @@ App.controller('CompteController', ['$scope','$location', '$route', 'CompteServi
     
     self.notifications;
     
-   self.edit = edit;
+    self.edit = edit;
     self.remove = remove;
 
-    $scope.getComptes = getComptes;
+    self.goToNouveauCompte = goToNouveauCompte;
+    self.getComptes = getComptes;
     $scope.virement = virement;
 
+    
+    function goToNouveauCompte()
+    {
+    	$location.path("/cli/Cli_NouvCompte");
+    }
     
     function fetchAllComptes(){
         CompteService.fetchAllComptes()

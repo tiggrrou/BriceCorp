@@ -8,11 +8,12 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	var self = this;
 	 self.inscription_Client=inscription_Client;
 	 self.fetchAllDemandes=fetchAllDemandes;
-self.validation_Demande=validation_Demande;
+	 self.validation_Demande=validation_Demande;
 	 self.writeDemDecou=writeDemDecou;
 	 self.validation_attribution=validation_attribution;
-	    self.detailDemande=detailDemande;
-	    
+	 self.detailDemande=detailDemande;
+	 self.demandeNouveauCompte = demandeNouveauCompte;
+	 self.uploadFile=uploadFile;   
 	    $scope.menuDemandesCons = [{"id":"creation", "valeur" :"Ouverture compte"},
 	                               {"id":"chequier", "valeur" :"Chequier"},
 	                               {"id":"modif", "valeur" :"Modification compte"}];
@@ -22,7 +23,25 @@ self.validation_Demande=validation_Demande;
 	 self.demande={};
 	 self.demandes=[];
 
-
+	 function demandeNouveauCompte(){
+		 console.log("je fais une demande pour un nouveau compte");
+		 DemandeService.demandeNouveauCompte().then(
+	 				function(d){
+	 					alert("demande de nouveau compte transmise au conseiller");
+	                	console.log(d)
+	 				},
+	 				function (errResponse){
+	 					console.error('Error while creating request of new compte')
+	 				});
+	 }
+	 
+	 //http://jsfiddle.net/JeJenny/ZG9re/	 
+	 function uploadFile(){
+		 var file = $scope.myFile;
+	        console.log('file is ' + file );
+	        console.dir(file);
+ 
+	 }
 	 
  	  function detailDemande(demande){
  		 console.log(demande[0].type);

@@ -1,23 +1,54 @@
+<meta charset="utf-8">
+<div class="panel panel-info" ng-controller="DemandeController as dmdCtrl">
+	<div class="panel-heading">
+		<span class="lead">Demande de création d'un nouveau compte</span>
+	</div>
+	<div class="panel-body">
+		<div class="formcontainer">
+			<form ng-submit="dmdCtrl.demandeNouveauCompte()" class="form-horizontal">
+				<div class="form-group">
+					<div class="row col-md-12">
+						<label class="col-md-2 control-label">Nom de votre compte</label>
+						<input class="col-md-2"type="text" name="nomCompte" ng-model="dmdCtrl.compte.libelle" >
+					</div>
+					<div class="row col-md-12">
+						<label class="col-md-2 control-label">Autorisation de découvert ?</label>
+						<input class="col-md-1"type="checkbox" name="checkDecouvert" ng-model="decouvert" >
+					</div>
+					<div ng-show="decouvert" class="row col-md-12">
+						<label class="col-md-2 control-label">Montant du découvert</label> 
+						<input class="col-md-2" type="number" ng-model="montantDecouvert">
+					</div>
+					<div class="row col-md-12">
+						<label class="col-md-2 control-label">Rémunération de compte ?</label> 
+						<input class="col-md-1" type="checkbox" name="checkRemun" ng-model="remuneration">
+					</div>
+					<div ng-show="remuneration" class="row col-md-12">
+						<label class="col-md-2 control-label">Pallier de rémunération</label> 
+						<input class="col-md-2" type="number" ng-model="pallierRemuneration">
+					</div>
+					<div class="row col-md-12">
+						<div class="form-actions floatRight">
+							<input type="submit"
+								value="Soumettre ma demande à  mon conseiller"
+								class="btn btn-primary btn-sm">
+						</div>
+					</div>
+				</div>
+			</form>
+			<!--   Si nécessaire, veuillez uploader le document nécessaire: -->
+			<!-- 	<form method="post" action="reception.js" -->
+			<!-- 		enctype="multipart/form-data"> -->
+			<!-- 		<label for="Justificatif">Justificatif (type jpeg, bitmap ou png)</label><br /> <input type="file" name="justificatif" id="justificatif" /><br /> -->
+			<!-- 	</form> -->
+			<!-- 	<div class="row"> -->
+			<!-- 		<div class="form-actions floatRight"> -->
+			<!-- 			<input type="submit" value="Soumettre ma demande à  mon conseiller" -->
+			<!-- 				class="btn btn-primary btn-sm"> -->
+			<!-- 		</div> -->
+			<!-- 	</div> -->
 
- Veuillez sélectionner le type de compte que vous souhaitez souscrire :
-<form ng-submit="CompteController.writeDemNewCompte()" class="select.input-group-sm">
-	<SELECT name="Type de compte" size="1">
-		<OPTION>Compte Joint rémunéré
-		<OPTION>Compte Joint non-rémunéré
-		<OPTION selected>Nouveau Compte Courant
-		<OPTION>Compte � retraits diff�r�s
-		<OPTION>Compte de blanchiement d'argent
-		<OPTION>Compte Vampire
-	</SELECT> Si nécéssaire, veuillez uploader le document nécéssaire:
-	<form method="post" action="reception.js"
-		enctype="multipart/form-data">
-		<label for="Justificatif">Justificatif (type jpeg, bitmap ou png)</label><br /> <input type="file" name="justificatif" id="justificatif" /><br />
-	</form>
-	<div class="row">
-		<div class="form-actions floatRight">
-			<input type="submit" value="Soumettre ma demande à mon conseiller"
-				class="btn btn-primary btn-sm">
+			<!-- </form> -->
 		</div>
 	</div>
-
-</form>
+</div>
