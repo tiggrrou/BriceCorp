@@ -28,7 +28,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="demande in ctrl.curentUser.demandeCreationClient | filter:search:strict | orderBy:tripar ">
+						<tr ng-repeat="demande in ctrl.currentUser.demandeCreationClient | filter:search:strict | orderBy:tripar ">
 							<td>{{demande.nom}}</td>
 							<td>{{demande.prenom}}</td>
 							<td>{{demande.adresse}}</td>
@@ -38,9 +38,9 @@
 										<div>
 									<form name="formValidation" class="form-horizontal">
 										<select class="form-control" id="sel1"
-											ng-change="dmdctrl.validation_attribution({{demande.id}},value)" ng-model="value">
+											ng-change="dmdctrl.validation_attribution({{demande.id}},value); ctrl.refreshUser()" ng-model="value">
 											<option value="">Select</option>
-											<option ng-repeat="Conseiller in ctrl.curentUser.conseillers" 
+											<option ng-repeat="Conseiller in ctrl.currentUser.conseillers" 
 												value="{{Conseiller.id}}">{{Conseiller.nom}}</option>
 										</select>
 									</form>

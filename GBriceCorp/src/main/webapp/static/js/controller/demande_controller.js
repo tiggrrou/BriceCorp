@@ -65,26 +65,20 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
  
 	 }
 	 
- 	  function detailDemande(demande){
- 		 console.log(demande.type);
-				
- 		 if(demande.type== 1){
- 	 	   	 $location.path("/cons/Cons_DetailCompte/" + demande.id);
- 		 }else if (demande.type == 2){
- 	 	   	 $location.path("/cons/Cons_DetailCompte/" + demande.id); 
- 		 }else if (demande.type == 3){
- 	 	   	 $location.path("/cons/Cons_ValCheq/" + demande.id);
- 		 }
- 	    }     	
+ 	 function detailDemande(demande){
+  	   	 $location.path("/cons/Cons_DetailCompte/" + demande.id);
+  	 }     	
 
- 	 
+
 
  	  
  	 if($routeParams.demande_id != null){	
- 			for (var i = 1; i < JSON.parse(sessionStorage.getItem("currentUser")).demandes.length ; i++) {
+ 	 	
+ 			for (var i = 0; i < JSON.parse(sessionStorage.getItem("currentUser")).demandes.length ; i++) {
  			   if(JSON.parse(sessionStorage.getItem("currentUser")).demandes[i].id == $routeParams.demande_id ){
  				  $scope.demande =  JSON.parse(sessionStorage.getItem("currentUser")).demandes[i]; 
  				  console.log($scope.demande)
+ 				  $scope.comptes = [JSON.parse(sessionStorage.getItem("currentUser")).demandes[i].compte];
  			   }
  			}
   	 }

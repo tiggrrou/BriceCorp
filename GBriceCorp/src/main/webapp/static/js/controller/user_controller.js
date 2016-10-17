@@ -100,8 +100,8 @@ function trier_par(tri){
  self.connect = connect;
  self.connexion = connexion;
  self.session_delete = session_delete;
- self.curentUser = JSON.parse(sessionStorage.getItem("currentUser"));
- console.log(self.curentUser)
+ self.currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+ console.log(self.currentUser)
  function connect() {
  	connexion(self.user.identifiant, self.user.motDePasse);
  };
@@ -112,9 +112,9 @@ function trier_par(tri){
  		function(d) {
  			sessionStorage.setItem("currentUser",JSON.stringify(d));
  			
- 			self.curentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+ 			self.currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
  			 
- 			var userType = (self.curentUser == null)? 0 : self.curentUser.typeUser;
+ 			var userType = (self.currentUser == null)? 0 : self.currentUser.typeUser;
 
  			switch(userType){
  			case 0 : 
@@ -142,7 +142,7 @@ function trier_par(tri){
  	);
  }; 
 
- if(self.curentUser == null)
+ if(self.currentUser == null)
  {
  	$scope.connexion_cache=false;
  	$scope.admin_cache=true;
@@ -153,15 +153,15 @@ function trier_par(tri){
  	$scope.admin_cache=true;
  	$scope.conseiller_cache=true;
  	$scope.client_cache=true;
-		if(self.curentUser.typeUser == 1)
+		if(self.currentUser.typeUser == 1)
 		{
 	    	$scope.admin_cache=false;
 		}
-		else if(self.curentUser.typeUser == 2)
+		else if(self.currentUser.typeUser == 2)
 		{
 			$scope.conseiller_cache=false;
 		}
-		else if(self.curentUser.typeUser == 3)
+		else if(self.currentUser.typeUser == 3)
 		{
 			$scope.client_cache=false;
 		} 
@@ -186,7 +186,7 @@ function trier_par(tri){
   self.fetchAllUsers = fetchAllUsers;
   self.getMyUserBack = getMyUserBack;
     
-if(self.curentUser != null){
+if(self.currentUser != null){
 refreshUser();
 }
 
@@ -361,7 +361,7 @@ function refreshUser(){
     
   //Fonction du lien par ngclick dans le ng-repeat du recherche compte
    function detailCompte(iban){
-  	 $location.path("/cons/Cons_DetailCompte/" + iban);
+  	 $location.path("/cli/Cli_DetailCompte/" + iban);
    }     
     
     

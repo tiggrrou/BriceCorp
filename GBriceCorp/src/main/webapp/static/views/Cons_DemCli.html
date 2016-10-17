@@ -3,7 +3,7 @@
 
 
 
-<div class="panel panel-info" ng-controller="DemandeController as dmdctrl" ng-init="dmdctrl.findDemandeById(); dmdctrl.fetchAllDemandes(value);">
+<div class="panel panel-info" ng-controller="DemandeController as dmdctrl" >
 
 	<!-- Default panel contents -->
 	<div class="panel-heading" >
@@ -37,13 +37,14 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="demande in ctrl.curentUser.demandes  | filter:search:strict | orderBy:tripar " ng-click="dmdctrl.detailDemande(demande)" >
+							<tr ng-repeat="demande in ctrl.currentUser.demandes  | filter:search:strict | orderBy:tripar " ng-click="dmdctrl.detailDemande(demande)" >
 								<td>{{(demande.client!=null)?demande.client.nom:demande.nom}}</td>
 								<td>{{(demande.client!=null)?demande.client.prenom:demande.prenom}}</td>
 								<td>{{demande.dateCreation}}</td>
 								<td align=center>
-<img class="icone_liste" src="static/imgs/crayon.png" ng-hide="{{(demande.etat=='EnCours')?false:true}}"  />
-<img class="icone_liste" src="static/imgs/sablier.png" ng-hide="{{(demande.etat=='EnAttente')?false:true}}" />
+<img class="icone_liste" src="static/imgs/crayon.png" ng-hide="{{(demande.etat=='Cree')?false:true}}"  />
+<img class="icone_liste" src="static/imgs/sablier.png" ng-hide="{{(demande.etat=='EnCours')?false:true}}" />
+
 								</td>
 							</tr>
 						</tbody>
