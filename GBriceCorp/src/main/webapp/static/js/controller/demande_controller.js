@@ -17,7 +17,6 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	 self.uploadFile=uploadFile;
 	    
 	    
-	    
 	    $scope.menuDemandesCons = [{"id":"creation", "valeur" :"Ouverture compte"},
 	                               {"id":"chequier", "valeur" :"Chequier"},
 	                               {"id":"modif", "valeur" :"Modification compte"}];
@@ -29,10 +28,14 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 
 	 function demandeNouveauCompte(){
 		 console.log("je fais une demande pour un nouveau compte");
-		 DemandeService.demandeNouveauCompte().then(
-	 				function(d){
-	 					alert("demande de nouveau compte transmise au conseiller");
-	                	console.log(d)
+ 
+		 $scope.demandeCreationCompte.client = JSON.parse(sessionStorage.getItem("currentUser"));
+		 $scope.demandeCreationCompte.decouvert =($scope.decouvert)? 0 : $scope.montantDecouvert;
+		 
+		 DemandeService.demandeNouveauCompte($scope.demandeCreationCompte).then(
+	 				function(){
+	 					alert("demande de nouveau compte transmise au conseiller, retour a la liste des comptes");
+	 					$location.path("cli/Cli_ListeComptes");
 	 				},
 	 				function (errResponse){
 	 					console.error('Error while creating request of new compte')
@@ -40,14 +43,6 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	 }
 	 
 	 //http://jsfiddle.net/JeJenny/ZG9re/	 
-	 function uploadFile(){
-		 var file = $scope.myFile;
-	        console.log('file is ' + file );
-	        console.dir(file);
- 
-	 }
-
-//http://jsfiddle.net/JeJenny/ZG9re/	 
 	 function uploadFile(){
 		 var file = $scope.myFile;
 	        console.log('file is ' + file );

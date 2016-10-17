@@ -244,6 +244,19 @@ public class HelloWorldRestController {
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 
 	}
+	
+	// -------------------Create demande de nouveau compte bancaire
+	// --------------------------------------------------------
+
+	@RequestMapping(value = "/demande/creationCompteBancaire", method = RequestMethod.POST)
+	public ResponseEntity<Void> DemandeNouveauCompteBancaire(@RequestBody Dem_ModificationCompte demande_NouveauCompteBancaire) {
+		System.out.println("Creating demande inscription " + demande_NouveauCompteBancaire);
+
+		//demandeService.addDemandeModificationCompteToCons(demande_NouveauCompteBancaire.getClient().getConseillerID(),demande_NouveauCompteBancaire);
+
+		return new ResponseEntity<Void>(HttpStatus.CREATED);
+
+	}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////// CONNEXION///////////////////////////////////////////////

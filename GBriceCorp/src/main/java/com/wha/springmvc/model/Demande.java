@@ -28,7 +28,6 @@ import javax.persistence.TemporalType;
 public abstract class Demande implements Serializable {
 
 	// #region Attributs
-	private static int nbDemandes = 0;
 	/**
 	 * 
 	 * ID de la demande
