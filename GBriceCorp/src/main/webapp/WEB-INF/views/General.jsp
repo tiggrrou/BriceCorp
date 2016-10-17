@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
 <title>GestBank</title>
@@ -90,6 +91,7 @@
 						</div>
 					</div>
 				</form>
+				
 			</div>
 
 			<!-- Menu du Conseiller -->
@@ -182,6 +184,7 @@
 						<p class="list-group-item-text">Liste de vos notifications</p>
 					</a>
 				</div>
+				
 			</div>
 
 			<!-- Menu de l'administrateur -->
@@ -238,6 +241,7 @@
 			<img class="flechemenu " src="static/imgs/fleche-bas.png"
 				ng-click="ctrl.nav_cache_methode()" />
 		</div>
+		
 	</div>
 
 

@@ -17,7 +17,7 @@
 	<div class="panel-body">
 		<div class="formcontainer">
 			<form ng-submit="dmdctrl.inscription_Client()" name="formIscription"
-				class="form-horizontal" method="post">
+				class="form-horizontal" method="post" enctype="multipart/form-data">
 				<input type="hidden" ng-model="ctrl.demande_inscription.clientID" />
 				<input type="hidden"
 					ng-model="ctrl.demande_inscription.conseillerId" /> <input
@@ -126,49 +126,6 @@
 					</div>
 				</div>
 
-
-
-			</form>
-
-	
-				<div class="row">
-					<div class="form-group col-md-12">
-						<label class="col-md-2 control-lable" for="file">Justificatif
-							de domicile</label>
-
-
-						<div class="col-md-7">
-							<input type="file" ng-model="myFile" name="file" class="form-control input-sm"
-								size="50" /> <br /><button ng-click="dmdctrl.uploadFile()">upload me</button>
-						</div>
-						<div class="form-actions ">
-							<input type="submit" class="btn btn-primary btn-sm floatLeft"
-								value="Upload File" />
-						</div>
-					</div>
-
-				</div>
-
-
-			<form action="UploadServlet" method="post"
-				enctype="multipart/form-data">
-				<div class="row">
-					<div class="form-group col-md-12">
-						<label class="col-md-2 control-lable" for="file">Derniere
-							fiche de paie</label>
-
-
-						<div class="col-md-7">
-							<input type="file" name="file" class="form-control input-sm"
-								size="50" /> <br />
-						</div>
-						<div class="form-actions ">
-							<input type="submit" class="btn btn-primary btn-sm floatLeft"
-								value="Upload File" />
-						</div>
-					</div>
-
-				</div>
 
 
 			</form>

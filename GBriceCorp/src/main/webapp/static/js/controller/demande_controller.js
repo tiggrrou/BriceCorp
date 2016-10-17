@@ -213,13 +213,13 @@ self.demandes = '';
 
 
   function inscription_Client() {
-  
-	  
         console.log(self.demande_inscription);
         DemandeService.createDemandeInscription(self.demande_inscription)
         .then(
         		function(d) {
-        			// envoi d'un mail de confirmation de demande
+        			
+   			 $location.path("/Fin_Inscription");
+
         		},
         function(errResponse){
             console.error('Error while creating Client');

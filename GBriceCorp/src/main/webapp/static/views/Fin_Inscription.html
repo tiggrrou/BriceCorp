@@ -1,0 +1,50 @@
+
+<div class="panel panel-info"
+	ng-controller="DemandeController as dmdctrl">
+
+	<!-- Default panel contents -->
+	<div class="panel-heading">
+		<span class="lead">Merci de vous etre inscrit <br />
+			{{ctrl.curentUser.prenom}} {{ctrl.curentUser.nom}}
+		</span>
+
+		<h2>Pour accelerer votre demande veuillez nous envoyer vos pieces
+			justificative</h2>
+
+		<form action="/GestBank/singleUpload/revenus" method="post"
+			enctype="multipart/form-data">
+			<div class="row">
+				<div class="form-group col-md-12">
+					<label class="col-md-2 control-lable" for="file">Justificatif
+						de domicile</label>
+					<div class="col-md-7">
+						<input type="file" name="file" class="form-control input-sm" />
+					</div>
+					<div class="form-actions ">
+						<input type="submit" class="btn btn-primary btn-sm floatLeft"
+							value="Upload File" />
+					</div>
+				</div>
+			</div>
+		</form>
+
+		<form action="/GestBank/singleUpload/revenus" method="post"
+			enctype="multipart/form-data">
+			<div class="row">
+				<div class="form-group col-md-12">
+					<label class="col-md-2 control-lable" for="file">Derniere
+						fiche de paie</label>
+					<div class="col-md-7">
+						<input type="file" name="file" class="form-control input-sm"
+							size="50" /> <br />
+					</div>
+					<div class="form-actions ">
+						<input type="submit" class="btn btn-primary btn-sm floatLeft"
+							value="Upload File" />
+					</div>
+				</div>
+			</div>
+		</form>
+
+	</div>
+</div>
