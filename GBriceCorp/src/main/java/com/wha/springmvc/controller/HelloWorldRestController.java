@@ -248,11 +248,14 @@ public class HelloWorldRestController {
 	// -------------------Create demande de nouveau compte bancaire
 	// --------------------------------------------------------
 
-	@RequestMapping(value = "/demande/creationCompteBancaire", method = RequestMethod.POST)
-	public ResponseEntity<Void> DemandeNouveauCompteBancaire(@RequestBody Dem_ModificationCompte demande_NouveauCompteBancaire) {
+	@RequestMapping(value = "/demande/creationCompteBancaire/{idClient}", method = RequestMethod.POST)
+	public ResponseEntity<Void> DemandeNouveauCompteBancaire(@RequestBody Dem_ModificationCompte demande_NouveauCompteBancaire,
+																@PathVariable("idClient") long idClient) {
+		Client client = userService.findCliById(idClient);
+		demande_NouveauCompteBancaire.setClient(client);
 		System.out.println("Creating demande inscription " + demande_NouveauCompteBancaire);
 
-		//demandeService.addDemandeModificationCompteToCons(demande_NouveauCompteBancaire.getClient().getConseillerID(),demande_NouveauCompteBancaire);
+		demandeService.addDemandeModificationCompteToCons(demande_NouveauCompteBancaire.getClient().getConseiller(),demande_NouveauCompteBancaire);
 
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 
@@ -288,7 +291,7 @@ public class HelloWorldRestController {
 	public ResponseEntity<User> getClient(@PathVariable("idUser") long idUser) {
 
 		
-		System.out.println("Raffraishissement du User " +idUser);
+		System.out.println("Rafraichissement du User " +idUser);
 		try {
 			User currentUser = userService.refresh( idUser);
 			return new ResponseEntity<User>(currentUser, HttpStatus.OK);

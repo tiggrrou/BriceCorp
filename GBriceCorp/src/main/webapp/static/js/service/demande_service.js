@@ -17,9 +17,9 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
     };
     return factory;
  
-    function demandeNouveauCompte(demande_NouveauCompte){
+    function demandeNouveauCompte(demande_NouveauCompte, idClient){
     	 var deferred = $q.defer();
-         $http.post(REST_SERVICE_URI+'creationCompteBancaire',demande_NouveauCompte)
+         $http.post(REST_SERVICE_URI+'creationCompteBancaire/' + idClient,demande_NouveauCompte)
              .then(
              function (response) {
                  deferred.resolve();

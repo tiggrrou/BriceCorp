@@ -12,7 +12,7 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
 	 *  self.edit = edit;
 	 *  self.remove = remove;
 	 *  self.reset = reset;
-
+	 *  self.getMyUserBack = getMyUserBack;
 	 *  self.searchClients = searchClients;
 	 *  self.getClient = getClient;
 	 *  self.getNotifs = getNotifs;
@@ -184,9 +184,14 @@ function trier_par(tri){
 
  self.recherche_userParType = recherche_userParType;
   self.fetchAllUsers = fetchAllUsers;
+  self.getMyUserBack = getMyUserBack;
     
 if(self.curentUser != null){
 refreshUser();
+}
+
+function getMyUserBack(){
+	self.user = JSON.parse(sessionStorage.getItem("currentUser"));
 }
 
 function refreshUser(){
