@@ -11,9 +11,9 @@ public interface DemandeDao {
 
 	public void createDemandeInscription(Dem_CreationClient demandecreationclient);
 	
-	public void createDemandeChequier(Dem_Chequier demandechequier);
+	public void addDemandeChequierToCons(long id_conseiller, Dem_Chequier demandechequier);
 	
-	public void createDemandeModificationCompte(Dem_ModificationCompte demandeModificationCompte);
+	public void addDemandeModificationCompteToCons(long id_conseiller, Dem_ModificationCompte demandeModificationCompte);
 
 	public void attribution(long id_demande,long id_conseiller);
 	

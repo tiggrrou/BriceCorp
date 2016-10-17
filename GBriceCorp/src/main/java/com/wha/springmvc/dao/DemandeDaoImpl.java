@@ -28,15 +28,32 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 	}
 
 	@Override
-	public void createDemandeChequier(Dem_Chequier demandechequier) {
+	public void addDemandeChequierToCons(long id_conseiller, Dem_Chequier demandechequier){
 		demandechequier.setType(3);
 		persist(demandechequier);
+		
+		
+		Conseiller conseiller = (Conseiller) getEntityManager()
+				.createQuery("SELECT c FROM Conseiller c WHERE c.id = :id").setParameter("id", id_conseiller)
+				.getSingleResult();
+		List<Demande> listDemandes = conseiller.getDemandes();
+		listDemandes.add(demandechequier);
+		conseiller.setDemandes(listDemandes);
+		
 	}
 
 	@Override
-	public void createDemandeModificationCompte(Dem_ModificationCompte demandeModificationCompte) {
+	public void addDemandeModificationCompteToCons(long id_conseiller, Dem_ModificationCompte demandeModificationCompte){
 		demandeModificationCompte.setType(2);
 		persist(demandeModificationCompte);
+		
+		Conseiller conseiller = (Conseiller) getEntityManager()
+				.createQuery("SELECT c FROM Conseiller c WHERE c.id = :id").setParameter("id", id_conseiller)
+				.getSingleResult();
+		List<Demande> listDemandes = conseiller.getDemandes();
+		listDemandes.add(demandeModificationCompte);
+		conseiller.setDemandes(listDemandes);
+		
 	}
 
 	@SuppressWarnings("unchecked")

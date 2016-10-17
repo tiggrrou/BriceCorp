@@ -14,6 +14,10 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	 self.detailDemande=detailDemande;
 	 self.demandeNouveauCompte = demandeNouveauCompte;
 	 self.uploadFile=uploadFile;   
+	 self.uploadFile=uploadFile;
+	    
+	    
+	    
 	    $scope.menuDemandesCons = [{"id":"creation", "valeur" :"Ouverture compte"},
 	                               {"id":"chequier", "valeur" :"Chequier"},
 	                               {"id":"modif", "valeur" :"Modification compte"}];
@@ -36,6 +40,14 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	 }
 	 
 	 //http://jsfiddle.net/JeJenny/ZG9re/	 
+	 function uploadFile(){
+		 var file = $scope.myFile;
+	        console.log('file is ' + file );
+	        console.dir(file);
+ 
+	 }
+
+//http://jsfiddle.net/JeJenny/ZG9re/	 
 	 function uploadFile(){
 		 var file = $scope.myFile;
 	        console.log('file is ' + file );

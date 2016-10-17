@@ -95,34 +95,48 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		client.setMail(demande_inscription.getMail());
 		client.setTelephone(demande_inscription.getTelephone());
 		client.setRevenu(demande_inscription.getRevenu());
-		
+
+/**
+ * Ajout du compte courant "de base"
+ */
 		List<Compte> newComptes = new ArrayList<Compte>();
 		Compte compte = new Compte();
   	  	compte.setLibelle("Compte courant");
   	    newComptes.add(compte);
   	  	client.setComptes(newComptes);
 
+  	  	/**
+  	  	 * ajout de la notifiaction de creation du compte courant
+  	  	 */
   	  	List<Notification> newNotification = new ArrayList<Notification>();
   	  	Notification notification = new Notification();
   	  	notification.setMessage("Votre Compte Courant est ouvert");
   	  	newNotification.add(notification);
   	  	client.setNotifications(newNotification);
-  	  
-  	  	
 		persist(client);
+
+		
+/**
+ * Ajout du conseiller au client		
+ */
 		Conseiller conseiller = findConsById(idConseiller);
 		client.setConseiller(conseiller);
+	
 		
-//		Conseiller conseiller = (Conseiller) getEntityManager()
-//				.createQuery("SELECT c FROM Conseiller c WHERE c.id = :id").setParameter("id", idConseiller)
-//				.getSingleResult();
-//		
-//		List<Client> listClients = conseiller.getClients();
-//		listClients.add(client);
-//		conseiller.setClients(listClients);
-  	  
-
-  	  	System.out.println(conseiller);
+/**
+ * retrait de la demande d'inscription de la liste des demandes du conseiller		
+ */
+		List<Demande> listDemandes = conseiller.getDemandes();
+		List<Demande> newListDemandes = new ArrayList<Demande>();
+		    for (Demande demande : listDemandes ){
+				    if (demande_inscription.getID() != demande.getID()) {
+				    	newListDemandes.add(demande);
+				    } 
+			    }
+		    conseiller.setDemandes(newListDemandes);
+		    
+		    
+   	  	System.out.println(conseiller);
   	 
 	}
 

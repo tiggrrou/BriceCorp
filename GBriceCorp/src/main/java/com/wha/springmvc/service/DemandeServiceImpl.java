@@ -88,14 +88,14 @@ public class DemandeServiceImpl implements DemandeService {
 	}
 
 	@Override
-	public void createDemandeChequier(Dem_Chequier demandechequier) {
-		// TODO Auto-generated method stub
+	public void addDemandeChequierToCons(long id_conseiller, Dem_Chequier demandechequier){
+dao.addDemandeChequierToCons(id_conseiller, demandechequier);
 		
 	}
 
 	@Override
-	public void createDemandeModificationCompte(Dem_ModificationCompte demandeModificationCompte) {
-		// TODO Auto-generated method stub
+	public void addDemandeModificationCompteToCons(long id_conseiller, Dem_ModificationCompte demandeModificationCompte){
+dao.addDemandeModificationCompteToCons(id_conseiller, demandeModificationCompte);
 		
 	}
 
