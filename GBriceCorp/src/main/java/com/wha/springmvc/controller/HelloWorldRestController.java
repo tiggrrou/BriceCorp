@@ -118,7 +118,7 @@ public class HelloWorldRestController {
 		} else {
 			List<Object> demande_user = new ArrayList();
 			demande_user.add(demande);
-			demande_user.add(userService.findCliById(demande.getClientID()));
+			demande_user.add(userService.findCliById(demande.getClient().getId()));
 			return new ResponseEntity<List<Object>>(demande_user, HttpStatus.OK);
 		}
 	}
@@ -162,7 +162,7 @@ public class HelloWorldRestController {
 			for (Dem_ModificationCompte demande : demandes) {
 				List<Object> demande_user = new ArrayList();
 				demande_user.add(demande);
-				demande_user.add(userService.findCliById(demande.getClientID()));
+				demande_user.add(userService.findCliById(demande.getClient().getId()));
 				demandes_user.add(demande_user);
 			}
 
@@ -223,7 +223,7 @@ public class HelloWorldRestController {
 			for (Dem_Chequier demande : demandes) {
 				List<Object> demande_user = new ArrayList();
 				demande_user.add(demande);
-				demande_user.add(userService.findCliById(demande.getClientID()));
+				demande_user.add(userService.findCliById(demande.getClient().getId()));
 				demandes_user.add(demande_user);
 			}
 
@@ -497,18 +497,23 @@ public class HelloWorldRestController {
 		userService.createClient(conseillerpourclient.getId(), demande_inscription2);
 		demandeService.suppressionDemande(demande_inscription2.getID());
 		
+		Client client = userService.findCliById(3);
+		System.out.println(client.getComptes());
+		Compte compte = new Compte();
+		for (Compte comptetmp : client.getComptes()) {
+			compte = comptetmp;
+		}
 		
 		Dem_Chequier demande_chequier = new Dem_Chequier();
-		demande_chequier.setIdCompte(1);
-		demande_chequier.setClientID(3);
+		demande_chequier.setCompte(compte);
+		demande_chequier.setClient(client);
 		demandeService.addDemandeChequierToCons(conseillerpourclient.getId(),demande_chequier);
 		
 		Dem_ModificationCompte demande_modification = new Dem_ModificationCompte();
-		demande_modification.setClientID(3);
+		demande_modification.setClient(client);
 		demande_modification.setDecouvert(500);
-		demande_modification.setCompteID(2);
+		demande_modification.setCompte(compte);
 		demande_modification.setRemunerateur(true);
-				
 		demandeService.addDemandeModificationCompteToCons(conseillerpourclient.getId(),demande_modification);
 		
 		Conseiller conseiller2 = new Conseiller();

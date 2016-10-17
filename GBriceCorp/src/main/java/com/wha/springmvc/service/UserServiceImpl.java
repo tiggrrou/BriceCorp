@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void addConseillerToAdmin(Conseiller conseiller){
+	public void addConseillerToAdmin(Conseiller conseiller) {
 
 		dao.addConseillerToAdmin(conseiller);
 	}
@@ -76,8 +76,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Client findCliById(long idcli) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.findCliById(idcli);
 	}
 
 	@Override
@@ -101,17 +100,17 @@ public class UserServiceImpl implements UserService {
 		dao.createAdmin(admin);
 	}
 
-	//l'attribution du conseiller se fait au niveau de la demande et non du client
-//	@Override
-//	public boolean attributionCli2Cons(long idCons, long idCli) {
-//		
-//		return dao.attributionCli2Cons(idCons,idCli);
-//		
-//	}
-
+	// l'attribution du conseiller se fait au niveau de la demande et non du
+	// client
+	// @Override
+	// public boolean attributionCli2Cons(long idCons, long idCli) {
+	//
+	// return dao.attributionCli2Cons(idCons,idCli);
+	//
+	// }
 
 	@Override
-	public void createClient(long idConseiller, Dem_CreationClient demande_inscription){
+	public void createClient(long idConseiller, Dem_CreationClient demande_inscription) {
 		dao.createClient(idConseiller, demande_inscription);
 
 	}
@@ -126,6 +125,5 @@ public class UserServiceImpl implements UserService {
 
 		return dao.refresh(idUser);
 	}
-
 
 }

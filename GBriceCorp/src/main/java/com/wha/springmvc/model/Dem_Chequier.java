@@ -1,7 +1,10 @@
 package com.wha.springmvc.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -14,18 +17,29 @@ public class Dem_Chequier extends Demande {
 
 
 	//#region Attributs
-	@Column(name = "idCompte")
-	private int idCompte;
+	
+	
+	@ManyToOne
+	private Compte compte;
+	
+	
 	//#endregion
+	
+	
+	
+	
 	//#region Accesseurs
-
-	public int getIdCompte() {
-		return idCompte;
+	public Compte getCompte() {
+		return compte;
 	}
 
-	public void setIdCompte(int i) {
-		this.idCompte = i;
+
+
+	public void setCompte(Compte compte) {
+		this.compte = compte;
 	}
+
+
 
 	//#endregion
 	//#region Constructeurs
@@ -36,5 +50,15 @@ public class Dem_Chequier extends Demande {
 
 	}
 	//#endregion 
+
+
+
+	@Override
+	public String toString() {
+		return "Dem_Chequier [getCompte()=" + getCompte() + "]";
+	}
+
+
+
 
 }
