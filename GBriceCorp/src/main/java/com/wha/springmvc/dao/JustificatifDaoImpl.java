@@ -24,9 +24,9 @@ public class JustificatifDaoImpl extends AbstractDao<Integer, Justificatif> impl
 				.createQuery("SELECT d FROM Dem_CreationClient d WHERE d.id = :id").setParameter("id", demande_id)
 				.getSingleResult();
 
-		List<Justificatif> listJustificatifs = demandecreation.getJustifictifs();
+		List<Justificatif> listJustificatifs = demandecreation.getJustificatifs();
 		listJustificatifs.add(justificatif);
-		demandecreation.setJustifictifs(listJustificatifs);
+		demandecreation.setJustificatifs(listJustificatifs);
 	}
 
 	@Override

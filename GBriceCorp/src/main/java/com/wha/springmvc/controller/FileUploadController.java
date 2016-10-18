@@ -65,7 +65,7 @@ public class FileUploadController {
 			System.out.println("Fetching file");
 
 
-			String repertoire = UPLOAD_LOCATION + "/demandes/" + demande_id + "/";
+			String repertoire = UPLOAD_LOCATION + "demandes/" + demande_id + "/";
 			String nomfichier = demande_id+ "_" + nom + "_" + prenom + "_" + typeJustificatif + "." + fileModel.getFile().getOriginalFilename().split("\\.")[1];
 			
 			 File drirectory = new File(repertoire);

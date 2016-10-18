@@ -46,7 +46,7 @@ public class Dem_CreationClient extends Demande {
 	private int telephone;
 	
 	@OneToMany(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
-	private List<Justificatif> justifictifs;
+	private List<Justificatif> justificatifs;
 
 
 	/**
@@ -100,12 +100,12 @@ public class Dem_CreationClient extends Demande {
 	}
 
 
-	public List<Justificatif> getJustifictifs() {
-		return justifictifs;
+	public List<Justificatif> getJustificatifs() {
+		return justificatifs;
 	}
 
-	public void setJustifictifs(List<Justificatif> justifictifs) {
-		this.justifictifs = justifictifs;
+	public void setJustificatifs(List<Justificatif> justificatifs) {
+		this.justificatifs = justificatifs;
 	}
 
 	public int getRevenu() {
@@ -132,14 +132,14 @@ public class Dem_CreationClient extends Demande {
 	 */
 	public Dem_CreationClient() {
 		super();
-		this.justifictifs = new ArrayList<Justificatif>();
+		this.justificatifs = new ArrayList<Justificatif>();
 	}
 
 	@Override
 	public String toString() {
 		return "Dem_CreationClient [getNom()=" + getNom() + ", getPrenom()=" + getPrenom() + ", getMail()=" + getMail()
-				+ ", getAdresse()=" + getAdresse() + ", getTelephone()=" + getTelephone() + ", getJustifictifs()="
-				+ getJustifictifs() + ", getRevenu()=" + getRevenu() + "]";
+				+ ", getAdresse()=" + getAdresse() + ", getTelephone()=" + getTelephone() + ", getJustificatifs()="
+				+ getJustificatifs() + ", getRevenu()=" + getRevenu() + "]";
 	}
 
 

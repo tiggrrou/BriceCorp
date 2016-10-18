@@ -109,7 +109,7 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 
 		
 		
-		client.setJustificatifs(demande_inscription.getJustifictifs());
+		client.setJustificatifs(demande_inscription.getJustificatifs());
 		
 /**
  * Ajout du compte courant "de base"

@@ -1,6 +1,11 @@
 #printSectionId {
 
 }
+  
+.no-print{
+	display: none !important;
+    }
+
 
 .panel {
 	display: flex;
