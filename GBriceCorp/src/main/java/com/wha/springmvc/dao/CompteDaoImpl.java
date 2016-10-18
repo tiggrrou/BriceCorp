@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.wha.springmvc.model.Client;
 import com.wha.springmvc.model.Compte;
+import com.wha.springmvc.model.Mouvement;
 
 @Repository("compteDao")
 public class CompteDaoImpl extends AbstractDao<Integer, Compte> implements CompteDao {
@@ -77,11 +78,29 @@ public class CompteDaoImpl extends AbstractDao<Integer, Compte> implements Compt
 
 	@Override
 	public void mouvement(float montant, long compteDebiteurID, long compteCrediteurID) {
+		
 		Compte compteDebite = findCById(compteDebiteurID);
+		//opération de débit
 		compteDebite.setSolde(compteDebite.getSolde() - montant);
+		//ajout du mouvement
+		List<Mouvement> listMvtDebit = compteDebite.getMouvements();
+		Mouvement mvtDebit = new Mouvement();
+		mvtDebit.setMontant(-montant);
+		mvtDebit.setLibelle("Debit vers compte " + compteCrediteurID);
+		listMvtDebit.add(mvtDebit);
+		compteDebite.setMouvements(listMvtDebit);
+		
 		
 		Compte compteCredite = findCById(compteCrediteurID);
+		//opération de crédit
 		compteCredite.setSolde(compteCredite.getSolde() + montant);
+		//ajout du mouvement
+		List<Mouvement> listMvtCredit = compteCredite.getMouvements();
+		Mouvement mvtCredit = new Mouvement();
+		mvtCredit.setMontant(montant);
+		mvtCredit.setLibelle("Credit depuis compte " + compteDebiteurID);
+		listMvtCredit.add(mvtCredit);
+		compteCredite.setMouvements(listMvtCredit);
 		
 		
 	}

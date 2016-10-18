@@ -21,7 +21,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "Mouvement")
-public abstract class Mouvement {
+public class Mouvement {
 
 	//#region Attributs
 	/**

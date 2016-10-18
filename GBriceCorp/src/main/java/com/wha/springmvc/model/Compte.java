@@ -3,6 +3,7 @@
  */
 package com.wha.springmvc.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -180,6 +181,7 @@ public class Compte {
 		this.soldeAgio = 0;
 		this.decouvert = 0;
 		this.tauxDecouvert = 0;
+		this.mouvements = new ArrayList<>();
 		
 	}
 	

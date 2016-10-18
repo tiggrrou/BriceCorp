@@ -1,6 +1,7 @@
 package com.wha.springmvc.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -110,6 +111,7 @@ public class Client extends User  implements Serializable{
 	public Client() {
 		super();
 		this.dateOuverture = new Date();
+		this.notifications = new ArrayList<>();
 	}
 
 	@Override
