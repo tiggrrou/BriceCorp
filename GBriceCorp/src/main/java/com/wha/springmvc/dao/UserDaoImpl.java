@@ -110,19 +110,19 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		
 		
 		client.setJustificatifs(demande_inscription.getJustificatifs());
-
-/**
-* Envoi du mail confirmant au client la création de son compte
-*/
-		String text ="Bienvenue chez GestBank filiale du groupe BriceCorp! /n"
-				+ " Nous sommes heureux de vous annoncer que votre compte a été créer et est a présent parfaitement fonctionnel. /n"
-				+ " Vous pouvez vous connectez à votre espace client grâce à votre login et votre mot de passe: /n"
-				+ " Votre Login : " + client.getIdentifiant()
-				+ " Votre Mot de Passe : " + client.getMotDePasse()
-				+ " En espérant que vous trouviez entière satisfaction chez nous. Nous vous souhaitons une agréable journée. /n"
-				+ " La BriceCorp Team /n";
-		sendMessage("Bienvenue chez GestBank!", text, client.getMail(), "GB.bricecorp@gmail.com");
-		
+//retrait temporaire jusqu'au traitement du pb de port, je pense que dans le RestController ce serai mieux après l'évaluation de la creation du client
+///**
+//* Envoi du mail confirmant au client la création de son compte
+//*/
+//		String text ="Bienvenue chez GestBank filiale du groupe BriceCorp! /n"
+//				+ " Nous sommes heureux de vous annoncer que votre compte a été créer et est a présent parfaitement fonctionnel. /n"
+//				+ " Vous pouvez vous connectez à votre espace client grâce à votre login et votre mot de passe: /n"
+//				+ " Votre Login : " + client.getIdentifiant()
+//				+ " Votre Mot de Passe : " + client.getMotDePasse()
+//				+ " En espérant que vous trouviez entière satisfaction chez nous. Nous vous souhaitons une agréable journée. /n"
+//				+ " La BriceCorp Team /n";
+//		sendMessage("Bienvenue chez GestBank!", text, client.getMail(), "GB.bricecorp@gmail.com");
+//		
 	
 /**
  * Ajout du compte courant "de base"
@@ -283,10 +283,10 @@ System.out.println(user);
 
 public void sendMessage(String subject, String text, String destinataire, String copyDest) {
 	
-		public String SMTP_HOST1 = "smtp.gmail.com";
-		public String LOGIN_SMTP1 = "GB.BriceCorp@gmail.com";
-		public String IMAP_ACCOUNT1 = "GB.BriceCorp@gmail.com";
-		public String PASSWORD_SMTP1 = "BriceCorp!";
+		String SMTP_HOST1 = "smtp.gmail.com";
+		String LOGIN_SMTP1 = "GB.BriceCorp@gmail.com";
+		String IMAP_ACCOUNT1 = "GB.BriceCorp@gmail.com";
+		String PASSWORD_SMTP1 = "BriceCorp!";
 	
 	
 		    // 1 -> Création de la session
@@ -328,7 +328,7 @@ public void sendMessage(String subject, String text, String destinataire, String
 		    }
 
 		}
-	}
+	
 
 	@Override
 	public void sendNotificationToAClient(String message, long clientID) {

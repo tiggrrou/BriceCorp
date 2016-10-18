@@ -3,7 +3,7 @@
 
 <div class=" panel panel-default "
 	ng-controller="CompteController as cptctrl"
-	ng-hide="{{(demande.id!=null)?true:false}}">
+	ng-hide="{{(client_id==null)?true:false}} ">
 
 	<div class="panel-heading ">
 		<span class="lead">Compte de {{ctrl.currentUser.prenom}}
@@ -20,12 +20,12 @@
 </div>
 <div class=" panel panel-default "
 	ng-controller="DemandeController as dmdctrl"
-	ng-hide="{{(demande.id==null)?true:false}}">
+	ng-hide="{{(demande_id==null)?true:false}}">
 
 	<div class="panel-heading ">
 
 		<span class="lead">Compte de {{demande.prenom}}
-			{{demande.nom}} {{demande.client.prenom}} {{demande.cleint.nom}} </span> <span
+			{{demande.nom}} {{demande.client.prenom}} {{demande.client.nom}} </span> <span
 			class="lead">Demande {{demande.type}}{{demande.client.type}}
 
 		</span>

@@ -23,9 +23,8 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
 	// General
 	var self = this;
 
-	    
 	self.nav_cache_methode = nav_cache_methode;
-
+	$scope.client_id = $routeParams.client_id;
 	
 	// Responsive des div partie_commune et banniere en fonction de la navbar
     function nav_cache_methode(){
@@ -362,7 +361,7 @@ function refreshUser(){
     
   //Fonction du lien par ngclick dans le ng-repeat du recherche compte
    function detailCompte(iban){
-  	 $location.path("/cli/Cli_DetailCompte/" + iban);
+  	 $location.path("/cons/ConsClient_DetailCompte/" + iban);
    }     
     
     

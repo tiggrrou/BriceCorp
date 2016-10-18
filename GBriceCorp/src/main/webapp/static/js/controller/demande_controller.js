@@ -24,12 +24,13 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	    
 	    $scope.value = $scope.menuDemandesCons[0].id;
 	    
-	    $scope.idDemande = $routeParams.idDemande;
+	    $scope.demande_id = $routeParams.demande_id;
 	    $scope.nom = $routeParams.nom;
 	    $scope.prenom = $routeParams.prenom;
  // Fonctions User
-	 self.demande={};
-	 self.demandes=[];
+
+	    $scope.demande={};
+	    $scope.demandes=[];
 	 self.demandeCreationClient;
 
 	 function getDemandesCreationClient(){
@@ -135,7 +136,7 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
                 }
             );	 
          	}
- 		
+ 	 $location.path("/cons/");	
  	console.log("type de la demande" + demande.type )
  	
 	 };

@@ -2,8 +2,9 @@
 
 App.controller('CompteController', ['$scope','$location', '$route', '$routeParams', 'CompteService', function($scope,$location,$route,$routeParams, CompteService) {
     var self = this;
-    self.compte;
-    self.comptes;
+    $scope.compte = {};
+    $scope.comptes = [];
+
     $scope.virement;
 
     self.user;
