@@ -107,6 +107,10 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		client.setTelephone(demande_inscription.getTelephone());
 		client.setRevenu(demande_inscription.getRevenu());
 
+		
+		
+		client.setJustificatifs(demande_inscription.getJustifictifs());
+		
 /**
  * Ajout du compte courant "de base"
  */

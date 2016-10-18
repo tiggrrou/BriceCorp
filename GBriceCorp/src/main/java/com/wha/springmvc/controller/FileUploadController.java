@@ -63,21 +63,31 @@ public class FileUploadController {
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		} else {
 			System.out.println("Fetching file");
-			MultipartFile multipartFile = fileModel.getFile();
 
+
+			String repertoire = UPLOAD_LOCATION + "/demandes/" + demande_id + "/";
+			String nomfichier = demande_id+ "_" + nom + "_" + prenom + "_" + typeJustificatif + "." + fileModel.getFile().getOriginalFilename().split("\\.")[1];
 			
-			String url = UPLOAD_LOCATION + demande_id+ "_" + nom + "_" + prenom + "_" + typeJustificatif + "." + fileModel.getFile().getOriginalFilename().split("\\.")[1];
+			 File drirectory = new File(repertoire);
+		        if (!drirectory.exists()) {
+		            if (drirectory.mkdir()) {
+		                System.out.println("Directory is created!");
+		            } else {
+		                System.out.println("Failed to create directory!");
+		            }
+		        }
+			
 			// Now do something with file...
 			FileCopyUtils.copy(fileModel.getFile().getBytes(),
-					new File(url));
+					new File(repertoire+nomfichier));
+//			MultipartFile multipartFile = fileModel.getFile();
+//			String fileName = multipartFile.getOriginalFilename();
+//			model.addAttribute("fileName", fileName);
 
-			String fileName = multipartFile.getOriginalFilename();
-			model.addAttribute("fileName", fileName);
-			System.out.println(fileName);
 			
 			Justificatif justificatif = new Justificatif();
 			justificatif.setType(typeJustificatif);
-			justificatif.setUrl(url);
+			justificatif.setUrl(repertoire+nomfichier);
 			justificatifService.saveJustificatif(demande_id, justificatif);
 			
 			return new ResponseEntity<Void>(HttpStatus.OK);

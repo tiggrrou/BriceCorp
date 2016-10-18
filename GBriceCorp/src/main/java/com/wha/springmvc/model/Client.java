@@ -96,6 +96,15 @@ public class Client extends User  implements Serializable{
 	public void setComptes(List<Compte> comptes) {
 		this.comptes = comptes;
 	}
+	
+	public List<Justificatif> getJustificatifs() {
+		return justificatifs;
+	}
+
+	public void setJustificatifs(List<Justificatif> justificatifs) {
+		this.justificatifs = justificatifs;
+	}
+
 	public List<Notification> getNotifications() {
 		return notifications;
 	}
