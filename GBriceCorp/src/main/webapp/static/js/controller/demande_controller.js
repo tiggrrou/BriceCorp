@@ -23,6 +23,10 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	                               {"id":"modif", "valeur" :"Modification compte"}];
 	    
 	    $scope.value = $scope.menuDemandesCons[0].id;
+	    
+	    $scope.idDemande = $routeParams.idDemande;
+	    $scope.nom = $routeParams.nom;
+	    $scope.prenom = $routeParams.prenom;
  // Fonctions User
 	 self.demande={};
 	 self.demandes=[];
@@ -217,8 +221,8 @@ self.demandes = '';
         DemandeService.createDemandeInscription(self.demande_inscription)
         .then(
         		function(d) {
-        			
-   			 $location.path("/Fin_Inscription");
+        			console.log(d)
+        			$location.path("Fin_Inscription/" + d.id + "&" + d.nom + "&" + d.prenom);
 
         		},
         function(errResponse){
@@ -226,6 +230,25 @@ self.demandes = '';
         }
     );
     window.history.back();
+};
+
+$scope.uploadFile = function(files) {
+    var fd = new FormData();
+    //Take the first selected file
+    fd.append("file", files[0]);
+
+    DemandeService.savefile(fd,   $routeParams.idDemande,$routeParams.nom, $routeParams.prenom)
+    .then(
+    		function(d) {
+    			console.log(d)
+    			
+    		},
+    function(errResponse){
+        console.error('Error while creating Client');
+    }
+);
+
+
 };
 
 
