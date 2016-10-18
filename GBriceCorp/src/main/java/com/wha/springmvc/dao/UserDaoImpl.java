@@ -28,6 +28,8 @@ import com.wha.springmvc.model.User;
 @Repository("userDao")
 public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 
+	private static int NbUser = 0; 
+	
 	@Override
 	public void addConseillerToAdmin(Conseiller conseiller){
 		conseiller.setTypeUser(TypeUtilisateur.Conseiller.getType());	
@@ -93,9 +95,10 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 
 	@Override
 	public void createClient(long idConseiller, Dem_CreationClient demande_inscription){
+		NbUser++;
 		Client client = new Client();
 		client.setTypeUser(TypeUtilisateur.Client.getType());
-		client.setIdentifiant("c");
+		client.setIdentifiant("c" + NbUser);
 		client.setMotDePasse("c");
 		client.setNom(demande_inscription.getNom());
 		client.setPrenom(demande_inscription.getPrenom());		

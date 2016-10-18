@@ -424,6 +424,11 @@ public class HelloWorldRestController {
 		demande_inscription.setRevenu(5000);
 		demande_inscription.setTelephone(457577);
 		demandeService.createDemandeInscription(demande_inscription);
+		Conseiller conseillerpourclient1 = userService.findConsById(2);
+		demandeService.attribution(demande_inscription.getID(), conseillerpourclient1.getId());
+		userService.createClient(conseillerpourclient1.getId(), demande_inscription);
+		demandeService.suppressionDemande(demande_inscription.getID());
+		
 
 		Dem_CreationClient demande_inscription2 = new Dem_CreationClient();
 		demande_inscription2.setNom("NomClient1");
@@ -484,17 +489,7 @@ public class HelloWorldRestController {
 	public ResponseEntity<Void> virement(@PathVariable("Debiteur") long debiteur,
 			@PathVariable("Crediteur") long crediteur, @PathVariable("Montant") float montant) {
 		compteService.mouvement(montant, debiteur ,crediteur);
-//		Compte debit = compteService.findById(debiteur);
-//		Compte credit = compteService.findById(crediteur);
-//		debit.setSolde(debit.getSolde() - montant);
-//		credit.setSolde(credit.getSolde() + montant);
-
-		/*
-		 * if (userService.isUserExist(user)) { System.out.println(
-		 * "A User with name " + user.getNom() + " already exist"); return new
-		 * ResponseEntity<Void>(HttpStatus.CONFLICT); }
-		 */
-
+		Client clientCredit = compteService.findOwnerByCountID(crediteur);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 

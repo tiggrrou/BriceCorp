@@ -115,11 +115,8 @@ App.controller('CompteController', ['$scope','$location', '$route', '$routeParam
 
     function virement()
     {
-//    	var idCompteDebiteur = $scope.compteDebiteur.split("-")[1].trim();
-//    	var idCompteCrediteur = $scope.compteCredite.split("-")[1].trim();
-//    	CompteService.virement(idCompteDebiteur, idCompteCrediteur, $scope.montant)
     	CompteService.virement(	$scope.virement.compteDebiteur, 
-    							$scope.virement.compteCredite, 
+    							($scope.virement.compteCredite == 'Autre')? $scope.virement.compteAutre :$scope.virement.compteCredite, 
     							$scope.virement.montant)
     		.then(
     				function(){

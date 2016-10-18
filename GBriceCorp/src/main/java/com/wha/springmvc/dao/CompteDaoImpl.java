@@ -6,6 +6,7 @@ import javax.persistence.NoResultException;
 
 import org.springframework.stereotype.Repository;
 
+import com.wha.springmvc.model.Client;
 import com.wha.springmvc.model.Compte;
 
 @Repository("compteDao")
@@ -83,6 +84,20 @@ public class CompteDaoImpl extends AbstractDao<Integer, Compte> implements Compt
 		compteCredite.setSolde(compteCredite.getSolde() + montant);
 		
 		
+	}
+
+	@Override
+	public Client findOwnerByCountID(long idCompte) {
+		try {
+			Client client = (Client) getEntityManager()
+					.createQuery("SELECT C FROM Client C WHERE "
+							+ "	(SELECT Co FROM Compte Co WHERE Co.id = :id)"
+							+ " MEMBER OF C.comptes").setParameter("id", idCompte)
+					.getSingleResult();
+			return client;
+		} catch (NoResultException ex) {
+			return null;
+		}
 	}
 
 	

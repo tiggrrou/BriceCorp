@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.wha.springmvc.dao.CompteDao;
+import com.wha.springmvc.model.Client;
 import com.wha.springmvc.model.Compte;
 
 @Service("compteService")
@@ -67,6 +68,11 @@ return dao.findAllComptes();
 	public void mouvement(float montant, long compteDebiteurID, long compteCrediteurID) {
 		dao.mouvement(montant, compteDebiteurID, compteCrediteurID);
 		
+	}
+
+	@Override
+	public Client findOwnerByCountID(long idCompte) {
+		return dao.findOwnerByCountID(idCompte);
 	}
 
 }
