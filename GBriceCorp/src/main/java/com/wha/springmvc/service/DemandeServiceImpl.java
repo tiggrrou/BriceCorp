@@ -70,9 +70,9 @@ public class DemandeServiceImpl implements DemandeService {
 
 
 	@Override
-	public void createDemandeInscription(Dem_CreationClient demandecreationclient) {
+	public Dem_CreationClient createDemandeInscription(Dem_CreationClient demandecreationclient) {
 
-		dao.createDemandeInscription(demandecreationclient);	
+		return dao.createDemandeInscription(demandecreationclient);	
 	}
 
 	@Override

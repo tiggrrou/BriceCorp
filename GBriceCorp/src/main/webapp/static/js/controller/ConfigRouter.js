@@ -14,7 +14,7 @@ App.config(['$routeProvider',function($routeProvider) {
 		templateUrl:"static/views/Guest_Inscription.html",
 		controller: 'UserController'
 	})
-	.when("/Fin_Inscription" , {
+	.when("/Fin_Inscription/:idDemande&:nom&:prenom" , {
 		templateUrl:"static/views/Fin_Inscription.html",
 		controller: 'DemandeController'
 	})

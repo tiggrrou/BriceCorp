@@ -17,7 +17,7 @@ import com.wha.springmvc.model.TypeDemandes;
 public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements DemandeDao {
 
 	@Override
-	public void createDemandeInscription(Dem_CreationClient demandecreationclient) {
+	public Dem_CreationClient createDemandeInscription(Dem_CreationClient demandecreationclient) {
 		demandecreationclient.setType(1);
 
 		Administrateur admin = (Administrateur) getEntityManager()
@@ -26,6 +26,8 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 		List<Dem_CreationClient> listDemandes = admin.getDemandeCreationClient();
 		listDemandes.add(demandecreationclient);
 		admin.setDemandeCreationClient(listDemandes);
+		
+		return demandecreationclient;
 	}
 
 	@Override

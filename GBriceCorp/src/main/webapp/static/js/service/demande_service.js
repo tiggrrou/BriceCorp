@@ -12,10 +12,35 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
         findDemandeById:findDemandeById,
         validation_CreationCompteClient:validation_CreationCompteClient,
         demandeNouveauCompte:demandeNouveauCompte,
-        modifEtat_Demande:modifEtat_Demande
+        modifEtat_Demande:modifEtat_Demande,
+        savefile:savefile
     };
     return factory;
  
+    function savefile(fd, idDemande, nom, prenom){  
+    	
+    	 var deferred = $q.defer();
+    	 
+    	 
+    	console.log(idDemande + nom + prenom)
+    $http.post("demande/fileupload/"+idDemande+"&"+nom+"&"+prenom, fd, {
+        withCredentials: true,
+        headers: {'Content-Type': undefined },
+        transformRequest: angular.identity})
+        .then(
+            function (response) {
+                deferred.resolve();
+            },
+            function(errResponse){
+                console.error('Error while save file');
+                deferred.reject(errResponse);
+            }
+        );
+        return deferred.promise;
+    
+    	
+    }  
+    
   function demandeNouveauCompte(demande_NouveauCompte, idClient){
     	 var deferred = $q.defer();
          $http.post(REST_SERVICE_URI+'creationCompteBancaire/' + idClient,demande_NouveauCompte)

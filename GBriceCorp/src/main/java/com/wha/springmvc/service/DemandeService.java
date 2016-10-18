@@ -9,7 +9,7 @@ import com.wha.springmvc.model.Demande;
 
 public interface DemandeService {
 
-	public void createDemandeInscription(Dem_CreationClient demandecreationclient);
+	public Dem_CreationClient createDemandeInscription(Dem_CreationClient demandecreationclient);
 	
 	public void addDemandeChequierToCons(long id_conseiller, Dem_Chequier demandechequier);
 	

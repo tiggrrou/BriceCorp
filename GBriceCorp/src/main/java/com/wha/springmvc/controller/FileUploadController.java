@@ -6,6 +6,8 @@ import java.io.IOException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
@@ -18,11 +20,19 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.wha.springmvc.model.FileModel;
+import com.wha.springmvc.model.Justificatif;
+import com.wha.springmvc.model.TypeJustificatif;
+import com.wha.springmvc.service.JustificatifService;
 import com.wha.springmvc.util.FileValidator;
 @RestController
 public class FileUploadController {
-	private static String UPLOAD_LOCATION = "C:/Users/domi/git/justif/";
+	
+	private static String UPLOAD_LOCATION = "C:/justificatifs/";
 
+	@Autowired
+	JustificatifService justificatifService;
+									
+	
 	@Autowired
 	FileValidator fileValidator;
 
@@ -44,25 +54,31 @@ public class FileUploadController {
 		return "GET Impossible";
 	}
 
-	@RequestMapping(value = "/singleUpload/{nom}", method = RequestMethod.POST)
-	public String singleFileUpload(@PathVariable("nom") String nom, @Valid FileModel fileModel, BindingResult result, ModelMap model)
+	@RequestMapping(value = "/demande/fileupload/{demande_id}&{nom}&{prenom}", method = RequestMethod.POST)
+	public ResponseEntity<Void> singleFileUpload(@Valid FileModel fileModel, BindingResult result, ModelMap model, @PathVariable("demande_id") String demande_id,@PathVariable("nom") String nom, @PathVariable("prenom") String prenom)
 			throws IOException {
 
 		if (result.hasErrors()) {
 			System.out.println("validation errors");
-			return "Pas de Fichier à uploader";
+			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		} else {
 			System.out.println("Fetching file");
 			MultipartFile multipartFile = fileModel.getFile();
 
 			// Now do something with file...
 			FileCopyUtils.copy(fileModel.getFile().getBytes(),
-					new File(UPLOAD_LOCATION + nom +"." + fileModel.getFile().getOriginalFilename().split("\\.")[1]));
+					new File(UPLOAD_LOCATION + demande_id+ "_" + nom + "_" + prenom + "." + fileModel.getFile().getOriginalFilename().split("\\.")[1]));
 
 			String fileName = multipartFile.getOriginalFilename();
 			model.addAttribute("fileName", fileName);
 			System.out.println(fileName);
-			return fileName;
+			
+			Justificatif justificatif = new Justificatif();
+			justificatif.setType(TypeJustificatif.Domicile);
+			justificatif.setUrl(UPLOAD_LOCATION + demande_id+ "_" + nom + "_" + prenom + "." + fileModel.getFile().getOriginalFilename().split("\\.")[1]);
+			justificatifService.saveJustificatif(justificatif);
+			
+			return new ResponseEntity<Void>(HttpStatus.OK);
 		}
 	}
 

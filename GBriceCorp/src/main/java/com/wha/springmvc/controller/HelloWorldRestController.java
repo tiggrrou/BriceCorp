@@ -50,34 +50,7 @@ public class HelloWorldRestController {
 	DemandeService demandeService; // Service which will do all data
 									// retrieval/manipulation work
 
-	////////////////////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////UploadFile//////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	@RequestMapping("/upload")
-	public class UploadController {
-	    @ResponseBody
-	    @RequestMapping(value = "/save")
-	    public String handleUpload(
-	            @RequestParam(value = "file", required = false) MultipartFile multipartFile,
-	            HttpServletResponse httpServletResponse) {
-
-	        String orgName = multipartFile.getOriginalFilename();
-
-	        String filePath = "/my_uploads/" + orgName;
-	        File dest = new File(filePath);
-	        try {
-	            multipartFile.transferTo(dest);
-	        } catch (IllegalStateException e) {
-	            e.printStackTrace();
-	            return "File uploaded failed:" + orgName;
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	            return "File uploaded failed:" + orgName;
-	        }
-	        return "File uploaded:" + orgName;
-	    }
-	}
 	
 	
 	
@@ -212,12 +185,12 @@ public class HelloWorldRestController {
 	// -------------------Create demande d'inscription-------------------------------------------------------
 
 	@RequestMapping(value = "/demande/inscription", method = RequestMethod.POST)
-	public ResponseEntity<Void> DemandeInscription(@RequestBody Dem_CreationClient demande_inscription) {
+	public ResponseEntity<Demande> DemandeInscription(@RequestBody Dem_CreationClient demande_inscription) {
 		System.out.println("Creating demande inscription " + demande_inscription);
 
-		demandeService.createDemandeInscription(demande_inscription);
+		Dem_CreationClient demande = demandeService.createDemandeInscription(demande_inscription);
 
-		return new ResponseEntity<Void>(HttpStatus.CREATED);
+		return new ResponseEntity<Demande>(demande, HttpStatus.CREATED);
 
 	}
 	

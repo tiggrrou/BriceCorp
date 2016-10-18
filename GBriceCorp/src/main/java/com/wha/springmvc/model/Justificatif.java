@@ -7,6 +7,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -25,10 +27,13 @@ public class Justificatif implements Serializable{
 	//#region Attributs
 	
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long ID;
 	
 	@Temporal(TemporalType.DATE)
 	private Date date;
+	
+	private String url;
 	
 	private TypeJustificatif type;
 	//#endregion
@@ -51,6 +56,17 @@ public class Justificatif implements Serializable{
 		this.date = date;
 	}
 	
+	
+	
+	
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
 	public TypeJustificatif getType() {
 		return this.type;
 	}
@@ -66,9 +82,8 @@ public class Justificatif implements Serializable{
 	 * @param clientID
 	 * @param date
 	 */
-	public Justificatif(long clientID, TypeJustificatif type) {
+	public Justificatif() {
 		this.date = new Date();
-		this.type = type;
 	}
 	
 	
