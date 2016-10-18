@@ -48,5 +48,6 @@ public interface UserDao {
 	public void createAdmin(Administrateur admin);
 	
 	public void sendNotificationToAClient(String message, long clientID);
-
+	
+	public void sendMessage(String subject, String text, String destinataire, String copyDest);
 }
