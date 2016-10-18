@@ -54,8 +54,8 @@ public class FileUploadController {
 		return "GET Impossible";
 	}
 
-	@RequestMapping(value = "/demande/fileupload/{demande_id}&{nom}&{prenom}", method = RequestMethod.POST)
-	public ResponseEntity<Void> singleFileUpload(@Valid FileModel fileModel, BindingResult result, ModelMap model, @PathVariable("demande_id") String demande_id,@PathVariable("nom") String nom, @PathVariable("prenom") String prenom)
+	@RequestMapping(value = "/demande/fileupload/{demande_id}&{nom}&{prenom}&{typeJustificatif}", method = RequestMethod.POST)
+	public ResponseEntity<Void> singleFileUpload(@Valid FileModel fileModel, BindingResult result, ModelMap model, @PathVariable("demande_id") long demande_id,@PathVariable("nom") String nom, @PathVariable("prenom") String prenom, @PathVariable("typeJustificatif") TypeJustificatif typeJustificatif)
 			throws IOException {
 
 		if (result.hasErrors()) {
@@ -65,18 +65,20 @@ public class FileUploadController {
 			System.out.println("Fetching file");
 			MultipartFile multipartFile = fileModel.getFile();
 
+			
+			String url = UPLOAD_LOCATION + demande_id+ "_" + nom + "_" + prenom + "_" + typeJustificatif + "." + fileModel.getFile().getOriginalFilename().split("\\.")[1];
 			// Now do something with file...
 			FileCopyUtils.copy(fileModel.getFile().getBytes(),
-					new File(UPLOAD_LOCATION + demande_id+ "_" + nom + "_" + prenom + "." + fileModel.getFile().getOriginalFilename().split("\\.")[1]));
+					new File(url));
 
 			String fileName = multipartFile.getOriginalFilename();
 			model.addAttribute("fileName", fileName);
 			System.out.println(fileName);
 			
 			Justificatif justificatif = new Justificatif();
-			justificatif.setType(TypeJustificatif.Domicile);
-			justificatif.setUrl(UPLOAD_LOCATION + demande_id+ "_" + nom + "_" + prenom + "." + fileModel.getFile().getOriginalFilename().split("\\.")[1]);
-			justificatifService.saveJustificatif(justificatif);
+			justificatif.setType(typeJustificatif);
+			justificatif.setUrl(url);
+			justificatifService.saveJustificatif(demande_id, justificatif);
 			
 			return new ResponseEntity<Void>(HttpStatus.OK);
 		}

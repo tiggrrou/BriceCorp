@@ -9,7 +9,7 @@ public interface JustificatifDao {
 	
 	public List<Justificatif> findByClientId(long clientId);
 	
-	public void saveJustificatif(Justificatif justificatif);
+	public void saveJustificatif(long demande_id, Justificatif justificatif);
 	
 	public void deleteJustificatifById(long id);
 	

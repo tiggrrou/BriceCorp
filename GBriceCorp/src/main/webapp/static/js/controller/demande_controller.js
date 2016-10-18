@@ -242,19 +242,25 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
     window.history.back();
 };
 
-$scope.uploadFile = function(files) {
+$scope.uploadFile = function(files, typeJustificatif) {
     var fd = new FormData();
     //Take the first selected file
     fd.append("file", files[0]);
 
-    DemandeService.savefile(fd,   $routeParams.idDemande,$routeParams.nom, $routeParams.prenom)
+    DemandeService.savefile(fd,   $routeParams.idDemande,$routeParams.nom, $routeParams.prenom, typeJustificatif)
     .then(
-    		function(d) {
-    			console.log(d)
-    			
-    		},
+    	function(d) {
+    		if (typeJustificatif == "Domicile"){
+    			$scope.Domicile = true
+    		}else if (typeJustificatif == "Impot"){
+    			$scope.Impot = true
+    		}
+    		if ($scope.Domicile == true && $scope.Impot == true){
+    			$location.path("/");
+    		}
+    	},
     function(errResponse){
-        console.error('Error while creating Client');
+        console.error('Error while uploading file');
     }
 );
 

@@ -17,13 +17,11 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
     };
     return factory;
  
-    function savefile(fd, idDemande, nom, prenom){  
+    function savefile(fd, idDemande, nom, prenom, typeJustificatif){  
     	
     	 var deferred = $q.defer();
-    	 
-    	 
-    	console.log(idDemande + nom + prenom)
-    $http.post("demande/fileupload/"+idDemande+"&"+nom+"&"+prenom, fd, {
+
+    $http.post("demande/fileupload/"+idDemande+"&"+nom+"&"+prenom+"&"+typeJustificatif, fd, {
         withCredentials: true,
         headers: {'Content-Type': undefined },
         transformRequest: angular.identity})

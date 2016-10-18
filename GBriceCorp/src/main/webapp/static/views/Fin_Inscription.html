@@ -5,28 +5,72 @@
 
 	<!-- Default panel contents -->
 	<div class="panel-heading">
-		<span class="lead">Merci de vous etre inscrit {{prenom}} {{nom}}
-		</span>
+		<span class="lead">Merci de vous etre inscrit {{prenom}}
+			{{nom}} </span>
 
 		<h2>Pour accelerer votre demande veuillez nous envoyer vos pieces
 			justificative</h2>
-					</div>
-		<div class="panel-body">
-			<div class="col-xs-12 raw ">
-				<div class="row">
-					<div class="form-group col-md-12">
-						<label class="col-md-2 control-lable" for="file">Justificatif
-							de domicile</label>
-						<div class="col-md-7">
-							<input type="file" id="file" name="file"
-								class="form-control input-sm"
-								onchange="angular.element(this).scope().uploadFile(this.files)" />
-
-						</div>
+	</div>
+	<div class="panel-body" ng-hide="Domicile">
+		<div class="col-xs-12 raw ">
+			<div class="row">
+				<div class="form-group col-md-12">
+					<label class="col-md-2 control-lable" for="file">Justificatif
+						de domicile</label>
+					<div class="col-md-7">
+						<input type="file" id="file" name="file"
+							class="form-control input-sm"
+							onchange="angular.element(this).scope().uploadFile(this.files, 'Domicile')" />
 
 					</div>
+
 				</div>
 			</div>
+		</div>
+
+
+	</div>
+	<div class="panel-body" ng-hide="!Domicile">
+		<div class="col-xs-12 raw ">
+			<div class="row">
+				<div class="form-group col-md-12">
+					<h2>Merci de nous avoir transmis votre justificatif de
+						domicile</h2>
+
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+	<div class="panel-body" ng-hide="Impot">
+		<div class="col-xs-12 raw ">
+			<div class="row">
+				<div class="form-group col-md-12">
+					<label class="col-md-2 control-lable" for="file">Deniere
+						Fiche d'imposition</label>
+					<div class="col-md-7">
+						<input type="file" id="file" name="file"
+							class="form-control input-sm"
+							onchange="angular.element(this).scope().uploadFile(this.files, 'Impot')" />
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+	<div class="panel-body" ng-hide="!Impot">
+		<div class="col-xs-12 raw ">
+			<div class="row">
+				<div class="form-group col-md-12">
+					<h2>Merci de nous avoir transmis votre fiche d'imposition</h2>
+
+				</div>
+			</div>
+		</div>
 
 
 	</div>

@@ -1,7 +1,13 @@
 package com.wha.springmvc.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -38,16 +44,11 @@ public class Dem_CreationClient extends Demande {
 	 */
 	@Column(name = "telephone")
 	private int telephone;
-	/**
-	 * Justificatif de domicile
-	 */
-//	@OneToMany
-//	private List<Justificatif> domicile;
-//	/**
-//	 * Justificatif du salaire
-//	 */
-//	@OneToMany
-//	private List<Justificatif> salaire;
+	
+	@OneToMany(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
+	private List<Justificatif> justifictifs;
+
+
 	/**
 	 * revenu mensuel du client
 	 */
@@ -98,21 +99,14 @@ public class Dem_CreationClient extends Demande {
 		this.telephone = telephone;
 	}
 
-//	public Collection<Justificatif> getDomicile() {
-//		return domicile;
-//	}
-//
-//	public void setDomicile(Justificatif domicile) {
-//		this.domicile = (List<Justificatif>) domicile;
-//	}
-//
-//	public Collection<Justificatif> getSalaire() {
-//		return salaire;
-//	}
-//
-//	public void setSalaire(Justificatif salaire) {
-//		this.salaire = (List<Justificatif>) salaire;
-//	}
+
+	public List<Justificatif> getJustifictifs() {
+		return justifictifs;
+	}
+
+	public void setJustifictifs(List<Justificatif> justifictifs) {
+		this.justifictifs = justifictifs;
+	}
 
 	public int getRevenu() {
 		return revenu;
@@ -138,15 +132,17 @@ public class Dem_CreationClient extends Demande {
 	 */
 	public Dem_CreationClient() {
 		super();
+		this.justifictifs = new ArrayList<Justificatif>();
 	}
-
 
 	@Override
 	public String toString() {
-		return "Dem_CreationClient [getNom()=" + getNom()
-				+ ", getPrenom()=" + getPrenom() + ", getMail()=" + getMail() + ", getAdresse()=" + getAdresse()
-				+ ", getTelephone()=" + getTelephone() + ", getRevenu()=" + getRevenu() + "]";
+		return "Dem_CreationClient [getNom()=" + getNom() + ", getPrenom()=" + getPrenom() + ", getMail()=" + getMail()
+				+ ", getAdresse()=" + getAdresse() + ", getTelephone()=" + getTelephone() + ", getJustifictifs()="
+				+ getJustifictifs() + ", getRevenu()=" + getRevenu() + "]";
 	}
+
+
 
 	
 	

@@ -85,6 +85,14 @@ public class Justificatif implements Serializable{
 	public Justificatif() {
 		this.date = new Date();
 	}
+
+	@Override
+	public String toString() {
+		return "Justificatif [getID()=" + getID() + ", getDate()=" + getDate() + ", getUrl()=" + getUrl()
+				+ ", getType()=" + getType() + "]";
+	}
+	
+	
 	
 	
 }
