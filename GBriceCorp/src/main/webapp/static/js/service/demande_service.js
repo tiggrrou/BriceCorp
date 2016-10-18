@@ -5,9 +5,7 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
     var REST_SERVICE_URI = 'http://localhost:8080/GestBank/demande/';
 
     var factory = {
-    		fetchAllDemandesModifCompte:fetchAllDemandesModifCompte,
-    	fetchAllDemandesChequier:fetchAllDemandesChequier,
-    	fetchAllDemandesInscription:fetchAllDemandesInscription,
+    	fetchDemandesWithType:fetchDemandesWithType,
     	createDemandeInscription:createDemandeInscription,
         writeDemDecou:writeDemDecou,
         attributionConseiller:attributionConseiller,
@@ -72,9 +70,7 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
           );
           return deferred.promise;
     	
-    }
-      
-    
+    }     
     
     function validation_CreationCompteClient(demande,id_conseiller){
   	  var deferred = $q.defer();
@@ -108,50 +104,17 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
           return deferred.promise;
     	
     }
-    /*recherche de toutes les demandes de modification de compte */
-    function fetchAllDemandesModifCompte() {
-
-        var deferred = $q.defer();
-        $http.get(REST_SERVICE_URI+'modifcompte/')
+   
+    function fetchDemandesWithType(type, idUser)
+    {
+    	var deferred = $q.defer();
+        $http.get(REST_SERVICE_URI+ type + '/' + idUser)
             .then(
             function (response) {
                 deferred.resolve(response.data);
             },
             function(errResponse){
-                console.error('Error while fetching Demandes modification de compte');
-                deferred.reject(errResponse);
-            }
-        );
-        return deferred.promise;
-    }
- 
-    /*recherche de toutes les demandes d inscription */
-    function fetchAllDemandesInscription() {
-
-        var deferred = $q.defer();
-        $http.get(REST_SERVICE_URI+'inscription/')
-            .then(
-            function (response) {
-                deferred.resolve(response.data);
-            },
-            function(errResponse){
-                console.error('Error while fetching inscription request');
-                deferred.reject(errResponse);
-            }
-        );
-        return deferred.promise;
-    }
-    /*recherche de toutes les demandes de chequier */
-    function fetchAllDemandesChequier() {
-
-        var deferred = $q.defer();
-        $http.get(REST_SERVICE_URI+'chequier/')
-            .then(
-            function (response) {
-                deferred.resolve(response.data);
-            },
-            function(errResponse){
-                console.error('Error while fetching Demandes chequier');
+                console.error('Error while fetching Demandes of type ' + type );
                 deferred.reject(errResponse);
             }
         );

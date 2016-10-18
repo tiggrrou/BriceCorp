@@ -11,12 +11,13 @@ import com.wha.springmvc.model.Dem_Chequier;
 import com.wha.springmvc.model.Dem_CreationClient;
 import com.wha.springmvc.model.Dem_ModificationCompte;
 import com.wha.springmvc.model.Demande;
+import com.wha.springmvc.model.TypeDemandes;
 
 @Repository("demandeDao")
 public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements DemandeDao {
 
 	@Override
-	public void createDemandeInscription(Dem_CreationClient demandecreationclient) {
+	public Dem_CreationClient createDemandeInscription(Dem_CreationClient demandecreationclient) {
 		demandecreationclient.setType(1);
 
 		Administrateur admin = (Administrateur) getEntityManager()
@@ -25,6 +26,8 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 		List<Dem_CreationClient> listDemandes = admin.getDemandeCreationClient();
 		listDemandes.add(demandecreationclient);
 		admin.setDemandeCreationClient(listDemandes);
+		
+		return demandecreationclient;
 	}
 
 	@Override
@@ -58,12 +61,25 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Dem_ModificationCompte> findAllDemandesModifCompte() {
-		List<Dem_ModificationCompte> demandemodificationcompte = getEntityManager()
-				.createQuery("FROM Dem_ModificationCompte").getResultList();
+	/**
+	 * Retourne toutes les demandes de modifications de compte attribuées à un conseiller
+	 */
+	public List<Dem_ModificationCompte> findAllDemandesModifCompte(long id) {
+		List<Demande> demandes = getEntityManager()
+				.createQuery("SELECT C.demandes FROM Conseiller C WHERE C.id = :id")
+				.setParameter("id", id)
+				.getResultList();
+		List<Dem_ModificationCompte> demandemodificationcompte = new ArrayList<>();
+		for (Demande dem : demandes) {
+			if (dem.getType() == TypeDemandes.Modification.getType())
+			{
+				demandemodificationcompte.add((Dem_ModificationCompte)dem);
+			}
+		}
+		
 		return demandemodificationcompte;
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Dem_CreationClient> findAllDemandesCreationClient() {
@@ -75,8 +91,35 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Dem_Chequier> listAllDemandeChequier() {
-		List<Dem_Chequier> demandechequier = getEntityManager().createQuery("FROM Dem_Chequier").getResultList();
+	public List<Dem_CreationClient> findAllDemandesCreationClient(long id) {
+		List<Demande> demandes = getEntityManager()
+				.createQuery("SELECT C.demandes FROM Conseiller C WHERE C.id = :id")
+				.setParameter("id", id)
+				.getResultList();
+		List<Dem_CreationClient> demandecreationclient = new ArrayList<>();
+		for (Demande dem : demandes) {
+			if (dem.getType() == TypeDemandes.Creation.getType())
+			{
+				demandecreationclient.add((Dem_CreationClient)dem);
+			}
+		}
+		return demandecreationclient;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Dem_Chequier> listAllDemandeChequier(long consID) {
+		List<Demande> demandes = getEntityManager()
+				.createQuery("SELECT C.demandes FROM Conseiller C WHERE C.id = :id")
+				.setParameter("id", consID)
+				.getResultList();
+		List<Dem_Chequier> demandechequier = new ArrayList<>();
+		for (Demande dem : demandes) {
+			if (dem.getType() == TypeDemandes.Chequier.getType())
+			{
+				demandechequier.add((Dem_Chequier)dem);
+			}
+		}
 		return demandechequier;
 	}
 

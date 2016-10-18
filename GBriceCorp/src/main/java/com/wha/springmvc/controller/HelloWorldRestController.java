@@ -131,35 +131,37 @@ public class HelloWorldRestController {
 
 	// -------------------Retrieve All Demandes de modif compte--------------------------------------------------------
 
-	@RequestMapping(value = "/demande/modifcompte", method = RequestMethod.GET)
-	public ResponseEntity<List<List<Object>>> listAllDemandeModifCompte() {
+	@RequestMapping(value = "/demande/modifcompte/{conseillerID}", method = RequestMethod.GET)
+	public ResponseEntity<List<Dem_ModificationCompte>> listAllDemandeModifCompte(@PathVariable("conseillerID") long consID) {
 		System.out.println("fetch demandes modif compte");
-		List<Dem_ModificationCompte> demandes = demandeService.findAllDemandesModifCompte();
-		List<List<Object>> demandes_user = new ArrayList();
+		List<Dem_ModificationCompte> demandes = demandeService.findAllDemandesModifCompte(consID);
 
 		if (demandes.isEmpty()) {
-			return new ResponseEntity<List<List<Object>>>(HttpStatus.NO_CONTENT);
-		} else {
-
-			for (Dem_ModificationCompte demande : demandes) {
-				List<Object> demande_user = new ArrayList();
-				demande_user.add(demande);
-				demande_user.add(userService.findCliById(demande.getClient().getId()));
-				demandes_user.add(demande_user);
-			}
-
+			return new ResponseEntity<List<Dem_ModificationCompte>>(HttpStatus.NO_CONTENT);
 		}
-
-		return new ResponseEntity<List<List<Object>>>(demandes_user, HttpStatus.OK);
+		return new ResponseEntity<List<Dem_ModificationCompte>>(demandes, HttpStatus.OK);
 	}
 
 	// -------------------Retrieve All Demandes d inscription non attribuees--------------------------------------------------------
 
-	@RequestMapping(value = "/demande/inscription/", method = RequestMethod.GET)
-	public ResponseEntity<List<Dem_CreationClient>> listAllDemandeIscription() {
+	@RequestMapping(value = "/demande/inscription/{adminOrConsID}", method = RequestMethod.GET)
+	/**
+	 * Si l'id est égal à 0 alors c'est l'admin qui effectue la requete, sinon c'est un conseiller
+	 * @return
+	 */
+	public ResponseEntity<List<Dem_CreationClient>> listAllDemandeIscription(@PathVariable("adminOrConsID") long adminOrConsID) {
 		System.out.println("fetch demandes inscription ");
-		List<Dem_CreationClient> demandes = demandeService.findAllDemandesCreationClient();
-
+		List<Dem_CreationClient> demandes;
+		if (adminOrConsID == 0)
+		{
+			//c'est l'admin
+			demandes = demandeService.findAllDemandesCreationClient();
+		}
+		else
+		{
+			//c'est un conseiller
+			demandes = demandeService.findAllDemandesCreationClient(adminOrConsID);
+		}
 		if (demandes.isEmpty()) {
 			return new ResponseEntity<List<Dem_CreationClient>>(HttpStatus.NO_CONTENT);
 		} 
@@ -169,27 +171,15 @@ public class HelloWorldRestController {
 
 	// -------------------Retrieve All Demandes de chequier--------------------------------------------------------
 
-	@RequestMapping(value = "/demande/chequier", method = RequestMethod.GET)
-	public ResponseEntity<List<List<Object>>> listAllDemandeChequier() {
+	@RequestMapping(value = "/demande/chequier/{conseillerID}", method = RequestMethod.GET)
+	public ResponseEntity<List<Dem_Chequier>> listAllDemandeChequier(@PathVariable("conseillerID") long consID) {
 		System.out.println("fetch demandes chequier");
-		List<Dem_Chequier> demandes = demandeService.listAllDemandeChequier();
-
-		List<List<Object>> demandes_user = new ArrayList();
+		List<Dem_Chequier> demandes = demandeService.listAllDemandeChequier(consID);
 
 		if (demandes.isEmpty()) {
-			return new ResponseEntity<List<List<Object>>>(HttpStatus.NO_CONTENT);
-		} else {
-
-			for (Dem_Chequier demande : demandes) {
-				List<Object> demande_user = new ArrayList();
-				demande_user.add(demande);
-				demande_user.add(userService.findCliById(demande.getClient().getId()));
-				demandes_user.add(demande_user);
-			}
-
+			return new ResponseEntity<List<Dem_Chequier>>(HttpStatus.NO_CONTENT);
 		}
-
-		return new ResponseEntity<List<List<Object>>>(demandes_user, HttpStatus.OK);
+		return new ResponseEntity<List<Dem_Chequier>>(demandes, HttpStatus.OK);
 	}
 
 	// -------------------Create demande d'inscription-------------------------------------------------------
@@ -407,6 +397,11 @@ public class HelloWorldRestController {
 		demande_inscription.setRevenu(5000);
 		demande_inscription.setTelephone(457577);
 		demandeService.createDemandeInscription(demande_inscription);
+		Conseiller conseillerpourclient1 = userService.findConsById(2);
+		demandeService.attribution(demande_inscription.getID(), conseillerpourclient1.getId());
+		userService.createClient(conseillerpourclient1.getId(), demande_inscription);
+		demandeService.suppressionDemande(demande_inscription.getID());
+		
 
 		Dem_CreationClient demande_inscription2 = new Dem_CreationClient();
 		demande_inscription2.setNom("NomClient1");
@@ -467,17 +462,14 @@ public class HelloWorldRestController {
 	public ResponseEntity<Void> virement(@PathVariable("Debiteur") long debiteur,
 			@PathVariable("Crediteur") long crediteur, @PathVariable("Montant") float montant) {
 		compteService.mouvement(montant, debiteur ,crediteur);
-//		Compte debit = compteService.findById(debiteur);
-//		Compte credit = compteService.findById(crediteur);
-//		debit.setSolde(debit.getSolde() - montant);
-//		credit.setSolde(credit.getSolde() + montant);
-
-		/*
-		 * if (userService.isUserExist(user)) { System.out.println(
-		 * "A User with name " + user.getNom() + " already exist"); return new
-		 * ResponseEntity<Void>(HttpStatus.CONFLICT); }
-		 */
-
+		Client clientDebit = compteService.findOwnerByCountID(debiteur);
+		Client clientCredit = compteService.findOwnerByCountID(crediteur);
+		if (clientCredit.getId() != clientDebit.getId())
+		{
+			String message = "vous avez été crédité de " + montant + " de la part de " 
+						 	 + clientDebit.getPrenom() + " " + clientDebit.getNom();
+			userService.sendNotificationToAClient(message, clientCredit.getId());
+		}
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
