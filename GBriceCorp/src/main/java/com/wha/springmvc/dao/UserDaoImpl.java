@@ -98,8 +98,8 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		NbUser++;
 		Client client = new Client();
 		client.setTypeUser(TypeUtilisateur.Client.getType());
-		client.setIdentifiant("c" + NbUser);
-		client.setMotDePasse("c");
+		client.setIdentifiant(demande_inscription.getNom()+"#"+ NbUser);
+		client.setMotDePasse("1234");
 		client.setNom(demande_inscription.getNom());
 		client.setPrenom(demande_inscription.getPrenom());		
 		client.setAdresse(demande_inscription.getAdresse());
@@ -110,7 +110,20 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		
 		
 		client.setJustificatifs(demande_inscription.getJustificatifs());
+
+/**
+* Envoi du mail confirmant au client la création de son compte
+*/
+		String text ="Bienvenue chez GestBank filiale du groupe BriceCorp! /n"
+				+ " Nous sommes heureux de vous annoncer que votre compte a été créer et est a présent parfaitement fonctionnel. /n"
+				+ " Vous pouvez vous connectez à votre espace client grâce à votre login et votre mot de passe: /n"
+				+ " Votre Login : " + client.getIdentifiant()
+				+ " Votre Mot de Passe : " + client.getMotDePasse()
+				+ " En espérant que vous trouviez entière satisfaction chez nous. Nous vous souhaitons une agréable journée. /n"
+				+ " La BriceCorp Team /n";
+		sendMessage("Bienvenue chez GestBank!", text, client.getMail(), "GB.bricecorp@gmail.com");
 		
+	
 /**
  * Ajout du compte courant "de base"
  */
@@ -267,14 +280,15 @@ System.out.println(user);
 		}
 	}
 	
-	public class Mail {
-		
+
+public void sendMessage(String subject, String text, String destinataire, String copyDest) {
+	
 		public String SMTP_HOST1 = "smtp.gmail.com";
 		public String LOGIN_SMTP1 = "GB.BriceCorp@gmail.com";
 		public String IMAP_ACCOUNT1 = "GB.BriceCorp@gmail.com";
 		public String PASSWORD_SMTP1 = "BriceCorp!";
-
-		public void sendMessage(String subject, String text, String destinataire, String copyDest) {
+	
+	
 		    // 1 -> Création de la session
 		    Properties properties = new Properties();
 		    properties.setProperty("mail.transport.protocol", "smtp");
