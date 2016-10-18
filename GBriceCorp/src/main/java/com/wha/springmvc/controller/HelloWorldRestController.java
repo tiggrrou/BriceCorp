@@ -489,7 +489,14 @@ public class HelloWorldRestController {
 	public ResponseEntity<Void> virement(@PathVariable("Debiteur") long debiteur,
 			@PathVariable("Crediteur") long crediteur, @PathVariable("Montant") float montant) {
 		compteService.mouvement(montant, debiteur ,crediteur);
+		Client clientDebit = compteService.findOwnerByCountID(debiteur);
 		Client clientCredit = compteService.findOwnerByCountID(crediteur);
+		if (clientCredit.getId() != clientDebit.getId())
+		{
+			String message = "vous avez été crédité de " + montant + " de la part de " 
+						 	 + clientDebit.getPrenom() + " " + clientDebit.getNom();
+			userService.sendNotificationToAClient(message, clientCredit.getId());
+		}
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 

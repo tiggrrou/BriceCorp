@@ -13,6 +13,7 @@ import com.wha.springmvc.model.Client;
 import com.wha.springmvc.model.Compte;
 import com.wha.springmvc.model.Conseiller;
 import com.wha.springmvc.model.Dem_CreationClient;
+import com.wha.springmvc.model.Notification;
 import com.wha.springmvc.model.User;
 
 @Service("userService")
@@ -117,6 +118,12 @@ public class UserServiceImpl implements UserService {
 	public User refresh(long idUser) {
 
 		return dao.refresh(idUser);
+	}
+
+	@Override
+	public void sendNotificationToAClient(String message, long clientID) {
+		dao.sendNotificationToAClient(message, clientID);
+		
 	}
 
 }
