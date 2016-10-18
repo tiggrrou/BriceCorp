@@ -3,7 +3,7 @@
 
 
 
-<div class="panel panel-info" ng-controller="DemandeController as dmdctrl" >
+<div class="panel panel-info" ng-controller="DemandeController as dmdctrl" ng-init="dmdctrl.fetchAllDemandes(value)">
 
 	<!-- Default panel contents -->
 	<div class="panel-heading" >
@@ -20,10 +20,6 @@
 	</div>	
 	<!-- Tableau d'affichage des demandes d'ouverture -->
 
-
-
-
-
 			<div class="panel-body" >
 				<div class="tablecontainer">
 					<table class="table table-hover">
@@ -37,7 +33,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="demande in ctrl.currentUser.demandes  | filter:search:strict | orderBy:tripar " ng-click="dmdctrl.detailDemande(demande)" >
+							<tr ng-repeat="demande in dmdctrl.demandes  | filter:search:strict | orderBy:tripar " ng-click="dmdctrl.detailDemande(demande)" >
 								<td>{{(demande.client!=null)?demande.client.nom:demande.nom}}</td>
 								<td>{{(demande.client!=null)?demande.client.prenom:demande.prenom}}</td>
 								<td>{{demande.dateCreation}}</td>

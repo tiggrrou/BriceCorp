@@ -1,9 +1,9 @@
-
+<meta charset="utf-8">
 	<!-- Formulaire de demande de virement -->
 	<!-- 	CompteController.compteDebiteur = compte sur lequel on retire l'argent
 		CompteController.virement() methode de virement
-		COmpteController.montant montant � virer 
-		CompteController.compteCredite  = compte re�evant l'argent -->
+		COmpteController.montant montant à virer 
+		CompteController.compteCredite  = compte reçevant l'argent -->
 	<!--  j'obtiens les comptes pour les placer dans les listes -->
 
 		<div class="panel panel-info" ng_controller="CompteController as cptCtrl" ng-init="cptCtrl.getComptes();">
@@ -21,7 +21,7 @@
 						<div class="row">
 							<div class="form-group col-md-12">
 								<label class="col-md-2 control-lable" for="file">Compte
-									a debiter</label>
+									à débiter</label>
 								<div class="col-md-7">
 									<select ng-model="virement.compteDebiteur"
 										name="debiter" class="form-control input-sm">
@@ -39,14 +39,14 @@
 						<div class="row">
 							<div class="form-group col-md-12">
 								<label class="col-md-2 control-lable" for="file">Compte
-									a crediter</label>
+									à créditer</label>
 								<div class="col-md-7">
 									<select ng-model="virement.compteCredite"
 										name="crediter" class="form-control input-sm">
 										<option name="liste_comptes" 
 											ng-repeat="Compte in comptes" value="{{Compte.id}}">{{Compte.libelle}}
 											, {{Compte.id}} , {{Compte.solde}}</option>
-										<option name="liste_comptes">Autre</option>
+										<option name="liste_comptes" value="Autre">Autre</option>
 									</select>
 									<div class="has-error" ng-show="formVirement.$dirty">
 										<span ng-show="formConnexion.nom.$error.required">Champ
@@ -55,10 +55,24 @@
 								</div>
 							</div>
 						</div>
+						<div class="row" ng-if="virement.compteCredite == 'Autre'">
+							<div class="form-group col-md-12">
+								<label class="col-md-2 control-lable" for="file">IBAN du compte à créditer</label>
+								<div class="col-md-7">
+									<input type="text" ng-model="virement.compteAutre"
+										name="compteAutre" class="form-control input-sm"
+										placeholder="IBAN du compte à créditer" required />
+									<div class="has-error" ng-show="formVirement.$dirty">
+										<span ng-show="formConnexion.montant.$error.required">Champ
+											obligatoire</span>
+									</div>
+								</div>
+							</div>
+						</div>
 						<div class="row">
 							<div class="form-group col-md-12">
 								<label class="col-md-2 control-lable" for="file">Montant
-									a transferer</label>
+									à transférer</label>
 								<div class="col-md-7">
 									<input type="text" ng-model="virement.montant"
 										name="montant" class="form-control input-sm"

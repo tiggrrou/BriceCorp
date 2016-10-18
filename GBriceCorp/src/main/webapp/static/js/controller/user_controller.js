@@ -413,7 +413,7 @@ function refreshUser(){
     
 
     
-    //* valdation d'edition conseiller 
+    //* validation d'edition conseiller 
     function validEditCons() {
     		console.log('conseiller en cours : ' + self.cons);
             UserService.updateCons(self.cons)
@@ -444,7 +444,7 @@ function refreshUser(){
 	
     
     
-    /* Recuperation de la liste des conseillers  */
+    /* Récupération de la liste des conseillers  */
     function getListeCons(){
          UserService.getListeCons()
              .then(
