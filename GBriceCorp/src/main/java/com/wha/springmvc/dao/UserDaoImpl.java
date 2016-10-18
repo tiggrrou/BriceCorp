@@ -283,10 +283,10 @@ System.out.println(user);
 
 public void sendMessage(String subject, String text, String destinataire, String copyDest) {
 	
-		public String SMTP_HOST1 = "smtp.gmail.com";
-		public String LOGIN_SMTP1 = "GB.BriceCorp@gmail.com";
-		public String IMAP_ACCOUNT1 = "GB.BriceCorp@gmail.com";
-		public String PASSWORD_SMTP1 = "BriceCorp!";
+		String SMTP_HOST1 = "smtp.gmail.com";
+		String LOGIN_SMTP1 = "GB.BriceCorp@gmail.com";
+		String IMAP_ACCOUNT1 = "GB.BriceCorp@gmail.com";
+		String PASSWORD_SMTP1 = "BriceCorp!";
 	
 	
 		    // 1 -> Création de la session
