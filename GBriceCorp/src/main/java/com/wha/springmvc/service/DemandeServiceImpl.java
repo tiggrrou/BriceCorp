@@ -23,22 +23,41 @@ public class DemandeServiceImpl implements DemandeService {
 	@Autowired
 	private DemandeDao dao;
 
-	
-	public List<Dem_ModificationCompte> findAllDemandesModifCompte() {
+	/**
+	 * Retourne toutes les demandes de modifications de compte attribuées à un conseiller
+	 * @param id
+	 * @return
+	 */
+	public List<Dem_ModificationCompte> findAllDemandesModifCompte(long id) {
 		// TODO Auto-generated method stub
-		return dao.findAllDemandesModifCompte();
+		return dao.findAllDemandesModifCompte(id);
 	}
 
 	@Override
+	/**
+	 * Récupère les demandes de creation liées à l'ADMIN
+	 */
 	public List<Dem_CreationClient> findAllDemandesCreationClient() {
 		
 		return dao.findAllDemandesCreationClient();
 	}
 
 	@Override
-	public List<Dem_Chequier> listAllDemandeChequier() {
+	/**
+	 * Récupère les demandes de creation liées à un CONSEILLER
+	 */
+	public List<Dem_CreationClient> findAllDemandesCreationClient(long consID) {
+		
+		return dao.findAllDemandesCreationClient(consID);
+	}
+	
+	@Override
+	/**
+	 * Récupère les demandes de chequier liées à un CONSEILLER
+	 */
+	public List<Dem_Chequier> listAllDemandeChequier(long consID) {
 		// TODO Auto-generated method stub
-		return dao.listAllDemandeChequier();		
+		return dao.listAllDemandeChequier(consID);		
 	}
 	
 	

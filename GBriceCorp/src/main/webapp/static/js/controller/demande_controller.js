@@ -18,9 +18,9 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	 self.modifEtat_Demande=modifEtat_Demande;
 	 self.getDemandesCreationClient = getDemandesCreationClient;
 	    
-	    $scope.menuDemandesCons = [{"id":"creation", "valeur" :"Ouverture compte"},
+	    $scope.menuDemandesCons = [{"id":"inscription", "valeur" :"Ouverture compte"},
 	                               {"id":"chequier", "valeur" :"Chequier"},
-	                               {"id":"modif", "valeur" :"Modification compte"}];
+	                               {"id":"modifcompte", "valeur" :"Modification compte"}];
 	    
 	    $scope.value = $scope.menuDemandesCons[0].id;
  // Fonctions User
@@ -29,7 +29,7 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	 self.demandeCreationClient;
 
 	 function getDemandesCreationClient(){
-		 DemandeService.fetchAllDemandesInscription()
+		 DemandeService.fetchDemandesWithType("inscription", 0)
          .then(
                  function(d) {
                 	 self.demandeCreationClient = d;
@@ -159,57 +159,67 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 
     
     function fetchAllDemandes(value){
-    	$scope.demande_type = "";
-console.log(value)
-self.demandes = '';
-    if(value == "modif"){
-    	DemandeService.fetchAllDemandesModifCompte()
-            .then(
-            function(d) {
-
-            	self.demandes = d;
-            	console.log(d)
-            },
-            function(errResponse){
-                console.error('Error while fetching Demandes');
-            }
-        );
-    }else if (value == "creation"){
-    	DemandeService.fetchAllDemandesInscription(JSON.parse(sessionStorage.getItem("currentUser")).id)
-	        .then(
-	        function(d) {
-
-	        	self.demandes = d;
-	            console.log(d)
-	        },
-	        function(errResponse){
-	            console.error('Error while fetching Demandes');
-	        }
-    );
-    }else if (value == "chequier"){
-    	DemandeService.fetchAllDemandesChequier()
-	        .then(
-	        function(d) {
-
-	        	self.demandes = d;
-	            console.log(d)
-	        },
-	        function(errResponse){
-	            console.error('Error while fetching Demandes');
-	        }
-    );
     	
-    }else if (value == "admin"){
-    	DemandeService.fetchAllDemandesInscription(0)
+    	DemandeService.fetchDemandesWithType(value, JSON.parse(sessionStorage.getItem("currentUser")).id)
         .then(
-        function(d) {
-
-        	self.demandes = d;
-            console.log(d)
-        },
-        function(errResponse){
-            console.error('Error while fetching Demandes');
-        });}    };
+        		function(d) {
+        			self.demandes = d;
+        			console.log(d)
+        		},
+        		function(errResponse){
+        			console.error('Error while fetching Demandes');
+        		}
+        	);
+//    	console.log(value)
+//    	self.demandes = '';
+//    	if(value == "modif")
+//    	{
+//    		DemandeService.fetchAllDemandesModifCompte()
+//            .then(
+//            		function(d) {
+//            			self.demandes = d;
+//            			console.log(d)
+//            		},
+//            		function(errResponse){
+//            			console.error('Error while fetching Demandes');
+//            		}
+//            	);
+//    	}else if (value == "creation")
+//    	{
+//    		DemandeService.fetchAllDemandesInscription(JSON.parse(sessionStorage.getItem("currentUser")).id)
+//	        .then(
+//	        		function(d) {
+//	        			self.demandes = d;
+//	        			console.log(d)
+//	        		},
+//	        		function(errResponse){
+//	        			console.error('Error while fetching Demandes');
+//	        		}
+//	        	);
+//    	}else if (value == "chequier"){
+//    		DemandeService.fetchAllDemandesChequier()
+//	        .then(
+//	        		function(d) {
+//	        			self.demandes = d;
+//	        			console.log(d)
+//	        		},
+//	        		function(errResponse){
+//	        			console.error('Error while fetching Demandes');
+//	        		}
+//	        	);	
+//    	}else if (value == "admin"){
+//    		DemandeService.fetchAllDemandesInscription()
+//    		.then(
+//    				function(d) {
+//    					self.demandes = d;
+//    					console.log(d)
+//    				},
+//    				function(errResponse){
+//    					console.error('Error while fetching Demandes');
+//    				}
+//    			);
+//    		}    
+    };
 
 
   function inscription_Client() {

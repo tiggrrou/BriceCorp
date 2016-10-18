@@ -50,7 +50,7 @@ public class Client extends User  implements Serializable{
 	@OneToMany(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
 	private List<Compte> comptes;
 
-	@OneToMany(cascade={CascadeType.ALL})
+	@OneToMany(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
 	private List<Notification> notifications;
 	
 	//#endregion

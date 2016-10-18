@@ -20,12 +20,32 @@ public interface DemandeDao {
 	
 	public void attribution(long id_demande,long id_conseiller);
 	
-		
-	public List<Dem_ModificationCompte> findAllDemandesModifCompte();
+	/**
+	 * Renvoie toutes les demandes de modification de compte attribuées à un conseiller
+	 * @param id id du conseiller
+	 * @return
+	 */
+	public List<Dem_ModificationCompte> findAllDemandesModifCompte(long id);
 	
+	/**
+	 * Renvoie toutes les demandes de creation pour l'ADMIN
+	 * @return
+	 */
 	public List<Dem_CreationClient> findAllDemandesCreationClient();
 	
-	public List<Dem_Chequier> listAllDemandeChequier();
+	/**
+	 * Renvoie toutes les demandes de creation pour le CONSEILLER
+	 * @param id
+	 * @return
+	 */
+	public List<Dem_CreationClient> findAllDemandesCreationClient(long id);
+	
+	/**
+	 * Renvoie les demandes de chéquier liées à un CONSEILLER
+	 * @param consID
+	 * @return
+	 */
+	public List<Dem_Chequier> listAllDemandeChequier(long consID);
 	
 	public Demande findDemandeById(long id_demande);
 	

@@ -19,12 +19,32 @@ public interface DemandeService {
 	
 
 	
+	/**
+	 * Retourne toutes les demandes de modifications de compte attribuées à un conseiller
+	 * @param id id du conseiller
+	 * @return
+	 */
+	public List<Dem_ModificationCompte> findAllDemandesModifCompte(long id);
 	
-	public List<Dem_ModificationCompte> findAllDemandesModifCompte();
-	
+	/**
+	 * Renvoie les demandes de creation liées à l'ADMIN
+	 * @return
+	 */
 	public List<Dem_CreationClient> findAllDemandesCreationClient();
 	
-	public List<Dem_Chequier> listAllDemandeChequier();
+	/**
+	 * Renvoie les demandes de creation liées à un CONSEILLER
+	 * @param consID
+	 * @return
+	 */
+	public List<Dem_CreationClient> findAllDemandesCreationClient(long consID);
+	
+	/**
+	 * Renvoie la liste de demandes de chéquier attribuées à un CONSEILLER
+	 * @param consID
+	 * @return
+	 */
+	public List<Dem_Chequier> listAllDemandeChequier(long consID);
 	
 	public void attribution(long id_demande,long id_conseiller);
 	
