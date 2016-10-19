@@ -50,4 +50,6 @@ public interface DemandeDao {
 	public Demande findDemandeById(long id_demande);
 	
 	public void suppressionDemande(long id_demande);
+
+	public void reaffectation(long client_id, long conseiller_id);
 }

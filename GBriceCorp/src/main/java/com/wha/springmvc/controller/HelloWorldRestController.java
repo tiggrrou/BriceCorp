@@ -128,7 +128,16 @@ public class HelloWorldRestController {
 			return new ResponseEntity<Void>( HttpStatus.I_AM_A_TEAPOT);
 		}
 	}
+	// -----------------------------------------------réaffectation--------------------------------------------------------
 
+	@RequestMapping(value = "/demande/reaffectation/{client_id}&{conseiller_id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> réaffectation(	@PathVariable("client_id") long client_id,
+												@PathVariable("conseiller_id") long conseiller_id) {
+		    demandeService.reaffectation(client_id, conseiller_id);
+			return new ResponseEntity<Void>( HttpStatus.OK);
+		
+	}
+	
 	// -------------------Retrieve All Demandes de modif compte--------------------------------------------------------
 
 	@RequestMapping(value = "/demande/modifcompte/{conseillerID}", method = RequestMethod.GET)
