@@ -1,6 +1,6 @@
 'use strict';
 
-App.controller('DemandeController', ['$scope', '$location', '$resource', '$route', 'DemandeService', '$routeParams', function($scope, $location, $resource, $route, DemandeService,$routeParams) {
+App.controller('DemandeController', ['$scope', '$location', '$resource', '$route', 'DemandeService', 'UserService', '$routeParams', function($scope, $location, $resource, $route, DemandeService, UserService,$routeParams) {
 	
 
 
@@ -17,6 +17,7 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	 self.uploadFile=uploadFile;
 	 self.modifEtat_Demande=modifEtat_Demande;
 	 self.getDemandesCreationClient = getDemandesCreationClient;
+	 self.getConsById = getConsById;
 	 self.reaffectation = reaffectation;
 	    
 	    $scope.menuDemandesCons = [{"id":"inscription", "valeur" :"Ouverture compte"},
@@ -35,12 +36,28 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	    $scope.demandes=[];
 	 self.demandeCreationClient;
 
+	 	/* Recherche d'un conseiller par son ID */
+		function getConsById(){
+	    	// je récupère un client en fonction de son ID
+			if ($routeParams.consId != null){
+	    	UserService.getConsById($routeParams.consId)
+	    	.then(
+	    			function(d){
+	    				$scope.cons = d;
+	    			},
+	    			function (errResponse){
+	    				console.error('Error while getting a cons from an ID')
+	    			});
+			}
+	    };
+	 
 	 function reaffectation(clientID, newConsID)
 	 {
 		 DemandeService.reaffectation(clientID, newConsID)
 		 .then(
                  function() {
                 	 console.log("ok pour la réaffectation");
+                	 getConsById();
                  },
          function(errResponse){
              console.error('Erreur pendant la réaffectation');
