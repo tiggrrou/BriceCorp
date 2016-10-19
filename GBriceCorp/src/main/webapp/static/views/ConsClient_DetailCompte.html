@@ -24,11 +24,9 @@
 
 	<div class="panel-heading ">
 
-		<span class="lead">Compte de {{demande.prenom}}
-			{{demande.nom}} {{demande.client.prenom}} {{demande.client.nom}} </span> <span
-			class="lead">Demande {{demande.type}}{{demande.client.type}}
-
-		</span>
+		<span class="lead">Compte de {{demande.prenom}} {{demande.nom}}
+			{{demande.client.prenom}} {{demande.client.nom}} </span> <span class="lead">Demande
+			{{demande.type}}{{demande.client.type}} </span>
 	</div>
 	<ul class="list-group">
 		<li class="list-group-item">{{demande.adresse}}
@@ -50,7 +48,7 @@
 	</ul>
 
 </div>
-<div class="panel panel-default">
+<div class="panel panel-default" ng-controller="DemandeController as dmdctrl">
 	<!-- Default panel contents -->
 	<div class="panel-heading">
 		<span class="lead">Documents disponible</span>
@@ -66,7 +64,8 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr	ng-repeat="justificatif in demande.justificatifs | orderBy:tripar ">
+				<tr
+					ng-repeat="justificatif in demande.justificatifs | orderBy:tripar ">
 					<td>{{justificatif.id}}</td>
 					<td>{{justificatif.type}}</td>
 					<td>{{justificatif.date}}</td>
@@ -76,6 +75,42 @@
 				</tr>
 			</tbody>
 		</table>
+	</div>
+
+	<div ng-init="value = ''">
+
+		<select class="form-control" ng-model="value">
+			<option value="" >Ajouter un document</option>
+			<option value="1">Domicile</option>
+			<option value="2">Impot</option>
+			<option value="3">Salaire</option>
+			<option value="4">Autre</option>
+		</select>
+
+		<div class="col-xs-12" ng-show="(value==1)?true:false">
+			<input type="file" id="file" name="file"
+				class="form-control input-sm"
+				onchange="angular.element(this).scope().uploadFile(this.files, 'Domicile')" />
+		</div>
+		
+		<div class="col-xs-12" ng-show="(value==2)?true:false">
+			<input type="file" id="file" name="file"
+				class="form-control input-sm"
+				onchange="angular.element(this).scope().uploadFile(this.files, 'Impot')" />
+		</div>
+
+		<div class="col-xs-12" ng-show="(value==3)?true:false">
+			<input type="file" id="file" name="file"
+				class="form-control input-sm"
+				onchange="angular.element(this).scope().uploadFile(this.files, 'Salaire')" />
+		</div>
+
+		<div class="col-xs-12" ng-show="(value==4)?true:false">
+			<input type="file" id="file" name="file"
+				class="form-control input-sm"
+				onchange="angular.element(this).scope().uploadFile(this.files, 'Autre')" />
+		</div>
+
 	</div>
 </div>
 

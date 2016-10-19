@@ -219,8 +219,31 @@ $scope.uploadFile = function(files, typeJustificatif) {
     var fd = new FormData();
     //Take the first selected file
     fd.append("file", files[0]);
+    
 
-    DemandeService.savefile(fd,   $routeParams.idDemande,$routeParams.nom, $routeParams.prenom, typeJustificatif)
+    if($scope.client!=null){
+
+    	var id = $scope.client.id
+    	var nom = $scope.client.nom
+    	var prenom = $scope.client.prenom
+    	var clientOuDemande = 'client'
+    }else{
+    if($scope.demande.client!=null){
+
+    	var id = $scope.demande.client.id
+    	var nom = $scope.demande.client.nom
+    	var prenom = $scope.demande.client.prenom
+    	var clientOuDemande = 'client'
+    }else{
+
+    	var id = $scope.demande.id
+    	var nom = $scope.demande.nom
+    	var prenom = $scope.demande.prenom
+    	var clientOuDemande = 'demande'
+    }
+    }
+    
+    DemandeService.savefile(fd, id,nom, prenom, typeJustificatif, clientOuDemande)
     .then(
     	function(d) {
     		if (typeJustificatif == "Domicile"){

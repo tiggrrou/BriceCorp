@@ -25,8 +25,8 @@ public class JustificatifServiceImpl implements JustificatifService {
 	}
 
 	@Override
-	public void saveJustificatif(long demande_id, Justificatif justificatif){
-		dao.saveJustificatif(demande_id, justificatif);
+	public void saveJustificatif(long id, Justificatif justificatif,String clientOuDemande){
+		dao.saveJustificatif(id, justificatif, clientOuDemande);
 
 	}
 
