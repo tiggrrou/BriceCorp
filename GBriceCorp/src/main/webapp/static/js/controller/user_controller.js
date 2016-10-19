@@ -394,7 +394,7 @@ function refreshUser(){
     	UserService.getConsById($routeParams.consId)
     	.then(
     			function(d){
-    				self.cons = d;
+    				$scope.cons = d;
     			},
     			function (errResponse){
     				console.error('Error while getting a cons from an ID')

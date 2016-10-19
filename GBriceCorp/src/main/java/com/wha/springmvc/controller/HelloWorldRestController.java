@@ -349,13 +349,7 @@ public class HelloWorldRestController {
 	public ResponseEntity<Void> creaCons3(@RequestBody Conseiller conseiller) {
 		System.out.println("Creating a conseiller " + conseiller);
 
-		/*
-		 * if (userService.isUserExist(user)) { System.out.println(
-		 * "A User with name " + user.getNom() + " already exist"); return new
-		 * ResponseEntity<Void>(HttpStatus.CONFLICT); }
-		 */
-
-		// userService.createConseiller(conseiller);
+		userService.addConseillerToAdmin(conseiller);
 
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
