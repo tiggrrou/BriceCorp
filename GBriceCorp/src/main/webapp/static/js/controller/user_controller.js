@@ -60,28 +60,22 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
     $scope.$route = $route;   
     self.change_langue = change_langue;
 
-    //Initialisation de la langue par defaut a francais
-    var language = sessionStorage.getItem("langue");
-    if(language == null)
-    {	
-	sessionStorage.setItem("langue","fr");
-    }
-    
-    //Choix du drapeau cache en fonction de la langue en session
-    if(language == "fr"){
-    	$scope.lang_cache=true;
-    }else{
-    	$scope.lang_cache=false;	
-    }
-    //chargement du fichier de traduction dans le $scope grace au service dedie
-    translationService.getTranslation($scope, language); 	
-
     //fonction de changement de la langue par le ngclick sur le drapeau
-    function change_langue(pays){
-    	$scope.lang_cache=!$scope.lang_cache;
-		sessionStorage.setItem("langue",pays);
-    	location.reload();
+    function change_langue(){
+    	if(!sessionStorage.getItem("langue")){
+    		sessionStorage.setItem("langue","fr");    		
+    	}else if(sessionStorage.getItem("langue") == "fr"){
+        	$scope.lang_cache=true;
+        	sessionStorage.setItem("langue","en");
+        }else{
+        	$scope.lang_cache=false;
+        	sessionStorage.setItem("langue","fr");
+        }
+        //chargement du fichier de traduction dans le $scope grace au service dedie
+        translationService.getTranslation($scope, sessionStorage.getItem("langue")); 
 	    };
+
+	    
 	    
 	    
     // Fonctions vues

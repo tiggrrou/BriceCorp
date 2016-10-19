@@ -66,40 +66,40 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-<!-- https://mvnrepository.com/artifact/org.webjars.bower/angular -->
-<dependency>
-    <groupId>org.webjars.bower</groupId>
-    <artifactId>angular</artifactId>
-    <version>1.5.8</version>
-</dependency>
-
-
-<!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-animate -->
-<dependency>
-    <groupId>org.webjars.bower</groupId>
-    <artifactId>angular-animate</artifactId>
-    <version>1.5.8</version>
-</dependency>
-
+		<!-- https://mvnrepository.com/artifact/org.webjars.bower/angular -->
+		<dependency>
+		    <groupId>org.webjars.bower</groupId>
+		    <artifactId>angular</artifactId>
+		    <version>1.5.8</version>
+		</dependency>
+		
+		
+		<!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-animate -->
+		<dependency>
+		    <groupId>org.webjars.bower</groupId>
+		    <artifactId>angular-animate</artifactId>
+		    <version>1.5.8</version>
+		</dependency>
+		
 		<!-- https://mvnrepository.com/artifact/com.asayama.gwt.angular/gwt-angular-ngRoute -->
 		<dependency>
 			<groupId>com.asayama.gwt.angular</groupId>
 			<artifactId>gwt-angular-ngRoute</artifactId>
 			<version>0.1.2</version>
 		</dependency>
-<!-- https://mvnrepository.com/artifact/org.webjars/bootstrap -->
-<dependency>
-    <groupId>org.webjars</groupId>
-    <artifactId>bootstrap</artifactId>
-    <version>3.3.5</version>
-</dependency>
-
-<!-- Api mail -->
- <dependency>
- <groupId>javax.mail</groupId>
- <artifactId>mail</artifactId>
- <version>1.4.3</version>
- </dependency>
+		<!-- https://mvnrepository.com/artifact/org.webjars/bootstrap -->
+		<dependency>
+		    <groupId>org.webjars</groupId>
+		    <artifactId>bootstrap</artifactId>
+		    <version>3.3.5</version>
+		</dependency>
+		
+		<!-- Api mail -->
+		 <dependency>
+		 <groupId>javax.mail</groupId>
+		 <artifactId>mail</artifactId>
+		 <version>1.4.3</version>
+		 </dependency>
 
 		<!-- Ajout des dependence apache common pour la gestion des upload -->
 		<dependency>

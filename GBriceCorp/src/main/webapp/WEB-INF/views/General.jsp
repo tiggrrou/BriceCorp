@@ -44,7 +44,8 @@
 </head>
 
 <body ng-app="myApp" class="ng-cloak "
-	ng-controller="UserController as ctrl">
+	ng-controller="UserController as ctrl"
+	ng-init="ctrl.change_langue()">
 
 
 
@@ -264,9 +265,9 @@
 		<div class="langue_connect col-xs-2">
 			<div>
 				<img class="langue center-block" src="static/imgs/en.png"
-					ng-hide="{{lang_cache}}" ng-click="ctrl.change_langue('fr')" /> <img
-					class="langue center-block" src="static/imgs/fr.png"
-					ng-hide="!{{lang_cache}}" ng-click="ctrl.change_langue('en')" />
+					ng-hide="{{lang_cache}}" ng-click="ctrl.change_langue()" />
+				<img class="langue center-block" src="static/imgs/fr.png"
+					ng-show="{{lang_cache}}" ng-click="ctrl.change_langue()" />
 			</div>
 			<div>
 				<input type="button" class="btn btn-danger center-block"
