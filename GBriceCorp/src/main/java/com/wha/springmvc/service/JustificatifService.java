@@ -9,7 +9,7 @@ public interface JustificatifService {
 	
 	public List<Justificatif> findByClientId(long clientId);
 	
-	public void saveJustificatif(long demande_id, Justificatif justificatif);
+	public void saveJustificatif(long id, Justificatif justificatif,String clientOuDemande);
 	
 	public void deleteJustificatifById(long id);
 	
