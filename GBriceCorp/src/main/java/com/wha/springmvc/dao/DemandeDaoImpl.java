@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.wha.springmvc.model.Administrateur;
+import com.wha.springmvc.model.Client;
 import com.wha.springmvc.model.Conseiller;
 import com.wha.springmvc.model.Dem_Chequier;
 import com.wha.springmvc.model.Dem_CreationClient;
@@ -184,6 +185,15 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 		Demande demande2 = findDemandeById(demande_id);
 		demande2.setEtat(nouvelEtat);
 		
+	}
+
+	@Override
+	public void reaffectation(long client_id, long conseiller_id) {
+		Conseiller consNew = (Conseiller) getEntityManager().createQuery("SELECT c FROM Conseiller c WHERE c.id = :id")
+				.setParameter("id", conseiller_id).getSingleResult();
+		Client cli = (Client)getEntityManager().createQuery("SELECT c FROM Client c WHERE c.id = :id")
+				.setParameter("id", client_id).getSingleResult();
+		cli.setConseiller(consNew);
 	}
 
 

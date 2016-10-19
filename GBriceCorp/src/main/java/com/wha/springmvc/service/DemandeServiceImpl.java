@@ -104,6 +104,12 @@ dao.addDemandeModificationCompteToCons(id_conseiller, demandeModificationCompte)
 dao.modifEtat_Demande(demande_id, nouvelEtat);
 	}
 
+	@Override
+	public void reaffectation(long client_id, long conseiller_id) {
+		dao.reaffectation(client_id, conseiller_id);
+		
+	}
+
 
 
 	

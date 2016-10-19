@@ -24,15 +24,15 @@ import com.wha.springmvc.model.Justificatif;
 import com.wha.springmvc.model.TypeJustificatif;
 import com.wha.springmvc.service.JustificatifService;
 import com.wha.springmvc.util.FileValidator;
+
 @RestController
 public class FileUploadController {
-	
+
 	private static String UPLOAD_LOCATION = "C:/justificatifs/";
 
 	@Autowired
 	JustificatifService justificatifService;
-									
-	
+
 	@Autowired
 	FileValidator fileValidator;
 
@@ -41,10 +41,10 @@ public class FileUploadController {
 		binder.setValidator(fileValidator);
 	}
 
-//	@RequestMapping(value = { "/", "/welcome" }, method = RequestMethod.GET)
-//	public String getHomePage(ModelMap model) {
-//		return "General";
-//	}
+	// @RequestMapping(value = { "/", "/welcome" }, method = RequestMethod.GET)
+	// public String getHomePage(ModelMap model) {
+	// return "General";
+	// }
 
 	@RequestMapping(value = "/singleUpload", method = RequestMethod.GET)
 	public String getSingleUploadPage(ModelMap model) {
@@ -54,45 +54,49 @@ public class FileUploadController {
 		return "GET Impossible";
 	}
 
-	@RequestMapping(value = "/demande/fileupload/{demande_id}&{nom}&{prenom}&{typeJustificatif}", method = RequestMethod.POST)
-	public ResponseEntity<Void> singleFileUpload(@Valid FileModel fileModel, BindingResult result, ModelMap model, @PathVariable("demande_id") long demande_id,@PathVariable("nom") String nom, @PathVariable("prenom") String prenom, @PathVariable("typeJustificatif") TypeJustificatif typeJustificatif)
-			throws IOException {
+	@RequestMapping(value = "/demande/fileupload/{id}&{nom}&{prenom}&{typeJustificatif}&{clientOuDemande}", method = RequestMethod.POST)
+	public ResponseEntity<Void> singleFileUpload(@Valid FileModel fileModel, BindingResult result, ModelMap model,
+			@PathVariable("id") long id, @PathVariable("nom") String nom, @PathVariable("prenom") String prenom,
+			@PathVariable("typeJustificatif") TypeJustificatif typeJustificatif,
+			@PathVariable("clientOuDemande") String clientOuDemande) throws IOException {
 
 		if (result.hasErrors()) {
 			System.out.println("validation errors");
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		} else {
 			System.out.println("Fetching file");
+			String repertoire;
+			if (clientOuDemande == "demande") {
+				repertoire = UPLOAD_LOCATION + "demandes/" + id + "/";
+			} else {
+				repertoire = UPLOAD_LOCATION + id + "/";
+			}
 
+			String nomfichier = id + "_" + nom + "_" + prenom + "_" + typeJustificatif + "."
+					+ fileModel.getFile().getOriginalFilename().split("\\.")[1];
 
-			String repertoire = UPLOAD_LOCATION + "demandes/" + demande_id + "/";
-			String nomfichier = demande_id+ "_" + nom + "_" + prenom + "_" + typeJustificatif + "." + fileModel.getFile().getOriginalFilename().split("\\.")[1];
-			
-			 File drirectory = new File(repertoire);
-		        if (!drirectory.exists()) {
-		            if (drirectory.mkdir()) {
-		                System.out.println("Directory is created!");
-		            } else {
-		                System.out.println("Failed to create directory!");
-		            }
-		        }
-			
+			File drirectory = new File(repertoire);
+			if (!drirectory.exists()) {
+				if (drirectory.mkdir()) {
+					System.out.println("Directory is created!");
+				} else {
+					System.out.println("Failed to create directory!");
+				}
+			}
+
 			// Now do something with file...
-			FileCopyUtils.copy(fileModel.getFile().getBytes(),
-					new File(repertoire+nomfichier));
-//			MultipartFile multipartFile = fileModel.getFile();
-//			String fileName = multipartFile.getOriginalFilename();
-//			model.addAttribute("fileName", fileName);
+			FileCopyUtils.copy(fileModel.getFile().getBytes(), new File(repertoire + nomfichier));
+			// MultipartFile multipartFile = fileModel.getFile();
+			// String fileName = multipartFile.getOriginalFilename();
+			// model.addAttribute("fileName", fileName);
 
-			
 			Justificatif justificatif = new Justificatif();
 			justificatif.setType(typeJustificatif);
-			justificatif.setUrl(repertoire+nomfichier);
-			justificatifService.saveJustificatif(demande_id, justificatif);
-			
+			justificatif.setUrl(repertoire + nomfichier);
+			justificatifService.saveJustificatif(id, justificatif, clientOuDemande);
+
 			return new ResponseEntity<Void>(HttpStatus.OK);
 		}
 	}
-
 
 }

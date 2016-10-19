@@ -94,12 +94,12 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 	}
 
 	@Override
-	public void createClient(long idConseiller, Dem_CreationClient demande_inscription){
+	public Client createClient(long idConseiller, Dem_CreationClient demande_inscription){
 		NbUser++;
 		Client client = new Client();
 		client.setTypeUser(TypeUtilisateur.Client.getType());
-		client.setIdentifiant(demande_inscription.getNom()+"#"+ NbUser);
-		client.setMotDePasse("1234");
+		client.setIdentifiant("c"+ NbUser);
+		client.setMotDePasse("c");
 		client.setNom(demande_inscription.getNom());
 		client.setPrenom(demande_inscription.getPrenom());		
 		client.setAdresse(demande_inscription.getAdresse());
@@ -110,19 +110,10 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		
 		
 		client.setJustificatifs(demande_inscription.getJustificatifs());
-//retrait temporaire jusqu'au traitement du pb de port, je pense que dans le RestController ce serai mieux après l'évaluation de la creation du client
-///**
-//* Envoi du mail confirmant au client la création de son compte
-//*/
-//		String text ="Bienvenue chez GestBank filiale du groupe BriceCorp! /n"
-//				+ " Nous sommes heureux de vous annoncer que votre compte a été créer et est a présent parfaitement fonctionnel. /n"
-//				+ " Vous pouvez vous connectez à votre espace client grâce à votre login et votre mot de passe: /n"
-//				+ " Votre Login : " + client.getIdentifiant()
-//				+ " Votre Mot de Passe : " + client.getMotDePasse()
-//				+ " En espérant que vous trouviez entière satisfaction chez nous. Nous vous souhaitons une agréable journée. /n"
-//				+ " La BriceCorp Team /n";
-//		sendMessage("Bienvenue chez GestBank!", text, client.getMail(), "GB.bricecorp@gmail.com");
-//		
+		
+
+
+		
 	
 /**
  * Ajout du compte courant "de base"
@@ -162,7 +153,7 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		    
 		    
    	  	System.out.println(conseiller);
-  	 
+   	  	return client;
 	}
 
 	@Override
@@ -292,6 +283,7 @@ public void sendMessage(String subject, String text, String destinataire, String
 		    // 1 -> Création de la session
 		    Properties properties = new Properties();
 		    properties.setProperty("mail.transport.protocol", "smtp");
+		    properties.setProperty("mail.smtp.ssl.enable", "true");
 		    properties.setProperty("mail.smtp.host", SMTP_HOST1);
 		    properties.setProperty("mail.smtp.user", LOGIN_SMTP1);
 		    properties.setProperty("mail.from", IMAP_ACCOUNT1);
@@ -301,6 +293,7 @@ public void sendMessage(String subject, String text, String destinataire, String
 		    MimeMessage message = new MimeMessage(session);
 		    try {
 		        message.setText(text);
+		        message.setContent(text, "text/html");
 		        message.setSubject(subject);
 		        message.addRecipients(Message.RecipientType.TO, destinataire);
 		        message.addRecipients(Message.RecipientType.CC, copyDest);

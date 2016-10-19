@@ -19,7 +19,7 @@ public interface UserDao {
 	
 	
 	
-	public void createClient(long idConseiller, Dem_CreationClient demande_inscription);
+	public Client createClient(long idConseiller, Dem_CreationClient demande_inscription);
 	
 	public void deleteClient(long idClient);
 

@@ -54,11 +54,13 @@ public interface UserService {
 	
 	public void createAdmin(Administrateur admin);
 	
-	public void createClient(long idConseiller, Dem_CreationClient demande_inscription);
+	public Client createClient(long idConseiller, Dem_CreationClient demande_inscription);
 
 	
 
 	public void addcompte(Compte compte, long client_id);
+	
+	public void sendMessage(String subject, String text, String destinataire, String copyDest);
 
 	
 }

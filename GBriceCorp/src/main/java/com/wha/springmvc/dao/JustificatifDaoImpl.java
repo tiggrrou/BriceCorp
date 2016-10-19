@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.wha.springmvc.model.Client;
 import com.wha.springmvc.model.Dem_CreationClient;
 import com.wha.springmvc.model.Justificatif;
 
@@ -17,16 +18,34 @@ public class JustificatifDaoImpl extends AbstractDao<Integer, Justificatif> impl
 	}
 
 	@Override
-	public void saveJustificatif(long demande_id, Justificatif justificatif) {
+	public void saveJustificatif(long id, Justificatif justificatif,String clientOuDemande){
 		persist(justificatif);
+			
+		String clientOuDemande_demande = "demande";
+		String clientOuDemande_client = "client";
+		
+		
+		if(clientOuDemande == clientOuDemande_demande){
+			Dem_CreationClient demandecreation = (Dem_CreationClient) getEntityManager()
+					.createQuery("SELECT d FROM Dem_CreationClient d WHERE d.id = :id").setParameter("id", id)
+					.getSingleResult();
+			
+			List<Justificatif> listJustificatifs = demandecreation.getJustificatifs();
+			listJustificatifs.add(justificatif);
+			demandecreation.setJustificatifs(listJustificatifs);
+		}else if(clientOuDemande == clientOuDemande_client){
 
-		Dem_CreationClient demandecreation = (Dem_CreationClient) getEntityManager()
-				.createQuery("SELECT d FROM Dem_CreationClient d WHERE d.id = :id").setParameter("id", demande_id)
-				.getSingleResult();
+			Client client = (Client) getEntityManager()
+					.createQuery("SELECT c FROM Client c WHERE c.id = :id").setParameter("id", id)
+					.getSingleResult();
+			
+			List<Justificatif> listJustificatifs = client.getJustificatifs();
+			listJustificatifs.add(justificatif);
+			client.setJustificatifs(listJustificatifs);
+			
+		}
 
-		List<Justificatif> listJustificatifs = demandecreation.getJustificatifs();
-		listJustificatifs.add(justificatif);
-		demandecreation.setJustificatifs(listJustificatifs);
+
 	}
 
 	@Override

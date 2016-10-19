@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -42,11 +43,11 @@ public class Conseiller extends User implements Serializable{
 	@Temporal(TemporalType.DATE)
 	private Date finContrat;
 	
-	@OneToMany(mappedBy="conseiller")
+	@OneToMany(mappedBy="conseiller", fetch=FetchType.EAGER)
 //	 @JsonSerialize(using = CustomListSerializer.class)
 	private List<Client> clients;
 	
-	@OneToMany(cascade={CascadeType.ALL})
+	@OneToMany(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
 	private List<Demande> demandes;
 	//#endregion
 
