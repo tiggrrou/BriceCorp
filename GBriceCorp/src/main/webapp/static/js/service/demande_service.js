@@ -13,15 +13,32 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
         validation_CreationCompteClient:validation_CreationCompteClient,
         demandeNouveauCompte:demandeNouveauCompte,
         modifEtat_Demande:modifEtat_Demande,
-        savefile:savefile
+        savefile:savefile,
+        ListeJustificatifsByIdDemandeOuClient:ListeJustificatifsByIdDemandeOuClient
     };
     return factory;
- 
-    function savefile(fd, idDemande, nom, prenom, typeJustificatif, clientOuDemande){  
+
+    function ListeJustificatifsByIdDemandeOuClient(id, clientOuDemande){
+    	console.log(id+"&"+clientOuDemande)
+    	var deferred = $q.defer();
+        $http.get(REST_SERVICE_URI+'justificatif/' + id+"&"+clientOuDemande)
+            .then(
+            function (response) {
+                deferred.resolve(response.data);
+            },
+            function(errResponse){
+                console.error('Error while fetching Demandes of type ' + type );
+                deferred.reject(errResponse);
+            }
+        );
+        return deferred.promise;
     	
+    }
+    
+    function savefile(fd, id, nom, prenom, typeJustificatif, clientOuDemande){  
     	 var deferred = $q.defer();
 
-    $http.post("demande/fileupload/"+idDemande+"&"+nom+"&"+prenom+"&"+typeJustificatif+"&"+clientOuDemande, fd, {
+    $http.post("demande/fileupload/"+id+"&"+nom+"&"+prenom+"&"+typeJustificatif+"&"+clientOuDemande, fd, {
         withCredentials: true,
         headers: {'Content-Type': undefined },
         transformRequest: angular.identity})
@@ -153,7 +170,7 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
     } 
     
     function findDemandeById(idDemande) {
-    	console.log(idDemande)
+
     	var deferred = $q.defer();
     	$http.get(REST_SERVICE_URI+idDemande)
     		.then(

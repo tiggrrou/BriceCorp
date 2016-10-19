@@ -17,6 +17,8 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	 self.uploadFile=uploadFile;
 	 self.modifEtat_Demande=modifEtat_Demande;
 	 self.getDemandesCreationClient = getDemandesCreationClient;
+	 self.ListeJustificatifsByIdDemandeOuClient=ListeJustificatifsByIdDemandeOuClient;
+	 self.findDemandeById=findDemandeById;
 	    
 	    $scope.menuDemandesCons = [{"id":"inscription", "valeur" :"Ouverture compte"},
 	                               {"id":"chequier", "valeur" :"Chequier"},
@@ -33,6 +35,9 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	    $scope.demandes=[];
 	 self.demandeCreationClient;
 
+
+	 
+	 
 	 function getDemandesCreationClient(){
 		 DemandeService.fetchDemandesWithType("inscription", 0)
          .then(
@@ -90,12 +95,14 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 
 
  	  
- 	 if($routeParams.demande_id != null){	
- 	 	
+ 	 if($routeParams.demande_id != null &&  JSON.parse(sessionStorage.getItem("currentUser")) != null ){	
+ 	 	console.log($routeParams.demande_id)
  			for (var i = 0; i < JSON.parse(sessionStorage.getItem("currentUser")).demandes.length ; i++) {
+ 				 console.log("couc"+JSON.parse(sessionStorage.getItem("currentUser")).demandes[i].id)
  			   if(JSON.parse(sessionStorage.getItem("currentUser")).demandes[i].id == $routeParams.demande_id ){
- 				  $scope.demande =  JSON.parse(sessionStorage.getItem("currentUser")).demandes[i]; 
- 				  console.log($scope.demande)
+ 				 
+ 				  $scope.demandes =  [JSON.parse(sessionStorage.getItem("currentUser")).demandes[i]]; 
+
  				  $scope.comptes = [JSON.parse(sessionStorage.getItem("currentUser")).demandes[i].compte];
  			   }
  			}
@@ -249,28 +256,29 @@ $scope.uploadFile = function(files, typeJustificatif) {
     fd.append("file", files[0]);
     
 
-    if($scope.client!=null){
-
-    	var id = $scope.client.id
-    	var nom = $scope.client.nom
-    	var prenom = $scope.client.prenom
-    	var clientOuDemande = 'client'
+    if(JSON.parse(sessionStorage.getItem("currentUser"))!=null){
+console.log("client")
+    	var id = JSON.parse(sessionStorage.getItem("currentUser")).id
+    	var nom = JSON.parse(sessionStorage.getItem("currentUser")).nom
+    	var prenom = JSON.parse(sessionStorage.getItem("currentUser")).prenom
+    	var clientOuDemande = 1
     }else{
     if($scope.demande.client!=null){
-
+    	console.log("demande")
     	var id = $scope.demande.client.id
     	var nom = $scope.demande.client.nom
     	var prenom = $scope.demande.client.prenom
-    	var clientOuDemande = 'client'
+    	var clientOuDemande = 1
     }else{
+    	console.log("creation")
+    	var id =  $routeParams.demande_id
+    	var nom = $routeParams.nom
+    	var prenom = $routeParams.prenom
+    	var clientOuDemande = 0
 
-    	var id = $scope.demande.id
-    	var nom = $scope.demande.nom
-    	var prenom = $scope.demande.prenom
-    	var clientOuDemande = 'demande'
     }
     }
-    
+    console.log("info "+id + nom + prenom + clientOuDemande)
     DemandeService.savefile(fd, id,nom, prenom, typeJustificatif, clientOuDemande)
     .then(
     	function(d) {
@@ -279,19 +287,46 @@ $scope.uploadFile = function(files, typeJustificatif) {
     		}else if (typeJustificatif == "Impot"){
     			$scope.Impot = true
     		}
-    		if ($scope.Domicile == true && $scope.Impot == true){
-    			$location.path("/");
-    		}
+    		   ListeJustificatifsByIdDemandeOuClient(id, clientOuDemande);
     	},
     function(errResponse){
         console.error('Error while uploading file');
     }
+		
 );
 
+ 
+};
+
+function ListeJustificatifsByIdDemandeOuClient(id, clientOuDemande) {
+    DemandeService.ListeJustificatifsByIdDemandeOuClient(id, clientOuDemande)
+    .then(
+    		function(d) {
+    			console.log(d)
+    			$scope.justificatifs = d
+    		},
+    function(errResponse){
+        console.error('Error while fetching justificatifs');
+    }
+);
 
 };
 
 
+
+function findDemandeById(id) {
+    DemandeService.findDemandeById(id)
+    .then(
+    		function(d) {
+    			console.log(d)
+    			$scope.demande = d
+    		},
+    function(errResponse){
+        console.error('Error while fetching justificatifs');
+    }
+);
+
+};
 
 function writeDemDecou() {
 	DemandeService.writeDemDecou(JSON.parse(sessionStorage.getItem("User").id), compte.id, decouvert)

@@ -2,6 +2,8 @@ package com.wha.springmvc.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.wha.springmvc.model.Demande;
 import com.wha.springmvc.model.FileModel;
 import com.wha.springmvc.model.Justificatif;
 import com.wha.springmvc.model.TypeJustificatif;
@@ -58,18 +61,18 @@ public class FileUploadController {
 	public ResponseEntity<Void> singleFileUpload(@Valid FileModel fileModel, BindingResult result, ModelMap model,
 			@PathVariable("id") long id, @PathVariable("nom") String nom, @PathVariable("prenom") String prenom,
 			@PathVariable("typeJustificatif") TypeJustificatif typeJustificatif,
-			@PathVariable("clientOuDemande") String clientOuDemande) throws IOException {
+			@PathVariable("clientOuDemande") int clientOuDemande) throws IOException {
 
 		if (result.hasErrors()) {
 			System.out.println("validation errors");
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		} else {
 			System.out.println("Fetching file");
-			String repertoire;
-			if (clientOuDemande == "demande") {
+			String repertoire = UPLOAD_LOCATION;
+			if (clientOuDemande == 0) {
 				repertoire = UPLOAD_LOCATION + "demandes/" + id + "/";
-			} else {
-				repertoire = UPLOAD_LOCATION + id + "/";
+			} else if (clientOuDemande == 1){
+				repertoire = UPLOAD_LOCATION+ "clients/" + id + "/";
 			}
 
 			String nomfichier = id + "_" + nom + "_" + prenom + "_" + typeJustificatif + "."
@@ -98,5 +101,27 @@ public class FileUploadController {
 			return new ResponseEntity<Void>(HttpStatus.OK);
 		}
 	}
+	// -------------------Retrieve justificatifs by Id de la demande ou du client--------------------------------------------------------
 
+	@RequestMapping(value = "/demande/justificatif/{id}&{clientOuDemande}", method = RequestMethod.GET)
+	public ResponseEntity<List<Justificatif>> justificatifsById(@PathVariable("id") long id,
+			@PathVariable("clientOuDemande") int clientOuDemande) {
+		System.out.println("fetch justificatifs " + id);
+		
+		try {
+			List<Justificatif> justificatifs = justificatifService.findById(id, clientOuDemande);
+
+			return new ResponseEntity<List<Justificatif>>(justificatifs, HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new ResponseEntity<List<Justificatif>>(HttpStatus.NO_CONTENT);
+		}		
+				
+
+	
+
+		
+	
+	}
 }
