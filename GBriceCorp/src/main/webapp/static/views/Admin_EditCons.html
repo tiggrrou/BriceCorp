@@ -1,5 +1,6 @@
 <!-- Formulaire d'edition d'un conseiller -->
-<div class="panel panel-info" ng-init= ctrl.getConsById()>
+<meta charset="utf-8">
+<div class="panel panel-info"  ng-init= ctrl.getConsById() >
 
 	<!-- Default panel contents -->
 	<div class="panel-heading">
@@ -95,10 +96,10 @@
 		</div>
 	</div>
 </div>
-<div class="panel panel-default">
+<div class="panel panel-default" ng-controller="DemandeController as dmdctrl">
 	<!-- Default panel contents -->
 	<div class="panel-heading">
-		<span class="lead">Liste des utilisateurs </span>
+		<span class="lead">Liste des clients </span>
 	</div>
 	<div class="tablecontainer">
 		<table class="table table-hover">
@@ -108,26 +109,28 @@
 					<th>Prenom</th>
 					<th>Nom</th>
 					<th>Adresse</th>
-					<th>Codepostal</th>
 					<th>Email</th>
+					<th>Réaffectation</th>
 					<th width="20%"></th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="c in ctrl.UsersCons">
+				<tr ng-repeat="c in ctrl.cons.clients">
 					<td><span ng-bind="c.id"></span></td>
 					<td><span ng-bind="c.prenom"></span></td>
 					<td><span ng-bind="c.nom"></span></td>
 					<td><span ng-bind="c.adresse"></span></td>
-					<td><span ng-bind="c.codepostal"></span></td>
 					<td><span ng-bind="c.mail"></span></td>
-					<td><span ng-bind="c.dateDebContrat"></span></td>
-					<td><span ng-bind="c.dateFinContrat"></span></td>
 					<td>
-						<button type="button" ng-click="ctrl.edit(u.id)"
-							class="btn btn-success custom-width">Modifier</button>
-						<button type="button" ng-click="ctrl.remove(u.id)"
-							class="btn btn-danger custom-width">Supprimer</button>
+						<form name="formValidation" class="form-horizontal">
+										<select class="form-control"
+											ng-change="dmdctrl.reaffectation(c.id, chosenConsID)" 
+											ng-model="chosenConsID">
+											<option value="">Select</option>
+											<option ng-repeat="Conseiller in ctrl.currentUser.conseillers" 
+												value="{{Conseiller.id}}">{{Conseiller.nom}}</option>
+										</select>
+						</form>
 					</td>
 				</tr>
 			</tbody>

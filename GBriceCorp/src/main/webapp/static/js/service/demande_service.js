@@ -14,6 +14,7 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
         demandeNouveauCompte:demandeNouveauCompte,
         modifEtat_Demande:modifEtat_Demande,
         savefile:savefile,
+        reaffectation:reaffectation,
         ListeJustificatifsByIdDemandeOuClient:ListeJustificatifsByIdDemandeOuClient
     };
     return factory;
@@ -55,6 +56,22 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
     
     	
     }  
+    
+    function reaffectation(clientID, newConsID)
+    {
+    	var deferred = $q.defer();
+        $http.put(REST_SERVICE_URI+'reaffectation/' + clientID + "&" + newConsID)
+            .then(
+            function (response) {
+                deferred.resolve();
+            },
+            function(errResponse){
+                console.error('Error while reaffectation');
+                deferred.reject(errResponse);
+            }
+        );
+        return deferred.promise;
+    }
     
   function demandeNouveauCompte(demande_NouveauCompte, idClient){
     	 var deferred = $q.defer();

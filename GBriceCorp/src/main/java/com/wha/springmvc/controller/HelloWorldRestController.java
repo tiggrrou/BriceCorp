@@ -86,8 +86,25 @@ public class HelloWorldRestController {
 		System.out.println("validation de la demande d'isncription " + demande_inscription.getID());
 
 		 try {
-			userService.createClient(id_conseiller,demande_inscription);
-			 demandeService.suppressionDemande(demande_inscription.getID());
+			Client client = userService.createClient(id_conseiller,demande_inscription);
+			
+			StringBuffer text = new StringBuffer("Bienvenue chez GestBank, filiale du groupe BriceCorp! </br>");			
+			text.append(" Nous sommes heureux de vous annoncer que votre compte a été créé et qu'il est à présent parfaitement fonctionnel. </br> ");			
+			text.append(" Vous pouvez désormais vous connecter à votre espace client grâce à votre login et votre mot de passe: </br>");			
+			text.append(" Votre Login        : <B>" + client.getIdentifiant() +" </B> </br>");
+			text.append(" Votre Mot de Passe : <B>" + client.getMotDePasse() +"  </B> </br>");
+			text.append(" En espérant que vous trouviez entière satisfaction chez nous. Nous vous souhaitons une agréable journée. </br>");
+			text.append(" La BriceCorp Team ");
+			
+			userService.sendMessage("Bienvenue chez GestBank!", text.toString(), demande_inscription.getMail(), "GB.bricecorp@gmail.com");
+			demandeService.suppressionDemande(demande_inscription.getID());
+			 
+			///**
+			//* Envoi du mail confirmant au client la création de son compte/
+					
+					
+					
+					
 
 			return new ResponseEntity<Void>(HttpStatus.CREATED);
 		} catch (Exception e) {
@@ -132,7 +149,16 @@ public class HelloWorldRestController {
 			return new ResponseEntity<Void>( HttpStatus.I_AM_A_TEAPOT);
 		}
 	}
+	// -----------------------------------------------réaffectation--------------------------------------------------------
 
+	@RequestMapping(value = "/demande/reaffectation/{client_id}&{conseiller_id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> réaffectation(	@PathVariable("client_id") long client_id,
+												@PathVariable("conseiller_id") long conseiller_id) {
+		    demandeService.reaffectation(client_id, conseiller_id);
+			return new ResponseEntity<Void>( HttpStatus.OK);
+		
+	}
+	
 	// -------------------Retrieve All Demandes de modif compte--------------------------------------------------------
 
 	@RequestMapping(value = "/demande/modifcompte/{conseillerID}", method = RequestMethod.GET)
@@ -375,7 +401,7 @@ public class HelloWorldRestController {
 		admin.setTypeUser(TypeUtilisateur.Administrateur.getType());
 		admin.setNom("NomAdmin");
 		admin.setPrenom("PrenomAdmin");
-		admin.setMail("mailadmin@bidul");
+		admin.setMail("nquatuor@gmail.com");
 		admin.setAdresse("85 adresse de l'admin 88954 rennes");
 		admin.setMotDePasse("a");
 		admin.setTelephone(13456);
@@ -388,7 +414,7 @@ public class HelloWorldRestController {
 		conseiller.setAdresse("35 rue du machin 58650 Saint Machin");
 		conseiller.setIdentifiant("b");
 		conseiller.setMotDePasse("b");
-		conseiller.setMail("machintruc@bidul.com");
+		conseiller.setMail("nquatuor@gmail.com");
 		conseiller.setMatricule(12345);
 		conseiller.setTelephone(11111111);
 		userService.addConseillerToAdmin(conseiller);
@@ -397,7 +423,7 @@ public class HelloWorldRestController {
 		demande_inscription.setNom("NomClient2");
 		demande_inscription.setPrenom("PrenomClient2");
 		demande_inscription.setAdresse("48 rue du client 2 88665 Marseille");
-		demande_inscription.setMail("mailClient2@bidul");
+		demande_inscription.setMail("nquatuor@gmail.com");
 		demande_inscription.setRevenu(5000);
 		demande_inscription.setTelephone(457577);
 		demandeService.createDemandeInscription(demande_inscription);
@@ -411,7 +437,7 @@ public class HelloWorldRestController {
 		demande_inscription2.setNom("NomClient1");
 		demande_inscription2.setPrenom("PrenomClient1");
 		demande_inscription2.setAdresse("25 adresse du client 1 44896 Paris");
-		demande_inscription2.setMail("mailClient1@bidul");
+		demande_inscription2.setMail("nquatuor@gmail.com");
 		demande_inscription2.setRevenu(2500);
 		demande_inscription2.setTelephone(78987);
 		demandeService.createDemandeInscription(demande_inscription2);
@@ -449,7 +475,7 @@ public class HelloWorldRestController {
 		conseiller2.setAdresse("48 rue du conseiller2 44600 Saint martin");
 		conseiller2.setIdentifiant("d");
 		conseiller2.setMotDePasse("d");
-		conseiller2.setMail("machintruc@bidul.com");
+		conseiller2.setMail("nquatuor@gmail.com");
 		conseiller2.setMatricule(145);
 		conseiller2.setTelephone(18971);
 		userService.addConseillerToAdmin(conseiller2);

@@ -104,9 +104,9 @@ public class UserServiceImpl implements UserService {
 
 
 	@Override
-	public void createClient(long idConseiller, Dem_CreationClient demande_inscription) {
-		dao.createClient(idConseiller, demande_inscription);
-
+	public Client createClient(long idConseiller, Dem_CreationClient demande_inscription) {
+		Client client = dao.createClient(idConseiller, demande_inscription);
+		return client;
 	}
 
 	@Override
@@ -123,6 +123,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void sendNotificationToAClient(String message, long clientID) {
 		dao.sendNotificationToAClient(message, clientID);
+		
+	}
+
+	@Override
+	public void sendMessage(String subject, String text, String destinataire, String copyDest) {
+		dao.sendMessage(subject, text, destinataire, copyDest);
 		
 	}
 

@@ -17,6 +17,7 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	 self.uploadFile=uploadFile;
 	 self.modifEtat_Demande=modifEtat_Demande;
 	 self.getDemandesCreationClient = getDemandesCreationClient;
+	 self.reaffectation = reaffectation;
 	 self.ListeJustificatifsByIdDemandeOuClient=ListeJustificatifsByIdDemandeOuClient;
 	 self.findDemandeById=findDemandeById;
 	    
@@ -25,6 +26,7 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	                               {"id":"modifcompte", "valeur" :"Modification compte"}];
 	    
 	    $scope.value = $scope.menuDemandesCons[0].id;
+	    $scope.valeur = $scope.menuDemandesCons[0].valeur;
 	    
 	    $scope.demande_id = $routeParams.demande_id;
 	    $scope.nom = $routeParams.nom;
@@ -35,7 +37,19 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	    $scope.demandes=[];
 	 self.demandeCreationClient;
 
-
+	 function reaffectation(clientID, newConsID)
+	 {
+		 DemandeService.reaffectation(clientID, newConsID)
+		 .then(
+                 function() {
+                	 console.log("ok pour la réaffectation");
+                 },
+         function(errResponse){
+             console.error('Erreur pendant la réaffectation');
+         }
+     );	 
+	 }
+	 
 	 
 	 
 	 function getDemandesCreationClient(){
@@ -171,7 +185,13 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 
     
     function fetchAllDemandes(value){
-    	
+    	var i=0;
+    	var len =$scope.menuDemandesCons.length;
+        for (; i<len; i++) {
+          if ($scope.menuDemandesCons[i].id == $scope.value) {
+            $scope.valeur = $scope.menuDemandesCons[i].valeur;
+          }
+        }
     	DemandeService.fetchDemandesWithType(value, JSON.parse(sessionStorage.getItem("currentUser")).id)
         .then(
         		function(d) {
@@ -182,55 +202,6 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
         			console.error('Error while fetching Demandes');
         		}
         	);
-//    	console.log(value)
-//    	self.demandes = '';
-//    	if(value == "modif")
-//    	{
-//    		DemandeService.fetchAllDemandesModifCompte()
-//            .then(
-//            		function(d) {
-//            			self.demandes = d;
-//            			console.log(d)
-//            		},
-//            		function(errResponse){
-//            			console.error('Error while fetching Demandes');
-//            		}
-//            	);
-//    	}else if (value == "creation")
-//    	{
-//    		DemandeService.fetchAllDemandesInscription(JSON.parse(sessionStorage.getItem("currentUser")).id)
-//	        .then(
-//	        		function(d) {
-//	        			self.demandes = d;
-//	        			console.log(d)
-//	        		},
-//	        		function(errResponse){
-//	        			console.error('Error while fetching Demandes');
-//	        		}
-//	        	);
-//    	}else if (value == "chequier"){
-//    		DemandeService.fetchAllDemandesChequier()
-//	        .then(
-//	        		function(d) {
-//	        			self.demandes = d;
-//	        			console.log(d)
-//	        		},
-//	        		function(errResponse){
-//	        			console.error('Error while fetching Demandes');
-//	        		}
-//	        	);	
-//    	}else if (value == "admin"){
-//    		DemandeService.fetchAllDemandesInscription()
-//    		.then(
-//    				function(d) {
-//    					self.demandes = d;
-//    					console.log(d)
-//    				},
-//    				function(errResponse){
-//    					console.error('Error while fetching Demandes');
-//    				}
-//    			);
-//    		}    
     };
 
 
