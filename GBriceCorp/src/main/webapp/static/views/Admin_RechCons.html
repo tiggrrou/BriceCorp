@@ -1,10 +1,6 @@
 
 <!-- Tableau d'affichage des conseillers -->
-
-
-
-
-	<div class="panel panel-info">
+<div class="panel panel-info"  ng-init="ctrl.getListeCons()">
 
 		<!-- Default panel contents -->
 		<div class="panel-heading">
@@ -35,7 +31,7 @@
 					</thead>
 					<tbody>
 						<tr
-							ng-repeat="Conseiller in ctrl.currentUser.conseillers | filter:search:strict | orderBy:tripar ">
+							ng-repeat="Conseiller in cons_admin | filter:search:strict | orderBy:tripar ">
 							<td ng-model= "cons.nom">{{Conseiller.nom}}</td>
 							<td>{{Conseiller.prenom}}</td>
 							<td>{{Conseiller.adresse}}</td>
