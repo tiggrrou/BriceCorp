@@ -1,5 +1,9 @@
 package com.wha.springmvc.dao;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -13,6 +17,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.persistence.NoResultException;
 
+import org.apache.taglibs.standard.tag.common.core.RemoveTag;
 import org.springframework.stereotype.Repository;
 
 import com.wha.springmvc.model.Administrateur;
@@ -21,6 +26,7 @@ import com.wha.springmvc.model.Compte;
 import com.wha.springmvc.model.Conseiller;
 import com.wha.springmvc.model.Dem_CreationClient;
 import com.wha.springmvc.model.Demande;
+import com.wha.springmvc.model.Justificatif;
 import com.wha.springmvc.model.Notification;
 import com.wha.springmvc.model.TypeUtilisateur;
 import com.wha.springmvc.model.User;
@@ -109,15 +115,15 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 
 		
 		
-		client.setJustificatifs(demande_inscription.getJustificatifs());
+  	  	persist(client);			
 		
 
 
 		
 	
-/**
- * Ajout du compte courant "de base"
- */
+  	  	/**
+  	  	 * Ajout du compte courant "de base"
+  	  	 */
 		List<Compte> newComptes = new ArrayList<Compte>();
 		Compte compte = new Compte();
   	  	compte.setLibelle("Compte courant");
@@ -127,32 +133,69 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
   	  	/**
   	  	 * ajout de la notifiaction de creation du compte courant
   	  	 */
-  	  	persist(client);
-  	  	
+	  	
   	  	String message = "Votre Compte Courant est ouvert";
   	  	sendNotificationToAClient(message, client.getId());
+
+  	  	
+  	  	List<Justificatif> listJustificatifsPourclient = new ArrayList<Justificatif>();
+  	  	List<Justificatif> justificatifs = new ArrayList<Justificatif>(demande_inscription.getJustificatifs());
+  	  	System.out.println("coucou "+justificatifs);
+  	  	for (Justificatif justificatif : justificatifs ){
+			   demande_inscription.getJustificatifs().remove(justificatif);
+		   String url = justificatif.getUrl();
+		   
+		   String replacedUrl = url.replaceAll("demandes", "clients");
+		   justificatif.setUrl(replacedUrl);
+		   System.out.println(url);
+		   System.out.println(replacedUrl);
+//Deplacement des justificatifs du dossier demandes vers le dossier clients
+//		   try {
+//			Files.move(new File(url).toPath(), new File(replacedUrl).toPath(), StandardCopyOption.REPLACE_EXISTING);
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+
+		   listJustificatifsPourclient.add(justificatif);
+	    }
+  	
+ 		    client.setJustificatifs(listJustificatifsPourclient);  	 
+ 		    
+ 		    
+ 		    
+  	  	
+
 		
-/**
- * Ajout du conseiller au client		
- */
+  	  	/**
+  	  	 * Ajout du conseiller au client		
+  	  	 */
 		Conseiller conseiller = findConsById(idConseiller);
 		client.setConseiller(conseiller);
 	
 		
-/**
- * retrait de la demande d'inscription de la liste des demandes du conseiller		
- */
+		/**
+		 * retrait de la demande d'inscription de la liste des demandes du conseiller		
+		 */
 		List<Demande> listDemandes = conseiller.getDemandes();
-		List<Demande> newListDemandes = new ArrayList<Demande>();
-		    for (Demande demande : listDemandes ){
-				    if (demande_inscription.getID() != demande.getID()) {
-				    	newListDemandes.add(demande);
-				    } 
-			    }
-		    conseiller.setDemandes(newListDemandes);
+		listDemandes.remove(demande_inscription);
+//		List<Demande> newListDemandes = new ArrayList<Demande>();
+//		    for (Demande demande : listDemandes ){
+//				    if (demande_inscription.getID() != demande.getID()) {
+//				    	newListDemandes.add(demande);
+//				    }
+//			    }
+//		    conseiller.setDemandes(newListDemandes);
+
 		    
 		    
+	    
+		    
+
+
+	  
    	  	System.out.println(conseiller);
+   	  	System.out.println("coucouclient" + client);
    	  	return client;
 	}
 
@@ -179,7 +222,7 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Client> findClientsFromConsID(long consID) {
-		List<Client> clients = getEntityManager().createQuery("FROM Client C where C.conseillerID = :consID")
+		List<Client> clients = getEntityManager().createQuery("SELECT c.Client FROM Conseiller c WHERE c.id = :consID")
 					.setParameter("consID", consID).getResultList();
 		return clients;
 	}
@@ -213,6 +256,7 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 	public User connexion(String login, String mdp) {
 		System.out.println(login+ " / " + mdp);
 		try {
+
 			User user = (User) getEntityManager()
 					.createQuery("SELECT u FROM User u WHERE u.identifiant = :login AND u.motDePasse = :mdp")
 					.setParameter("login", login).setParameter("mdp", mdp).getSingleResult();
@@ -237,19 +281,6 @@ System.out.println(user);
 
 
 
-//
-//	@Override
-//	public boolean attributionCli2Cons(long idCons, long idCli) {
-//		
-//		for (Client clientEnAffectation : findAllClients()) {
-//			if (clientEnAffectation.getId() == idCli) {
-//				clientEnAffectation.setConseillerID(idCons);
-//				System.out.println(clientEnAffectation);
-//				return true;
-//			}
-//		}
-//		return false;
-//	}
 
 	@Override
 	public void addcompte(Compte compte, long client_id) {

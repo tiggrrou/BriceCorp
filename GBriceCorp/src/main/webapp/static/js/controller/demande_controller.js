@@ -131,7 +131,7 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
  			for (var i = 0; i < JSON.parse(sessionStorage.getItem("currentUser")).demandes.length ; i++) {
  			   if(JSON.parse(sessionStorage.getItem("currentUser")).demandes[i].id == $routeParams.demande_id ){
  				 
- 				  $scope.demandes =  [JSON.parse(sessionStorage.getItem("currentUser")).demandes[i]]; 
+ 				  $scope.demande =  JSON.parse(sessionStorage.getItem("currentUser")).demandes[i]; 
 
  				  $scope.comptes = [JSON.parse(sessionStorage.getItem("currentUser")).demandes[i].compte];
  			   }

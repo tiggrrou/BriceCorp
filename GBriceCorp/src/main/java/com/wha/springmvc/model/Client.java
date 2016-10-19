@@ -15,10 +15,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "Client")
 @PrimaryKeyJoinColumn(name = "id")
-public class Client extends User  implements Serializable{
+public class Client extends User implements Serializable{
 
 	//#region Attributs
 	/**
@@ -129,6 +130,64 @@ public class Client extends User  implements Serializable{
 				+ ", getDateCloture()=" + getDateCloture() + ", getConseiller()=" + getConseiller() + ", getComptes()="
 				+ getComptes() + ", getJustificatifs()=" + getJustificatifs() + ", getNotifications()="
 				+ getNotifications() + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((comptes == null) ? 0 : comptes.hashCode());
+		result = prime * result + ((conseiller == null) ? 0 : conseiller.hashCode());
+		result = prime * result + ((dateCloture == null) ? 0 : dateCloture.hashCode());
+		result = prime * result + ((dateOuverture == null) ? 0 : dateOuverture.hashCode());
+		result = prime * result + ((justificatifs == null) ? 0 : justificatifs.hashCode());
+		result = prime * result + ((notifications == null) ? 0 : notifications.hashCode());
+		result = prime * result + revenu;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Client other = (Client) obj;
+		if (comptes == null) {
+			if (other.comptes != null)
+				return false;
+		} else if (!comptes.equals(other.comptes))
+			return false;
+		if (conseiller == null) {
+			if (other.conseiller != null)
+				return false;
+		} else if (!conseiller.equals(other.conseiller))
+			return false;
+		if (dateCloture == null) {
+			if (other.dateCloture != null)
+				return false;
+		} else if (!dateCloture.equals(other.dateCloture))
+			return false;
+		if (dateOuverture == null) {
+			if (other.dateOuverture != null)
+				return false;
+		} else if (!dateOuverture.equals(other.dateOuverture))
+			return false;
+		if (justificatifs == null) {
+			if (other.justificatifs != null)
+				return false;
+		} else if (!justificatifs.equals(other.justificatifs))
+			return false;
+		if (notifications == null) {
+			if (other.notifications != null)
+				return false;
+		} else if (!notifications.equals(other.notifications))
+			return false;
+		if (revenu != other.revenu)
+			return false;
+		return true;
 	}
 
 

@@ -47,22 +47,20 @@ public class JustificatifDaoImpl extends AbstractDao<Integer, Justificatif> impl
 					.getSingleResult();
 
 			List<Justificatif> listJustificatifs = demandecreation.getJustificatifs();
-			System.out.println("coucoudemande" +listJustificatifs);
+
 			listJustificatifs.add(justificatif);
 			demandecreation.setJustificatifs(listJustificatifs);
 		} else if (clientOuDemande == 1) {
 
-			
-			System.out.println("coucoufind" +findById(id_demandeouclient, clientOuDemande));		
 			Client client = (Client) getEntityManager()
-					.createQuery("SELECT u FROM User u WHERE u.id = :id_demandeouclient")
+					.createQuery("SELECT u FROM Client u WHERE u.id = :id_demandeouclient")
 					.setParameter("id_demandeouclient", id_demandeouclient)
 					.getSingleResult();
 
-System.out.println("idclient"+id_demandeouclient);
+
 			
 			List<Justificatif> listJustificatifs2 = client.getJustificatifs();
-			System.out.println("coucouclient" +listJustificatifs2);
+
 			listJustificatifs2.add(justificatif);
 
 			client.setJustificatifs(listJustificatifs2);

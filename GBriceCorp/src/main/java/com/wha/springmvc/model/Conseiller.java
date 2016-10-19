@@ -115,6 +115,56 @@ public class Conseiller extends User implements Serializable{
 
 
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((clients == null) ? 0 : clients.hashCode());
+		result = prime * result + ((debutContrat == null) ? 0 : debutContrat.hashCode());
+		result = prime * result + ((demandes == null) ? 0 : demandes.hashCode());
+		result = prime * result + ((finContrat == null) ? 0 : finContrat.hashCode());
+		result = prime * result + matricule;
+		return result;
+	}
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Conseiller other = (Conseiller) obj;
+		if (clients == null) {
+			if (other.clients != null)
+				return false;
+		} else if (!clients.equals(other.clients))
+			return false;
+		if (debutContrat == null) {
+			if (other.debutContrat != null)
+				return false;
+		} else if (!debutContrat.equals(other.debutContrat))
+			return false;
+		if (demandes == null) {
+			if (other.demandes != null)
+				return false;
+		} else if (!demandes.equals(other.demandes))
+			return false;
+		if (finContrat == null) {
+			if (other.finContrat != null)
+				return false;
+		} else if (!finContrat.equals(other.finContrat))
+			return false;
+		if (matricule != other.matricule)
+			return false;
+		return true;
+	}
+
+
+
 	
 	//#endregion
 	

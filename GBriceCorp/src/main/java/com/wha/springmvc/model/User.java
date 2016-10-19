@@ -66,18 +66,7 @@ public class User {
 	public User(){
 
 	}
-	
-	public User(long id, String nom,String prenom, String address, String email, String login, String mdp, int type, int telephone){
-		this.id = id;
-		this.nom = nom;
-		this.prenom = prenom;		
-		this.adresse = address;
-		this.mail = email;
-		this.identifiant = login;
-		this.motDePasse = mdp;
-		this.typeUser = type;
-		this.telephone = telephone;
-	}
+
 	//#endregion
 	
 	//#region Accesseurs

@@ -2,7 +2,6 @@ package com.wha.springmvc.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -19,9 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.wha.springmvc.model.Demande;
 import com.wha.springmvc.model.FileModel;
 import com.wha.springmvc.model.Justificatif;
 import com.wha.springmvc.model.TypeJustificatif;
