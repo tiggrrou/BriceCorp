@@ -72,6 +72,7 @@ body, .form-control {
 }
 
 .generic-container {
+
 	margin: auto;
 	padding: 1vw;
 	background-color: #EAE7E7;
@@ -93,6 +94,7 @@ body, .form-control {
 	flex: 1;
 	margin: 10px;
 	align: center;
+		min-width:300px;
 
 }
 

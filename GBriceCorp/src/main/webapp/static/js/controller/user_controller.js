@@ -28,7 +28,7 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
 	
 	// Responsive des div partie_commune et banniere en fonction de la navbar
     function nav_cache_methode(){
-    	
+   	
     	if ($scope.nav_cache){
     		$scope.nav_cache = false;  
         	var d2 = document.getElementById("partie_commune");
@@ -48,9 +48,7 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
         	d.removeAttribute("class")
         	d.className += " col-xs-12";         	
     	}
- 
-    	
-	    };
+    };
 	    
 
 	    

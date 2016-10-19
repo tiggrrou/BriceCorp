@@ -127,8 +127,10 @@ public class Client extends User  implements Serializable{
 	public String toString() {
 		return "Client [getRevenu()=" + getRevenu() + ", getDateOuverture()=" + getDateOuverture()
 				+ ", getDateCloture()=" + getDateCloture() + ", getConseiller()=" + getConseiller() + ", getComptes()="
-				+ getComptes() + ", getNotifications()=" + getNotifications() + "]";
+				+ getComptes() + ", getJustificatifs()=" + getJustificatifs() + ", getNotifications()="
+				+ getNotifications() + "]";
 	}
+
 
 
 

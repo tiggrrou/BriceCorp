@@ -36,25 +36,36 @@ public class JustificatifDaoImpl extends AbstractDao<Integer, Justificatif> impl
 	}
 
 	@Override
-	public void saveJustificatif(long id, Justificatif justificatif, int clientOuDemande) {
-		persist(justificatif);
+	public void saveJustificatif(long id_demandeouclient, Justificatif justificatif, int clientOuDemande) {
 
+		persist(justificatif);
+		
 		if (clientOuDemande == 0) {
 			Dem_CreationClient demandecreation = (Dem_CreationClient) getEntityManager()
-					.createQuery("SELECT d FROM Dem_CreationClient d WHERE d.id = :id").setParameter("id", id)
+					.createQuery("SELECT d FROM Dem_CreationClient d WHERE d.id = :id_demandeouclient")
+					.setParameter("id_demandeouclient", id_demandeouclient)
 					.getSingleResult();
 
 			List<Justificatif> listJustificatifs = demandecreation.getJustificatifs();
+			System.out.println("coucoudemande" +listJustificatifs);
 			listJustificatifs.add(justificatif);
 			demandecreation.setJustificatifs(listJustificatifs);
 		} else if (clientOuDemande == 1) {
 
-			Client client = (Client) getEntityManager().createQuery("SELECT c FROM Client c WHERE c.id = :id")
-					.setParameter("id", id).getSingleResult();
+			
+			System.out.println("coucoufind" +findById(id_demandeouclient, clientOuDemande));		
+			Client client = (Client) getEntityManager()
+					.createQuery("SELECT u FROM User u WHERE u.id = :id_demandeouclient")
+					.setParameter("id_demandeouclient", id_demandeouclient)
+					.getSingleResult();
 
-			List<Justificatif> listJustificatifs = client.getJustificatifs();
-			listJustificatifs.add(justificatif);
-			client.setJustificatifs(listJustificatifs);
+System.out.println("idclient"+id_demandeouclient);
+			
+			List<Justificatif> listJustificatifs2 = client.getJustificatifs();
+			System.out.println("coucouclient" +listJustificatifs2);
+			listJustificatifs2.add(justificatif);
+
+			client.setJustificatifs(listJustificatifs2);
 
 		}
 

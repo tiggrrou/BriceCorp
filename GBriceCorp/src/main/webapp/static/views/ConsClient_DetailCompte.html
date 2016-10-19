@@ -20,7 +20,7 @@
 </div>
 <div class=" panel panel-default "
 	ng-controller="DemandeController as dmdctrl" 
-	ng-init="(client_id==null)?(dmdctrl.findDemandeById(demande_id)):(ctrl.infoById(client_id))"
+	ng-init="(demande_id!=null)?(dmdctrl.findDemandeById(demande_id)):(ctrl.infoById(client_id))"
 	ng-hide="{{(demande_id==null)?true:false}}">
 
 	<div class="panel-heading ">
@@ -46,7 +46,7 @@
 	</ul>
 
 </div>
-<div class="panel panel-default" ng-controller="DemandeController as dmdctrl" ng-init="dmdctrl.ListeJustificatifsByIdDemandeOuClient((client_id==null)?demande_id:client_id, (client_id==null)?0:1)">
+<div class="panel panel-default" ng-controller="DemandeController as dmdctrl" ng-init="(demande_id!=null)?(dmdctrl.findDemandeById(demande_id)):(ctrl.infoById(client_id)); dmdctrl.ListeJustificatifsByIdDemandeOuClient((demande_id!=null)?demande_id:client_id, (demande_id!=null)?0:1)">
 	<!-- Default panel contents -->
 	<div class="panel-heading">
 		<span class="lead">Documents disponible</span>
@@ -112,12 +112,11 @@
 	</div>
 </div>
 
-<div class="div_view"
-	ng-controller="CompteController as cptctrl"
+
+
+	<div id="RIBSectionId" class=" panel panel-default " ng-controller="CompteController as cptctrl"
 	ng-init="(client_id==null)?(comptes=[]):(cptctrl.findComptesByClientId(client_id))"
 	ng-repeat="compte in comptes">
-
-	<div id="RIBSectionId" class=" panel panel-default ">
 		<div class="panel-heading">
 			<span class="lead">{{compte.libelle}}
 				<button ng-click="ctrl.printToCart('RIBSectionId')"
@@ -145,11 +144,9 @@
 					class="btn btn-danger btn-sm floatRight no-print">Modifer</button>
 			</li>
 		</ul>
-	</div>
 
-	<div id="ReleveSectionId" class="panel panel-default ">
 		<!-- Default panel contents -->
-		<div class="panel-heading">
+		<div id="ReleveSectionId" class="panel-heading">
 			<span class="lead">Releve de compte
 				<button ng-click="ctrl.printToCart('ReleveSectionId')"
 					class="btn btn-warning btn-sm floatRight no-print">Imprimer
@@ -177,9 +174,3 @@
 	</div>
 
 
-
-
-
-
-
-</div>

@@ -20,7 +20,7 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
     return factory;
 
     function ListeJustificatifsByIdDemandeOuClient(id, clientOuDemande){
-    	console.log(id+"&"+clientOuDemande)
+
     	var deferred = $q.defer();
         $http.get(REST_SERVICE_URI+'justificatif/' + id+"&"+clientOuDemande)
             .then(
@@ -155,7 +155,7 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
     
     /* Ajout d'une demande d'inscription d'un client */
     function createDemandeInscription(demande_inscription) {
-    	console.log(demande_inscription)
+
         var deferred = $q.defer();
         $http.post(REST_SERVICE_URI+'inscription/', demande_inscription)
             .then(

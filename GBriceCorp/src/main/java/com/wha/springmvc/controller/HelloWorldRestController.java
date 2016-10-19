@@ -124,6 +124,7 @@ public class HelloWorldRestController {
 		Demande demande;
 		try {
 			demande = demandeService.findDemandeById(id_demande);
+			System.out.println(demande);
 			return new ResponseEntity<Demande>(demande, HttpStatus.OK);
 		} catch (Exception e) {
 			

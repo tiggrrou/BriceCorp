@@ -267,7 +267,7 @@
 				<img class="langue center-block" src="static/imgs/en.png"
 					ng-hide="{{lang_cache}}" ng-click="ctrl.change_langue()" />
 				<img class="langue center-block" src="static/imgs/fr.png"
-					ng-show="{{lang_cache}}" ng-click="ctrl.change_langue()" />
+					ng-hide="{{!lang_cache}}" ng-click="ctrl.change_langue()" />
 			</div>
 			<div>
 				<input type="button" class="btn btn-danger center-block"

@@ -110,9 +110,8 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 
  	  
  	 if($routeParams.demande_id != null &&  JSON.parse(sessionStorage.getItem("currentUser")) != null ){	
- 	 	console.log($routeParams.demande_id)
+
  			for (var i = 0; i < JSON.parse(sessionStorage.getItem("currentUser")).demandes.length ; i++) {
- 				 console.log("couc"+JSON.parse(sessionStorage.getItem("currentUser")).demandes[i].id)
  			   if(JSON.parse(sessionStorage.getItem("currentUser")).demandes[i].id == $routeParams.demande_id ){
  				 
  				  $scope.demandes =  [JSON.parse(sessionStorage.getItem("currentUser")).demandes[i]]; 
@@ -221,34 +220,34 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
     window.history.back();
 };
 
+
+
 $scope.uploadFile = function(files, typeJustificatif) {
     var fd = new FormData();
     //Take the first selected file
     fd.append("file", files[0]);
-    
 
-    if(JSON.parse(sessionStorage.getItem("currentUser"))!=null){
-console.log("client")
-    	var id = JSON.parse(sessionStorage.getItem("currentUser")).id
-    	var nom = JSON.parse(sessionStorage.getItem("currentUser")).nom
-    	var prenom = JSON.parse(sessionStorage.getItem("currentUser")).prenom
-    	var clientOuDemande = 1
-    }else{
+
     if($scope.demande.client!=null){
     	console.log("demande")
     	var id = $scope.demande.client.id
     	var nom = $scope.demande.client.nom
     	var prenom = $scope.demande.client.prenom
     	var clientOuDemande = 1
-    }else{
+    }else if($scope.demande!=null){
     	console.log("creation")
-    	var id =  $routeParams.demande_id
-    	var nom = $routeParams.nom
-    	var prenom = $routeParams.prenom
+    	var id = $scope.demande.id
+    	var nom = $scope.demande.nom
+    	var prenom = $scope.demande.prenom
     	var clientOuDemande = 0
-
+    }else if(JSON.parse(sessionStorage.getItem("currentUser"))!=null){
+    	console.log("client")
+    	var id = JSON.parse(sessionStorage.getItem("currentUser")).id
+    	var nom = JSON.parse(sessionStorage.getItem("currentUser")).nom
+    	var prenom = JSON.parse(sessionStorage.getItem("currentUser")).prenom
+    	var clientOuDemande = 1
     }
-    }
+    
     console.log("info "+id + nom + prenom + clientOuDemande)
     DemandeService.savefile(fd, id,nom, prenom, typeJustificatif, clientOuDemande)
     .then(
@@ -273,7 +272,6 @@ function ListeJustificatifsByIdDemandeOuClient(id, clientOuDemande) {
     DemandeService.ListeJustificatifsByIdDemandeOuClient(id, clientOuDemande)
     .then(
     		function(d) {
-    			console.log(d)
     			$scope.justificatifs = d
     		},
     function(errResponse){
@@ -289,11 +287,10 @@ function findDemandeById(id) {
     DemandeService.findDemandeById(id)
     .then(
     		function(d) {
-    			console.log(d)
     			$scope.demande = d
     		},
     function(errResponse){
-        console.error('Error while fetching justificatifs');
+        console.error('Error while fetching demandes');
     }
 );
 

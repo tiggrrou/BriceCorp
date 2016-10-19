@@ -57,9 +57,9 @@ public class FileUploadController {
 		return "GET Impossible";
 	}
 
-	@RequestMapping(value = "/demande/fileupload/{id}&{nom}&{prenom}&{typeJustificatif}&{clientOuDemande}", method = RequestMethod.POST)
+	@RequestMapping(value = "/demande/fileupload/{id_demandeouclient}&{nom}&{prenom}&{typeJustificatif}&{clientOuDemande}", method = RequestMethod.POST)
 	public ResponseEntity<Void> singleFileUpload(@Valid FileModel fileModel, BindingResult result, ModelMap model,
-			@PathVariable("id") long id, @PathVariable("nom") String nom, @PathVariable("prenom") String prenom,
+			@PathVariable("id_demandeouclient") long id_demandeouclient, @PathVariable("nom") String nom, @PathVariable("prenom") String prenom,
 			@PathVariable("typeJustificatif") TypeJustificatif typeJustificatif,
 			@PathVariable("clientOuDemande") int clientOuDemande) throws IOException {
 
@@ -70,12 +70,12 @@ public class FileUploadController {
 			System.out.println("Fetching file");
 			String repertoire = UPLOAD_LOCATION;
 			if (clientOuDemande == 0) {
-				repertoire = UPLOAD_LOCATION + "demandes/" + id + "/";
+				repertoire = UPLOAD_LOCATION + "demandes/" + id_demandeouclient + "/";
 			} else if (clientOuDemande == 1){
-				repertoire = UPLOAD_LOCATION+ "clients/" + id + "/";
+				repertoire = UPLOAD_LOCATION+ "clients/" + id_demandeouclient + "/";
 			}
 
-			String nomfichier = id + "_" + nom + "_" + prenom + "_" + typeJustificatif + "."
+			String nomfichier = id_demandeouclient + "_" + nom + "_" + prenom + "_" + typeJustificatif + "."
 					+ fileModel.getFile().getOriginalFilename().split("\\.")[1];
 
 			File drirectory = new File(repertoire);
@@ -96,7 +96,7 @@ public class FileUploadController {
 			Justificatif justificatif = new Justificatif();
 			justificatif.setType(typeJustificatif);
 			justificatif.setUrl(repertoire + nomfichier);
-			justificatifService.saveJustificatif(id, justificatif, clientOuDemande);
+			justificatifService.saveJustificatif(id_demandeouclient, justificatif, clientOuDemande);
 
 			return new ResponseEntity<Void>(HttpStatus.OK);
 		}
