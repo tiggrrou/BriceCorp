@@ -50,7 +50,7 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 
 		
 		
-		Administrateur admin = (Administrateur) getEntityManager().createQuery("SELECT a FROM Administrateur a WHERE a.id = 1").getSingleResult();
+		Administrateur admin = (Administrateur) getEntityManager().createQuery("SELECT a FROM Administrateur a").getSingleResult();
 		
 		List<Conseiller> listConseillers = admin.getConseillers();
 		listConseillers.add(conseiller);
@@ -65,6 +65,10 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 	@Override
 	public void deleteConseiller(long idCons) {
 		Conseiller conseiller = findConsById(idCons);
+		Administrateur admin = (Administrateur) getEntityManager().createQuery("SELECT a FROM Administrateur a").getSingleResult();
+		List<Conseiller> ListCons = admin.getConseillers();
+		ListCons.remove(conseiller);
+		admin.setConseillers(ListCons);
 		delete(conseiller);
 	}
 

@@ -40,10 +40,8 @@
 								class="icone_liste" src="static/imgs/crayon.png"
 								 /> </a>
 							</td>
-							<td>
-								<a href="#/admin/Admin_DelCons?{{Conseiller.id}}"> <img
-								class="icone_liste" src="static/imgs/delete.png"
-								/> </a>
+							<td ng-click="ctrl.deleteCons(Conseiller)">
+								<img class="icone_liste" src="static/imgs/delete.png"/>
 							</td>
 						</tr>
 					</tbody>
