@@ -15,9 +15,9 @@ App.controller('CompteController', ['$scope','$location', '$route', '$routeParam
     
     self.edit = edit;
     self.remove = remove;
-
+    self.getComptes=getComptes;
     self.goToNouveauCompte = goToNouveauCompte;
-    self.getComptes = getComptes;
+    self.findComptesByClientId = findComptesByClientId;
     $scope.virement = virement;
 
 	 if($routeParams.compte_id != null){	
@@ -28,7 +28,22 @@ App.controller('CompteController', ['$scope','$location', '$route', '$routeParam
 			   }
 			}
 	 }
-	 
+	
+	    
+	    function getComptes(){
+	    	// je recupere les comptes d'un client en fonction de son ID
+	    	var idCurrent = JSON.parse(sessionStorage.getItem("currentUser")).id;
+	    	CompteService.getComptesClient(idCurrent)
+	    	.then(
+	    			function(data){
+	    				console.log(data);
+	    				$scope.comptes = data;
+	    			},
+	    			function (errResponse){
+	    				console.error('Error while getting an account from an customer ID')
+	    			});
+	    	
+	    };
 	 
     function goToNouveauCompte()
     {
@@ -95,12 +110,12 @@ App.controller('CompteController', ['$scope','$location', '$route', '$routeParam
         deleteCompte(id);
     }
     
-
-    
-    function getComptes(){
+    self.findComptesByDemandeId=findComptesByDemandeId;
+    function findComptesByDemandeId(demande_id){
     	// je recupere les comptes d'un client en fonction de son ID
-    	var idCurrent = JSON.parse(sessionStorage.getItem("currentUser")).id;
-    	CompteService.getComptesClient(idCurrent)
+    	
+    	
+    	CompteService.getComptesClient(demande_id)
     	.then(
     			function(data){
     				console.log(data);
@@ -111,6 +126,24 @@ App.controller('CompteController', ['$scope','$location', '$route', '$routeParam
     			});
     	
     };
+    
+ 
+    function findComptesByClientId(client_id){
+    	// je recupere les comptes d'un client en fonction de son ID
+
+    	CompteService.getComptesClient(client_id)
+    	.then(
+    			function(data){
+    				console.log(data);
+    				$scope.comptes = data;
+    			},
+    			function (errResponse){
+    				console.error('Error while getting an account from an customer ID')
+    			});
+    	
+    };
+    
+
     
 
 

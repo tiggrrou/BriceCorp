@@ -23,6 +23,7 @@ import org.apache.taglibs.standard.tag.common.core.RemoveTag;
 import org.springframework.stereotype.Repository;
 
 import com.wha.springmvc.model.Administrateur;
+import com.wha.springmvc.model.CalculIBAN;
 import com.wha.springmvc.model.Client;
 import com.wha.springmvc.model.Compte;
 import com.wha.springmvc.model.Conseiller;
@@ -30,6 +31,7 @@ import com.wha.springmvc.model.Dem_CreationClient;
 import com.wha.springmvc.model.Demande;
 import com.wha.springmvc.model.Justificatif;
 import com.wha.springmvc.model.Notification;
+import com.wha.springmvc.model.Password;
 import com.wha.springmvc.model.TypeUtilisateur;
 import com.wha.springmvc.model.User;
 
@@ -68,7 +70,7 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 	public void deleteConseiller(long idCons) {
 		Conseiller conseiller = findConsById(idCons);
 		Administrateur admin = (Administrateur) getEntityManager().createQuery("SELECT a FROM Administrateur a").getSingleResult();
-		List<Conseiller> ListCons = admin.getConseillers();
+		Set<Conseiller> ListCons = admin.getConseillers();
 		ListCons.remove(conseiller);
 		admin.setConseillers(ListCons);
 		delete(conseiller);
@@ -112,6 +114,7 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		client.setTypeUser(TypeUtilisateur.Client.getType());
 		client.setIdentifiant("c"+ NbUser);
 		client.setMotDePasse("c");
+		/*client.setMotDePasse(Password.nextSessionId());*/
 		client.setNom(demande_inscription.getNom());
 		client.setPrenom(demande_inscription.getPrenom());		
 		client.setAdresse(demande_inscription.getAdresse());

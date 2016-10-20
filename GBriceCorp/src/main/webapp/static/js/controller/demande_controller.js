@@ -304,7 +304,10 @@ function findDemandeById(id) {
     DemandeService.findDemandeById(id)
     .then(
     		function(d) {
-    			$scope.demande = d
+    			$scope.demande = d;
+    			$scope.justificatifs = d.client.justificatifs;
+    			$scope.comptes = [d.comptes];
+    			console.log(d)
     		},
     function(errResponse){
         console.error('Error while fetching demandes');
