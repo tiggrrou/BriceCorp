@@ -5,8 +5,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 import javax.mail.Address;
 import javax.mail.Message;
@@ -40,10 +42,10 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 	public void addConseillerToAdmin(Conseiller conseiller){
 		conseiller.setTypeUser(TypeUtilisateur.Conseiller.getType());	
 		
-		List<Client> newClients = new ArrayList<Client>();
+		Set<Client> newClients = new HashSet<Client>();
 		conseiller.setClients(newClients);
 
-		List<Demande> listDemandes = new ArrayList<Demande>();
+		Set<Demande> listDemandes = new HashSet<Demande>();
 		conseiller.setDemandes(listDemandes);
 		
 		persist(conseiller);
@@ -52,7 +54,7 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		
 		Administrateur admin = (Administrateur) getEntityManager().createQuery("SELECT a FROM Administrateur a WHERE a.id = 1").getSingleResult();
 		
-		List<Conseiller> listConseillers = admin.getConseillers();
+		Set<Conseiller> listConseillers = admin.getConseillers();
 		listConseillers.add(conseiller);
 		admin.setConseillers(listConseillers);
 		
@@ -124,11 +126,12 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
   	  	/**
   	  	 * Ajout du compte courant "de base"
   	  	 */
-		List<Compte> newComptes = new ArrayList<Compte>();
+  	  
+  	  	
 		Compte compte = new Compte();
   	  	compte.setLibelle("Compte courant");
-  	    newComptes.add(compte);
-  	  	client.setComptes(newComptes);
+  	  	client.getComptes().add(compte);
+
 
   	  	/**
   	  	 * ajout de la notifiaction de creation du compte courant
@@ -138,11 +141,12 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
   	  	sendNotificationToAClient(message, client.getId());
 
   	  	
-  	  	List<Justificatif> listJustificatifsPourclient = new ArrayList<Justificatif>();
-  	  	List<Justificatif> justificatifs = new ArrayList<Justificatif>(demande_inscription.getJustificatifs());
+  	  	Set<Justificatif> listJustificatifsPourclient = new HashSet<Justificatif>();
+  	  	@SuppressWarnings("unchecked")
+  	  	Set<Justificatif> justificatifs = (Set<Justificatif>) demande_inscription.getJustificatifs();
   	  	System.out.println("coucou "+justificatifs);
   	  	for (Justificatif justificatif : justificatifs ){
-			   demande_inscription.getJustificatifs().remove(justificatif);
+		   demande_inscription.getJustificatifs().remove(justificatif);
 		   String url = justificatif.getUrl();
 		   
 		   String replacedUrl = url.replaceAll("demandes", "clients");
@@ -157,7 +161,7 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 //			e.printStackTrace();
 //		}
 
-		   listJustificatifsPourclient.add(justificatif);
+			listJustificatifsPourclient.add(justificatif);
 	    }
   	
  		    client.setJustificatifs(listJustificatifsPourclient);  	 
@@ -177,7 +181,7 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		/**
 		 * retrait de la demande d'inscription de la liste des demandes du conseiller		
 		 */
-		List<Demande> listDemandes = conseiller.getDemandes();
+		Set<Demande> listDemandes = conseiller.getDemandes();
 		listDemandes.remove(demande_inscription);
 //		List<Demande> newListDemandes = new ArrayList<Demande>();
 //		    for (Demande demande : listDemandes ){
@@ -231,7 +235,7 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 	@Override
 	public Client findCliById(long idcli) {
 		try {
-			Client client = (Client) getEntityManager().createQuery("SELECT c FROM Client c WHERE c.id = :id")
+			Client client = (Client) getEntityManager().createQuery("SELECT c FROM Client c WHERE c.id = :id", Client.class)
 					.setParameter("id", idcli).getSingleResult();
 			return client;
 		} catch (NoResultException ex) {
@@ -271,10 +275,10 @@ System.out.println(user);
 	public void createAdmin(Administrateur admin) {				
 			persist(admin);
 
-			List<Dem_CreationClient> newDemandeCreationClient = new ArrayList<Dem_CreationClient>();
+			Set<Dem_CreationClient> newDemandeCreationClient = new HashSet<Dem_CreationClient>();
 			admin.setDemandeCreationClient(newDemandeCreationClient);
 			
-			List<Conseiller> newConseiller = new ArrayList<Conseiller>();
+			Set<Conseiller> newConseiller = new HashSet<Conseiller>();
 			admin.setConseillers(newConseiller);
 
 		}
@@ -360,7 +364,7 @@ public void sendMessage(String subject, String text, String destinataire, String
 		myNotif.setMessage(message);
 		
 		Client myClient = findCliById(clientID);
-		List<Notification> myNotifs = myClient.getNotifications();
+		Set<Notification> myNotifs = myClient.getNotifications();
 		myNotifs.add(myNotif);
 		myClient.setNotifications(myNotifs);	
 	}

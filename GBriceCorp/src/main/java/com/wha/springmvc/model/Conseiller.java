@@ -5,7 +5,9 @@ package com.wha.springmvc.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -45,10 +47,10 @@ public class Conseiller extends User implements Serializable{
 	
 	@OneToMany(mappedBy="conseiller", fetch=FetchType.EAGER)
 //	 @JsonSerialize(using = CustomListSerializer.class)
-	private List<Client> clients;
+	private Set<Client> clients;
 	
 	@OneToMany(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
-	private List<Demande> demandes;
+	private Set<Demande> demandes;
 	//#endregion
 
 	//#region Accesseurs
@@ -79,19 +81,19 @@ public class Conseiller extends User implements Serializable{
 		this.finContrat = finContrat;
 	}	
 	
-	public List<Client> getClients() {
+	public Set<Client> getClients() {
 		return clients;
 	}
 
-	public void setClients(List<Client> clients) {
+	public void setClients(Set<Client> clients) {
 		this.clients = clients;
 	}	
 	
-	public List<Demande> getDemandes() {
+	public Set<Demande> getDemandes() {
 		return demandes;
 	}
 
-	public void setDemandes(List<Demande> demandes) {
+	public void setDemandes(Set<Demande> demandes) {
 		this.demandes = demandes;
 	}	
 	//#endregion 
@@ -104,6 +106,8 @@ public class Conseiller extends User implements Serializable{
 	public Conseiller() {
 		super();
 		this.debutContrat = new Date();
+		this.clients = new HashSet<Client>();
+		this.demandes = new HashSet<Demande>();
 	}
 
 	@Override
@@ -115,17 +119,7 @@ public class Conseiller extends User implements Serializable{
 
 
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((clients == null) ? 0 : clients.hashCode());
-		result = prime * result + ((debutContrat == null) ? 0 : debutContrat.hashCode());
-		result = prime * result + ((demandes == null) ? 0 : demandes.hashCode());
-		result = prime * result + ((finContrat == null) ? 0 : finContrat.hashCode());
-		result = prime * result + matricule;
-		return result;
-	}
+
 
 
 

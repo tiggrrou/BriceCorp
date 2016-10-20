@@ -2,6 +2,7 @@ package com.wha.springmvc.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Repository;
 
@@ -46,7 +47,7 @@ public class JustificatifDaoImpl extends AbstractDao<Integer, Justificatif> impl
 					.setParameter("id_demandeouclient", id_demandeouclient)
 					.getSingleResult();
 
-			List<Justificatif> listJustificatifs = demandecreation.getJustificatifs();
+			Set<Justificatif> listJustificatifs = demandecreation.getJustificatifs();
 
 			listJustificatifs.add(justificatif);
 			demandecreation.setJustificatifs(listJustificatifs);
@@ -59,7 +60,7 @@ public class JustificatifDaoImpl extends AbstractDao<Integer, Justificatif> impl
 
 
 			
-			List<Justificatif> listJustificatifs2 = client.getJustificatifs();
+			Set<Justificatif> listJustificatifs2 = client.getJustificatifs();
 
 			listJustificatifs2.add(justificatif);
 

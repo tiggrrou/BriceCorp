@@ -3,7 +3,9 @@ package com.wha.springmvc.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -47,13 +49,13 @@ public class Client extends User implements Serializable{
 	private Conseiller conseiller;
 
 	@OneToMany(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
-	private List<Justificatif> justificatifs;
+	private Set<Justificatif> justificatifs;
 	
 	@OneToMany(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
-	private List<Compte> comptes;
+	private Set<Compte> comptes;
 
 	@OneToMany(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
-	private List<Notification> notifications;
+	private Set<Notification> notifications;
 	
 	//#endregion
 
@@ -90,26 +92,26 @@ public class Client extends User implements Serializable{
 		this.conseiller = conseiller;
 	}
 
-	public List<Compte> getComptes() {
+	public Set<Compte> getComptes() {
 		return comptes;
 	}
 
-	public void setComptes(List<Compte> comptes) {
+	public void setComptes(Set<Compte> comptes) {
 		this.comptes = comptes;
 	}
 	
-	public List<Justificatif> getJustificatifs() {
+	public Set<Justificatif> getJustificatifs() {
 		return justificatifs;
 	}
 
-	public void setJustificatifs(List<Justificatif> justificatifs) {
+	public void setJustificatifs(Set<Justificatif> justificatifs) {
 		this.justificatifs = justificatifs;
 	}
 
-	public List<Notification> getNotifications() {
+	public Set<Notification> getNotifications() {
 		return notifications;
 	}
-	public void setNotifications(List<Notification> notifications) {
+	public void setNotifications(Set<Notification> notifications) {
 		this.notifications = notifications;
 	}	
 	
@@ -121,7 +123,9 @@ public class Client extends User implements Serializable{
 	public Client() {
 		super();
 		this.dateOuverture = new Date();
-		this.notifications = new ArrayList<>();
+		this.notifications = new HashSet<Notification>();
+		this.justificatifs = new HashSet<Justificatif>();
+		this.comptes = new HashSet<Compte>();
 	}
 
 	@Override
@@ -132,19 +136,7 @@ public class Client extends User implements Serializable{
 				+ getNotifications() + "]";
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((comptes == null) ? 0 : comptes.hashCode());
-		result = prime * result + ((conseiller == null) ? 0 : conseiller.hashCode());
-		result = prime * result + ((dateCloture == null) ? 0 : dateCloture.hashCode());
-		result = prime * result + ((dateOuverture == null) ? 0 : dateOuverture.hashCode());
-		result = prime * result + ((justificatifs == null) ? 0 : justificatifs.hashCode());
-		result = prime * result + ((notifications == null) ? 0 : notifications.hashCode());
-		result = prime * result + revenu;
-		return result;
-	}
+
 
 	@Override
 	public boolean equals(Object obj) {

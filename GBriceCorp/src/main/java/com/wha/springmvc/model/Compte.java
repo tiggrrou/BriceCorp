@@ -5,7 +5,9 @@ package com.wha.springmvc.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -55,7 +57,7 @@ public class Compte {
 	private Date dateCloture;
 
 	@OneToMany(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
-	private List<Mouvement> mouvements;
+	private Set<Mouvement> mouvements;
 	
 	/**
 	 * Booléen traduisant l'activité sur le compte
@@ -146,10 +148,10 @@ public class Compte {
 	public void setID(long iD) {
 		ID = iD;
 	}
-	public List<Mouvement> getMouvements() {
+	public Set<Mouvement> getMouvements() {
 		return mouvements;
 	}
-	public void setMouvements(List<Mouvement> mouvements) {
+	public void setMouvements(Set<Mouvement> mouvements) {
 		this.mouvements = mouvements;
 	}
 	public int getSeuil() {
@@ -181,7 +183,7 @@ public class Compte {
 		this.soldeAgio = 0;
 		this.decouvert = 0;
 		this.tauxDecouvert = 0;
-		this.mouvements = new ArrayList<>();
+		this.mouvements = new HashSet<Mouvement>();
 		
 	}
 	

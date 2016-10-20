@@ -1,7 +1,9 @@
 package com.wha.springmvc.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -46,7 +48,7 @@ public class Dem_CreationClient extends Demande {
 	private int telephone;
 	
 	@OneToMany(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
-	private List<Justificatif> justificatifs;
+	private Set<Justificatif> justificatifs;
 
 
 	/**
@@ -100,11 +102,11 @@ public class Dem_CreationClient extends Demande {
 	}
 
 
-	public List<Justificatif> getJustificatifs() {
+	public Set<Justificatif> getJustificatifs() {
 		return justificatifs;
 	}
 
-	public void setJustificatifs(List<Justificatif> justificatifs) {
+	public void setJustificatifs(Set<Justificatif> justificatifs) {
 		this.justificatifs = justificatifs;
 	}
 
@@ -132,7 +134,7 @@ public class Dem_CreationClient extends Demande {
 	 */
 	public Dem_CreationClient() {
 		super();
-		this.justificatifs = new ArrayList<Justificatif>();
+		this.justificatifs = new HashSet<Justificatif>();
 	}
 
 	@Override
