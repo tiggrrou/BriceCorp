@@ -117,18 +117,23 @@ public class HelloWorldRestController {
 	// -------------------Retrieve Demande by Id--------------------------------------------------------
 
 	@RequestMapping(value = "/demande/{id_demande}", method = RequestMethod.GET)
-	public ResponseEntity<List<Object>> demandeById(@PathVariable("id_demande") long id_demande) {
+	public ResponseEntity<Demande> demandeById(@PathVariable("id_demande") long id_demande) {
 		System.out.println("fetch demande " + id_demande);
-		Demande demande = demandeService.findDemandeById(id_demande);
-
-		if (demande.isEmpty()) {
-			return new ResponseEntity<List<Object>>(HttpStatus.NO_CONTENT);
-		} else {
-			List<Object> demande_user = new ArrayList();
-			demande_user.add(demande);
-			demande_user.add(userService.findCliById(demande.getClient().getId()));
-			return new ResponseEntity<List<Object>>(demande_user, HttpStatus.OK);
+		
+		
+		Demande demande;
+		try {
+			demande = demandeService.findDemandeById(id_demande);
+			System.out.println(demande);
+			return new ResponseEntity<Demande>(demande, HttpStatus.OK);
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			return new ResponseEntity<Demande>(HttpStatus.NO_CONTENT);
 		}
+
+		
+
 	}
 
 	// -------------------Attribution du conseiller à une demande d'ouverture de compte--------------------------------------------------------
@@ -344,13 +349,7 @@ public class HelloWorldRestController {
 	public ResponseEntity<Void> creaCons3(@RequestBody Conseiller conseiller) {
 		System.out.println("Creating a conseiller " + conseiller);
 
-		/*
-		 * if (userService.isUserExist(user)) { System.out.println(
-		 * "A User with name " + user.getNom() + " already exist"); return new
-		 * ResponseEntity<Void>(HttpStatus.CONFLICT); }
-		 */
-
-		// userService.createConseiller(conseiller);
+		userService.addConseillerToAdmin(conseiller);
 
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
@@ -367,7 +366,7 @@ public class HelloWorldRestController {
 	}
 
 
-	// ------------------- Delete a User --------------------------------------------------------
+	// ------------------- Delete a Conseiller --------------------------------------------------------
 
 	@RequestMapping(value = "/user/delCons{idCons}", method = RequestMethod.DELETE)
 	public ResponseEntity<Conseiller> deleteCons(@PathVariable("idCons") long idCons) {

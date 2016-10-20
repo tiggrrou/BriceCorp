@@ -3,7 +3,9 @@
  */
 package com.wha.springmvc.model;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -22,30 +24,31 @@ import javax.persistence.Table;
 public class Administrateur extends User {
 
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	private List<Conseiller> conseillers;
+	private Set<Conseiller> conseillers;
 
 	@OneToMany(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
-	private List<Dem_CreationClient> demandeCreationClient;	
+	private Set<Dem_CreationClient> demandeCreationClient;	
 	
-	public List<Conseiller> getConseillers() {
+	public Set<Conseiller> getConseillers() {
 		return conseillers;
 	}
 
-	public void setConseillers(List<Conseiller> conseillers) {
+	public void setConseillers(Set<Conseiller> conseillers) {
 		this.conseillers = conseillers;
 	}
 
-	public List<Dem_CreationClient> getDemandeCreationClient() {
+	public Set<Dem_CreationClient> getDemandeCreationClient() {
 		return demandeCreationClient;
 	}
 
-	public void setDemandeCreationClient(List<Dem_CreationClient> demandeCreationClient) {
+	public void setDemandeCreationClient(Set<Dem_CreationClient> demandeCreationClient) {
 		this.demandeCreationClient = demandeCreationClient;
 	}
 
 	public Administrateur() {
 		super();
-		// TODO Auto-generated constructor stub
+		this.demandeCreationClient = new HashSet<Dem_CreationClient>();
+		this.conseillers = new HashSet<Conseiller>();		
 	}
 
 	@Override

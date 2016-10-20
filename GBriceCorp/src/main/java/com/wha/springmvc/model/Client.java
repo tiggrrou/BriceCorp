@@ -3,7 +3,9 @@ package com.wha.springmvc.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -15,10 +17,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "Client")
 @PrimaryKeyJoinColumn(name = "id")
-public class Client extends User  implements Serializable{
+public class Client extends User implements Serializable{
 
 	//#region Attributs
 	/**
@@ -46,13 +49,13 @@ public class Client extends User  implements Serializable{
 	private Conseiller conseiller;
 
 	@OneToMany(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
-	private List<Justificatif> justificatifs;
+	private Set<Justificatif> justificatifs;
 	
 	@OneToMany(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
-	private List<Compte> comptes;
+	private Set<Compte> comptes;
 
 	@OneToMany(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
-	private List<Notification> notifications;
+	private Set<Notification> notifications;
 	
 	//#endregion
 
@@ -89,26 +92,26 @@ public class Client extends User  implements Serializable{
 		this.conseiller = conseiller;
 	}
 
-	public List<Compte> getComptes() {
+	public Set<Compte> getComptes() {
 		return comptes;
 	}
 
-	public void setComptes(List<Compte> comptes) {
+	public void setComptes(Set<Compte> comptes) {
 		this.comptes = comptes;
 	}
 	
-	public List<Justificatif> getJustificatifs() {
+	public Set<Justificatif> getJustificatifs() {
 		return justificatifs;
 	}
 
-	public void setJustificatifs(List<Justificatif> justificatifs) {
+	public void setJustificatifs(Set<Justificatif> justificatifs) {
 		this.justificatifs = justificatifs;
 	}
 
-	public List<Notification> getNotifications() {
+	public Set<Notification> getNotifications() {
 		return notifications;
 	}
-	public void setNotifications(List<Notification> notifications) {
+	public void setNotifications(Set<Notification> notifications) {
 		this.notifications = notifications;
 	}	
 	
@@ -120,15 +123,65 @@ public class Client extends User  implements Serializable{
 	public Client() {
 		super();
 		this.dateOuverture = new Date();
-		this.notifications = new ArrayList<>();
+		this.notifications = new HashSet<Notification>();
+		this.justificatifs = new HashSet<Justificatif>();
+		this.comptes = new HashSet<Compte>();
 	}
 
 	@Override
 	public String toString() {
 		return "Client [getRevenu()=" + getRevenu() + ", getDateOuverture()=" + getDateOuverture()
 				+ ", getDateCloture()=" + getDateCloture() + ", getConseiller()=" + getConseiller() + ", getComptes()="
-				+ getComptes() + ", getNotifications()=" + getNotifications() + "]";
+				+ getComptes() + ", getJustificatifs()=" + getJustificatifs() + ", getNotifications()="
+				+ getNotifications() + "]";
 	}
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Client other = (Client) obj;
+		if (comptes == null) {
+			if (other.comptes != null)
+				return false;
+		} else if (!comptes.equals(other.comptes))
+			return false;
+		if (conseiller == null) {
+			if (other.conseiller != null)
+				return false;
+		} else if (!conseiller.equals(other.conseiller))
+			return false;
+		if (dateCloture == null) {
+			if (other.dateCloture != null)
+				return false;
+		} else if (!dateCloture.equals(other.dateCloture))
+			return false;
+		if (dateOuverture == null) {
+			if (other.dateOuverture != null)
+				return false;
+		} else if (!dateOuverture.equals(other.dateOuverture))
+			return false;
+		if (justificatifs == null) {
+			if (other.justificatifs != null)
+				return false;
+		} else if (!justificatifs.equals(other.justificatifs))
+			return false;
+		if (notifications == null) {
+			if (other.notifications != null)
+				return false;
+		} else if (!notifications.equals(other.notifications))
+			return false;
+		if (revenu != other.revenu)
+			return false;
+		return true;
+	}
+
 
 
 

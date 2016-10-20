@@ -14,15 +14,32 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
         demandeNouveauCompte:demandeNouveauCompte,
         modifEtat_Demande:modifEtat_Demande,
         savefile:savefile,
-        reaffectation:reaffectation
+        reaffectation:reaffectation,
+        ListeJustificatifsByIdDemandeOuClient:ListeJustificatifsByIdDemandeOuClient
     };
     return factory;
- 
-    function savefile(fd, idDemande, nom, prenom, typeJustificatif, clientOuDemande){  
+
+    function ListeJustificatifsByIdDemandeOuClient(id, clientOuDemande){
+
+    	var deferred = $q.defer();
+        $http.get(REST_SERVICE_URI+'justificatif/' + id+"&"+clientOuDemande)
+            .then(
+            function (response) {
+                deferred.resolve(response.data);
+            },
+            function(errResponse){
+                console.error('Error while fetching Demandes of type ' + type );
+                deferred.reject(errResponse);
+            }
+        );
+        return deferred.promise;
     	
+    }
+    
+    function savefile(fd, id, nom, prenom, typeJustificatif, clientOuDemande){  
     	 var deferred = $q.defer();
 
-    $http.post("demande/fileupload/"+idDemande+"&"+nom+"&"+prenom+"&"+typeJustificatif+"&"+clientOuDemande, fd, {
+    $http.post("demande/fileupload/"+id+"&"+nom+"&"+prenom+"&"+typeJustificatif+"&"+clientOuDemande, fd, {
         withCredentials: true,
         headers: {'Content-Type': undefined },
         transformRequest: angular.identity})
@@ -138,7 +155,7 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
     
     /* Ajout d'une demande d'inscription d'un client */
     function createDemandeInscription(demande_inscription) {
-    	console.log(demande_inscription)
+
         var deferred = $q.defer();
         $http.post(REST_SERVICE_URI+'inscription/', demande_inscription)
             .then(
@@ -170,7 +187,7 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
     } 
     
     function findDemandeById(idDemande) {
-    	console.log(idDemande)
+
     	var deferred = $q.defer();
     	$http.get(REST_SERVICE_URI+idDemande)
     		.then(

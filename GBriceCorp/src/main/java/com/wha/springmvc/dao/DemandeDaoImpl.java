@@ -1,7 +1,9 @@
 package com.wha.springmvc.dao;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Repository;
 
@@ -24,7 +26,7 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 		Administrateur admin = (Administrateur) getEntityManager()
 				.createQuery("SELECT a FROM Administrateur a WHERE a.id = 1").getSingleResult();
 
-		List<Dem_CreationClient> listDemandes = admin.getDemandeCreationClient();
+		Set<Dem_CreationClient> listDemandes = admin.getDemandeCreationClient();
 		listDemandes.add(demandecreationclient);
 		admin.setDemandeCreationClient(listDemandes);
 		
@@ -40,7 +42,7 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 		Conseiller conseiller = (Conseiller) getEntityManager()
 				.createQuery("SELECT c FROM Conseiller c WHERE c.id = :id").setParameter("id", id_conseiller)
 				.getSingleResult();
-		List<Demande> listDemandes = conseiller.getDemandes();
+		Set<Demande> listDemandes = conseiller.getDemandes();
 		listDemandes.add(demandechequier);
 		conseiller.setDemandes(listDemandes);
 		
@@ -54,7 +56,7 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 		Conseiller conseiller = (Conseiller) getEntityManager()
 				.createQuery("SELECT c FROM Conseiller c WHERE c.id = :id").setParameter("id", id_conseiller)
 				.getSingleResult();
-		List<Demande> listDemandes = conseiller.getDemandes();
+		Set<Demande> listDemandes = conseiller.getDemandes();
 		listDemandes.add(demandeModificationCompte);
 		conseiller.setDemandes(listDemandes);
 		
@@ -138,7 +140,7 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 		Conseiller conseiller = (Conseiller) getEntityManager()
 				.createQuery("SELECT c FROM Conseiller c WHERE c.id = :id").setParameter("id", id_conseiller)
 				.getSingleResult();
-		List<Demande> listDemandes = conseiller.getDemandes();
+		Set<Demande> listDemandes = conseiller.getDemandes();
 		listDemandes.add(demande);
 		conseiller.setDemandes(listDemandes);
 			
@@ -146,8 +148,8 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 		
 	Administrateur admin = (Administrateur) getEntityManager().createQuery("SELECT a FROM Administrateur a WHERE a.id = 1").getSingleResult();
 		
-	List<Dem_CreationClient> listDemandeCreation = admin.getDemandeCreationClient();
-	List<Dem_CreationClient> newListDemandeCreation = new ArrayList<Dem_CreationClient>();
+	Set<Dem_CreationClient> listDemandeCreation = admin.getDemandeCreationClient();
+	Set<Dem_CreationClient> newListDemandeCreation = new HashSet<Dem_CreationClient>();
 	
 	
 	    for (Dem_CreationClient demandeCreation : listDemandeCreation ){

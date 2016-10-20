@@ -16,7 +16,8 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         getConsById:getConsById,
         updateCons:updateCons,
         populate_dummy:populate_dummy,
-        refreshUser:refreshUser
+        refreshUser:refreshUser,
+        deleteCons:deleteCons
     };
 
     var user = {
@@ -139,7 +140,23 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         );
         return deferred.promise;
     }
+    deleteCons
 
+    function deleteCons(consID) {
+        var deferred = $q.defer();
+        $http.delete(REST_SERVICE_URI+"delCons" + consID)
+            .then(
+            function (response) {
+                deferred.resolve();
+            },
+            function(errResponse){
+                console.error('Error while deleting User');
+                deferred.reject(errResponse);
+            }
+        );
+        return deferred.promise;
+    }
+    
     function recherche_userParType(TypeUser) {
         var deferred = $q.defer();
 

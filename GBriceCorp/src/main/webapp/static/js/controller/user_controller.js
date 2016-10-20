@@ -28,7 +28,7 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
 	
 	// Responsive des div partie_commune et banniere en fonction de la navbar
     function nav_cache_methode(){
-    	
+   	
     	if ($scope.nav_cache){
     		$scope.nav_cache = false;  
         	var d2 = document.getElementById("partie_commune");
@@ -48,9 +48,7 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
         	d.removeAttribute("class")
         	d.className += " col-xs-12";         	
     	}
- 
-    	
-	    };
+    };
 	    
 
 	    
@@ -60,28 +58,22 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
     $scope.$route = $route;   
     self.change_langue = change_langue;
 
-    //Initialisation de la langue par defaut a francais
-    var language = sessionStorage.getItem("langue");
-    if(language == null)
-    {	
-	sessionStorage.setItem("langue","fr");
-    }
-    
-    //Choix du drapeau cache en fonction de la langue en session
-    if(language == "fr"){
-    	$scope.lang_cache=true;
-    }else{
-    	$scope.lang_cache=false;	
-    }
-    //chargement du fichier de traduction dans le $scope grace au service dedie
-    translationService.getTranslation($scope, language); 	
-
     //fonction de changement de la langue par le ngclick sur le drapeau
-    function change_langue(pays){
-    	$scope.lang_cache=!$scope.lang_cache;
-		sessionStorage.setItem("langue",pays);
-    	location.reload();
+    function change_langue(){
+    	if(!sessionStorage.getItem("langue")){
+    		sessionStorage.setItem("langue","fr");    		
+    	}else if(sessionStorage.getItem("langue") == "fr"){
+        	$scope.lang_cache=true;
+        	sessionStorage.setItem("langue","en");
+        }else{
+        	$scope.lang_cache=false;
+        	sessionStorage.setItem("langue","fr");
+        }
+        //chargement du fichier de traduction dans le $scope grace au service dedie
+        translationService.getTranslation($scope, sessionStorage.getItem("langue")); 
 	    };
+
+	    
 	    
 	    
     // Fonctions vues
@@ -357,6 +349,7 @@ function refreshUser(){
     self.conseillers = [];
     self.detailCompte = detailCompte;
     self.getClients_Cons=getClients_Cons;
+    self.deleteCons = deleteCons;
 
     
   //Fonction du lien par ngclick dans le ng-repeat du recherche compte
@@ -365,6 +358,24 @@ function refreshUser(){
    }     
     
     
+   function deleteCons (cons){
+		if (cons.clients.length > 0)
+		{
+		alert("Ce conseiller a toujours des clients qui lui sont affectes, impossible de le supprimer");
+		}
+		else
+		{
+   		UserService.deleteCons(cons.id)
+   			.then(
+			function(){
+
+				getListeCons();
+			},
+			function (errResponse){
+				console.error('Error while deleting a conseiller from an ID')
+			});
+   		}
+   }
    
     
     function getClients_Cons(){
@@ -377,7 +388,7 @@ function refreshUser(){
     				console.log(d);
     			},
     			function (errResponse){
-    				console.error('Error while getting a client from an ID')
+    				console.error('Error while getting a client from an IDCons')
     			});
     };
   
@@ -402,7 +413,7 @@ function refreshUser(){
     	UserService.getConsById($routeParams.consId)
     	.then(
     			function(d){
-    				self.cons = d;
+    				$scope.cons = d;
     			},
     			function (errResponse){
     				console.error('Error while getting a cons from an ID')
@@ -433,6 +444,7 @@ function refreshUser(){
         UserService.creaCons2(self.cons)
             .then(
             		function(d){
+            			refreshUser();
             			$location.path("admin/Admin_RechCons");	
         			},
             function(errResponse){

@@ -2,6 +2,7 @@ package com.wha.springmvc.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.wha.springmvc.model.FileModel;
 import com.wha.springmvc.model.Justificatif;
@@ -54,25 +54,25 @@ public class FileUploadController {
 		return "GET Impossible";
 	}
 
-	@RequestMapping(value = "/demande/fileupload/{id}&{nom}&{prenom}&{typeJustificatif}&{clientOuDemande}", method = RequestMethod.POST)
+	@RequestMapping(value = "/demande/fileupload/{id_demandeouclient}&{nom}&{prenom}&{typeJustificatif}&{clientOuDemande}", method = RequestMethod.POST)
 	public ResponseEntity<Void> singleFileUpload(@Valid FileModel fileModel, BindingResult result, ModelMap model,
-			@PathVariable("id") long id, @PathVariable("nom") String nom, @PathVariable("prenom") String prenom,
+			@PathVariable("id_demandeouclient") long id_demandeouclient, @PathVariable("nom") String nom, @PathVariable("prenom") String prenom,
 			@PathVariable("typeJustificatif") TypeJustificatif typeJustificatif,
-			@PathVariable("clientOuDemande") String clientOuDemande) throws IOException {
+			@PathVariable("clientOuDemande") int clientOuDemande) throws IOException {
 
 		if (result.hasErrors()) {
 			System.out.println("validation errors");
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		} else {
 			System.out.println("Fetching file");
-			String repertoire;
-			if (clientOuDemande == "demande") {
-				repertoire = UPLOAD_LOCATION + "demandes/" + id + "/";
-			} else {
-				repertoire = UPLOAD_LOCATION + id + "/";
+			String repertoire = UPLOAD_LOCATION;
+			if (clientOuDemande == 0) {
+				repertoire = UPLOAD_LOCATION + "demandes/" + id_demandeouclient + "/";
+			} else if (clientOuDemande == 1){
+				repertoire = UPLOAD_LOCATION+ "clients/" + id_demandeouclient + "/";
 			}
 
-			String nomfichier = id + "_" + nom + "_" + prenom + "_" + typeJustificatif + "."
+			String nomfichier = id_demandeouclient + "_" + nom + "_" + prenom + "_" + typeJustificatif + "."
 					+ fileModel.getFile().getOriginalFilename().split("\\.")[1];
 
 			File drirectory = new File(repertoire);
@@ -93,10 +93,32 @@ public class FileUploadController {
 			Justificatif justificatif = new Justificatif();
 			justificatif.setType(typeJustificatif);
 			justificatif.setUrl(repertoire + nomfichier);
-			justificatifService.saveJustificatif(id, justificatif, clientOuDemande);
+			justificatifService.saveJustificatif(id_demandeouclient, justificatif, clientOuDemande);
 
 			return new ResponseEntity<Void>(HttpStatus.OK);
 		}
 	}
+	// -------------------Retrieve justificatifs by Id de la demande ou du client--------------------------------------------------------
 
+	@RequestMapping(value = "/demande/justificatif/{id}&{clientOuDemande}", method = RequestMethod.GET)
+	public ResponseEntity<List<Justificatif>> justificatifsById(@PathVariable("id") long id,
+			@PathVariable("clientOuDemande") int clientOuDemande) {
+		System.out.println("fetch justificatifs " + id);
+		
+		try {
+			List<Justificatif> justificatifs = justificatifService.findById(id, clientOuDemande);
+
+			return new ResponseEntity<List<Justificatif>>(justificatifs, HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new ResponseEntity<List<Justificatif>>(HttpStatus.NO_CONTENT);
+		}		
+				
+
+	
+
+		
+	
+	}
 }

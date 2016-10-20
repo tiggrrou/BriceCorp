@@ -7,9 +7,9 @@ import com.wha.springmvc.model.Justificatif;
 public interface JustificatifService {
 
 	
-	public List<Justificatif> findByClientId(long clientId);
+	public List<Justificatif> findById(long id,int clientOuDemande);
 	
-	public void saveJustificatif(long id, Justificatif justificatif,String clientOuDemande);
+	public void saveJustificatif(long id_demandeouclient, Justificatif justificatif,int clientOuDemande);
 	
 	public void deleteJustificatifById(long id);
 	

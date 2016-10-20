@@ -1,6 +1,7 @@
 package com.wha.springmvc.dao;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.NoResultException;
 
@@ -83,7 +84,7 @@ public class CompteDaoImpl extends AbstractDao<Integer, Compte> implements Compt
 		//opération de débit
 		compteDebite.setSolde(compteDebite.getSolde() - montant);
 		//ajout du mouvement
-		List<Mouvement> listMvtDebit = compteDebite.getMouvements();
+		Set<Mouvement> listMvtDebit = compteDebite.getMouvements();
 		Mouvement mvtDebit = new Mouvement();
 		mvtDebit.setMontant(-montant);
 		mvtDebit.setLibelle("Debit vers compte " + compteCrediteurID);
@@ -95,7 +96,7 @@ public class CompteDaoImpl extends AbstractDao<Integer, Compte> implements Compt
 		//opération de crédit
 		compteCredite.setSolde(compteCredite.getSolde() + montant);
 		//ajout du mouvement
-		List<Mouvement> listMvtCredit = compteCredite.getMouvements();
+		Set<Mouvement> listMvtCredit = compteCredite.getMouvements();
 		Mouvement mvtCredit = new Mouvement();
 		mvtCredit.setMontant(montant);
 		mvtCredit.setLibelle("Credit depuis compte " + compteDebiteurID);

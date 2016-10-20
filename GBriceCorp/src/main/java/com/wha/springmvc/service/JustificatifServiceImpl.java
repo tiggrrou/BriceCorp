@@ -19,14 +19,13 @@ public class JustificatifServiceImpl implements JustificatifService {
 	
 	
 	@Override
-	public List<Justificatif> findByClientId(long clientId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Justificatif> findById(long id,int clientOuDemande){
+return dao.findById(id, clientOuDemande);
 	}
 
 	@Override
-	public void saveJustificatif(long id, Justificatif justificatif,String clientOuDemande){
-		dao.saveJustificatif(id, justificatif, clientOuDemande);
+	public void saveJustificatif(long id_demandeouclient, Justificatif justificatif,int clientOuDemande){
+		dao.saveJustificatif(id_demandeouclient, justificatif, clientOuDemande);
 
 	}
 

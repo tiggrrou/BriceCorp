@@ -5,7 +5,9 @@ package com.wha.springmvc.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -45,10 +47,10 @@ public class Conseiller extends User implements Serializable{
 	
 	@OneToMany(mappedBy="conseiller", fetch=FetchType.EAGER)
 //	 @JsonSerialize(using = CustomListSerializer.class)
-	private List<Client> clients;
+	private Set<Client> clients;
 	
 	@OneToMany(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
-	private List<Demande> demandes;
+	private Set<Demande> demandes;
 	//#endregion
 
 	//#region Accesseurs
@@ -79,19 +81,19 @@ public class Conseiller extends User implements Serializable{
 		this.finContrat = finContrat;
 	}	
 	
-	public List<Client> getClients() {
+	public Set<Client> getClients() {
 		return clients;
 	}
 
-	public void setClients(List<Client> clients) {
+	public void setClients(Set<Client> clients) {
 		this.clients = clients;
 	}	
 	
-	public List<Demande> getDemandes() {
+	public Set<Demande> getDemandes() {
 		return demandes;
 	}
 
-	public void setDemandes(List<Demande> demandes) {
+	public void setDemandes(Set<Demande> demandes) {
 		this.demandes = demandes;
 	}	
 	//#endregion 
@@ -104,6 +106,8 @@ public class Conseiller extends User implements Serializable{
 	public Conseiller() {
 		super();
 		this.debutContrat = new Date();
+		this.clients = new HashSet<Client>();
+		this.demandes = new HashSet<Demande>();
 	}
 
 	@Override
@@ -111,6 +115,46 @@ public class Conseiller extends User implements Serializable{
 		return "Conseiller [getMatricule()=" + getMatricule()
 				+ ", getDebutContrat()=" + getDebutContrat() + ", getFinContrat()=" + getFinContrat()
 				+ ", getClients()=" + getClients() + ", getDemandes()=" + getDemandes() + "]";
+	}
+
+
+
+
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Conseiller other = (Conseiller) obj;
+		if (clients == null) {
+			if (other.clients != null)
+				return false;
+		} else if (!clients.equals(other.clients))
+			return false;
+		if (debutContrat == null) {
+			if (other.debutContrat != null)
+				return false;
+		} else if (!debutContrat.equals(other.debutContrat))
+			return false;
+		if (demandes == null) {
+			if (other.demandes != null)
+				return false;
+		} else if (!demandes.equals(other.demandes))
+			return false;
+		if (finContrat == null) {
+			if (other.finContrat != null)
+				return false;
+		} else if (!finContrat.equals(other.finContrat))
+			return false;
+		if (matricule != other.matricule)
+			return false;
+		return true;
 	}
 
 

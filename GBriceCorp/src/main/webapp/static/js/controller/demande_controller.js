@@ -1,6 +1,6 @@
 'use strict';
 
-App.controller('DemandeController', ['$scope', '$location', '$resource', '$route', 'DemandeService', '$routeParams', function($scope, $location, $resource, $route, DemandeService,$routeParams) {
+App.controller('DemandeController', ['$scope', '$location', '$resource', '$route', 'DemandeService', 'UserService', '$routeParams', function($scope, $location, $resource, $route, DemandeService, UserService,$routeParams) {
 	
 
 
@@ -17,7 +17,10 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	 self.uploadFile=uploadFile;
 	 self.modifEtat_Demande=modifEtat_Demande;
 	 self.getDemandesCreationClient = getDemandesCreationClient;
+	 self.getConsById = getConsById;
 	 self.reaffectation = reaffectation;
+	 self.ListeJustificatifsByIdDemandeOuClient=ListeJustificatifsByIdDemandeOuClient;
+	 self.findDemandeById=findDemandeById;
 	    
 	    $scope.menuDemandesCons = [{"id":"inscription", "valeur" :"Ouverture compte"},
 	                               {"id":"chequier", "valeur" :"Chequier"},
@@ -35,18 +38,36 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	    $scope.demandes=[];
 	 self.demandeCreationClient;
 
+	 	/* Recherche d'un conseiller par son ID */
+		function getConsById(){
+	    	// je récupère un client en fonction de son ID
+			if ($routeParams.consId != null){
+	    	UserService.getConsById($routeParams.consId)
+	    	.then(
+	    			function(d){
+	    				$scope.cons = d;
+	    			},
+	    			function (errResponse){
+	    				console.error('Error while getting a cons from an ID')
+	    			});
+			}
+	    };
+	 
 	 function reaffectation(clientID, newConsID)
 	 {
 		 DemandeService.reaffectation(clientID, newConsID)
 		 .then(
                  function() {
                 	 console.log("ok pour la réaffectation");
+                	 getConsById();
                  },
          function(errResponse){
              console.error('Erreur pendant la réaffectation');
          }
      );	 
 	 }
+	 
+	 
 	 
 	 function getDemandesCreationClient(){
 		 DemandeService.fetchDemandesWithType("inscription", 0)
@@ -105,12 +126,13 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 
 
  	  
- 	 if($routeParams.demande_id != null){	
- 	 	
+ 	 if($routeParams.demande_id != null &&  JSON.parse(sessionStorage.getItem("currentUser")) != null ){	
+
  			for (var i = 0; i < JSON.parse(sessionStorage.getItem("currentUser")).demandes.length ; i++) {
  			   if(JSON.parse(sessionStorage.getItem("currentUser")).demandes[i].id == $routeParams.demande_id ){
+ 				 
  				  $scope.demande =  JSON.parse(sessionStorage.getItem("currentUser")).demandes[i]; 
- 				  console.log($scope.demande)
+
  				  $scope.comptes = [JSON.parse(sessionStorage.getItem("currentUser")).demandes[i].compte];
  			   }
  			}
@@ -215,34 +237,35 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
     window.history.back();
 };
 
+
+
 $scope.uploadFile = function(files, typeJustificatif) {
     var fd = new FormData();
     //Take the first selected file
     fd.append("file", files[0]);
-    
 
-    if($scope.client!=null){
 
-    	var id = $scope.client.id
-    	var nom = $scope.client.nom
-    	var prenom = $scope.client.prenom
-    	var clientOuDemande = 'client'
-    }else{
     if($scope.demande.client!=null){
-
+    	console.log("demande")
     	var id = $scope.demande.client.id
     	var nom = $scope.demande.client.nom
     	var prenom = $scope.demande.client.prenom
-    	var clientOuDemande = 'client'
-    }else{
-
+    	var clientOuDemande = 1
+    }else if($scope.demande!=null){
+    	console.log("creation")
     	var id = $scope.demande.id
     	var nom = $scope.demande.nom
     	var prenom = $scope.demande.prenom
-    	var clientOuDemande = 'demande'
-    }
+    	var clientOuDemande = 0
+    }else if(JSON.parse(sessionStorage.getItem("currentUser"))!=null){
+    	console.log("client")
+    	var id = JSON.parse(sessionStorage.getItem("currentUser")).id
+    	var nom = JSON.parse(sessionStorage.getItem("currentUser")).nom
+    	var prenom = JSON.parse(sessionStorage.getItem("currentUser")).prenom
+    	var clientOuDemande = 1
     }
     
+    console.log("info "+id + nom + prenom + clientOuDemande)
     DemandeService.savefile(fd, id,nom, prenom, typeJustificatif, clientOuDemande)
     .then(
     	function(d) {
@@ -251,19 +274,44 @@ $scope.uploadFile = function(files, typeJustificatif) {
     		}else if (typeJustificatif == "Impot"){
     			$scope.Impot = true
     		}
-    		if ($scope.Domicile == true && $scope.Impot == true){
-    			$location.path("/");
-    		}
+    		   ListeJustificatifsByIdDemandeOuClient(id, clientOuDemande);
     	},
     function(errResponse){
         console.error('Error while uploading file');
     }
+		
 );
 
+ 
+};
+
+function ListeJustificatifsByIdDemandeOuClient(id, clientOuDemande) {
+    DemandeService.ListeJustificatifsByIdDemandeOuClient(id, clientOuDemande)
+    .then(
+    		function(d) {
+    			$scope.justificatifs = d
+    		},
+    function(errResponse){
+        console.error('Error while fetching justificatifs');
+    }
+);
 
 };
 
 
+
+function findDemandeById(id) {
+    DemandeService.findDemandeById(id)
+    .then(
+    		function(d) {
+    			$scope.demande = d
+    		},
+    function(errResponse){
+        console.error('Error while fetching demandes');
+    }
+);
+
+};
 
 function writeDemDecou() {
 	DemandeService.writeDemDecou(JSON.parse(sessionStorage.getItem("User").id), compte.id, decouvert)

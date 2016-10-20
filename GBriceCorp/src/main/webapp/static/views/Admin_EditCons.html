@@ -1,6 +1,6 @@
 <!-- Formulaire d'edition d'un conseiller -->
 <meta charset="utf-8">
-<div class="panel panel-info"  ng-init= ctrl.getConsById() >
+<div class="panel panel-info"  ng-init="ctrl.getConsById()" >
 
 	<!-- Default panel contents -->
 	<div class="panel-heading">
@@ -12,12 +12,12 @@
 		<div class="formcontainer">
 			<form ng-submit="ctrl.validEditCons()" name="formEdition"
 				class="form-horizontal" method="post">
-				<input type="hidden" ng-model="ctrl.cons.id" />
+				<input type="hidden" ng-model="cons.id" />
 				<div class="row">
 					<div class="form-group col-md-12">
 						<label class="col-md-2 control-lable" for="file">Prenom</label>
 						<div class="col-md-7">
-							<input type="text" ng-model="ctrl.cons.prenom" name="prenom"
+							<input type="text" ng-model="cons.prenom" name="prenom"
 								class="form-control input-sm"
 								
 								 />
@@ -28,7 +28,7 @@
 					<div class="form-group col-md-12">
 						<label class="col-md-2 control-lable" for="file">Nom</label>
 						<div class="col-md-7">
-							<input type="text" ng-model="ctrl.cons.nom" name="nom"
+							<input type="text" ng-model="cons.nom" name="nom"
 								class="form-control input-sm"
 								 />
 						</div>
@@ -38,7 +38,7 @@
 					<div class="form-group col-md-12">
 						<label class="col-md-2 control-lable" for="file">Telephone</label>
 						<div class="col-md-7">
-							<input type="tel" ng-model="ctrl.cons.telephone" name="telephone"
+							<input type="tel" ng-model="cons.telephone" name="telephone"
 								class="form-control input-sm"
 								 />
 						</div>
@@ -49,7 +49,7 @@
 						<label class="col-md-2 control-lable" for="file">Adresse
 							mail</label>
 						<div class="col-md-7">
-							<input type="email" ng-model="ctrl.cons.mail" name="mail"
+							<input type="email" ng-model="cons.mail" name="mail"
 								class="form-control input-sm"
 								 />
 						</div>
@@ -62,7 +62,7 @@
 						<label class="col-md-2 control-lable" for="file">Adresse
 							postale</label>
 						<div class="col-md-7">
-							<input type="text" ng-model="ctrl.cons.adresse" name="adresse"
+							<input type="text" ng-model="cons.adresse" name="adresse"
 								class="form-control input-sm"
 								 />
 						</div>
@@ -74,7 +74,7 @@
 						<label class="col-md-2 control-lable" for="file">Date de
 							fin de contrat</label>
 						<div class="col-md-7">
-							<input type="text" ng-model="ctrl.cons.finContrat"
+							<input type="text" ng-model="cons.finContrat"
 								name="dateFinContrat" class="form-control input-sm"
 								value="ATTENTION: NECESSITE L'AVAL VOTRE DIRECTEUR D'AGENCE!" />
 						</div>
@@ -115,7 +115,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="c in ctrl.cons.clients">
+				<tr ng-repeat="c in cons.clients">
 					<td><span ng-bind="c.id"></span></td>
 					<td><span ng-bind="c.prenom"></span></td>
 					<td><span ng-bind="c.nom"></span></td>
@@ -128,7 +128,7 @@
 											ng-model="chosenConsID">
 											<option value="">Select</option>
 											<option ng-repeat="Conseiller in ctrl.currentUser.conseillers" 
-												value="{{Conseiller.id}}">{{Conseiller.nom}}</option>
+												value="{{Conseiller.id}}" ng-if="cons.id != Conseiller.id">{{Conseiller.nom}}</option>
 										</select>
 						</form>
 					</td>
