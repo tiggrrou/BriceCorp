@@ -366,7 +366,7 @@ public class HelloWorldRestController {
 	}
 
 
-	// ------------------- Delete a User --------------------------------------------------------
+	// ------------------- Delete a Conseiller --------------------------------------------------------
 
 	@RequestMapping(value = "/user/delCons{idCons}", method = RequestMethod.DELETE)
 	public ResponseEntity<Conseiller> deleteCons(@PathVariable("idCons") long idCons) {

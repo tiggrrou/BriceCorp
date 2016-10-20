@@ -349,6 +349,7 @@ function refreshUser(){
     self.conseillers = [];
     self.detailCompte = detailCompte;
     self.getClients_Cons=getClients_Cons;
+    self.deleteCons = deleteCons;
 
     
   //Fonction du lien par ngclick dans le ng-repeat du recherche compte
@@ -357,6 +358,24 @@ function refreshUser(){
    }     
     
     
+   function deleteCons (cons){
+		if (cons.clients.length > 0)
+		{
+		alert("Ce conseiller a toujours des clients qui lui sont affectes, impossible de le supprimer");
+		}
+		else
+		{
+   		UserService.deleteCons(cons.id)
+   			.then(
+			function(){
+
+				getListeCons();
+			},
+			function (errResponse){
+				console.error('Error while deleting a conseiller from an ID')
+			});
+   		}
+   }
    
     
     function getClients_Cons(){
@@ -369,7 +388,7 @@ function refreshUser(){
     				console.log(d);
     			},
     			function (errResponse){
-    				console.error('Error while getting a client from an ID')
+    				console.error('Error while getting a client from an IDCons')
     			});
     };
   
@@ -425,6 +444,7 @@ function refreshUser(){
         UserService.creaCons2(self.cons)
             .then(
             		function(d){
+            			refreshUser();
             			$location.path("admin/Admin_RechCons");	
         			},
             function(errResponse){
