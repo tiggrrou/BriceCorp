@@ -19,16 +19,18 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	 self.getDemandesCreationClient = getDemandesCreationClient;
 	 self.getConsById = getConsById;
 	 self.reaffectation = reaffectation;
-	 self.ListeJustificatifsByIdDemandeOuClient=ListeJustificatifsByIdDemandeOuClient;
+	 self.listeJustificatifs=listeJustificatifs;
 	 self.findDemandeById=findDemandeById;
-	    
+	 self.getClient=getClient;
+	 
 	    $scope.menuDemandesCons = [{"id":"inscription", "valeur" :"Ouverture compte"},
 	                               {"id":"chequier", "valeur" :"Chequier"},
 	                               {"id":"modifcompte", "valeur" :"Modification compte"}];
 	    
 	    $scope.value = $scope.menuDemandesCons[0].id;
 	    $scope.valeur = $scope.menuDemandesCons[0].valeur;
-	    
+
+	    $scope.client_id = $routeParams.client_id;
 	    $scope.demande_id = $routeParams.demande_id;
 	    $scope.nom = $routeParams.nom;
 	    $scope.prenom = $routeParams.prenom;
@@ -120,24 +122,27 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	 }
 	 
  	 function detailDemande(demande){
-  	   	 $location.path("/cons/Cons_DetailCompte/" + demande.id);
+ 		 if(demande.type>1){
+  	   	 $location.path("/cons/Cons_DetailCompte/" + demande.id+"&"+demande.client.id);
+ 		 }else{
+ 			 $location.path("/cons/Cons_DetailCompte/" + demande.id+"&"+0);	 
+ 			 
+ 		 }
+ 		 
   	 }     	
 
 
+     function getClient(client_id){
+     	UserService.getClient(client_id)
+     	.then(
+     			function(d){
+     				$scope.client = d;
+     			},
+     			function (errResponse){
+     				console.error('Error while getting a client from an ID')
+     			});
+     };
 
- 	  
- 	 if($routeParams.demande_id != null &&  JSON.parse(sessionStorage.getItem("currentUser")) != null ){	
-
- 			for (var i = 0; i < JSON.parse(sessionStorage.getItem("currentUser")).demandes.length ; i++) {
- 			   if(JSON.parse(sessionStorage.getItem("currentUser")).demandes[i].id == $routeParams.demande_id ){
- 				 
- 				  $scope.demande =  JSON.parse(sessionStorage.getItem("currentUser")).demandes[i]; 
-
- 				  $scope.comptes = [JSON.parse(sessionStorage.getItem("currentUser")).demandes[i].compte];
- 			   }
- 			}
-  	 }
- 	 
  	 
  	 
  	 function validation_Demande(demande){
@@ -244,14 +249,16 @@ $scope.uploadFile = function(files, typeJustificatif) {
     //Take the first selected file
     fd.append("file", files[0]);
 
-
-    if($scope.demande.client!=null){
+   
+    
+ 
+    if($scope.demande_id && $scope.client_id>0){
     	console.log("demande")
     	var id = $scope.demande.client.id
     	var nom = $scope.demande.client.nom
     	var prenom = $scope.demande.client.prenom
     	var clientOuDemande = 1
-    }else if($scope.demande!=null){
+    }else if($scope.demande_id!=null){
     	console.log("creation")
     	var id = $scope.demande.id
     	var nom = $scope.demande.nom
@@ -266,7 +273,7 @@ $scope.uploadFile = function(files, typeJustificatif) {
     }
     
     console.log("info "+id + nom + prenom + clientOuDemande)
-    DemandeService.savefile(fd, id,nom, prenom, typeJustificatif, clientOuDemande)
+    DemandeService.savefile(fd, id, nom, prenom, typeJustificatif, clientOuDemande)
     .then(
     	function(d) {
     		if (typeJustificatif == "Domicile"){
@@ -274,7 +281,7 @@ $scope.uploadFile = function(files, typeJustificatif) {
     		}else if (typeJustificatif == "Impot"){
     			$scope.Impot = true
     		}
-    		   ListeJustificatifsByIdDemandeOuClient(id, clientOuDemande);
+    		   listeJustificatifs();
     	},
     function(errResponse){
         console.error('Error while uploading file');
@@ -285,8 +292,32 @@ $scope.uploadFile = function(files, typeJustificatif) {
  
 };
 
-function ListeJustificatifsByIdDemandeOuClient(id, clientOuDemande) {
-    DemandeService.ListeJustificatifsByIdDemandeOuClient(id, clientOuDemande)
+function listeJustificatifs() {
+
+
+
+	
+		 if($scope.demande_id && $scope.client_id>0){
+			    	console.log("demande.client")
+			    	var id = $scope.client_id
+			    	var client_Demande = 1
+		 }else if($scope.demande_id){
+			    	console.log("Creation")
+			    	var id = $scope.demande_id
+			    	var client_Demande = 0
+			    	console.log(id + client_Demande);
+			    	
+			    }else if($scope.client_id>0){
+			    	console.log("client")
+					var id = $scope.client_id;
+					var client_Demande = 1;	
+				}else  if($scope.compte_id){
+			    	console.log("current")
+			    	var id = JSON.parse(sessionStorage.getItem("currentUser")).id;
+			    	var client_Demande = 1;		
+				}
+
+    DemandeService.listeJustificatifs(id, client_Demande)
     .then(
     		function(d) {
     			$scope.justificatifs = d

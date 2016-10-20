@@ -116,7 +116,6 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
     	$http.get(REST_SERVICE_URI+'client/'+idClient)
 		.then(
 		function (response){
-			sessionStorage.setItem("Client",JOSN.stringify(response.data));
 			deferred.resolve(response.data);
 		},
 		function (errResponse){

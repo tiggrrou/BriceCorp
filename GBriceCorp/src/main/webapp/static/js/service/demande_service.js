@@ -15,11 +15,11 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
         modifEtat_Demande:modifEtat_Demande,
         savefile:savefile,
         reaffectation:reaffectation,
-        ListeJustificatifsByIdDemandeOuClient:ListeJustificatifsByIdDemandeOuClient
+        listeJustificatifs:listeJustificatifs
     };
     return factory;
 
-    function ListeJustificatifsByIdDemandeOuClient(id, clientOuDemande){
+    function listeJustificatifs(id, clientOuDemande){
 
     	var deferred = $q.defer();
         $http.get(REST_SERVICE_URI+'justificatif/' + id+"&"+clientOuDemande)
@@ -28,7 +28,7 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
                 deferred.resolve(response.data);
             },
             function(errResponse){
-                console.error('Error while fetching Demandes of type ' + type );
+                console.error('Error while fetching listeJustificatifs' );
                 deferred.reject(errResponse);
             }
         );

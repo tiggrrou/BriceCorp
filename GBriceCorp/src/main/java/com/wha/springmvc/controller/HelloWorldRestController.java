@@ -495,9 +495,34 @@ public class HelloWorldRestController {
 
 	@RequestMapping(value = "/compte/{idClient}", method = RequestMethod.GET)
 	public ResponseEntity<List<Compte>> getListeClientComptes(@PathVariable("idClient") long ID) {
-		System.out.println("compte" + ID);
+		System.out.println("comptes du client" + ID);
 		List<Compte> listComptes = compteService.findByClientId(ID);
+		System.out.println(listComptes);
 		return new ResponseEntity<List<Compte>>(listComptes, HttpStatus.OK);
 	}
 
+	
+	// ------------------- Liste Compte d'un conseiller --------------------------------------------------------
+
+	@RequestMapping(value = "/compte/bycons/{idCons}", method = RequestMethod.GET)
+	public ResponseEntity<List<Compte>> getListeConseillersComptes(@PathVariable("idCons") long idCons) {
+		System.out.println("comptes du conseiller" + idCons);
+		List<Compte> listComptes = compteService.findComptesByIdCons(idCons);
+		System.out.println(listComptes);
+		return new ResponseEntity<List<Compte>>(listComptes, HttpStatus.OK);
+	}
+	
+	// ------------------- un compte by id --------------------------------------------------------
+
+	@RequestMapping(value = "/compte/byId/{compte_id}", method = RequestMethod.GET)
+	public ResponseEntity<Compte> findComptebyId(@PathVariable("compte_id") long compte_id) {
+		System.out.println("compte numero " + compte_id);
+		Compte compte = compteService.findCompteById(compte_id);
+		System.out.println("compte " + compte);
+		return new ResponseEntity<Compte>(compte, HttpStatus.OK);
+	}	
+	
+	
+	
+	
 }

@@ -6,7 +6,9 @@ App.factory('CompteService', ['$http', '$q', function($http, $q){
 
     var factory = {
     	getComptesClient:getComptesClient,
-    	virement:virement //A FAIRE
+    	virement:virement,
+    	getAllComptesByCons:getAllComptesByCons,
+    	findCompteById:findCompteById
     };
     
     return factory;
@@ -45,8 +47,33 @@ App.factory('CompteService', ['$http', '$q', function($http, $q){
 		return deferred.promise;
     }
     
-   
     
+    function findCompteById(compte_id) {
+    	var deferred = $q.defer();
+    	$http.get(REST_SERVICE_URI_COMPTES+'byId/'+compte_id)
+		.then(
+		function (response){
+			deferred.resolve(response.data);
+		},
+		function (errResponse){
+			console.error('Error while getting Account Data from server')
+		})
+		return deferred.promise;
+    } 
+    
+    
+    function getAllComptesByCons(client_id) {
+    	var deferred = $q.defer();
+    	$http.get(REST_SERVICE_URI_COMPTES+'bycons/'+client_id)
+		.then(
+		function (response){
+			deferred.resolve(response.data);
+		},
+		function (errResponse){
+			console.error('Error while getting Account Data from server')
+		})
+		return deferred.promise;
+    } 
   
 
 }]);

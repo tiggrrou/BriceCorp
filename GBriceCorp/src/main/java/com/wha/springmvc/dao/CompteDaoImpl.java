@@ -14,7 +14,7 @@ import com.wha.springmvc.model.Mouvement;
 public class CompteDaoImpl extends AbstractDao<Integer, Compte> implements CompteDao {
 
 	@Override
-	public Compte findCById(long compteid) {
+	public Compte findCompteById(long compteid) {
 		try {
 			Compte compte = (Compte) getEntityManager()
 					.createQuery("SELECT C FROM Compte C WHERE C.id = :id").setParameter("id", compteid)
@@ -34,6 +34,15 @@ public class CompteDaoImpl extends AbstractDao<Integer, Compte> implements Compt
 		return comptes;
 	}
 
+	public List<Compte> findComptesByIdCons(long consId) {
+		@SuppressWarnings("unchecked")
+		List<Compte> comptes = getEntityManager().createQuery("SELECT c.comptes FROM Client c WHERE c.conseiller.id = :id")
+				.setParameter("id", consId)
+				.getResultList();
+		return comptes;
+	}
+	
+	
 	@Override
 	public long saveCompte(Compte compte) {
 		persist(compte);
@@ -42,7 +51,7 @@ public class CompteDaoImpl extends AbstractDao<Integer, Compte> implements Compt
 
 	@Override
 	public void updateCompte(Compte compte) {
-		Compte cpt = findCById(compte.getID());
+		Compte cpt = findCompteById(compte.getID());
 		cpt.setActif(compte.isActif());
 		cpt.setDateCloture(compte.getDateCloture());
 		cpt.setDateOuverture(compte.getDateOuverture());
@@ -79,7 +88,7 @@ public class CompteDaoImpl extends AbstractDao<Integer, Compte> implements Compt
 	@Override
 	public void mouvement(float montant, long compteDebiteurID, long compteCrediteurID) {
 		
-		Compte compteDebite = findCById(compteDebiteurID);
+		Compte compteDebite = findCompteById(compteDebiteurID);
 		//opération de débit
 		compteDebite.setSolde(compteDebite.getSolde() - montant);
 		//ajout du mouvement
@@ -91,7 +100,7 @@ public class CompteDaoImpl extends AbstractDao<Integer, Compte> implements Compt
 
 		
 		
-		Compte compteCredite = findCById(compteCrediteurID);
+		Compte compteCredite = findCompteById(compteCrediteurID);
 		//opération de crédit
 		compteCredite.setSolde(compteCredite.getSolde() + montant);
 		//ajout du mouvement

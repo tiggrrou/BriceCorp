@@ -8,9 +8,12 @@ import com.wha.springmvc.model.Compte;
 public interface CompteDao {
 
 	
-	Compte findCById(long compteid);
+	Compte findCompteById(long compteid);
 	
 	List<Compte> findCByClientId(long clientId);
+	
+	public List<Compte> findComptesByIdCons(long consId);
+
 	
 	public long saveCompte(Compte compte);
 	

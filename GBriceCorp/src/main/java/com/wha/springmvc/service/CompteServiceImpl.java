@@ -24,14 +24,18 @@ public class CompteServiceImpl implements CompteService {
 return dao.findAllComptes();
 	}
 
-	public Compte findById(long compteid) {
-		return dao.findCById(compteid);
+	public Compte findCompteById(long compteid) {
+		return dao.findCompteById(compteid);
 	}
 
 	public List<Compte> findByClientId(long clientId) {
 		return dao.findCByClientId(clientId);
 	}
 
+	public List<Compte> findComptesByIdCons(long consId){
+		return dao.findComptesByIdCons(consId);		
+	}
+	
 	public Compte findByLibelle(String name) {
 //
 //		for (Compte compte : comptes) {
@@ -57,7 +61,7 @@ return dao.findAllComptes();
 	}
 // ce serai pas plutot une comparaison sur le libelle et l'idclient ?
 	public boolean isCompteExist(Compte compte) {
-		return dao.findCById(compte.getID()) != null;
+		return dao.findCompteById(compte.getID()) != null;
 	}
 
 	public void deleteAllComptes() {

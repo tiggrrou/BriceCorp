@@ -17,31 +17,67 @@ App.controller('CompteController', ['$scope','$location', '$route', '$routeParam
     self.remove = remove;
     self.getComptes=getComptes;
     self.goToNouveauCompte = goToNouveauCompte;
-    self.findComptesByClientId = findComptesByClientId;
     $scope.virement = virement;
+    $scope.compte_id = $routeParams.compte_id;
+    self.getAllComptesByCons =getAllComptesByCons;
+    self.detailCompte=detailCompte;
+    self.findComptesByClientId=findComptesByClientId;
+    self.findCompteById=findCompteById;
+    function detailCompte(compte_id){
+	  	 $location.path("/cons/DetailClient/" + compte_id);
+	   }   
+    
 
-	 if($routeParams.compte_id != null){	
-			for (var i = 0; i < JSON.parse(sessionStorage.getItem("currentUser")).comptes.length ; i++) {
-			   if(JSON.parse(sessionStorage.getItem("currentUser")).comptes[i].id == $routeParams.compte_id ){
-				  $scope.comptes =  [JSON.parse(sessionStorage.getItem("currentUser")).comptes[i]]; 
-				  console.log($scope.comptes)
-			   }
-			}
-	 }
-	
+    function getAllComptesByCons(){
+
+      	CompteService.getAllComptesByCons(JSON.parse(sessionStorage.getItem("currentUser")).id)
+    		    	.then(
+    		    			function(data){
+    		    				console.log(data);
+    		    				$scope.comptes = data;
+    		    			},
+    		    			function (errResponse){
+    		    				console.error('Error while getting an account from an customer ID')
+    		    			});
+    		    	
+    		    };
+    		    
 	    
 	    function getComptes(){
-	    	// je recupere les comptes d'un client en fonction de son ID
-	    	var idCurrent = JSON.parse(sessionStorage.getItem("currentUser")).id;
-	    	CompteService.getComptesClient(idCurrent)
-	    	.then(
-	    			function(data){
-	    				console.log(data);
-	    				$scope.comptes = data;
-	    			},
-	    			function (errResponse){
-	    				console.error('Error while getting an account from an customer ID')
-	    			});
+
+	    	 if($scope.client_id>0){
+			    	console.log("demande.client")
+			    	CompteService.getComptesClient($scope.client_id)
+			    	.then(
+			    			function(data){
+			    				console.log(data);
+			    				$scope.comptes = data;
+			    			},
+			    			function (errResponse){
+			    				console.error('Error while getting an account from an customer ID')
+			    			});
+		 }else if($scope.demande_id){
+			    	console.log("Creation")
+$scope.comptes=[];
+			    	
+	}else  if($scope.compte_id){
+			    	console.log("compte_id")
+			    	CompteService.findCompteById($scope.compte_id)
+			    	.then(
+			    			function(data){
+			    				console.log(data);
+			    				$scope.comptes = [data];
+			    			},
+			    			function (errResponse){
+			    				console.error('Error while getting an account from an customer ID')
+			    			});	
+				}
+	    	
+	    	
+	    	
+	    	
+	   	 
+
 	    	
 	    };
 	 
@@ -128,10 +164,10 @@ App.controller('CompteController', ['$scope','$location', '$route', '$routeParam
     };
     
  
-    function findComptesByClientId(client_id){
+    function findComptesByClientId(){
     	// je recupere les comptes d'un client en fonction de son ID
 
-    	CompteService.getComptesClient(client_id)
+    	CompteService.getComptesClient(JSON.parse(sessionStorage.getItem("currentUser")).id)
     	.then(
     			function(data){
     				console.log(data);
@@ -144,7 +180,20 @@ App.controller('CompteController', ['$scope','$location', '$route', '$routeParam
     };
     
 
-    
+    function findCompteById(compte_id){
+    	// je recupere les comptes d'un client en fonction de son ID
+
+    	CompteService.findCompteById(compte_id)
+    	.then(
+    			function(data){
+    				console.log(data);
+    				$scope.comptes = data;
+    			},
+    			function (errResponse){
+    				console.error('Error while getting an account from an customer ID')
+    			});
+    	
+    };  
 
 
     function virement()

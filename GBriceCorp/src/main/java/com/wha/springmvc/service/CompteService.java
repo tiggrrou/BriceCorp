@@ -9,12 +9,14 @@ import com.wha.springmvc.model.Compte;
 
 public interface CompteService {
 	
-	public Compte findById(long id);
+	public Compte findCompteById(long id);
+	
 	
 	public Compte findByLibelle(String name);
 	
 	public List<Compte> findByClientId(long clientId);
 	
+
 	public long saveCompte(Compte compte);
 	
 	public void updateCompte(Compte compte);
@@ -30,6 +32,9 @@ public interface CompteService {
 	public void mouvement( float montant, long compteDebiteurID, long compteCrediteurID);
 	
 	public Client findOwnerByCountID (long idCompte);
+
+
+	public List<Compte> findComptesByIdCons(long idCons);
 	
 	
 }

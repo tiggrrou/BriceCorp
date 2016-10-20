@@ -2,30 +2,57 @@
 
 App.controller('UserController', ['$scope', '$location', '$resource', '$route', 'UserService', 'translationService', '$routeParams' ,function($scope, $location, $resource, $route, UserService, translationService, $routeParams) {
 	
-	/*Index fonctions
-	 *  self.change_langue = change_langue;
-	 *  self.trier_par = trier_par;
-	 *  self.connect = connect;
-	 *  self.connexion = connexion;
-	 *  self.session_delete = session_delete;
-	 *  self.submit = submit;
-	 *  self.edit = edit;
-	 *  self.remove = remove;
-	 *  self.reset = reset;
-	 *  self.getMyUserBack = getMyUserBack;
-	 *  self.searchClients = searchClients;
-	 *  self.getClient = getClient;
-	 *  self.getNotifs = getNotifs;
-	 *  self.detailCompte = detailCompte;
-	 *  self.getListeCons = getListeCons;
-	 * */
-
 	// General
 	var self = this;
-
+    self.currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+    $scope.currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+    console.log(self.currentUser)
+    
+    
 	self.nav_cache_methode = nav_cache_methode;
-	$scope.client_id = $routeParams.client_id;
-	
+
+    self.change_langue = change_langue;
+    self.trier_par = trier_par;
+    self.connect = connect;
+    self.connexion = connexion;
+    self.session_delete = session_delete;
+    self.users=[];
+    self.submit = submit;
+    self.edit = edit;
+    self.remove = remove;
+    self.reset = reset; 
+    self.recherche_userParType = recherche_userParType;
+    self.fetchAllUsers = fetchAllUsers;
+    self.getMyUserBack = getMyUserBack;
+    self.client={id:null,nom:'',prenom:'',adresse:'',mail:'',login:'',mdp:'',telephone:'',revenus:'',dateOuverture:null,dateCloture:null,conseillerID:null};
+    self.clients=[];
+    self.searchClients = searchClients;
+    self.getClient = getClient; 
+    self.getNotifs = getNotifs;
+    self.conseiller={id:null,nom:'',prenom:'',matricule:''};
+    self.conseillers = [];
+    self.detailCompteCli = detailCompteCli;
+    self.detailCompteCons = detailCompteCons;   
+    self.getClients_Cons=getClients_Cons;
+    self.deleteCons = deleteCons;
+    self.creaCons = creaCons;
+    self.cons;
+    self.getListeCons = getListeCons;
+    self.printToCart = printToCart;
+    self.getConsById = getConsById;
+    self.validEditCons = validEditCons;
+    self.populate_dummy=populate_dummy;
+  	
+    $scope.cons;  	
+    $scope.consId;
+    $scope.client_id = $routeParams.client_id;
+    $scope.$route = $route;      	
+    	
+    	
+    	
+    	
+    	
+    	
 	// Responsive des div partie_commune et banniere en fonction de la navbar
     function nav_cache_methode(){
    	
@@ -55,8 +82,6 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
 	    
     
     // Fonctions I18n
-    $scope.$route = $route;   
-    self.change_langue = change_langue;
 
     //fonction de changement de la langue par le ngclick sur le drapeau
     function change_langue(){
@@ -77,7 +102,6 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
 	    
 	    
     // Fonctions vues
-self.trier_par = trier_par;
 
 	    
 function trier_par(tri){
@@ -88,11 +112,7 @@ function trier_par(tri){
 
 
  //Fonctions connection
- self.connect = connect;
- self.connexion = connexion;
- self.session_delete = session_delete;
- self.currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
- console.log(self.currentUser)
+
  function connect() {
  	connexion(self.user.identifiant, self.user.motDePasse);
  };
@@ -167,19 +187,7 @@ function trier_par(tri){
  
  // Fonctions User
 
- self.users=[];
- self.submit = submit;
- self.edit = edit;
- self.remove = remove;
- self.reset = reset; 
 
- self.recherche_userParType = recherche_userParType;
-  self.fetchAllUsers = fetchAllUsers;
-  self.getMyUserBack = getMyUserBack;
-    
-//if(self.currentUser != null){
-//refreshUser();
-//}
 
 function getMyUserBack(){
 	self.user = JSON.parse(sessionStorage.getItem("currentUser"));
@@ -288,13 +296,6 @@ function refreshUser(){
     
    
     // Fonctions Client
-    self.client={id:null,nom:'',prenom:'',adresse:'',mail:'',login:'',mdp:'',telephone:'',revenus:'',dateOuverture:null,dateCloture:null,conseillerID:null};
-    self.clients=[];
- 
-    //$scope.notifications;
-    self.searchClients = searchClients;
-    self.getClient = getClient; 
-    self.getNotifs = getNotifs;
 
 
 
@@ -345,19 +346,17 @@ function refreshUser(){
     
     
     // Fonctions Conseiller
-    self.conseiller={id:null,nom:'',prenom:'',matricule:''};
-    self.conseillers = [];
-    self.detailCompte = detailCompte;
-    self.getClients_Cons=getClients_Cons;
-    self.deleteCons = deleteCons;
 
+	
     
   //Fonction du lien par ngclick dans le ng-repeat du recherche compte
-   function detailCompte(iban){
-  	 $location.path("/cons/ConsClient_DetailCompte/" + iban);
+   function detailCompteCli(iban){
+  	 $location.path("/cli/Cli_DetailCompte/" + iban);
    }     
-    
-    
+   function detailCompteCons(client_id){
+	  	 $location.path("/cons/DetailClient/" + client_id);
+	   }     
+   
    function deleteCons (cons){
 		if (cons.clients.length > 0)
 		{
@@ -394,14 +393,7 @@ function refreshUser(){
   
     
     // Fonctions Admin
-    self.creaCons = creaCons;
-    $scope.cons;
-    self.cons;
-    self.getListeCons = getListeCons;
-	self.printToCart = printToCart;
-	self.getConsById = getConsById;
-	self.validEditCons = validEditCons;
-	$scope.consId;
+
 	
 	
 
@@ -487,7 +479,7 @@ function refreshUser(){
     };  
    
     
-	self.populate_dummy=populate_dummy;
+
 	
 
 	

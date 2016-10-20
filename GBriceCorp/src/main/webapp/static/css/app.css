@@ -151,6 +151,7 @@ margin-bottom:5vh;
 }
 
 .icone {
+	min-width:20px;
 	width: 10%;
 	height: auto;
 }

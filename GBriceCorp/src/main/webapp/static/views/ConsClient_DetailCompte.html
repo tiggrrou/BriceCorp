@@ -1,13 +1,13 @@
 
-
-
+ demande {{demande_id}} {{demande_type}} client {{client_id}} compte {{compte_id}}
+{{((demande_id)?true:false)}}{{((client_id)?true:false)}}{{((compte_id)?true:false)}}
 <div class=" panel panel-default "
 	ng-controller="CompteController as cptctrl"
-	ng-hide="{{(client_id==null)?true:false}} ">
-
+	ng-if="((ctrl.currentUser.typeUser == 3)?true:false)"
+>
 	<div class="panel-heading ">
 		<span class="lead">Espace de {{ctrl.currentUser.prenom}}
-			{{ctrl.currentUser.nom}} </span>
+			{{ctrl.currentUser.nom}}</span>
 
 </form>
 	</div>
@@ -21,12 +21,14 @@
 </div>
 <div class=" panel panel-default "
 	ng-controller="DemandeController as dmdctrl" 
-	ng-init="(demande_id!=null)?(dmdctrl.findDemandeById(demande_id)):(ctrl.infoById(client_id))"
-	ng-hide="{{(demande_id==null)?true:false}}">
+	ng-init="(demande_id!=null)?(dmdctrl.findDemandeById(demande_id)):(dmdctrl.getClient(client_id))"
+	ng-if="((ctrl.currentUser.typeUser == 2)?true:false)"
+	
+	>
 
 	<div class="panel-heading ">
 
-		<span class="lead">Espace de {{demande.prenom}} {{demande.nom}}
+		<span class="lead">Espace de {{demande.prenom}} {{demande.nom}} {{client.prenom}} {{client.nom}}
 			{{demande.client.prenom}} {{demande.client.nom}} </span>
 	</div>
 	<ul class="list-group">
@@ -47,10 +49,13 @@
 	</ul>
 
 </div>
-<div class="panel panel-default" ng-controller="DemandeController as dmdctrl" ng-init="(demande_id!=null)?(dmdctrl.findDemandeById(demande_id)):(ctrl.infoById(client_id)); dmdctrl.ListeJustificatifsByIdDemandeOuClient((demande_id!=null)?demande_id:client_id, (demande_id!=null)?0:1)">
+<div class="panel panel-default" ng-controller="DemandeController as dmdctrl" ng-init="(demande_id!=null)?(dmdctrl.findDemandeById(demande_id)):(ctrl.infoById(client_id)); dmdctrl.listeJustificatifs()">
 	<!-- Default panel contents -->
-	<div class="panel-heading">
+	<div class="panel-heading" ng-init="dmdctrl.listeJustificatifs()">
 		<span class="lead">Documents disponible</span>
+		
+ demande {{demande_id}} client {{client_id}} compte {{compte_id}}
+{{((demande_id)?true:false)}}{{((client_id)?true:false)}}{{((compte_id)?true:false)}}
 	</div>
 	<div class="tablecontainer">
 		<table class="table table-hover">
@@ -68,7 +73,7 @@
 					<td>{{justificatif.id}}</td>
 					<td>{{justificatif.type}}</td>
 					<td>{{justificatif.date}}</td>
-					<td><a href={{justificatif.url}}><img class="langue"
+					<td><a href={{justificatif.url}}><img class="icone"
 							src="static/imgs/download.png" /></a></td>
 
 				</tr>
@@ -114,15 +119,18 @@
 </div>
 
 
+{{demande_id}} client {{client_id}} compte {{compte_id}}
+{{((demande_id)?true:false)}}{{((client_id)?true:false)}}{{((compte_id)?true:false)}}
+<div ng-controller="CompteController as cptctrl"
+	ng-init="cptctrl.getComptes()" > {{comptes}}
+	<div id="RIBSectionId" class=" panel panel-default " 
 
-	<div id="RIBSectionId" class=" panel panel-default " ng-controller="CompteController as cptctrl"
-	ng-init="(demande_id!=null)?(cptctrl.findComptesByDemandeId(demande_id)):(cptctrl.findComptesByClientId(client_id))"
-	ng-repeat="compte in comptes">{{demande_id}}
+	ng-repeat="compte in comptes">
 		<div class="panel-heading">
 			<span class="lead">{{compte.libelle}}
 				<button ng-click="ctrl.printToCart('RIBSectionId')"
 					class="btn btn-warning btn-sm floatRight no-print">Imprimer
-					le RIB</button>
+					le RIB</button> demande {{demande_id}} client {{client_id}} compte
 			</span>
 		</div>
 		<ul class="list-group">
@@ -132,7 +140,7 @@
 			<li class="list-group-item">Remuneration :
 				{{compte.tauxRemuneration}} %
 
-				<button ng-click=""
+				<button ng-click="" ng-if="(!compte_id)?true:false"
 					class="btn btn-danger btn-sm floatRight no-print">Modifer</button>
 			</li>
 			<li class="list-group-item"
@@ -141,8 +149,8 @@
 			<li class="list-group-item">Agios : {{compte.tauxDecouvert}} %</li>
 			<li class="list-group-item">Decouvert autorise :
 				{{compte.decouvert}}
-				<button ng-click=""
-					class="btn btn-danger btn-sm floatRight no-print">Modifer</button>
+				<button ng-click="" ng-if="(!compte_id)?true:false"
+					class="btn btn-danger btn-sm floatRight no-print" >Modifer</button>
 			</li>
 		</ul>
 
@@ -173,5 +181,5 @@
 			</table>
 		</div>
 	</div>
-
+</div>
 

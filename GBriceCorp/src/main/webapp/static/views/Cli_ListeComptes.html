@@ -1,6 +1,7 @@
 
-
-	<div class="panel panel-info" ng_controller="CompteController as cptCtrl" ng-init="cptCtrl.getComptes()">
+ demande {{demande_id}} {{demande_type}} client {{client_id}} compte {{compte_id}}
+{{((demande_id)?true:false)}}{{((client_id)?true:false)}}{{((compte_id)?true:false)}}
+	<div class="panel panel-info" ng_controller="CompteController as cptCtrl" ng-init="cptCtrl.findComptesByClientId()">
 
 			<!-- Default panel contents -->
 			<div class="panel-heading" >
@@ -19,7 +20,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr name="liste_comptes" ng-repeat="Compte in comptes  | orderBy:tripar " ng-click="ctrl.detailCompte(Compte.id)">
+							<tr name="liste_comptes" ng-repeat="Compte in comptes  | orderBy:tripar " ng-click="ctrl.detailCompteCli(Compte.id)">
 								<td >{{Compte.libelle}}</td>
 								<td>{{Compte.id}} </td>
 								<td>{{Compte.solde}}</td>
