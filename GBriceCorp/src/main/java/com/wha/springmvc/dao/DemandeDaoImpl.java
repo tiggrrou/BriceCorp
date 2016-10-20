@@ -1,9 +1,7 @@
 package com.wha.springmvc.dao;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.stereotype.Repository;
 
@@ -26,9 +24,7 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 		Administrateur admin = (Administrateur) getEntityManager()
 				.createQuery("SELECT a FROM Administrateur a WHERE a.id = 1").getSingleResult();
 
-		Set<Dem_CreationClient> listDemandes = admin.getDemandeCreationClient();
-		listDemandes.add(demandecreationclient);
-		admin.setDemandeCreationClient(listDemandes);
+		admin.getDemandeCreationClient().add(demandecreationclient);
 		
 		return demandecreationclient;
 	}
@@ -36,32 +32,36 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 	@Override
 	public void addDemandeChequierToCons(long id_conseiller, Dem_Chequier demandechequier){
 		demandechequier.setType(3);
-		persist(demandechequier);
-		
-		
+				
 		Conseiller conseiller = (Conseiller) getEntityManager()
 				.createQuery("SELECT c FROM Conseiller c WHERE c.id = :id").setParameter("id", id_conseiller)
 				.getSingleResult();
-		Set<Demande> listDemandes = conseiller.getDemandes();
-		listDemandes.add(demandechequier);
-		conseiller.setDemandes(listDemandes);
+		conseiller.getDemandes().add(demandechequier);
 		
 	}
 
 	@Override
 	public void addDemandeModificationCompteToCons(long id_conseiller, Dem_ModificationCompte demandeModificationCompte){
 		demandeModificationCompte.setType(2);
-		persist(demandeModificationCompte);
-		
+				
 		Conseiller conseiller = (Conseiller) getEntityManager()
 				.createQuery("SELECT c FROM Conseiller c WHERE c.id = :id").setParameter("id", id_conseiller)
 				.getSingleResult();
-		Set<Demande> listDemandes = conseiller.getDemandes();
-		listDemandes.add(demandeModificationCompte);
-		conseiller.setDemandes(listDemandes);
-		
+		conseiller.getDemandes().add(demandeModificationCompte);
+	
 	}
 
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Dem_CreationClient> findAllDemandesCreationClient() {
+		List<Dem_CreationClient> demandecreationclient = getEntityManager()
+				.createQuery("SELECT A.demandeCreationClient FROM Administrateur A")
+				.getResultList();
+		return demandecreationclient;
+	}
+	
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	/**
@@ -83,14 +83,7 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 		return demandemodificationcompte;
 	}
 	
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Dem_CreationClient> findAllDemandesCreationClient() {
-		List<Dem_CreationClient> demandecreationclient = getEntityManager()
-				.createQuery("SELECT A.demandeCreationClient FROM Administrateur A")
-				.getResultList();
-		return demandecreationclient;
-	}
+	
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -132,39 +125,16 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 		Demande demande = (Demande) getEntityManager()
 				.createQuery("SELECT d FROM Demande d WHERE d.id = :id").setParameter("id", id_demande)
 				.getSingleResult();
-		
-		
-		System.out.println("Demande a transferer : "+ demande);
-		
+
 		
 		Conseiller conseiller = (Conseiller) getEntityManager()
 				.createQuery("SELECT c FROM Conseiller c WHERE c.id = :id").setParameter("id", id_conseiller)
 				.getSingleResult();
-		Set<Demande> listDemandes = conseiller.getDemandes();
-		listDemandes.add(demande);
-		conseiller.setDemandes(listDemandes);
-			
-		System.out.println("Conseiller a modifier "+conseiller);
+		conseiller.getDemandes().add(demande);
 		
+	
 	Administrateur admin = (Administrateur) getEntityManager().createQuery("SELECT a FROM Administrateur a WHERE a.id = 1").getSingleResult();
-		
-	Set<Dem_CreationClient> listDemandeCreation = admin.getDemandeCreationClient();
-	Set<Dem_CreationClient> newListDemandeCreation = new HashSet<Dem_CreationClient>();
-	
-	
-	    for (Dem_CreationClient demandeCreation : listDemandeCreation ){
-		      
-			    if (demandeCreation.getID() != demande.getID()) {
-			    	newListDemandeCreation.add(demandeCreation);
-			    } 
-		    }
-	    System.out.println("Nouvelle liste des demandes "+newListDemandeCreation);
-	    admin.setDemandeCreationClient(newListDemandeCreation);
-	    
-		System.out.println("Conseiller a modifier "+admin);
-	
-
-	
+	admin.getDemandeCreationClient().remove(demande);	
 	
 	}
 
@@ -179,6 +149,8 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 	public void suppressionDemande(long id_demande) {
 		Demande demande = findDemandeById(id_demande);
 		delete(demande);
+		
+		//manque la suppression de la liaison
 	}
 
 	@Override

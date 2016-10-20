@@ -1,12 +1,8 @@
 package com.wha.springmvc.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.NoResultException;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,10 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.wha.springmvc.model.Administrateur;
 import com.wha.springmvc.model.Client;
@@ -458,7 +451,7 @@ public class HelloWorldRestController {
 		demandeService.addDemandeChequierToCons(conseillerpourclient.getId(),demande_chequier);
 		
 		Dem_ModificationCompte demande_modification = new Dem_ModificationCompte();
-		demande_modification.setClient(client);
+	demande_modification.setClient(client);
 		demande_modification.setDecouvert(500);
 		demande_modification.setCompte(compte);
 		demande_modification.setRemunerateur(true);

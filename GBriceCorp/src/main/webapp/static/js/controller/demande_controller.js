@@ -305,8 +305,6 @@ function findDemandeById(id) {
     .then(
     		function(d) {
     			$scope.demande = d;
-    			$scope.justificatifs = d.client.justificatifs;
-    			$scope.comptes = [d.comptes];
     			console.log(d)
     		},
     function(errResponse){

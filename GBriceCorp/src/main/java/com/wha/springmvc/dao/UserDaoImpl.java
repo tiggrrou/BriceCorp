@@ -4,9 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
@@ -19,19 +20,15 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.persistence.NoResultException;
 
-import org.apache.taglibs.standard.tag.common.core.RemoveTag;
 import org.springframework.stereotype.Repository;
 
 import com.wha.springmvc.model.Administrateur;
-import com.wha.springmvc.model.CalculIBAN;
 import com.wha.springmvc.model.Client;
 import com.wha.springmvc.model.Compte;
 import com.wha.springmvc.model.Conseiller;
 import com.wha.springmvc.model.Dem_CreationClient;
-import com.wha.springmvc.model.Demande;
 import com.wha.springmvc.model.Justificatif;
 import com.wha.springmvc.model.Notification;
-import com.wha.springmvc.model.Password;
 import com.wha.springmvc.model.TypeUtilisateur;
 import com.wha.springmvc.model.User;
 
@@ -47,22 +44,8 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		Set<Client> newClients = new HashSet<Client>();
 		conseiller.setClients(newClients);
 
-		Set<Demande> listDemandes = new HashSet<Demande>();
-		conseiller.setDemandes(listDemandes);
-		
-		persist(conseiller);
-
-		
-		
 		Administrateur admin = (Administrateur) getEntityManager().createQuery("SELECT a FROM Administrateur a").getSingleResult();
-		
-		Set<Conseiller> listConseillers = admin.getConseillers();
-		listConseillers.add(conseiller);
-		admin.setConseillers(listConseillers);
-		
-
-		
-		System.out.println(conseiller);
+		admin.getConseillers().add(conseiller);
 		
 	}
 
@@ -70,9 +53,8 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 	public void deleteConseiller(long idCons) {
 		Conseiller conseiller = findConsById(idCons);
 		Administrateur admin = (Administrateur) getEntityManager().createQuery("SELECT a FROM Administrateur a").getSingleResult();
-		Set<Conseiller> ListCons = admin.getConseillers();
-		ListCons.remove(conseiller);
-		admin.setConseillers(ListCons);
+		admin.getConseillers().remove(conseiller);
+
 		delete(conseiller);
 	}
 
@@ -148,31 +130,34 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
   	  	sendNotificationToAClient(message, client.getId());
 
   	  	
-  	  	Set<Justificatif> listJustificatifsPourclient = new HashSet<Justificatif>();
-  	  	@SuppressWarnings("unchecked")
-  	  	Set<Justificatif> justificatifs = (Set<Justificatif>) demande_inscription.getJustificatifs();
-  	  	System.out.println("coucou "+justificatifs);
-  	  	for (Justificatif justificatif : justificatifs ){
-		   demande_inscription.getJustificatifs().remove(justificatif);
-		   String url = justificatif.getUrl();
-		   
-		   String replacedUrl = url.replaceAll("demandes", "clients");
-		   justificatif.setUrl(replacedUrl);
-		   System.out.println(url);
-		   System.out.println(replacedUrl);
-//Deplacement des justificatifs du dossier demandes vers le dossier clients
-//		   try {
-//			Files.move(new File(url).toPath(), new File(replacedUrl).toPath(), StandardCopyOption.REPLACE_EXISTING);
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+  	  	
 
-			listJustificatifsPourclient.add(justificatif);
-	    }
+  	  Iterator<Justificatif> iter = demande_inscription.getJustificatifs().iterator();
+  	while (iter.hasNext()) {
+  	  
+  	  Justificatif justificatif = iter.next();
+  	  Justificatif newjustificatif = new Justificatif();
+  	  newjustificatif.setDate(justificatif.getDate());
+  	  newjustificatif.setType(justificatif.getType());
+  	  demande_inscription.getJustificatifs().remove(justificatif);
+  	  String url = justificatif.getUrl();
+	  String replacedUrl = url.replaceAll("demandes", "clients");
+	  newjustificatif.setUrl(replacedUrl);
+	  client.getJustificatifs().add(newjustificatif);
+
+//Deplacement des justificatifs du dossier demandes vers le dossier clients
+//	   try {
+//		Files.move(new File(url).toPath(), new File(replacedUrl).toPath(), StandardCopyOption.REPLACE_EXISTING);
+//	} catch (IOException e) {
+//		// TODO Auto-generated catch block
+//		e.printStackTrace();
+//	}
+
+
+  	}
   	
- 		    client.setJustificatifs(listJustificatifsPourclient);  	 
- 		    
+  	
+  	 
  		    
  		    
   	  	
@@ -188,25 +173,8 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		/**
 		 * retrait de la demande d'inscription de la liste des demandes du conseiller		
 		 */
-		Set<Demande> listDemandes = conseiller.getDemandes();
-		listDemandes.remove(demande_inscription);
-//		List<Demande> newListDemandes = new ArrayList<Demande>();
-//		    for (Demande demande : listDemandes ){
-//				    if (demande_inscription.getID() != demande.getID()) {
-//				    	newListDemandes.add(demande);
-//				    }
-//			    }
-//		    conseiller.setDemandes(newListDemandes);
+		conseiller.getDemandes().remove(demande_inscription);
 
-		    
-		    
-	    
-		    
-
-
-	  
-   	  	System.out.println(conseiller);
-   	  	System.out.println("coucouclient" + client);
    	  	return client;
 	}
 
@@ -265,13 +233,11 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 
 	@Override
 	public User connexion(String login, String mdp) {
-		System.out.println(login+ " / " + mdp);
 		try {
 
 			User user = (User) getEntityManager()
 					.createQuery("SELECT u FROM User u WHERE u.identifiant = :login AND u.motDePasse = :mdp")
 					.setParameter("login", login).setParameter("mdp", mdp).getSingleResult();
-System.out.println(user);
 			return user;
 		} catch (NoResultException ex) {
 			return null;
@@ -279,15 +245,10 @@ System.out.println(user);
 	}
 
 	@Override
-	public void createAdmin(Administrateur admin) {				
+	public void createAdmin(Administrateur admin) {	
+		
 			persist(admin);
-
-			Set<Dem_CreationClient> newDemandeCreationClient = new HashSet<Dem_CreationClient>();
-			admin.setDemandeCreationClient(newDemandeCreationClient);
 			
-			Set<Conseiller> newConseiller = new HashSet<Conseiller>();
-			admin.setConseillers(newConseiller);
-
 		}
 
 
@@ -306,7 +267,6 @@ System.out.println(user);
 			User user = (User) getEntityManager()
 					.createQuery("SELECT u FROM User u WHERE u.id = :id").setParameter("id", idUser)
 					.getSingleResult();
-			System.out.println(user);
 			return user;
 		} catch (NoResultException ex) {
 			return null;
@@ -314,55 +274,7 @@ System.out.println(user);
 	}
 	
 
-public void sendMessage(String subject, String text, String destinataire, String copyDest) {
-	
-		String SMTP_HOST1 = "smtp.gmail.com";
-		String LOGIN_SMTP1 = "GB.BriceCorp@gmail.com";
-		String IMAP_ACCOUNT1 = "GB.BriceCorp@gmail.com";
-		String PASSWORD_SMTP1 = "BriceCorp!";
-	
-	
-		    // 1 -> Création de la session
-		    Properties properties = new Properties();
-		    properties.setProperty("mail.transport.protocol", "smtp");
-		    properties.setProperty("mail.smtp.ssl.enable", "true");
-		    properties.setProperty("mail.smtp.host", SMTP_HOST1);
-		    properties.setProperty("mail.smtp.user", LOGIN_SMTP1);
-		    properties.setProperty("mail.from", IMAP_ACCOUNT1);
-		    Session session = Session.getInstance(properties);
 
-		 // 2 -> Création du message
-		    MimeMessage message = new MimeMessage(session);
-		    try {
-		        message.setText(text);
-		        message.setContent(text, "text/html");
-		        message.setSubject(subject);
-		        message.addRecipients(Message.RecipientType.TO, destinataire);
-		        message.addRecipients(Message.RecipientType.CC, copyDest);
-		    } catch (MessagingException e) {
-		        e.printStackTrace();
-		    }
-		    
-		 // 3 -> Envoi du message
-		    Transport transport = null;
-		    try {
-		        transport = session.getTransport("smtp");
-		        transport.connect(LOGIN_SMTP1, PASSWORD_SMTP1);
-		        transport.sendMessage(message, new Address[] { new InternetAddress(destinataire),
-		                                                        new InternetAddress(copyDest) });
-		    } catch (MessagingException e) {
-		        e.printStackTrace();
-		    } finally {
-		        try {
-		            if (transport != null) {
-		                transport.close();
-		            }
-		        } catch (MessagingException e) {
-		            e.printStackTrace();
-		        }
-		    }
-
-		}
 	
 
 	@Override
@@ -371,9 +283,8 @@ public void sendMessage(String subject, String text, String destinataire, String
 		myNotif.setMessage(message);
 		
 		Client myClient = findCliById(clientID);
-		Set<Notification> myNotifs = myClient.getNotifications();
-		myNotifs.add(myNotif);
-		myClient.setNotifications(myNotifs);	
+		myClient.getNotifications().add(myNotif);
+
 	}
 
 }
