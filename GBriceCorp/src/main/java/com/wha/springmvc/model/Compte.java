@@ -89,7 +89,14 @@ public class Compte {
 	 * Solde de rémunération pour le mois en cours
 	 */
 	private float soldeRemuneration;
+	/**
+	 * IBAN du compte
+	 */
+	private String IBAN;
+	
+	
 	//#endregion
+	
 	
 	//#region accesseurs
 	public String getLibelle() {
@@ -170,6 +177,12 @@ public class Compte {
 	public void setSoldeRemuneration(float soldeRemuneration) {
 		this.soldeRemuneration = soldeRemuneration;
 	}
+	public String getIBAN() {
+		return IBAN;
+	}
+	public void setIBAN(String newIBAN) {
+		this.IBAN = newIBAN;	
+	}
 	//#endregion
 	
 
@@ -195,6 +208,9 @@ public class Compte {
 				+ getSeuil() + ", getTauxRemuneration()=" + getTauxRemuneration() + ", getSoldeRemuneration()="
 				+ getSoldeRemuneration() + "]";
 	}
+	
+	
+	
 
 
 	//#endregion

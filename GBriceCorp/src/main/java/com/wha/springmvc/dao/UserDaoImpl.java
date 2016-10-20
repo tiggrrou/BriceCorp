@@ -16,12 +16,14 @@ import javax.persistence.NoResultException;
 import org.springframework.stereotype.Repository;
 
 import com.wha.springmvc.model.Administrateur;
+import com.wha.springmvc.model.CalculIBAN;
 import com.wha.springmvc.model.Client;
 import com.wha.springmvc.model.Compte;
 import com.wha.springmvc.model.Conseiller;
 import com.wha.springmvc.model.Dem_CreationClient;
 import com.wha.springmvc.model.Demande;
 import com.wha.springmvc.model.Notification;
+import com.wha.springmvc.model.Password;
 import com.wha.springmvc.model.TypeUtilisateur;
 import com.wha.springmvc.model.User;
 
@@ -100,6 +102,7 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		client.setTypeUser(TypeUtilisateur.Client.getType());
 		client.setIdentifiant("c"+ NbUser);
 		client.setMotDePasse("c");
+		/*client.setMotDePasse(Password.nextSessionId());*/
 		client.setNom(demande_inscription.getNom());
 		client.setPrenom(demande_inscription.getPrenom());		
 		client.setAdresse(demande_inscription.getAdresse());
@@ -128,7 +131,9 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
   	  	 * ajout de la notifiaction de creation du compte courant
   	  	 */
   	  	persist(client);
-  	  	
+  	  	Compte comptebis = client.getComptes().get(0);
+	  	comptebis.setLibelle("Compte courant");
+	  	comptebis.setIBAN(CalculIBAN.calculIBAN(compte.getID()));
   	  	String message = "Votre Compte Courant est ouvert";
   	  	sendNotificationToAClient(message, client.getId());
 		

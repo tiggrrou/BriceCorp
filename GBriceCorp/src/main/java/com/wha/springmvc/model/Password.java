@@ -14,10 +14,10 @@ public class Password {
 	 * and only 122 random bits in total.
 	 */
 
-	private SecureRandom random = new SecureRandom();
+	private static  SecureRandom random = new SecureRandom();
 
-	public String nextSessionId() {
-		return new BigInteger(130, random).toString(32);
+	public static String nextSessionId() {
+		return new BigInteger(130, random).toString(3);
 	}
 
 	// String uuid = UUID.randomUUID().toString();
