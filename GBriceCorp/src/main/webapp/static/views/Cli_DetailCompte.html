@@ -133,7 +133,8 @@
 		</ul>
 
 		<!-- Default panel contents -->
-		<div id="ReleveSectionId" class="panel-heading">
+		<div id="ReleveSectionId">
+		<div  class="panel-heading">
 			<span class="lead">Releve de compte
 				<button ng-click="ctrl.printToCart('ReleveSectionId')"
 					class="btn btn-warning btn-sm floatRight no-print">Imprimer
@@ -150,13 +151,14 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="mouvement in mouvements | orderBy:tripar ">
-						<td>{{mouvement.Libelle}}</td>
-						<td>{{mouvement.Date}}</td>
-						<td>{{mouvement.Montant}}</td>
+					<tr ng-repeat="mouvement in compte.mouvements | orderBy:tripar ">
+						<td>{{mouvement.libelle}}</td>
+						<td>{{mouvement.dateMouvement}}</td>
+						<td>{{mouvement.montant}}</td>
 					</tr>
 				</tbody>
 			</table>
+		</div>
 		</div>
 	</div>
 
