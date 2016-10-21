@@ -134,12 +134,11 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 
   	  Iterator<Justificatif> iter = demande_inscription.getJustificatifs().iterator();
   	while (iter.hasNext()) {
-  	  
   	  Justificatif justificatif = iter.next();
   	  Justificatif newjustificatif = new Justificatif();
   	  newjustificatif.setDate(justificatif.getDate());
   	  newjustificatif.setType(justificatif.getType());
-  	  demande_inscription.getJustificatifs().remove(justificatif);
+
   	  String url = justificatif.getUrl();
 	  String replacedUrl = url.replaceAll("demandes", "clients");
 	  newjustificatif.setUrl(replacedUrl);
@@ -156,7 +155,7 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 
   	}
   	
-  	
+	  demande_inscription.getJustificatifs().removeAll(demande_inscription.getJustificatifs());	
   	 
  		    
  		    

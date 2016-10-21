@@ -23,7 +23,7 @@
 		</li>
 	</ul>
 </div>
-<div class="panel panel-default" ng-controller="DemandeController as dmdctrl" ng-init="dmdctrl.findDemandeById(demande_id)">
+<div class="panel panel-default" ng-controller="DemandeController as dmdctrl" ng-init="dmdctrl.listeJustificatifs()">
 	<!-- Default panel contents -->
 	<div class="panel-heading" ng-init="dmdctrl.listeJustificatifs()">
 		<span class="lead">Documents disponible</span>
@@ -41,7 +41,7 @@
 			</thead>
 			<tbody>
 				<tr
-					ng-repeat="justificatif in (demande.justificatifs)?demande.justificatifs:demande.client.justificatifs | orderBy:tripar ">
+					ng-repeat="justificatif in justificatifs | orderBy:tripar ">
 					<td>{{justificatif.id}}</td>
 					<td>{{justificatif.type}}</td>
 					<td>{{justificatif.date}}</td>
