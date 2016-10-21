@@ -8,8 +8,8 @@
 		<span class="lead">Merci de vous etre inscrit {{prenom}}
 			{{nom}} </span>
 
-		<h2>Pour accelerer votre demande veuillez nous envoyer vos pieces
-			justificative</h2>
+		<h3>Pour accelerer votre demande veuillez nous envoyer vos pieces
+			justificative</h3>
 	</div>
 	<div class="panel-body" ng-hide="Domicile">
 		<div class="col-xs-12 raw ">
@@ -21,14 +21,10 @@
 						<input type="file" id="file" name="file"
 							class="form-control input-sm"
 							onchange="angular.element(this).scope().uploadFile(this.files, 'Domicile')" />
-
 					</div>
-
 				</div>
 			</div>
 		</div>
-
-
 	</div>
 	<div class="panel-body" ng-hide="!Domicile">
 		<div class="col-xs-12 raw ">
