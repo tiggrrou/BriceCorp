@@ -26,7 +26,7 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
     self.getMyUserBack = getMyUserBack;
     self.client={id:null,nom:'',prenom:'',adresse:'',mail:'',login:'',mdp:'',telephone:'',revenus:'',dateOuverture:null,dateCloture:null,conseillerID:null};
     self.clients=[];
-    self.searchClients = searchClients;
+    //self.searchClients = searchClients;
     self.getClient = getClient; 
     self.getClientByCompteId = getClientByCompteId;     
     self.getNotifs = getNotifs;
@@ -305,19 +305,19 @@ function refreshUser(){
 
 
  	
-    function searchClients() {
-    	// je lance la recherche avec le nom et prenom du client et l'ID du conseiller
-    	UserService.searchUser(self.client.prenom, self.client.nom, self.user.id)
-		.then(
-		function(d) {
-			// je met les clients récupérés dans clients
-			clients = JSON.parse(sessionStorage.getItem("Clients"));
-		}, 
-		function (errResponse){
-			console.error('Error while getting clients');
-		}
-	);	
-    };
+//    function searchClients() {
+//    	// je lance la recherche avec le nom et prenom du client et l'ID du conseiller
+//    	UserService.searchUser(self.client.prenom, self.client.nom, self.user.id)
+//		.then(
+//		function(d) {
+//			// je met les clients récupérés dans clients
+//			clients = JSON.parse(sessionStorage.getItem("Clients"));
+//		}, 
+//		function (errResponse){
+//			console.error('Error while getting clients');
+//		}
+//	);	
+//    };
     
     
     function getClientByCompteId(compte_id){

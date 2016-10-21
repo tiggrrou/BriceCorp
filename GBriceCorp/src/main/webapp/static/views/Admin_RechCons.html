@@ -31,7 +31,7 @@
 					</thead>
 					<tbody>
 						<tr
-							ng-repeat="Conseiller in cons_admin | filter:search:strict | orderBy:tripar ">
+							ng-repeat="Conseiller in cons_admin | filter:searchCons:strict | orderBy:tripar ">
 							<td ng-model= "cons.nom">{{Conseiller.nom}}</td>
 							<td>{{Conseiller.prenom}}</td>
 							<td>{{Conseiller.adresse}}</td>

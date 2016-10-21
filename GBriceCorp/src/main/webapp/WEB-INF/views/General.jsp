@@ -62,32 +62,41 @@
 					<div class="column">
 						<div class="form-group ">
 							<label class="control-lable" for="file">{{translation.login}}</label>
-							<input type="text" ng-model="ctrl.user.identifiant" name="login"
+							<input 
+								type="text" 
+								ng-model="ctrl.user.identifiant" 
+								name="login"
 								class="username form-control input-sm"
-								placeholder="Entez votre login" required />
-							<div class="has-error" ng-show="formConnexion.$dirty">
-								<span ng-show="formConnexion.login.$error.required">Champ
-									obligatoire</span>
+								placeholder="Entez votre login" 
+								required />
+							<div class="has-error" ng-show="formConnexion.login.$dirty">
+								<span ng-show="formConnexion.login.$error.required">Champ obligatoire</span>
 							</div>
 						</div>
 					</div>
 					<div class="column">
 						<div class="form-group ">
 							<label class=" control-lable" for="file">{{translation.password}}</label>
-							<input type="password" ng-model="ctrl.user.motDePasse"
-								name="password" class="password form-control input-sm"
-								placeholder="Entrez votre mot de passe" required />
-							<div class="has-error" ng-show="formConnexion.$dirty">
-								<span ng-show="formConnexion.password.$error.required">Champ
-									obligatoire</span>
+							<input 
+								type="password" 
+								ng-model="ctrl.user.motDePasse"
+								name="password" 
+								class="password form-control input-sm"
+								placeholder="Entrez votre mot de passe" 
+								required />
+							<div class="has-error" ng-show="formConnexion.password.$dirty">
+								<span ng-show="formConnexion.password.$error.required">Champ obligatoire</span>
 							</div>
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="form-actions center-block">
-							<input type="submit" value="Connexion"
-								class="btn btn-primary btn-sm">
+							<input 
+								type="submit" 
+								value="Connexion"
+								class="btn btn-primary btn-sm"
+								ng-disabled="formConnexion.$invalid">
 						</div>
 					</div>
 				</form>
@@ -102,23 +111,25 @@
 						ng-class="{active: $route.current.activetab == 'conseiller_rechercheclient'}"
 						ng-click="rechercheClient_cache = !rechercheClient_cache ;rechercheDemandes_cache = false; rechercheIBAN_cache = false">
 						<h4 class="list-group-item-heading">Recherche client</h4>
-						<p class="list-group-item-text">Rechercher un client</p>
+						<p class="list-group-item-text">Recherche de client par nom et prénom</p>
 					</a>
 					<div class="formcontainer" ng-hide="!rechercheClient_cache">
-						<form ng-submit="ctrl.searchClients" name="formConnexion"
-							class="form-horizontal">
-
 							<div class="form-group ">
-								<label class=" control-lable" for="file">Prenom</label> <input
-									type="text" ng-model="search.prenom" name="prenom"
-									class="form-control input-sm" placeholder="Prenom du client" />
+								<label class=" control-lable" for="file">Prénom</label> <input
+									type="text" 
+									ng-model="searchClient.prenom" 
+									name="prenom"
+									class="form-control input-sm" 
+									placeholder="Prenom du client" />
 							</div>
 							<div class="form-group ">
 								<label class=" control-lable" for="file">Nom</label> <input
-									type="text" ng-model="search.nom" name="nom"
-									class="form-control input-sm" placeholder="Nom du client" />
+									type="text" 
+									ng-model="searchClient.nom" 
+									name="nom"
+									class="form-control input-sm" 
+									placeholder="Nom du client" />
 							</div>
-						</form>
 					</div>
 
 					<!-- Recherche IBAN  -->
@@ -126,22 +137,14 @@
 						ng-class="{active: $route.current.activetab == 'conseiller_recherchecompte'}"
 						ng-click="rechercheIBAN_cache = !rechercheIBAN_cache;rechercheDemandes_cache = false; rechercheClient_cache = false">
 						<h4 class="list-group-item-heading">Recherche compte</h4>
-						<p class="list-group-item-text">Rechercher un compte par IBAN</p>
+						<p class="list-group-item-text">Recherche de comptes par IBAN</p>
 					</a>
-
-
-
 					<div class="formcontainer" ng-hide="!rechercheIBAN_cache">
-						<form class="form-horizontal">
-
 							<div class="form-group ">
 								<label class=" control-lable" for="file">IBAN</label> <input
-									type="text" ng-model="search.id" name="iban"
-									class="form-control input-sm" placeholder="IBAN aÂ  rechercher" />
-
-
+									type="text" ng-model="searchCompteClient.id" name="iban"
+									class="form-control input-sm" placeholder="IBAN à rechercher" />
 							</div>
-						</form>
 					</div>
 
 					<!-- Tableau des demandes  -->
@@ -149,9 +152,8 @@
 						ng-class="{active: $route.current.activetab == 'conseiller_demandesclient'}"
 						ng-click="ctrl.getDemandes; rechercheDemandes_cache=!rechercheDemandes_cache; rechercheClient_cache = false; rechercheIBAN_cache = false">
 						<h4 class="list-group-item-heading">Demandes</h4>
-						<p class="list-group-item-text">Liste des demandes a  traiter</p>
-					</a>
-					
+						<p class="list-group-item-text">Liste des demandes à traiter</p>
+					</a>	
 				</div>
 			</div>
 
@@ -159,22 +161,28 @@
 			<!-- Menu du Client -->
 			<div class="container-fluid" ng-hide="{{client_cache}}">
 				<div class="list-group">
-					<!-- Synthese des comptes -->
+				<!-- Synthese des comptes -->
 					<a href="#/cli/Cli_ListeComptes" class="list-group-item"
 						ng-class="{active: $route.current.activetab == 'client_compte'}">
 						<h4 class="list-group-item-heading">Mes Comptes</h4>
-						<p class="list-group-item-text">Synthese de vos comptes</p> <!-- Virements -->
+						<p class="list-group-item-text">Synthèse de vos comptes</p> 
+					
+				<!-- Virements -->
 					</a> <a href="#/cli/Cli_Virement" class="list-group-item"
 						ng-class="{active: $route.current.activetab == 'client_virement'}"
 						ng-click="compteCtrl.getComptes">
 						<h4 class="list-group-item-heading">Virements</h4>
-						<p class="list-group-item-text">Effectuer un virement</p> <!-- Infos personnelles -->
+						<p class="list-group-item-text">Effectuer un virement</p> 
+						
+				<!-- Infos personnelles -->
 					</a> <a href="#/cli/Cli_modifInfos" class="list-group-item"
 						ng-class="{active: $route.current.activetab == 'client_info'}"
 						ng-click="ctrl.getClient">
 						<h4 class="list-group-item-heading">Informations Personnelles</h4>
 						<p class="list-group-item-text">Consulter et modifier vos
-							informations personnelles</p> <!-- Notifications -->
+							informations personnelles</p> 
+					
+				<!-- Notifications -->
 					</a> <a href="#/cli/Cli_Notifications" class="list-group-item"
 						ng-class="{active: $route.current.activetab == 'client_notif'}"
 						ng-click="ctrl.getNotifs">
@@ -196,22 +204,23 @@
 						ng-click="ctrl.getDemandes; rechercheConseiller_cache = false">
 						<h4 class="list-group-item-heading">Demandes d'ouvertures</h4>
 						<p class="list-group-item-text">Afficher la liste des demande
-							d'ouverture</p> <!-- Recherche des conseillers -->
+							d'ouverture</p> 
+					
+					<!-- Recherche des conseillers -->
 					</a> <a href="#/admin/Admin_RechCons" class="list-group-item"
 						ng-class="{active: $route.current.activetab == 'admin_recherchecons'}"
 						ng-click="rechercheConseiller_cache = !rechercheConseiller_cache">
 						<h4 class="list-group-item-heading">Recherche des conseillers</h4>
-						<p class="list-group-item-text">List Group Item Text</p>
+						<p class="list-group-item-text">Recherche par nom et prénom</p>
 					</a>
 					<div class="formcontainer" ng-hide="!rechercheConseiller_cache">
-						<form class="form-horizontal" ng-hide="!rechercheConseiller_cache">
 							<div class="row">
 								<div class="form-group col-xs-10">
-									<label class="col-xl-2 control-lable" for="file">Prenom</label>
+									<label class="col-xl-2 control-lable" for="file">Prénom</label>
 									<div class="col-xl-12">
-										<input type="text" ng-model="search.prenom" name="prenom"
+										<input type="text" ng-model="searchCons.prenom" name="prenom"
 											class="form-control input-sm"
-											placeholder="Prenom du conseiller" />
+											placeholder="Prénom du conseiller" />
 									</div>
 								</div>
 							</div>
@@ -219,12 +228,11 @@
 								<div class="form-group col-xs-10">
 									<label class="col-xl-2 control-lable" for="file">Nom</label>
 									<div class="col-xl-12">
-										<input type="text" ng-model="search.nom" name="nom"
+										<input type="text" ng-model="searchCons.nom" name="nom"
 											class="form-control input-sm" placeholder="Nom du conseiller" />
 									</div>
 								</div>
 							</div>
-						</form>
 					</div>
 
 					<!-- nouveau conseiller -->
@@ -232,7 +240,7 @@
 						ng-class="{active: $route.current.activetab == 'admin_nouveaucons'}"
 						ng-click="rechercheConseiller_cache = false">
 						<h4 class="list-group-item-heading">Nouveau conseiller</h4>
-						<p class="list-group-item-text">List Group Item Text</p>
+						<p class="list-group-item-text">Ajout d'un nouveau conseiller</p>
 					</a>
 				</div>
 			</div>

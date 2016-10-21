@@ -21,7 +21,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="Compte in comptes  | filter:search:strict | orderBy:tripar " ng-click="cptctrl.detailCompte(Compte.id)">
+						<tr ng-repeat="Compte in comptes  | filter:searchCompteClient:strict | orderBy:tripar " ng-click="cptctrl.detailCompte(Compte.id)">
 							<td>{{Compte.id}}</td>
 							<td>{{Compte.libelle}} </td>
 							<td>{{Compte.solde}}</td>						
