@@ -285,12 +285,40 @@ public class HelloWorldRestController {
 	// ------------------- get Client --------------------------------------------------------
 
 	@RequestMapping(value = "/user/client/{idClient}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<User> getClient(@PathVariable("idClient") String idClient) {
+	public ResponseEntity<User> getClientById(@PathVariable("idClient") long idClient) {
 
-		return new ResponseEntity<User>(HttpStatus.OK);
+		try {
+			Client client = userService.findCliById(idClient);
+			return new ResponseEntity<User>(client, HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+		}
+		
+
 
 	}
 
+	
+	// ------------------- get Client By CompteId--------------------------------------------------------
+
+	@RequestMapping(value = "/user/compte/{idCompte}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<User> getClientByCompteId(@PathVariable("idCompte") long idCompte) {
+
+		try {
+			Client client = compteService.findOwnerByCountID(idCompte);
+			return new ResponseEntity<User>(client, HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+		}
+		
+
+
+	}
+	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////// CONSEILLER//////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////

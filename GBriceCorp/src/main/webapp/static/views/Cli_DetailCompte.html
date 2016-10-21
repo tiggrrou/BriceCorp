@@ -1,15 +1,11 @@
-
- demande {{demande_id}} {{demande_type}} client {{client_id}} compte {{compte_id}}
-{{((demande_id)?true:false)}}{{((client_id)?true:false)}}{{((compte_id)?true:false)}}
 <div class=" panel panel-default "
-	ng-controller="CompteController as cptctrl"
 	ng-if="((ctrl.currentUser.typeUser == 3)?true:false)"
 >
 	<div class="panel-heading ">
 		<span class="lead">Espace de {{ctrl.currentUser.prenom}}
 			{{ctrl.currentUser.nom}}</span>
 
-</form>
+
 	</div>
 	<ul class="list-group">
 		<li class="list-group-item">{{ctrl.currentUser.adresse}}</li>
@@ -20,42 +16,30 @@
 
 </div>
 <div class=" panel panel-default "
-	ng-controller="DemandeController as dmdctrl" 
-	ng-init="(demande_id!=null)?(dmdctrl.findDemandeById(demande_id)):(dmdctrl.getClient(client_id))"
+	ng-init="ctrl.getClientByCompteId(compte_id)"
 	ng-if="((ctrl.currentUser.typeUser == 2)?true:false)"
-	
 	>
 
 	<div class="panel-heading ">
 
-		<span class="lead">Espace de {{demande.prenom}} {{demande.nom}} {{client.prenom}} {{client.nom}}
-			{{demande.client.prenom}} {{demande.client.nom}} </span>
+		<span class="lead">Espace de{{client.prenom}} {{client.nom}}</span>
 	</div>
 	<ul class="list-group">
-		<li class="list-group-item">{{demande.adresse}}
-			{{demande.client.adresse}}</li>
-		<li class="list-group-item">Tel: {{demande.telephone}}
-			{{demande.client.telephone}}</li>
-		<li class="list-group-item">Email: {{demande.mail}}
-			{{demande.client.mail}}</li>
-		<li class="list-group-item">Revenu moyen: {{demande.revenu}}
-			{{demande.client.revenu}}</li>
 		<li class="list-group-item">
-			<a href="#/" class="btn btn-warning btn-sm ">Retour</a>
-			<a class="btn btn-danger btn-sm "	ng-click="dmdctrl.modifEtat_Demande(demande,'Refusee')">Refus</a>
-			<a class="btn btn-primary btn-sm "	ng-click="dmdctrl.modifEtat_Demande(demande, 'EnCours')">Attente</a> 
-			<a class="btn btn-success btn-sm "	ng-click="dmdctrl.validation_Demande(demande)">Valider</a>
-		</li>
-	</ul>
+			{{client.adresse}}</li>
+		<li class="list-group-item">Tel:
+			{{client.telephone}}</li>
+		<li class="list-group-item">Email:
+			{{client.mail}}</li>
+		<li class="list-group-item">Revenu moyen: 
+			{{client.revenu}}</li>
 
+	</ul>
 </div>
-<div class="panel panel-default" ng-controller="DemandeController as dmdctrl" ng-init="(demande_id!=null)?(dmdctrl.findDemandeById(demande_id)):(ctrl.infoById(client_id)); dmdctrl.listeJustificatifs()">
+<div class="panel panel-default" ng-controller="DemandeController as dmdctrl" ng-init="dmdctrl.listeJustificatifs()">
 	<!-- Default panel contents -->
-	<div class="panel-heading" ng-init="dmdctrl.listeJustificatifs()">
+	<div class="panel-heading" >
 		<span class="lead">Documents disponible</span>
-		
- demande {{demande_id}} client {{client_id}} compte {{compte_id}}
-{{((demande_id)?true:false)}}{{((client_id)?true:false)}}{{((compte_id)?true:false)}}
 	</div>
 	<div class="tablecontainer">
 		<table class="table table-hover">
@@ -114,23 +98,17 @@
 				class="form-control input-sm"
 				onchange="angular.element(this).scope().uploadFile(this.files, 'Autre')" />
 		</div>
-
 	</div>
 </div>
 
 
-{{demande_id}} client {{client_id}} compte {{compte_id}}
-{{((demande_id)?true:false)}}{{((client_id)?true:false)}}{{((compte_id)?true:false)}}
-<div ng-controller="CompteController as cptctrl"
-	ng-init="cptctrl.getComptes()" > {{comptes}}
-	<div id="RIBSectionId" class=" panel panel-default " 
-
-	ng-repeat="compte in comptes">
+	<div id="RIBSectionId" class=" panel panel-default" ng-controller="CompteController as cptctrl"
+	ng-init="cptctrl.findCompteById(compte_id)" >
 		<div class="panel-heading">
 			<span class="lead">{{compte.libelle}}
 				<button ng-click="ctrl.printToCart('RIBSectionId')"
 					class="btn btn-warning btn-sm floatRight no-print">Imprimer
-					le RIB</button> demande {{demande_id}} client {{client_id}} compte
+					le RIB</button>
 			</span>
 		</div>
 		<ul class="list-group">
@@ -181,5 +159,5 @@
 			</table>
 		</div>
 	</div>
-</div>
+
 

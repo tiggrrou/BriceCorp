@@ -1,0 +1,150 @@
+
+<div class=" panel panel-default "
+	ng-init="ctrl.getClient(client_id)">
+
+	<div class="panel-heading ">
+
+		<span class="lead">Espace de{{client.prenom}} {{client.nom}}</span>
+	</div>
+	<ul class="list-group">
+		<li class="list-group-item">
+			{{client.adresse}}</li>
+		<li class="list-group-item">Tel:
+			{{client.telephone}}</li>
+		<li class="list-group-item">Email: 
+			{{client.mail}}</li>
+		<li class="list-group-item">Revenu moyen: 
+			{{client.revenu}}</li>
+	</ul>
+
+</div>
+<div class="panel panel-default" ng-controller="DemandeController as dmdctrl" ng-init="dmdctrl.listeJustificatifs()">
+	<!-- Default panel contents -->
+	<div class="panel-heading">
+		<span class="lead">Documents disponible</span>
+
+	</div>
+	<div class="tablecontainer">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th ng-click="ctrl.trier_par('Nom')">Nom</th>
+					<th ng-click="ctrl.trier_par('Type')">Type</th>
+					<th ng-click="ctrl.trier_par('Datereception')">Date de
+						reception</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr
+					ng-repeat="justificatif in justificatifs | orderBy:tripar ">
+					<td>{{justificatif.id}}</td>
+					<td>{{justificatif.type}}</td>
+					<td>{{justificatif.date}}</td>
+					<td><a href={{justificatif.url}}><img class="icone"
+							src="static/imgs/download.png" /></a></td>
+
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div ng-init="value = ''">
+
+		<select class="form-control" ng-model="value">
+			<option value="" >Ajouter un document</option>
+			<option value="1">Domicile</option>
+			<option value="2">Impot</option>
+			<option value="3">Salaire</option>
+			<option value="4">Autre</option>
+		</select>
+
+		<div class="col-xs-12" ng-if="(value==1)?true:false">
+			<input type="file" id="file" name="file"
+				class="form-control input-sm"
+				onchange="angular.element(this).scope().uploadFile(this.files, 'Domicile')" />
+		</div>
+		
+		<div class="col-xs-12" ng-if="(value==2)?true:false">
+			<input type="file" id="file" name="file"
+				class="form-control input-sm"
+				onchange="angular.element(this).scope().uploadFile(this.files, 'Impot')" />
+		</div>
+
+		<div class="col-xs-12" ng-if="(value==3)?true:false">
+			<input type="file" id="file" name="file"
+				class="form-control input-sm"
+				onchange="angular.element(this).scope().uploadFile(this.files, 'Salaire')" />
+		</div>
+
+		<div class="col-xs-12" ng-if="(value==4)?true:false">
+			<input type="file" id="file" name="file"
+				class="form-control input-sm"
+				onchange="angular.element(this).scope().uploadFile(this.files, 'Autre')" />
+		</div>
+
+	</div>
+</div>
+
+
+<div class=" panel panel-default "  class=" panel panel-default " ng-controller="CompteController as cptctrl"
+	ng-init="cptctrl.getComptes()" >
+	<div id="RIBSectionId" class=" panel panel-default " 
+
+	ng-repeat="compte in comptes">
+		<div class="panel-heading">
+			<span class="lead">{{compte.libelle}}
+				<button ng-click="ctrl.printToCart('RIBSectionId')"
+					class="btn btn-warning btn-sm floatRight no-print">Imprimer
+					le RIB</button>
+			</span>
+		</div>
+		<ul class="list-group">
+			<li class="list-group-item">IBAN: {{compte.id}}</li>
+			<li class="list-group-item">Solde : {{compte.solde}} euros</li>
+
+			<li class="list-group-item">Remuneration :
+				{{compte.tauxRemuneration}} %
+
+				<button ng-click="" ng-if="(!compte_id)?true:false"
+					class="btn btn-danger btn-sm floatRight no-print">Modifer</button>
+			</li>
+			<li class="list-group-item"
+				ng-hide="{{(compte.tauxRemuneration!=0)?true:false}}">Seuil de
+				remuneration : {{compte.seuil}} euros</li>
+			<li class="list-group-item">Agios : {{compte.tauxDecouvert}} %</li>
+			<li class="list-group-item">Decouvert autorise :
+				{{compte.decouvert}}
+				<button ng-click="" ng-if="(!compte_id)?true:false"
+					class="btn btn-danger btn-sm floatRight no-print" >Modifer</button>
+			</li>
+		</ul>
+
+		<!-- Default panel contents -->
+		<div id="ReleveSectionId" class="panel-heading">
+			<span class="lead">Releve de compte
+				<button ng-click="ctrl.printToCart('ReleveSectionId')"
+					class="btn btn-warning btn-sm floatRight no-print">Imprimer
+					le Releve</button>
+			</span>
+		</div>
+		<div class="tablecontainer">
+			<table class="table table-hover ">
+				<thead>
+					<tr>
+						<th ng-click="ctrl.trier_par('Libelle')">Libelle</th>
+						<th ng-click="ctrl.trier_par('Date')">Date</th>
+						<th ng-click="ctrl.trier_par('Montant')">Montant</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="mouvement in mouvements | orderBy:tripar ">
+						<td>{{mouvement.Libelle}}</td>
+						<td>{{mouvement.Date}}</td>
+						<td>{{mouvement.Montant}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+

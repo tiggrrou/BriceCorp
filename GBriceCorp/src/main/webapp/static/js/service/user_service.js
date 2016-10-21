@@ -17,7 +17,9 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         updateCons:updateCons,
         populate_dummy:populate_dummy,
         refreshUser:refreshUser,
-        deleteCons:deleteCons
+        deleteCons:deleteCons,
+        getClient:getClient,
+        getClientByCompteId:getClientByCompteId
     };
 
     var user = {
@@ -107,6 +109,23 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
     }
     
 
+      
+    /**
+     * Demande au serveur un client par son ID
+     */
+    function getClientByCompteId(compte_id) {
+    	var deferred = $q.defer();
+    	$http.get(REST_SERVICE_URI+'compte/'+compte_id)
+		.then(
+		function (response){
+			deferred.resolve(response.data);
+		},
+		function (errResponse){
+			console.error('Error while getting client'+compte_id);
+		})
+		return deferred.promise;
+    }
+    
     
     /**
      * Demande au serveur un client par son ID
@@ -119,7 +138,7 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
 			deferred.resolve(response.data);
 		},
 		function (errResponse){
-			console.error('Error while getting client');
+			console.error('Error while getting client'+idClient);
 		})
 		return deferred.promise;
     }
