@@ -3,10 +3,11 @@
 	ng-controller="DemandeController as dmdctrl" 
 	ng-init="dmdctrl.findDemandeById(demande_id)">
 	<div class="panel-heading ">
-		<span class="lead">Espace de {{demande.prenom}} {{demande.nom}}
-			{{demande.client.prenom}} {{demande.client.nom}} </span>
+		<span class="lead">Demande de {{demande.type}}</span>
 	</div>
 	<ul class="list-group">
+			<li class="list-group-item">Compte de {{demande.prenom}} {{demande.nom}}
+			{{demande.client.prenom}} {{demande.client.nom}}</li>
 		<li class="list-group-item">{{demande.adresse}}
 			{{demande.client.adresse}}</li>
 		<li class="list-group-item">Tel: {{demande.telephone}}
@@ -23,20 +24,19 @@
 		</li>
 	</ul>
 </div>
-<div class="panel panel-default" ng-controller="DemandeController as dmdctrl" ng-init="dmdctrl.listeJustificatifs()">
+<div class="panel panel-default" ng-controller="DemandeController as dmdctrl" ng-init="dmdctrl.findDemandeById(demande_id)">
 	<!-- Default panel contents -->
-	<div class="panel-heading" ng-init="dmdctrl.listeJustificatifs()">
+	<div class="panel-heading" >
 		<span class="lead">Documents disponible</span>
 
 	</div>
-	<div class="tablecontainer">
+	<div class="tablecontainer" >
 		<table class="table table-hover">
 			<thead>
 				<tr>
 					<th ng-click="ctrl.trier_par('Nom')">Nom</th>
 					<th ng-click="ctrl.trier_par('Type')">Type</th>
-					<th ng-click="ctrl.trier_par('Datereception')">Date de
-						reception</th>
+					<th ng-click="ctrl.trier_par('Datereception')">Date de reception</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -45,9 +45,8 @@
 					<td>{{justificatif.id}}</td>
 					<td>{{justificatif.type}}</td>
 					<td>{{justificatif.date}}</td>
-					<td><a href={{justificatif.url}}><img class="icone"
+					<td><a href="file:///{{justificatif.url}}"><img class="icone"
 							src="static/imgs/download.png" /></a></td>
-
 				</tr>
 			</tbody>
 		</table>
@@ -91,7 +90,7 @@
 </div>
 
 
-<div ng-controller="DemandeController as dmdctrl" ng-init="dmdctrl.findDemandeById(demande_id)" >
+<div class=" panel panel-default"  ng-controller="DemandeController as dmdctrl" ng-init="dmdctrl.findDemandeById(demande_id)" >
 	<div id="RIBSectionId" class=" panel panel-default" 
 		ng-if="(!demande.compte)?false:true">
 		<div class="panel-heading">
@@ -121,7 +120,9 @@
 					class="btn btn-danger btn-sm floatRight no-print" >Modifer</button>
 			</li>
 		</ul>
-
+</div>
+<div id="ReleveSectionId" class=" panel panel-default" 
+		ng-if="(!demande.compte)?false:true">
 		<!-- Default panel contents -->
 		<div id="ReleveSectionId" class="panel-heading">
 			<span class="lead">Releve de compte
@@ -149,5 +150,5 @@
 			</table>
 		</div>
 	</div>
-</div>
+	</div>
 

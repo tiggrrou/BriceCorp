@@ -72,7 +72,7 @@ body, .form-control {
 }
 
 .generic-container {
-
+		min-width:450px;
 	margin: auto;
 	padding: 1vw;
 	background-color: #EAE7E7;
