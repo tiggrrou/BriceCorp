@@ -240,27 +240,28 @@ $scope.uploadFile = function(files, typeJustificatif) {
 	var file = fd
 	
 if($scope.demande.client){
-
+console.log("demandecompteclient")
 	var id = $scope.demande.client.id
 	var nom = $scope.demande.client.nom
 	var prenom = $scope.demande.client.prenom
 	var clientOuDemande = 1
+	
 }else if($scope.client){
-
+	console.log("conseillercomptesclient")
 	var id = $scope.client.id
 	var nom = $scope.client.nom
 	var prenom = $scope.client.prenom
 	var clientOuDemande = 1
 
 }else if($scope.demande_id){
-
+	console.log("creation")
 	var id = $scope.demande_id
 	var nom = $scope.nom
 	var prenom = $scope.prenom
 	var clientOuDemande = 0
 
 }else if($scope.currentUser){
-
+	console.log("client")
 	var id = $scope.currentUser.id
 	var nom = $scope.currentUser.nom
 	var prenom = $scope.currentUser.prenom
@@ -325,6 +326,7 @@ function findDemandeById(id) {
     .then(
     		function(d) {
     			$scope.demande = d;
+     		   self.listeJustificatifs();
     			console.log(d)
     		},
     function(errResponse){
