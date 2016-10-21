@@ -23,8 +23,10 @@ App.controller('CompteController', ['$scope','$location', '$route', '$routeParam
     self.detailCompte=detailCompte;
     self.findComptesByClientId=findComptesByClientId;
     self.findCompteById=findCompteById;
+    
+    
     function detailCompte(compte_id){
-	  	 $location.path("/cons/DetailClient/" + compte_id);
+	  	 $location.path("/cons/DetailCompte/" + compte_id);
 	   }   
     
 
@@ -187,7 +189,7 @@ $scope.comptes=[];
     	.then(
     			function(data){
     				console.log(data);
-    				$scope.comptes = data;
+    				$scope.compte = data;
     			},
     			function (errResponse){
     				console.error('Error while getting an account from an customer ID')

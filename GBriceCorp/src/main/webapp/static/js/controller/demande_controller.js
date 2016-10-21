@@ -122,13 +122,8 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	 }
 	 
  	 function detailDemande(demande){
- 		 if(demande.type>1){
-  	   	 $location.path("/cons/Cons_DetailCompte/" + demande.id+"&"+demande.client.id);
- 		 }else{
- 			 $location.path("/cons/Cons_DetailCompte/" + demande.id+"&"+0);	 
- 			 
- 		 }
- 		 
+ 			 $location.path("/cons/Demande_DetailCompte/" + demande.id);
+		 
   	 }     	
 
 

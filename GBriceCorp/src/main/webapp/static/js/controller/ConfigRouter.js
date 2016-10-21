@@ -48,12 +48,17 @@ App.config(['$routeProvider',function($routeProvider) {
 		    activetab: 'conseiller_recherchecompte'			
 		})
 	.when("/cons/DetailClient/:client_id" , {
-			templateUrl:"static/views/ConsClient_DetailCompte.html",
+			templateUrl:"static/views/Cons_DetailCompte.html",
 			controller: 'DemandeController',	
 		    activetab: 'conseiller_rechercheclient'			
-		})		
-	.when("/cons/Cons_DetailCompte/:demande_id&:client_id" , {
-			templateUrl:"static/views/ConsClient_DetailCompte.html",
+		})	
+	.when("/cons/DetailCompte/:compte_id" , {
+			templateUrl:"static/views/Cli_DetailCompte.html",
+			controller: 'UserController',	
+		    activetab: 'conseiller_recherchecompte'			
+		})
+	.when("/cons/Demande_DetailCompte/:demande_id" , {
+			templateUrl:"static/views/Cons_DemandeDetailCompte.html",
 			controller: 'DemandeController',	
 		    activetab: 'conseiller_recherchecompte'			
 		})
@@ -96,7 +101,7 @@ App.config(['$routeProvider',function($routeProvider) {
 	    activetab: 'client_notif'			
 	})
 	.when("/cli/Cli_DetailCompte/:compte_id" , {
-		templateUrl:"static/views/ConsClient_DetailCompte.html",
+		templateUrl:"static/views/Cli_DetailCompte.html",
 		controller: 'CompteController',	
 	    activetab: 'conseiller_demandesclient'			
 	})

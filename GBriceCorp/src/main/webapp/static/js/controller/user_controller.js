@@ -28,6 +28,7 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
     self.clients=[];
     self.searchClients = searchClients;
     self.getClient = getClient; 
+    self.getClientByCompteId = getClientByCompteId;     
     self.getNotifs = getNotifs;
     self.conseiller={id:null,nom:'',prenom:'',matricule:''};
     self.conseillers = [];
@@ -46,6 +47,7 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
     $scope.cons;  	
     $scope.consId;
     $scope.client_id = $routeParams.client_id;
+    $scope.compte_id = $routeParams.compte_id;    
     $scope.$route = $route;      	
     	
     	
@@ -317,14 +319,29 @@ function refreshUser(){
 	);	
     };
     
-
-  
-    function getClient(){
-    	// je récupère un client en fonction de son ID
-    	UserService.getClient(self.client.id)
+    
+    function getClientByCompteId(compte_id){
+    	// je récupère un client en fonction de l ID de son compte
+    	console.log(compte_id)
+    	UserService.getClientByCompteId(compte_id)
     	.then(
     			function(d){
-    				client = JSON.parse(sessionStorage.getItem("Client"));
+    				console.log(d)
+    				$scope.client = d;
+    			},
+    			function (errResponse){
+    				console.error('Error while getting a client from an ID de son compte')
+    			});
+    };
+    
+    
+    function getClient(client_id){
+    	// je récupère un client en fonction de son ID
+    	UserService.getClient(client_id)
+    	.then(
+    			function(d){
+    				console.log(d)
+    				$scope.client = d;
     			},
     			function (errResponse){
     				console.error('Error while getting a client from an ID')
@@ -356,6 +373,10 @@ function refreshUser(){
    function detailCompteCons(client_id){
 	  	 $location.path("/cons/DetailClient/" + client_id);
 	   }     
+   
+   
+   
+   
    
    function deleteCons (cons){
 		if (cons.clients.length > 0)
