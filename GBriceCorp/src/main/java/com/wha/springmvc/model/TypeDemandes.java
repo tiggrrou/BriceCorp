@@ -5,6 +5,7 @@ public enum TypeDemandes {
 	Modification (2),
 	Chequier (3);
 	
+	
 	private int type;
 
 	/**

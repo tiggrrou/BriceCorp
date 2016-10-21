@@ -2,9 +2,9 @@
 
 <!-- Formulaire de mofication d'info personnelle -->
 
+	<meta charset="UTF-8" />
 
-
-	<div class="panel panel-info" ng-init="ctrl.getMyUserBack()">
+	<div class="panel panel-info" ng-init="ctrl.getMyUserBack()" >
 
 		<!-- Default panel contents -->
 		<div class="panel-heading">
@@ -113,5 +113,32 @@
 					</div>
 				</form>
 			</div>
+			<div ng-init= "ctrl.getInfosClient(ctrl.compte.clientID)"
+			ng-controller="DemandeController as dmdctrl">
+
+				<form ng-submit="dmdctrl.writeDemDecou()" name="demDecou" >
+					<div class="panel panel-info" layout="colomn">
+
+					Quel decouvert souhaiteriez vous avoir? (attention ce montant ne peut
+						pas exceder 40% de vos revenus mensuels) 
+						<input type="number" max="{{ctrl.currentUser.revenu * 0.4}}" min="0"
+								ng-model="ctrl.user.decouvert" name="demDecouvert"
+								class="form-control input-sm" 
+								 required />
+					</div>
+						<div class="has-error" ng-show="demDecou.$dirty">
+							<span ng-show="demDecou.demDecouvert.$error.required">Champ	obligatoire</span>
+							<span ng-show="demDecou.demDecouvert.$error.max">Champ	invalide : montant trop élevé.</span>
+							<span ng-show="demDecou.demDecouvert.$error.min">Une demande découvert doit être une valeur positive.</span>
+						</div>  	
+					<div class="row">
+						<div class="form-actions floatRight">
+							<input type="submit" value="Soumettre ma demande à  mon conseiller"
+								class="btn btn-primary btn-sm" ng-disabled="demDecou.$invalid">
+						</div>
+
+					</div>
+				</form>
+			</div>	
 		</div>
 	</div>

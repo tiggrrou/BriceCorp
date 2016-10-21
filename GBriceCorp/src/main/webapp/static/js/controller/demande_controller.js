@@ -335,7 +335,7 @@ function findDemandeById(id) {
 };
 
 function writeDemDecou() {
-	DemandeService.writeDemDecou(JSON.parse(sessionStorage.getItem("User").id), compte.id, decouvert)
+	DemandeService.writeDemDecou(JSON.parse(sessionStorage.getItem("currentUser")).id, compte.id, decouvert)
 			.then(
 					function(){
 						// cas normal, pop up ?

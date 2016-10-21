@@ -295,11 +295,7 @@ public class HelloWorldRestController {
 			e.printStackTrace();
 			return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
 		}
-		
-
-
 	}
-
 	
 	// ------------------- get Client By CompteId--------------------------------------------------------
 
@@ -314,10 +310,27 @@ public class HelloWorldRestController {
 			e.printStackTrace();
 			return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
 		}
-		
-
-
 	}
+	
+	// -------------------Create demande de decouvert
+		// --------------------------------------------------------
+
+		@RequestMapping(value = "/demande/decouvert/{idClient}&{compteId}&{decouvert}", method = RequestMethod.POST)
+		public ResponseEntity<Void> DemandeDecouvert(@RequestBody Dem_ModificationCompte demande_Decouvert,
+																	@PathVariable("idClient") long idClient,
+																	@PathVariable("compteId") int compteId,
+																	@PathVariable("decouvert") int decouvert) {
+			Client client = userService.findCliById(idClient);
+			demande_Decouvert.setClient(client);
+			demande_Decouvert.setCompte(compteService.findCompteById(compteId));
+			demande_Decouvert.setDecouvert(decouvert);
+			System.out.println("Creating demande de decouvert " + demande_Decouvert);
+
+			demandeService.addDemandeModificationCompteToCons(demande_Decouvert.getClient().getConseiller(),demande_Decouvert);
+
+			return new ResponseEntity<Void>(HttpStatus.CREATED);
+
+		}
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////// CONSEILLER//////////////////////////////////////////////
