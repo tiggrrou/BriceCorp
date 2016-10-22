@@ -24,15 +24,23 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th ng-click="ctrl.trier_par('Nom')">Nom</th>
-								<th ng-click="ctrl.trier_par('Prenom')">Prenom</th>
-								<th ng-click="ctrl.trier_par('date')">Date creation</th>
+							<th ng-click="dmdctrl.trier_par('nom'); flechetri_1 = !flechetri_1; flechetri_2 = false; flechetri_3 = false; flechetri_4 = false; flechetri_5 = false ">Nom
+								<img class="icone_liste" src="static/imgs/flecheHaut.png" ng-hide="flechetri_1" />
+								<img class="icone_liste" src="static/imgs/flecheBas.png" ng-hide="!flechetri_1" />
+							</th>
+							<th ng-click="dmdctrl.trier_par('prenom'); flechetri_2 = !flechetri_2; flechetri_1 = false; flechetri_3 = false; flechetri_4 = false; flechetri_5 = false  ">Prenom
+								<img class="icone_liste" src="static/imgs/flecheHaut.png" ng-hide="flechetri_2" />
+								<img class="icone_liste" src="static/imgs/flecheBas.png" ng-hide="!flechetri_2" />
+							</th>
+							<th ng-click="dmdctrl.trier_par('dateCreation'); flechetri_3 = !flechetri_3; flechetri_2 = false; flechetri_1 = false; flechetri_4 = false; flechetri_5 = false  ">DateCreation
+								<img class="icone_liste" src="static/imgs/flecheHaut.png" ng-hide="flechetri_3" />
+								<img class="icone_liste" src="static/imgs/flecheBas.png" ng-hide="!flechetri_3" />
+							</th>
 								<th width="10%" ng-click="ctrl.trier_par('Action')">Etat</th>
-
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="demande in dmdctrl.demandes  | filter:search:strict | orderBy:tripar " ng-click="dmdctrl.detailDemande(demande)" >
+							<tr ng-repeat="demande in dmdctrl.demandes  | filter:search:strict | orderBy:tripar:sens " ng-click="dmdctrl.detailDemande(demande)" >
 								<td>{{(demande.client!=null)?demande.client.nom:demande.nom}}</td>
 								<td>{{(demande.client!=null)?demande.client.prenom:demande.prenom}}</td>
 								<td>{{demande.dateCreation}}</td>

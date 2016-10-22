@@ -20,11 +20,16 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	 self.listeJustificatifs=listeJustificatifs;
 	 self.findDemandeById=findDemandeById;
 	 self.getClient=getClient;
-
+	 self.trier_par=trier_par;
+	 self.openFile=openFile;
+	 self.modifInfo=modifInfo;
+	 self.users=[];
+	 
 	 
 	 
 	    $scope.menuDemandesCons = [{"id":"inscription", "valeur" :"Ouverture compte"},
 	                               {"id":"chequier", "valeur" :"Chequier"},
+	                               {"id":"modifinfo", "valeur" :"Modification Informations personnelle"},
 	                               {"id":"modifcompte", "valeur" :"Modification compte"}];
 	    
 	    $scope.value = $scope.menuDemandesCons[0].id;
@@ -32,6 +37,7 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 
 	    $scope.client_id = $routeParams.client_id;
 	    $scope.demande_id = $routeParams.demande_id;
+	    $scope.demande_type = $routeParams.demande_type;	    
 	    $scope.nom = $routeParams.nom;
 	    $scope.prenom = $routeParams.prenom;
  // Fonctions User
@@ -40,6 +46,41 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	    $scope.demandes=[];
 	 self.demandeCreationClient;
 
+
+	 
+	  function modifInfo(){
+		  var demande={"nom":$scope.currentUser.nom,"prenom":$scope.currentUser.prenom,
+		             "telephone":$scope.currentUser.telephone,"mail":$scope.currentUser.mail,
+		             "adresse":$scope.currentUser.adresse,"revenu":$scope.currentUser.revenu};	  
+
+			 DemandeService.modifInfo(demande,$scope.currentUser.id)
+			 .then(
+	                 function() {
+	                	 console.log("demande de modification dinfo perso en cours");
+
+
+	                 },
+	         function(errResponse){
+	             console.error('Erreur pendant la creation de la demande de modification d info perso');
+	         }
+	     );	 
+	  }
+	 
+	 
+	 
+	    function trier_par(tri){
+	    	//en cours d affinage
+	    	if ($scope.tripar = tri){
+	    		$scope.sens = !$scope.sens;		
+	    	}
+	    		$scope.tripar = tri;
+	        }
+	    
+	    function openFile(url){
+	    	console.log(url)
+	    window.open ("File:///"+url,"mywindow","menubar=1,resizable=1,width=350,height=250");
+	    }
+	 
 	 	/* Recherche d'un conseiller par son ID */
 		function getConsById(){
 	    	// je récupère un client en fonction de son ID
@@ -116,7 +157,7 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 
 	 
  	 function detailDemande(demande){
- 			 $location.path("/cons/Demande_DetailCompte/" + demande.id);
+ 			 $location.path("/cons/Demande_DetailCompte/" + demande.id + "&" + demande.type);
 		 
   	 }     	
 
@@ -137,38 +178,55 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
  	 function validation_Demande(demande){
        	var currentUser_id = JSON.parse(sessionStorage.getItem("currentUser")).id;
  	if(demande.type == 1){
+ 		console.log("1 "+ demande.type)
 	DemandeService.validation_CreationCompteClient(demande,currentUser_id)
         .then(
                 function(d) {
                 	console.log(d)
                 },
         function(errResponse){
-            console.error('Error while fetching Creation Client');
+            console.error('Error while Creation Client');
         }
     );	 
- 	}else  	if(demande.type == 3){
-    	DemandeService.validation_CreationCompteClient(demande,currentUser_id)
+ 	}else  	if(demande.type == 2){
+ 		demande.client.conseiller = null;
+ 		console.log("2 "+ demande.type)
+    	DemandeService.validation_ModificationCompte(demande,currentUser_id)
             .then(
                     function(d) {
                     	console.log(d)
                     },
             function(errResponse){
-                console.error('Error while fetching Creation Client');
+                console.error('Error while Modification compte');
             }
         );	 
-     	}else 	if(demande.type == 1){
-        	DemandeService.validation_CreationCompteClient(demande,currentUser_id)
+     	}else 	if(demande.type == 3){
+     		demande.client.conseiller = null;
+     		console.log("3 "+ demande.type)
+        	DemandeService.validation_Chequier(demande,currentUser_id)
                 .then(
                         function(d) {
                         	console.log(d)
                         },
                 function(errResponse){
-                    console.error('Error while fetching Creation Client');
+                    console.error('Error while Chequier');
+                }
+            );	 
+         	}else 	if(demande.type == 4){
+         		demande.client.conseiller = null;
+         		console.log("4 "+ currentUser_id)
+        	DemandeService.validation_ModificationInfoPerso(demande,currentUser_id)
+                .then(
+                        function(d) {
+                        	console.log(d)
+                        },
+                function(errResponse){
+                    console.error('Error while Modification info');
                 }
             );	 
          	}
  	 $location.path("/cons/");	
- 	console.log("type de la demande" + demande.type )
+
  	
 	 };
  	 

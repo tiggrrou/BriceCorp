@@ -23,6 +23,17 @@ App.controller('CompteController', ['$scope','$location', '$route', '$routeParam
     self.detailCompte=detailCompte;
     self.findComptesByClientId=findComptesByClientId;
     self.findCompteById=findCompteById;
+    self.trier_par=trier_par;
+    
+    
+    function trier_par(tri){
+    	//en cours d affinage
+    	if ($scope.tripar = tri){
+    		$scope.sens = !$scope.sens;		
+    	}
+    		$scope.tripar = tri;
+        }
+
     
     
     function detailCompte(compte_id){

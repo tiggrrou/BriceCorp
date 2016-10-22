@@ -1,60 +1,52 @@
 package com.wha.springmvc.model;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "Dem_CreationClient")
+@Table(name = "Dem_ModifInfo")
 @PrimaryKeyJoinColumn(name = "id")
-public class Dem_CreationClient extends Demande implements Serializable{
+public class Dem_ModificationInfo extends Demande implements Serializable{
 
 	//#region Attributs
 
 	/**
-	 * Nom du client potentiel
+	 * Nom du client
 	 */
 	@Column(name = "nom")
 	private String nom;
 	/**
-	 * Prénom du client potentiel
+	 * Prénom du client
 	 */
 	@Column(name = "prenom")
 	private String prenom;
 	/**
-	 * Mail du client potentiel
+	 * Mail du client
 	 */
 	@Column(name = "mail")
 	private String mail;
 	/**
-	 * Adresse du client potentiel
+	 * Adresse du client
 	 */
 	@Column(name = "adresse")
 	private String adresse;
 	/**
-	 * telephone du client potentiel
+	 * telephone du client
 	 */
 	@Column(name = "telephone")
 	private int telephone;
 	
-	@OneToMany(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
-	private Set<Justificatif> justificatifs;
-
-
 	/**
 	 * revenu mensuel du client
 	 */
 	@Column(name = "revenu")
 	private int revenu;
+	
 	//#endregion
 
 	//#region Accesseurs
@@ -100,15 +92,6 @@ public class Dem_CreationClient extends Demande implements Serializable{
 		this.telephone = telephone;
 	}
 
-
-	public Set<Justificatif> getJustificatifs() {
-		return justificatifs;
-	}
-
-	public void setJustificatifs(Set<Justificatif> justificatifs) {
-		this.justificatifs = justificatifs;
-	}
-
 	public int getRevenu() {
 		return revenu;
 	}
@@ -116,31 +99,31 @@ public class Dem_CreationClient extends Demande implements Serializable{
 	public void setRevenu(int revenu) {
 		this.revenu = revenu;
 	}
+	
+	
+	
 	//#endregion
 
 	//#region Constructeurs
 	
+	
 	/**
-	 * @param clientID
 	 * @param nom
 	 * @param prenom
 	 * @param mail
 	 * @param adresse
 	 * @param telephone
-	 * @param justificatif
-	 * @param justificatif2
 	 * @param revenu
 	 */
-	public Dem_CreationClient() {
+	public Dem_ModificationInfo() {
 		super();
-		this.justificatifs = new HashSet<Justificatif>();
 	}
 
 	@Override
 	public String toString() {
-		return "Dem_CreationClient [getNom()=" + getNom() + ", getPrenom()=" + getPrenom() + ", getMail()=" + getMail()
-				+ ", getAdresse()=" + getAdresse() + ", getTelephone()=" + getTelephone() + ", getJustificatifs()="
-				+ getJustificatifs() + ", getRevenu()=" + getRevenu() + "]";
+		return "Dem_ModificationInfo [getNom()=" + getNom() + ", getPrenom()=" + getPrenom() + ", getMail()="
+				+ getMail() + ", getAdresse()=" + getAdresse() + ", getTelephone()=" + getTelephone() + ", getRevenu()="
+				+ getRevenu() + "]";
 	}
 
 

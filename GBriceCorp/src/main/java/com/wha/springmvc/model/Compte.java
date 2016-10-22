@@ -3,10 +3,9 @@
  */
 package com.wha.springmvc.model;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -15,15 +14,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import org.hibernate.annotations.ManyToAny;
 
 /**
 
@@ -32,7 +26,7 @@ import org.hibernate.annotations.ManyToAny;
  */
 @Entity
 @Table(name = "Compte")
-public class Compte {
+public class Compte implements Serializable{
 
 	//#region Attributs
 	/**

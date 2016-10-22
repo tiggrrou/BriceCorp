@@ -1,6 +1,5 @@
 package com.wha.springmvc.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,7 @@ import com.wha.springmvc.dao.DemandeDao;
 import com.wha.springmvc.model.Dem_Chequier;
 import com.wha.springmvc.model.Dem_CreationClient;
 import com.wha.springmvc.model.Dem_ModificationCompte;
+import com.wha.springmvc.model.Dem_ModificationInfo;
 import com.wha.springmvc.model.Demande;
 
 
@@ -82,8 +82,8 @@ public class DemandeServiceImpl implements DemandeService {
 	}
 
 	@Override
-	public void suppressionDemande(long id_demande) {
-			dao.suppressionDemande(id_demande);
+	public void suppressionDemande(long id_demande,long id_conseiller) {
+			dao.suppressionDemande(id_demande, id_conseiller);;
 		
 	}
 
@@ -108,6 +108,19 @@ dao.modifEtat_Demande(demande_id, nouvelEtat);
 	public void reaffectation(long client_id, long conseiller_id) {
 		dao.reaffectation(client_id, conseiller_id);
 		
+	}
+
+	@Override
+	public void addDemandeModificationInfoPersoToCons(long id_conseiller,
+			Dem_ModificationInfo demandeModificationInfoPerso) {
+dao.addDemandeModificationInfoPersoToCons(id_conseiller, demandeModificationInfoPerso);
+		
+	}
+
+	@Override
+	public List<Dem_ModificationInfo> findAllDemandesModifInfo(long id) {
+		return dao.findAllDemandesModifInfo(id);
+	
 	}
 
 

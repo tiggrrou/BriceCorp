@@ -2,6 +2,8 @@ package com.wha.springmvc.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -71,8 +73,13 @@ public class FileUploadController {
 			} else if (clientOuDemande == 1){
 				repertoire = UPLOAD_LOCATION+ "clients/" + id_demandeouclient + "/";
 			}
-
-			String nomfichier = id_demandeouclient + "_" + nom + "_" + prenom + "_" + typeJustificatif + "."
+			Date aujourdhui = new Date();
+			
+			SimpleDateFormat  formater = new SimpleDateFormat("YYYY-MM-dd");
+		
+			
+			
+			String nomfichier = nom + "_" + prenom + "_" + typeJustificatif + "_"+ formater.format(aujourdhui)+"."
 					+ fileModel.getFile().getOriginalFilename().split("\\.")[1];
 
 			File drirectory = new File(repertoire);
@@ -92,7 +99,9 @@ public class FileUploadController {
 
 			Justificatif justificatif = new Justificatif();
 			justificatif.setType(typeJustificatif);
-			justificatif.setUrl(repertoire + nomfichier);
+			justificatif.setPath(repertoire);
+			justificatif.setNomDuFichier(nomfichier);
+			justificatif.setDate(aujourdhui);
 			justificatifService.saveJustificatif(id_demandeouclient, justificatif, clientOuDemande);
 
 			return new ResponseEntity<Void>(HttpStatus.OK);

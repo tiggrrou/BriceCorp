@@ -21,7 +21,9 @@ import com.wha.springmvc.model.Conseiller;
 import com.wha.springmvc.model.Dem_Chequier;
 import com.wha.springmvc.model.Dem_CreationClient;
 import com.wha.springmvc.model.Dem_ModificationCompte;
+import com.wha.springmvc.model.Dem_ModificationInfo;
 import com.wha.springmvc.model.Demande;
+import com.wha.springmvc.model.TypeDemandes;
 import com.wha.springmvc.model.TypeUtilisateur;
 import com.wha.springmvc.model.User;
 import com.wha.springmvc.service.CompteService;
@@ -70,30 +72,97 @@ public class HelloWorldRestController {
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}
 	}
+
+	// -------------------Validation Demande Modification d info perso--------------------------------------------------------
+
+	@RequestMapping(value = "/demande/validationmodifinfoperso/{id_conseil}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> validationModifInfoPerso(@PathVariable("id_conseil") long id_conseiller,
+			@RequestBody Dem_ModificationInfo demande_modificationinfoperso) {
+		System.out.println("validation de la demande de modification d info perso " + demande_modificationinfoperso.getID());
+
+		 try {
+
+			 userService.updateclient(demande_modificationinfoperso);
+			 
+			userService.sendNotificationToAClient("Vos informations personnelles ont ete mises à jour", demande_modificationinfoperso.getClient().getId());
+			demandeService.suppressionDemande(demande_modificationinfoperso.getID(),id_conseiller);
+
+			return new ResponseEntity<Void>(HttpStatus.CREATED);
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+		}
+	}
 	
+	
+	// -------------------Validation Demande Modification de compte--------------------------------------------------------
+
+	@RequestMapping(value = "/demande/validationmodifcompte/{id_conseil}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> validationModifCompte(@PathVariable("id_conseil") long id_conseiller,
+			@RequestBody Dem_ModificationCompte demande_modificationcompte) {
+		System.out.println("validation de la demande de modification de compte " + demande_modificationcompte.getID());
+
+		 try {
+
+			 
+			 
+			userService.sendNotificationToAClient("Votre compte "+demande_modificationcompte.getCompte().getIBAN() + " a ete modifie", demande_modificationcompte.getClient().getId());
+			demandeService.suppressionDemande(demande_modificationcompte.getID(),id_conseiller);
+
+			return new ResponseEntity<Void>(HttpStatus.CREATED);
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	
+	// -------------------Validation Demande Chequier--------------------------------------------------------
+
+	@RequestMapping(value = "/demande/validationchequier/{id_conseil}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> validationChequier(@RequestBody Dem_Chequier demande_chequier, @PathVariable("id_conseil") long id_conseiller) {
+		System.out.println("validation de la demande de chequier " + demande_chequier.getID());
+
+		 try {
+			userService.sendNotificationToAClient("Votre chequier a ete commande pour votre compte "+demande_chequier.getCompte().getIBAN(), demande_chequier.getClient().getId());
+
+			demandeService.suppressionDemande(demande_chequier.getID(),id_conseiller);
+
+			return new ResponseEntity<Void>(HttpStatus.CREATED);
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+		}
+	}
+
 	// -------------------Validation Creation Client--------------------------------------------------------
 
 	@RequestMapping(value = "/demande/validationcreation/{id_conseil}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> demandeById(@PathVariable("id_conseil") long id_conseiller,
+	public ResponseEntity<Void> validationCreation(@PathVariable("id_conseil") long id_conseiller,
 			@RequestBody Dem_CreationClient demande_inscription) {
 		System.out.println("validation de la demande d'isncription " + demande_inscription.getID());
 
 		 try {
 			Client client = userService.createClient(id_conseiller,demande_inscription);
-			
-			StringBuffer text = new StringBuffer("Bienvenue chez GestBank, filiale du groupe BriceCorp! </br>");			
-			text.append(" Nous sommes heureux de vous annoncer que votre compte a été créé et qu'il est à présent parfaitement fonctionnel. </br> ");			
-			text.append(" Vous pouvez désormais vous connecter à votre espace client grâce à votre login et votre mot de passe: </br>");			
-			text.append(" Votre Login        : <B>" + client.getIdentifiant() +" </B> </br>");
-			text.append(" Votre Mot de Passe : <B>" + client.getMotDePasse() +"  </B> </br>");
-			text.append(" En espérant que vous trouviez entière satisfaction chez nous. Nous vous souhaitons une agréable journée. </br>");
-			text.append(" La BriceCorp Team ");
-			
-			userService.sendMessage("Bienvenue chez GestBank!", text.toString(), demande_inscription.getMail(), "GB.bricecorp@gmail.com");
-			demandeService.suppressionDemande(demande_inscription.getID());
-			 
+
 			///**
 			//* Envoi du mail confirmant au client la création de son compte/
+//			StringBuffer text = new StringBuffer("Bienvenue chez GestBank, filiale du groupe BriceCorp! </br>");			
+//			text.append(" Nous sommes heureux de vous annoncer que votre compte a été créé et qu'il est à présent parfaitement fonctionnel. </br> ");			
+//			text.append(" Vous pouvez désormais vous connecter à votre espace client grâce à votre login et votre mot de passe: </br>");			
+//			text.append(" Votre Login        : <B>" + client.getIdentifiant() +" </B> </br>");
+//			text.append(" Votre Mot de Passe : <B>" + client.getMotDePasse() +"  </B> </br>");
+//			text.append(" En espérant que vous trouviez entière satisfaction chez nous. Nous vous souhaitons une agréable journée. </br>");
+//			text.append(" La BriceCorp Team ");
+//			
+//			userService.sendMessage("Bienvenue chez GestBank!", text.toString(), demande_inscription.getMail(), "GB.bricecorp@gmail.com");
+			
+			demandeService.suppressionDemande(demande_inscription.getID(),id_conseiller);
+			 
+
 					
 					
 					
@@ -166,6 +235,18 @@ public class HelloWorldRestController {
 		return new ResponseEntity<List<Dem_ModificationCompte>>(demandes, HttpStatus.OK);
 	}
 
+	// -------------------Retrieve All Demandes de modif info perso--------------------------------------------------------
+	
+	@RequestMapping(value = "/demande/modifinfo/{conseillerID}", method = RequestMethod.GET)
+	public ResponseEntity<List<Dem_ModificationInfo>> listAllDemandeModifInfoPerso(@PathVariable("conseillerID") long consID) {
+		System.out.println("fetch demandes modif compte");
+		List<Dem_ModificationInfo> demandes = demandeService.findAllDemandesModifInfo(consID);
+
+		if (demandes.isEmpty()) {
+			return new ResponseEntity<List<Dem_ModificationInfo>>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<List<Dem_ModificationInfo>>(demandes, HttpStatus.OK);
+	}
 	// -------------------Retrieve All Demandes d inscription non attribuees--------------------------------------------------------
 
 	@RequestMapping(value = "/demande/inscription/{adminOrConsID}", method = RequestMethod.GET)
@@ -218,8 +299,30 @@ public class HelloWorldRestController {
 
 	}
 	
-	// -------------------Create demande de nouveau compte bancaire
-	// --------------------------------------------------------
+	// -------------------Create demande de modification d'info perso-------------------------------------------------------
+
+	@RequestMapping(value = "/demande/createmodifinfoperso/{idClient}", method = RequestMethod.POST)
+	public ResponseEntity<Void> DemandeInfoPerso(@RequestBody Dem_ModificationInfo demandeModificationInfoPerso, @PathVariable("idClient") long idClient) {
+		System.out.println("Creating demande de modification d info perso de " + demandeModificationInfoPerso);
+
+		try {
+			Client client = userService.findCliById(idClient);
+			demandeModificationInfoPerso.setClient(client);
+			demandeModificationInfoPerso.setType(TypeDemandes.ModificationInformationPerso.getType());
+			System.out.println("coucou "+ demandeModificationInfoPerso);
+			demandeService.addDemandeModificationInfoPersoToCons(client.getConseiller(),demandeModificationInfoPerso);
+			return new ResponseEntity<Void>(HttpStatus.CREATED);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+		}
+
+
+
+	}
+	
+	// -------------------Create demande de nouveau compte bancaire --------------------------------------------------------
 
 	@RequestMapping(value = "/demande/creationCompteBancaire/{idClient}", method = RequestMethod.POST)
 	public ResponseEntity<Void> DemandeNouveauCompteBancaire(@RequestBody Dem_ModificationCompte demande_NouveauCompteBancaire,
@@ -459,7 +562,7 @@ public class HelloWorldRestController {
 		Conseiller conseillerpourclient1 = userService.findConsById(2);
 		demandeService.attribution(demande_inscription.getID(), conseillerpourclient1.getId());
 		userService.createClient(conseillerpourclient1.getId(), demande_inscription);
-		demandeService.suppressionDemande(demande_inscription.getID());
+		demandeService.suppressionDemande(demande_inscription.getID(),conseillerpourclient1.getId());
 		
 
 		Dem_CreationClient demande_inscription2 = new Dem_CreationClient();
@@ -473,11 +576,12 @@ public class HelloWorldRestController {
 		Conseiller conseillerpourclient = userService.findConsById(2);
 		demandeService.attribution(demande_inscription2.getID(), conseillerpourclient.getId());
 		userService.createClient(conseillerpourclient.getId(), demande_inscription2);
-		demandeService.suppressionDemande(demande_inscription2.getID());
+		demandeService.suppressionDemande(demande_inscription2.getID(), conseillerpourclient1.getId());
 		
 		Client client = userService.findCliById(3);
 		Compte cpt = new Compte();  	  	
 		cpt.setLibelle("Compte courant bis");
+		cpt.setIBAN("blabla");
 		cpt.setSolde(2000);
 		userService.addcompte(cpt, 3);
 		System.out.println(client.getComptes());
@@ -492,11 +596,21 @@ public class HelloWorldRestController {
 		demandeService.addDemandeChequierToCons(conseillerpourclient.getId(),demande_chequier);
 		
 		Dem_ModificationCompte demande_modification = new Dem_ModificationCompte();
-	demande_modification.setClient(client);
+		demande_modification.setClient(client);
 		demande_modification.setDecouvert(500);
 		demande_modification.setCompte(compte);
 		demande_modification.setRemunerateur(true);
 		demandeService.addDemandeModificationCompteToCons(conseillerpourclient.getId(),demande_modification);
+
+		Dem_ModificationInfo demande_modificationInfo = new Dem_ModificationInfo();
+		demande_modificationInfo.setNom("newNomClient1");
+		demande_modificationInfo.setPrenom("newPrenomClient1");
+		demande_modificationInfo.setAdresse("new25 adresse du client 1 44896 Paris");
+		demande_modificationInfo.setMail("newnquatuor@gmail.com");
+		demande_modificationInfo.setRevenu(12500);
+		demande_modificationInfo.setTelephone(178987);
+		demande_modificationInfo.setClient(client);
+		demandeService.addDemandeModificationInfoPersoToCons(conseillerpourclient.getId(), demande_modificationInfo);
 		
 		Conseiller conseiller2 = new Conseiller();
 		conseiller2.setNom("NomConseiller2");

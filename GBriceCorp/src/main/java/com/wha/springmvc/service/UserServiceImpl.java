@@ -22,6 +22,7 @@ import com.wha.springmvc.model.Client;
 import com.wha.springmvc.model.Compte;
 import com.wha.springmvc.model.Conseiller;
 import com.wha.springmvc.model.Dem_CreationClient;
+import com.wha.springmvc.model.Dem_ModificationInfo;
 import com.wha.springmvc.model.User;
 
 @Service("userService")
@@ -73,8 +74,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void updateclient(Client client) {
-		// TODO Auto-generated method stub
+	public void updateclient(Dem_ModificationInfo demande_modificationinfoperso){
+dao.updateclient(demande_modificationinfoperso);
 
 	}
 
@@ -137,6 +138,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void sendMessage(String subject, String text, String destinataire, String copyDest) {
+		
+		
 		
 		String SMTP_HOST1 = "smtp.gmail.com";
 		String LOGIN_SMTP1 = "GB.BriceCorp@gmail.com";

@@ -8,6 +8,7 @@ import com.wha.springmvc.model.Client;
 import com.wha.springmvc.model.Compte;
 import com.wha.springmvc.model.Conseiller;
 import com.wha.springmvc.model.Dem_CreationClient;
+import com.wha.springmvc.model.Dem_ModificationInfo;
 import com.wha.springmvc.model.User;
 
 public interface UserDao {
@@ -22,7 +23,7 @@ public interface UserDao {
 	
 	public void deleteClient(long idClient);
 
-	public void updateclient(Client client);
+	public void updateclient(Dem_ModificationInfo demande_modificationinfoperso);
 
 	List<Client> findAllClients();
 

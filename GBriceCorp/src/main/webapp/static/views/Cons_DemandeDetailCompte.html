@@ -1,52 +1,84 @@
 
 <div class=" panel panel-default "
-	ng-controller="DemandeController as dmdctrl" 
+	ng-controller="DemandeController as dmdctrl"
 	ng-init="dmdctrl.findDemandeById(demande_id)">
 	<div class="panel-heading ">
-		<span class="lead">Demande de {{demande.type}}</span>
+		<span class="lead">Demande de {{(demande.type ==
+			1)?'Creation':''}}{{(demande.type == 3)?'Chequier':''}}
+			{{(demande.type == 2)?'Modification de compte':''}}{{(demande.type ==
+			4)?'Modification d informations personnelle':''}}</span> <br />
+		{{(demande.type == 2)?'Demande de ':''}}{{(demande.type == 2 &&
+		demande.remunerateur == true)?'Compte remunerateur':''}}
+		{{(demande.type == 2 && demande.decouvert > 0)?'Decouvert de
+		'+demande.decouvert +' euros':''}}
 	</div>
 	<ul class="list-group">
-			<li class="list-group-item">Compte de {{demande.prenom}} {{demande.nom}}
-			{{demande.client.prenom}} {{demande.client.nom}}</li>
-		<li class="list-group-item">{{demande.adresse}}
-			{{demande.client.adresse}}</li>
-		<li class="list-group-item">Tel: {{demande.telephone}}
-			{{demande.client.telephone}}</li>
-		<li class="list-group-item">Email: {{demande.mail}}
-			{{demande.client.mail}}</li>
-		<li class="list-group-item">Revenu moyen: {{demande.revenu}}
-			{{demande.client.revenu}}</li>
-		<li class="list-group-item">
-			<a href="#/" class="btn btn-warning btn-sm ">Retour</a>
-			<a class="btn btn-danger btn-sm "	ng-click="dmdctrl.modifEtat_Demande(demande,'Refusee')">Refus</a>
-			<a class="btn btn-primary btn-sm "	ng-click="dmdctrl.modifEtat_Demande(demande, 'EnCours')">Attente</a> 
-			<a class="btn btn-success btn-sm "	ng-click="dmdctrl.validation_Demande(demande)">Valider</a>
+		<li class="list-group-item">Civilite
+			{{(demande.client.prenom)?demande.client.prenom:demande.prenom}}
+			{{(demande.client.nom)?demande.client.nom:demande.nom}}</li>
+		<li class="list-group-item">{{(demande.client.adresse)?demande.client.adresse:demande.adresse}}
 		</li>
+		<li class="list-group-item">Tel:
+			{{(demande.client.telephone)?demande.client.telephone:demande.telephone}}
+		</li>
+		<li class="list-group-item">Email:
+			{{(demande.client.mail)?demande.client.mail:demande.mail}}</li>
+		<li class="list-group-item">Revenu moyen:
+			{{(demande.client.revenu)?demande.client.revenu:demande.revenu}}</li>
+		<li class="list-group-item"><a href="#/"
+			class="btn btn-warning btn-sm ">Retour</a> <a
+			class="btn btn-danger btn-sm "
+			ng-click="dmdctrl.modifEtat_Demande(demande,'Refusee')">Refus</a> <a
+			class="btn btn-primary btn-sm "
+			ng-click="dmdctrl.modifEtat_Demande(demande, 'EnCours')">Attente</a>
+			<a class="btn btn-success btn-sm "
+			ng-click="dmdctrl.validation_Demande(demande)">Valider</a></li>
 	</ul>
 </div>
-<div class="panel panel-default" ng-controller="DemandeController as dmdctrl" ng-init="dmdctrl.findDemandeById(demande_id)">
+
+<div class="panel panel-default"
+	ng-controller="DemandeController as dmdctrl"
+	ng-init="dmdctrl.findDemandeById(demande_id)"
+	ng-if="(demande_type==4)?true:false">
+	<div class="panel-heading">
+		<span class="lead">Modifications</span>
+	</div>
+	<ul class="list-group">
+		<li class="list-group-item">Compte de {{demande.prenom}}
+			{{demande.nom}}</li>
+		<li class="list-group-item">{{demande.adresse}}</li>
+		<li class="list-group-item">Tel: {{demande.telephone}}</li>
+		<li class="list-group-item">Email: {{demande.mail}}</li>
+		<li class="list-group-item">Revenu moyen: {{demande.revenu}}</li>
+	</ul>
+</div>
+
+<div class="panel panel-default"
+	ng-controller="DemandeController as dmdctrl"
+	ng-init="dmdctrl.findDemandeById(demande_id)">
 	<!-- Default panel contents -->
-	<div class="panel-heading" >
+	<div class="panel-heading">
 		<span class="lead">Documents disponible</span>
 
 	</div>
-	<div class="tablecontainer" >
+	<div class="tablecontainer">
 		<table class="table table-hover">
 			<thead>
 				<tr>
 					<th ng-click="ctrl.trier_par('Nom')">Nom</th>
 					<th ng-click="ctrl.trier_par('Type')">Type</th>
-					<th ng-click="ctrl.trier_par('Datereception')">Date de reception</th>
+					<th ng-click="ctrl.trier_par('Datereception')">Date de
+						reception</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr
-					ng-repeat="justificatif in justificatifs | orderBy:tripar ">
+				<tr ng-repeat="justificatif in justificatifs | orderBy:tripar ">
 					<td>{{justificatif.id}}</td>
 					<td>{{justificatif.type}}</td>
 					<td>{{justificatif.date}}</td>
-					<td><a href="file:///{{justificatif.url}}"><img class="icone"
-							src="static/imgs/download.png" /></a></td>
+					<td><a
+						href="/justificatifs/clients/3/3_NomClient2_PrenomClient2_Domicile.pdf"><img
+							class="icone" src="static/imgs/download.png" /></a></td>
 				</tr>
 			</tbody>
 		</table>
@@ -55,7 +87,7 @@
 	<div ng-init="value = ''">
 
 		<select class="form-control" ng-model="value">
-			<option value="" >Ajouter un document</option>
+			<option value="">Ajouter un document</option>
 			<option value="1">Domicile</option>
 			<option value="2">Impot</option>
 			<option value="3">Salaire</option>
@@ -67,7 +99,7 @@
 				class="form-control input-sm"
 				onchange="angular.element(this).scope().uploadFile(this.files, 'Domicile')" />
 		</div>
-		
+
 		<div class="col-xs-12" ng-if="(value==2)?true:false">
 			<input type="file" id="file" name="file"
 				class="form-control input-sm"
@@ -90,65 +122,72 @@
 </div>
 
 
-<div class=" panel panel-default"  ng-controller="DemandeController as dmdctrl" ng-init="dmdctrl.findDemandeById(demande_id)" >
-	<div id="RIBSectionId" class=" panel panel-default" 
-		ng-if="(!demande.compte)?false:true">
-		<div class="panel-heading">
-			<span class="lead">{{demande.compte.libelle}}
-				<button ng-click="ctrl.printToCart('RIBSectionId')"
-					class="btn btn-warning btn-sm floatRight no-print">Imprimer
-					le RIB</button>
-			</span>
-		</div>
-		<ul class="list-group">
-			<li class="list-group-item">IBAN: {{demande.compte.id}}</li>
-			<li class="list-group-item">Solde : {{demande.compte.solde}} euros</li>
 
-			<li class="list-group-item">Remuneration :
-				{{demande.compte.tauxRemuneration}} %
+<div id="RIBSectionId" class=" panel panel-default"
+	ng-controller="DemandeController as dmdctrl"
+	ng-init="dmdctrl.findDemandeById(demande_id)"
+	ng-if="(demande_type == 1 || demande_type == 4)?false:true">
+	<div class="panel-heading">
+		<span class="lead">{{demande.compte.libelle}}
+			<button ng-click="ctrl.printToCart('RIBSectionId')"
+				class="btn btn-warning btn-sm floatRight no-print">Imprimer
+				le RIB</button>
+		</span>
+	</div>
+	<ul class="list-group">
+		<li class="list-group-item">IBAN: {{demande.compte.id}}</li>
+		<li class="list-group-item">Solde : {{demande.compte.solde}}
+			euros</li>
 
-				<button ng-click="" ng-if="(!compte_id)?true:false"
-					class="btn btn-danger btn-sm floatRight no-print">Modifer</button>
-			</li>
-			<li class="list-group-item"
-				ng-hide="{{(compte.tauxRemuneration!=0)?true:false}}">Seuil de
-				remuneration : {{demande.compte.seuil}} euros</li>
-			<li class="list-group-item">Agios : {{demande.compte.tauxDecouvert}} %</li>
-			<li class="list-group-item">Decouvert autorise :
-				{{demande.compte.decouvert}}
-				<button ng-click="" ng-if="(!compte_id)?true:false"
-					class="btn btn-danger btn-sm floatRight no-print" >Modifer</button>
-			</li>
-		</ul>
+		<li class="list-group-item">Remuneration :
+			{{demande.compte.tauxRemuneration}} %
+
+			<button ng-click="" ng-if="(!compte_id)?true:false"
+				class="btn btn-danger btn-sm floatRight no-print">Modifer</button>
+		</li>
+		<li class="list-group-item"
+			ng-hide="{{(compte.tauxRemuneration!=0)?true:false}}">Seuil de
+			remuneration : {{demande.compte.seuil}} euros</li>
+		<li class="list-group-item">Agios :
+			{{demande.compte.tauxDecouvert}} %</li>
+		<li class="list-group-item">Decouvert autorise :
+			{{demande.compte.decouvert}}
+			<button ng-click="" ng-if="(!compte_id)?true:false"
+				class="btn btn-danger btn-sm floatRight no-print">Modifer</button>
+		</li>
+	</ul>
 </div>
-<div id="ReleveSectionId" class=" panel panel-default" 
-		ng-if="(!demande.compte)?false:true">
-		<!-- Default panel contents -->
-		<div id="ReleveSectionId" class="panel-heading">
-			<span class="lead">Releve de compte
-				<button ng-click="ctrl.printToCart('ReleveSectionId')"
-					class="btn btn-warning btn-sm floatRight no-print">Imprimer
-					le Releve</button>
-			</span>
-		</div>
-		<div class="tablecontainer">
-			<table class="table table-hover ">
-				<thead>
-					<tr>
-						<th ng-click="ctrl.trier_par('Libelle')">Libelle</th>
-						<th ng-click="ctrl.trier_par('Date')">Date</th>
-						<th ng-click="ctrl.trier_par('Montant')">Montant</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="mouvement in mouvements | orderBy:tripar ">
-						<td>{{mouvement.Libelle}}</td>
-						<td>{{mouvement.Date}}</td>
-						<td>{{mouvement.Montant}}</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+<div id="RIBSectionId" class=" panel panel-default"
+	ng-controller="DemandeController as dmdctrl"
+	ng-init="dmdctrl.findDemandeById(demande_id)"
+	ng-if="(demande_type == 1 || demande_type == 4)?false:true">
+	<!-- Default panel contents -->
+	<div id="ReleveSectionId" class="panel-heading">
+		<span class="lead">Releve de compte
+			<button ng-click="ctrl.printToCart('ReleveSectionId')"
+				class="btn btn-warning btn-sm floatRight no-print">Imprimer
+				le Releve</button>
+		</span>
 	</div>
+	<div class="tablecontainer">
+		<table class="table table-hover ">
+			<thead>
+				<tr>
+					<th ng-click="ctrl.trier_par('libelle')">Libelle</th>
+					<th ng-click="ctrl.trier_par('dateMouvement')">Date</th>
+					<th ng-click="ctrl.trier_par('montant')">Montant</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr
+					ng-repeat="mouvement in compte.mouvements | orderBy:tripar:sens ">
+					<td>{{mouvement.libelle}}</td>
+					<td>{{mouvement.dateMouvement}}</td>
+					<td>{{mouvement.montant}}</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
+</div>
+
 

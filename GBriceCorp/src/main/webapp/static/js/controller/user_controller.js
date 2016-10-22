@@ -43,7 +43,9 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
     self.getConsById = getConsById;
     self.validEditCons = validEditCons;
     self.populate_dummy=populate_dummy;
-  	
+
+    
+    
     $scope.cons;  	
     $scope.consId;
     $scope.client_id = $routeParams.client_id;
@@ -108,7 +110,10 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
 	    
 function trier_par(tri){
 	//en cours d affinage
-	$scope.tripar = tri;
+	if ($scope.tripar = tri){
+		$scope.sens = !$scope.sens;		
+	}
+		$scope.tripar = tri;
     }
 
 
@@ -263,6 +268,8 @@ function refreshUser(){
         reset();
     };
 
+
+    
     function edit(id){
         console.log('id to be edited', id);
         for(var i = 0; i < self.users.length; i++){

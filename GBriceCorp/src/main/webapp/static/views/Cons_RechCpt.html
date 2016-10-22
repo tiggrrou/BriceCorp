@@ -15,13 +15,24 @@
 				<table class="table table-hover">
 					<thead>
 						<tr >
-							<th ng-click="ctrl.trier_par('Iban')">Iban</th>						
-							<th ng-click="ctrl.trier_par('libelle')">libelle</th>
-							<th ng-click="ctrl.trier_par('Solde')">Solde</th>
+						
+							<th ng-click="cptctrl.trier_par('id'); flechetri_1 = !flechetri_1; flechetri_2 = false; flechetri_3 = false ">Iban
+							<img class="icone_liste" src="static/imgs/flecheHaut.png" ng-hide="flechetri_1" />
+							<img class="icone_liste" src="static/imgs/flecheBas.png" ng-hide="!flechetri_1" />
+							</th>
+							<th ng-click="cptctrl.trier_par('libelle'); flechetri_2 = !flechetri_2; flechetri_1 = false; flechetri_3 = false ">Libelle
+							<img class="icone_liste" src="static/imgs/flecheHaut.png" ng-hide="flechetri_2" />
+							<img class="icone_liste" src="static/imgs/flecheBas.png" ng-hide="!flechetri_2" />
+							</th>
+							<th ng-click="cptctrl.trier_par('solde'); flechetri_3 = !flechetri_3; flechetri_2 = false; flechetri_1 = false ">Solde
+							<img class="icone_liste" src="static/imgs/flecheHaut.png" ng-hide="flechetri_3" />
+							<img class="icone_liste" src="static/imgs/flecheBas.png" ng-hide="!flechetri_3" />
+							</th>
+
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="Compte in comptes  | filter:searchCompteClient:strict | orderBy:tripar " ng-click="cptctrl.detailCompte(Compte.id)">
+						<tr ng-repeat="Compte in comptes  | filter:searchCompteClient:strict | orderBy:tripar:sens " ng-click="cptctrl.detailCompte(Compte.id)">
 							<td>{{Compte.id}}</td>
 							<td>{{Compte.libelle}} </td>
 							<td>{{Compte.solde}}</td>						

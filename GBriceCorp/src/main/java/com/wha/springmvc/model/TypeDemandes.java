@@ -2,8 +2,9 @@ package com.wha.springmvc.model;
 
 public enum TypeDemandes {
 	Creation (1),
-	Modification (2),
-	Chequier (3);
+	ModificationCompte (2),
+	Chequier (3),
+	ModificationInformationPerso (4);
 	
 	
 	private int type;

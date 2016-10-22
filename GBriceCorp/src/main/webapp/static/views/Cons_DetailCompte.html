@@ -131,16 +131,16 @@
 			<table class="table table-hover ">
 				<thead>
 					<tr>
-						<th ng-click="ctrl.trier_par('Libelle')">Libelle</th>
-						<th ng-click="ctrl.trier_par('Date')">Date</th>
-						<th ng-click="ctrl.trier_par('Montant')">Montant</th>
+						<th ng-click="ctrl.trier_par('libelle')">Libelle</th>
+						<th ng-click="ctrl.trier_par('dateMouvement')">Date</th>
+						<th ng-click="ctrl.trier_par('montant')">Montant</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="mouvement in mouvements | orderBy:tripar ">
-						<td>{{mouvement.Libelle}}</td>
-						<td>{{mouvement.Date}}</td>
-						<td>{{mouvement.Montant}}</td>
+					<tr ng-repeat="mouvement in compte.mouvements | orderBy:tripar:sens ">
+						<td>{{mouvement.libelle}}</td>
+						<td>{{mouvement.dateMouvement}}</td>
+						<td>{{mouvement.montant}}</td>
 					</tr>
 				</tbody>
 			</table>

@@ -57,7 +57,7 @@ App.config(['$routeProvider',function($routeProvider) {
 			controller: 'UserController',	
 		    activetab: 'conseiller_recherchecompte'			
 		})
-	.when("/cons/Demande_DetailCompte/:demande_id" , {
+	.when("/cons/Demande_DetailCompte/:demande_id&:demande_type" , {
 			templateUrl:"static/views/Cons_DemandeDetailCompte.html",
 			controller: 'DemandeController',	
 		    activetab: 'conseiller_recherchecompte'			

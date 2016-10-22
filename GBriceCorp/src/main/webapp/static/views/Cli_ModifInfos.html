@@ -2,143 +2,224 @@
 
 <!-- Formulaire de mofication d'info personnelle -->
 
-	<meta charset="UTF-8" />
+<meta charset="UTF-8" />
 
-	<div class="panel panel-info" ng-init="ctrl.getMyUserBack()" >
+<div class="panel panel-info" ng-controller="DemandeController as dmdctrl">
 
-		<!-- Default panel contents -->
-		<div class="panel-heading">
-			<span class="lead">Informations personnelles</span>
-		</div>
-		<div class="panel-body">
-			<div class="formcontainer">
-				<form ng-submit="ctrl.inscription()" name="formIscription"
-					class="form-horizontal">
-					<input type="hidden" ng-model="ctrl.user.id" />
-					<div class="row">
-						<div class="form-group col-md-12">
-							<label class="col-md-2 control-label" for="file">Prenom</label>
-							<div class="col-md-7">
-								<input type="text" ng-model="ctrl.user.prenom" name="prenom"
-									class="form-control input-sm" placeholder="Entez votre prenom"
-									required />
-								<div class="has-error" ng-show="formInscription.$dirty">
-									<span ng-show="formConnexion.prenom.$error.required">Champ
-										obligatoire</span>
-								</div>
+	<!-- Default panel contents -->
+	<div class="panel-heading">
+		<span class="lead">Informations personnelles</span>
+	</div>
+	<div class="panel-body" >
+		<div class="formcontainer">
+			<form ng-submit="dmdctrl.modifInfo()" name="formModifInfo"
+				class="form-horizontal">
+				<div class="row">
+					<div class="form-group col-md-12">
+						<label class="col-md-2 control-label" for="file">Prenom</label>
+						<div class="col-md-7">
+							<input type="text" ng-model="currentUser.prenom" name="prenom"
+								class="form-control input-sm" placeholder="Entez votre prenom"
+								required />
+							<div class="has-error" ng-show="formModifInfo.$dirty">
+								<span ng-show="formModifInfo.prenom.$error.required">Champ
+									obligatoire</span>
 							</div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="form-group col-md-12">
-							<label class="col-md-2 control-label" for="file">Nom</label>
-							<div class="col-md-7">
-								<input type="text" ng-model="ctrl.user.nom" name="nom"
-									class="form-control input-sm" placeholder="Entrez votre prenom"
-									required />
-								<div class="has-error" ng-show="formInscription.$dirty">
-									<span ng-show="formConnexion.nom.$error.required">Champ
-										obligatoire</span>
-								</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-md-12">
+						<label class="col-md-2 control-label" for="file">Nom</label>
+						<div class="col-md-7">
+							<input type="text" ng-model="currentUser.nom" name="nom"
+								class="form-control input-sm" placeholder="Entrez votre prenom"
+								required />
+							<div class="has-error" ng-show="formModifInfo.$dirty">
+								<span ng-show="formModifInfo.nom.$error.required">Champ
+									obligatoire</span>
 							</div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="form-group col-md-12">
-							<label class="col-md-2 control-label" for="file">Telephone</label>
-							<div class="col-md-7">
-								<input type="tel" ng-model="ctrl.user.telephone"
-									name="telephone" class="form-control input-sm"
-									placeholder="Entez votre telephone" required />
-								<div class="has-error" ng-show="formInscription.$dirty">
-									<span ng-show="formConnexion.telephone.$error.required">Champ
-										obligatoire</span>
-								</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-md-12">
+						<label class="col-md-2 control-label" for="file">Telephone</label>
+						<div class="col-md-7">
+							<input type="tel" ng-model="currentUser.telephone" name="telephone"
+								class="form-control input-sm"
+								placeholder="Entez votre telephone" required />
+							<div class="has-error" ng-show="formModifInfo.$dirty">
+								<span ng-show="formModifInfo.telephone.$error.required">Champ
+									obligatoire</span>
 							</div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="form-group col-md-12">
-							<label class="col-md-2 control-label" for="file">Adresse
-								mail</label>
-							<div class="col-md-7">
-								<input type="email" ng-model="ctrl.user.mail" name="email"
-									class="form-control input-sm" placeholder="Entrez votre email"
-									required />
-								<div class="has-error" ng-show="formInscription.$dirty">
-									<span ng-show="formConnexion.email.$error.required">Champ
-										obligatoire</span>
-								</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-md-12">
+						<label class="col-md-2 control-label" for="file">Adresse
+							mail</label>
+						<div class="col-md-7">
+							<input type="email" ng-model="currentUser.mail" name="email"
+								class="form-control input-sm" placeholder="Entrez votre email"
+								required />
+							<div class="has-error" ng-show="formModifInfo.$dirty">
+								<span ng-show="formModifInfo.email.$error.required">Champ
+									obligatoire</span>
 							</div>
 						</div>
 					</div>
+				</div>
 
-					<div class="row" ng-show="formConnexion.email.$touched">
-						<div class="form-group col-md-12">
-							<label class="col-md-2 control-label" for="file">Confirmez
-								votre mail</label>
-							<div class="col-md-7">
-								<input type="email" ng-model="ctrl.checkmail" name="conf_mail"
-									class="form-control input-sm" placeholder="confirmation"
-									required />
-								<div class="has-error" ng-show="formInscription.$dirty">
-									<span ng-show="formConnexion.conf_mail.$error.required">Champ
-										obligatoire</span>
-								</div>
+				<div class="row">
+					<div class="form-group col-md-12">
+						<label class="col-md-2 control-label" for="file">Adresse
+							postale</label>
+						<div class="col-md-7">
+							<input type="text" ng-model="currentUser.adresse" name="adresse"
+								class="form-control input-sm" placeholder="Entrez votre adresse"
+								required />
+							<div class="has-error" ng-show="formModifInfo.$dirty">
+								<span ng-show="formModifInfo.adresse.$error.required">Champ
+									obligatoire</span>
 							</div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="form-group col-md-12">
-							<label class="col-md-2 control-label" for="file">Adresse
-								postale</label>
-							<div class="col-md-7">
-								<input type="text" ng-model="ctrl.user.adresse" name="adresse"
+				</div>
+				<div class="row">
+					<div class="form-group col-md-12">
+						<label class="col-md-2 control-lable" for="revenu">Revenus brut mensuel estimés</label>
+						<div class="col-md-7">
+							<input 	type="text" 
+									ng-model="currentUser.revenu"
+									name="codepostal" 
 									class="form-control input-sm"
-									placeholder="Entrez votre adresse" required />
-								<div class="has-error" ng-show="formInscription.$dirty">
-									<span ng-show="formConnexion.adresse.$error.required">Champ
-										obligatoire</span>
-								</div>
+									placeholder="Entez votre revenu moyen estimé"
+									required />
+							<div class="has-error" ng-show="formModifInfo.$dirty">
+								<span ng-show="formModifInfo.crevenu.$error.required">Champ
+									obligatoire</span>
 							</div>
 						</div>
 					</div>
-
-					<div class="row">
-						<div class="form-actions floatRight">
-							<input type="submit" value="Demander les modifications"
-								class="btn btn-primary btn-sm"
-								ng-disabled="formConnexion.$invalid">
-						</div>
+				</div>
+				<div class="row">
+					<div class="form-actions floatRight">
+						<input type="submit" value="Demander les modifications"
+							class="btn btn-primary btn-sm">
 					</div>
-				</form>
-			</div>
-			<div ng-init= "ctrl.getInfosClient(ctrl.compte.clientID)"
+				</div>
+			</form>
+		</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<div ng-init="ctrl.getInfosClient(ctrl.compte.clientID)"
 			ng-controller="DemandeController as dmdctrl">
 
-				<form ng-submit="dmdctrl.writeDemDecou()" name="demDecou" >
-					<div class="panel panel-info" layout="colomn">
+			<form ng-submit="dmdctrl.writeDemDecou()" name="demDecou">
+				<div class="panel panel-info" layout="colomn">
 
-					Quel decouvert souhaiteriez vous avoir? (attention ce montant ne peut
-						pas exceder 40% de vos revenus mensuels) 
-						<input type="number" max="{{ctrl.currentUser.revenu * 0.4}}" min="0"
-								ng-model="ctrl.user.decouvert" name="demDecouvert"
-								class="form-control input-sm" 
-								 required />
+					Quel decouvert souhaiteriez vous avoir? (attention ce montant ne
+					peut pas exceder 40% de vos revenus mensuels) <input type="number"
+						max="{{ctrl.currentUser.revenu * 0.4}}" min="0"
+						ng-model="ctrl.user.decouvert" name="demDecouvert"
+						class="form-control input-sm" required />
+				</div>
+				<div class="has-error" ng-show="demDecou.$dirty">
+					<span ng-show="demDecou.demDecouvert.$error.required">Champ
+						obligatoire</span> <span ng-show="demDecou.demDecouvert.$error.max">Champ
+						invalide : montant trop élevé.</span> <span
+						ng-show="demDecou.demDecouvert.$error.min">Une demande
+						découvert doit être une valeur positive.</span>
+				</div>
+				<div class="row">
+					<div class="form-actions floatRight">
+						<input type="submit"
+							value="Soumettre ma demande à  mon conseiller"
+							class="btn btn-primary btn-sm" ng-disabled="demDecou.$invalid">
 					</div>
-						<div class="has-error" ng-show="demDecou.$dirty">
-							<span ng-show="demDecou.demDecouvert.$error.required">Champ	obligatoire</span>
-							<span ng-show="demDecou.demDecouvert.$error.max">Champ	invalide : montant trop élevé.</span>
-							<span ng-show="demDecou.demDecouvert.$error.min">Une demande découvert doit être une valeur positive.</span>
-						</div>  	
-					<div class="row">
-						<div class="form-actions floatRight">
-							<input type="submit" value="Soumettre ma demande à  mon conseiller"
-								class="btn btn-primary btn-sm" ng-disabled="demDecou.$invalid">
-						</div>
 
-					</div>
-				</form>
-			</div>	
+				</div>
+			</form>
 		</div>
 	</div>
+</div>
+<div class="panel panel-default"
+	ng-controller="DemandeController as dmdctrl"
+	ng-init="dmdctrl.listeJustificatifs()">
+	<!-- Default panel contents -->
+	<div class="panel-heading">
+		<span class="lead">N'oubliez pas de joindre les documents necessaire au traitement de votre demande</span>
+	</div>
+	<div class="tablecontainer">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th ng-click="ctrl.trier_par('Nom')">Nom</th>
+					<th ng-click="ctrl.trier_par('Type')">Type</th>
+					<th ng-click="ctrl.trier_par('Datereception')">Date de
+						reception</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="justificatif in justificatifs | orderBy:tripar ">
+					<td>{{justificatif.id}}</td>
+					<td>{{justificatif.type}}</td>
+					<td>{{justificatif.date}}</td>
+					<td><a href={{justificatif.url}}><img class="icone"
+							src="static/imgs/download.png" /></a></td>
+
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div ng-init="value = ''">
+
+		<select class="form-control" ng-model="value">
+			<option value="">Ajouter un document</option>
+			<option value="1">Domicile</option>
+			<option value="2">Impot</option>
+			<option value="3">Salaire</option>
+			<option value="4">Autre</option>
+		</select>
+
+		<div class="col-xs-12" ng-if="(value==1)?true:false">
+			<input type="file" id="file" name="file"
+				class="form-control input-sm"
+				onchange="angular.element(this).scope().uploadFile(this.files, 'Domicile')" />
+		</div>
+
+		<div class="col-xs-12" ng-if="(value==2)?true:false">
+			<input type="file" id="file" name="file"
+				class="form-control input-sm"
+				onchange="angular.element(this).scope().uploadFile(this.files, 'Impot')" />
+		</div>
+
+		<div class="col-xs-12" ng-if="(value==3)?true:false">
+			<input type="file" id="file" name="file"
+				class="form-control input-sm"
+				onchange="angular.element(this).scope().uploadFile(this.files, 'Salaire')" />
+		</div>
+
+		<div class="col-xs-12" ng-if="(value==4)?true:false">
+			<input type="file" id="file" name="file"
+				class="form-control input-sm"
+				onchange="angular.element(this).scope().uploadFile(this.files, 'Autre')" />
+		</div>
+	</div>
+</div>

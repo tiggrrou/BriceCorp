@@ -33,7 +33,9 @@ public class Justificatif implements Serializable{
 	@Temporal(TemporalType.DATE)
 	private Date date;
 	
-	private String url;
+	private String path;
+
+	private String nomDuFichier;	
 	
 	private TypeJustificatif type;
 	//#endregion
@@ -56,15 +58,20 @@ public class Justificatif implements Serializable{
 		this.date = date;
 	}
 	
-	
-	
-	
-	public String getUrl() {
-		return url;
+	public String getPath() {
+		return path;
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	public String getNomDuFichier() {
+		return nomDuFichier;
+	}
+
+	public void setNomDuFichier(String nomDuFichier) {
+		this.nomDuFichier = nomDuFichier;
 	}
 
 	public TypeJustificatif getType() {
@@ -83,15 +90,16 @@ public class Justificatif implements Serializable{
 	 * @param date
 	 */
 	public Justificatif() {
-		this.date = new Date();
+
 	}
 
 	@Override
 	public String toString() {
-		return "Justificatif [getID()=" + getID() + ", getDate()=" + getDate() + ", getUrl()=" + getUrl()
-				+ ", getType()=" + getType() + "]";
+		return "Justificatif [getID()=" + getID() + ", getDate()=" + getDate() + ", getPath()=" + getPath()
+				+ ", getNomDuFichier()=" + getNomDuFichier() + ", getType()=" + getType() + "]";
 	}
-	
+
+
 	
 	
 	

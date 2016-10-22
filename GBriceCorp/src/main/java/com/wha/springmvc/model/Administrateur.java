@@ -3,6 +3,7 @@
  */
 package com.wha.springmvc.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,7 +21,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Administrateur")
 @PrimaryKeyJoinColumn(name = "id")
-public class Administrateur extends User {
+public class Administrateur extends User implements Serializable{
 
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	private Set<Conseiller> conseillers;

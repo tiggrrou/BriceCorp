@@ -11,14 +11,35 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
         attributionConseiller:attributionConseiller,
         findDemandeById:findDemandeById,
         validation_CreationCompteClient:validation_CreationCompteClient,
+        validation_Chequier:validation_Chequier,
+        validation_ModificationCompte:validation_ModificationCompte,
+        validation_ModificationInfoPerso:validation_ModificationInfoPerso,
         demandeNouveauCompte:demandeNouveauCompte,
         modifEtat_Demande:modifEtat_Demande,
         savefile:savefile,
         reaffectation:reaffectation,
-        listeJustificatifs:listeJustificatifs
+        listeJustificatifs:listeJustificatifs,
+        modifInfo:modifInfo
     };
     return factory;
 
+    
+    function modifInfo(demande,clientID){
+   	 var deferred = $q.defer();
+        $http.post(REST_SERVICE_URI+'createmodifinfoperso/' + clientID,demande)
+            .then(
+            function (response) {
+                deferred.resolve(response.data);
+            },
+            function(errResponse){
+                console.error('Error while request of new compte');
+                deferred.reject(errResponse);
+            }
+        );
+        return deferred.promise;
+   }
+   
+    
     function listeJustificatifs(id, clientOuDemande){
 
     	var deferred = $q.defer();
@@ -103,6 +124,56 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
           return deferred.promise;
     	
     }     
+    
+    
+    
+
+    function validation_Chequier(demande,id_conseiller){
+    	  var deferred = $q.defer();
+          $http.put(REST_SERVICE_URI+'validationchequier/'+id_conseiller,demande)
+              .then(
+              function (response) {
+                  deferred.resolve(response.data);
+              },
+              function(errResponse){
+                  console.error('Error while fetching Demandes inscription');
+                  deferred.reject(errResponse);
+              }
+          );
+          return deferred.promise;
+    	
+    }
+    function validation_ModificationCompte(demande,id_conseiller){
+    	  var deferred = $q.defer();
+          $http.put(REST_SERVICE_URI+'validationmodifcompte/'+id_conseiller,demande)
+              .then(
+              function (response) {
+                  deferred.resolve(response.data);
+              },
+              function(errResponse){
+                  console.error('Error while fetching Demandes inscription');
+                  deferred.reject(errResponse);
+              }
+          );
+          return deferred.promise;
+    	
+    }
+    function validation_ModificationInfoPerso(demande,id_conseiller){
+    	console.log(demande)
+    	  var deferred = $q.defer();
+          $http.put(REST_SERVICE_URI+'validationmodifinfoperso/'+id_conseiller,demande)
+              .then(
+              function (response) {
+                  deferred.resolve(response.data);
+              },
+              function(errResponse){
+                  console.error('Error while fetching Demandes inscription');
+                  deferred.reject(errResponse);
+              }
+          );
+          return deferred.promise;
+    	
+    }
     
     function validation_CreationCompteClient(demande,id_conseiller){
   	  var deferred = $q.defer();

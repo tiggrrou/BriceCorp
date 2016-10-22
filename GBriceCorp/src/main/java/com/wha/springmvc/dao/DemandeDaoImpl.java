@@ -11,6 +11,7 @@ import com.wha.springmvc.model.Conseiller;
 import com.wha.springmvc.model.Dem_Chequier;
 import com.wha.springmvc.model.Dem_CreationClient;
 import com.wha.springmvc.model.Dem_ModificationCompte;
+import com.wha.springmvc.model.Dem_ModificationInfo;
 import com.wha.springmvc.model.Demande;
 import com.wha.springmvc.model.TypeDemandes;
 
@@ -19,7 +20,7 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 
 	@Override
 	public Dem_CreationClient createDemandeInscription(Dem_CreationClient demandecreationclient) {
-		demandecreationclient.setType(1);
+		demandecreationclient.setType(TypeDemandes.Creation.getType());
 
 		Administrateur admin = (Administrateur) getEntityManager()
 				.createQuery("SELECT a FROM Administrateur a WHERE a.id = 1").getSingleResult();
@@ -31,7 +32,7 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 
 	@Override
 	public void addDemandeChequierToCons(long id_conseiller, Dem_Chequier demandechequier){
-		demandechequier.setType(3);
+		demandechequier.setType(TypeDemandes.Chequier.getType());
 				
 		Conseiller conseiller = (Conseiller) getEntityManager()
 				.createQuery("SELECT c FROM Conseiller c WHERE c.id = :id").setParameter("id", id_conseiller)
@@ -42,7 +43,7 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 
 	@Override
 	public void addDemandeModificationCompteToCons(long id_conseiller, Dem_ModificationCompte demandeModificationCompte){
-		demandeModificationCompte.setType(2);
+		demandeModificationCompte.setType(TypeDemandes.ModificationCompte.getType());
 				
 		Conseiller conseiller = (Conseiller) getEntityManager()
 				.createQuery("SELECT c FROM Conseiller c WHERE c.id = :id").setParameter("id", id_conseiller)
@@ -51,6 +52,15 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 	
 	}
 
+	@Override
+	public void addDemandeModificationInfoPersoToCons(long id_conseiller, Dem_ModificationInfo demandeModificationInfoPerso) {
+		demandeModificationInfoPerso.setType(TypeDemandes.ModificationInformationPerso.getType());
+		
+		Conseiller conseiller = (Conseiller) getEntityManager()
+				.createQuery("SELECT c FROM Conseiller c WHERE c.id = :id").setParameter("id", id_conseiller)
+				.getSingleResult();
+		conseiller.getDemandes().add(demandeModificationInfoPerso);
+	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -74,7 +84,7 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 				.getResultList();
 		List<Dem_ModificationCompte> demandemodificationcompte = new ArrayList<>();
 		for (Demande dem : demandes) {
-			if (dem.getType() == TypeDemandes.Modification.getType())
+			if (dem.getType() == TypeDemandes.ModificationCompte.getType())
 			{
 				demandemodificationcompte.add((Dem_ModificationCompte)dem);
 			}
@@ -82,7 +92,28 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 		
 		return demandemodificationcompte;
 	}
+
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	/**
+	 * Retourne toutes les demandes de modifications de compte attribuées à un conseiller
+	 */
+	public List<Dem_ModificationInfo> findAllDemandesModifInfo(long id) {
+		List<Demande> demandes = getEntityManager()
+				.createQuery("SELECT C.demandes FROM Conseiller C WHERE C.id = :id")
+				.setParameter("id", id)
+				.getResultList();
+		List<Dem_ModificationInfo> demandemodificationinfoperso = new ArrayList<>();
+		for (Demande dem : demandes) {
+			if (dem.getType() == TypeDemandes.ModificationInformationPerso.getType())
+			{
+				demandemodificationinfoperso.add((Dem_ModificationInfo)dem);
+			}
+		}
+		
+		return demandemodificationinfoperso;
+	}
 	
 
 	@SuppressWarnings("unchecked")
@@ -146,19 +177,19 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 	}
 
 	@Override
-	public void suppressionDemande(long id_demande) {
+	public void suppressionDemande(long id_demande,long id_conseiller) {
+		Conseiller conseiller = (Conseiller) getEntityManager()
+				.createQuery("SELECT c FROM Conseiller c WHERE c.id = :id").setParameter("id", id_conseiller)
+				.getSingleResult();
 		Demande demande = findDemandeById(id_demande);
-		delete(demande);
+		conseiller.getDemandes().remove(demande);
 		
-		//manque la suppression de la liaison
 	}
 
 	@Override
 	public void modifEtat_Demande(long demande_id, String nouvelEtat){
-
 		Demande demande2 = findDemandeById(demande_id);
 		demande2.setEtat(nouvelEtat);
-		
 	}
 
 	@Override
@@ -169,6 +200,8 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 				.setParameter("id", client_id).getSingleResult();
 		cli.setConseiller(consNew);
 	}
+
+
 
 
 

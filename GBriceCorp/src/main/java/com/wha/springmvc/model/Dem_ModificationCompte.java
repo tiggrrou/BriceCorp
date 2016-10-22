@@ -3,6 +3,8 @@
  */
 package com.wha.springmvc.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -16,7 +18,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Dem_ModificationCompte")
 @PrimaryKeyJoinColumn(name = "id")
-public class Dem_ModificationCompte extends Demande {
+public class Dem_ModificationCompte extends Demande implements Serializable{
 
 	//#region Attributs
 	/**
