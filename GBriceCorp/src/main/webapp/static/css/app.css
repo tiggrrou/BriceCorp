@@ -111,6 +111,7 @@ body, .form-control {
 	border-radius: 0;
 	margin: auto;
 	min-height: 150vh;
+			min-width:200px;
 	background: rgba(200, 200, 200, 0.5);
 	border: rgba(200, 200, 200, 0.5);
 	justify-content: space-between;
@@ -170,4 +171,17 @@ margin-bottom:5vh;
 #logo {
 	max-height: 150px;
 	margin: 25px;
+}
+
+.glyphicon {
+    color: red;
+    animation-name: clignotant;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes clignotant {
+    0%   {color:red; left:0px;}
+    50%  {color:blue; left:70px;}
+    100% {color:red; left:0px;}
 }

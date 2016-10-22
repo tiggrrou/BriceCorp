@@ -28,21 +28,31 @@
 		<table class="table table-hover">
 			<thead>
 				<tr>
-					<th ng-click="ctrl.trier_par('Nom')">Nom</th>
-					<th ng-click="ctrl.trier_par('Type')">Type</th>
-					<th ng-click="ctrl.trier_par('Datereception')">Date de
-						reception</th>
+					<th ng-click="dmdctrl.trier_par('nomDuFichier'); flechetri_1 = !flechetri_1; flechetri_2 = false; flechetri_3 = false; flechetri_4 = false; flechetri_5 = false ">Nom
+						<img class="icone_liste" src="static/imgs/flecheHaut.png" ng-hide="flechetri_1" />
+						<img class="icone_liste" src="static/imgs/flecheBas.png" ng-hide="!flechetri_1" />
+					</th>
+					<th ng-click="dmdctrl.trier_par('type'); flechetri_2 = !flechetri_2; flechetri_1 = false; flechetri_3 = false; flechetri_4 = false; flechetri_5 = false  ">Type
+						<img class="icone_liste" src="static/imgs/flecheHaut.png" ng-hide="flechetri_2" />
+						<img class="icone_liste" src="static/imgs/flecheBas.png" ng-hide="!flechetri_2" />
+					</th>
+					<th ng-click="dmdctrl.trier_par('date'); flechetri_3 = !flechetri_3; flechetri_2 = false; flechetri_1 = false; flechetri_4 = false; flechetri_5 = false  ">Date de
+						reception
+						<img class="icone_liste" src="static/imgs/flecheHaut.png" ng-hide="flechetri_3" />
+						<img class="icone_liste" src="static/imgs/flecheBas.png" ng-hide="!flechetri_3" />
+					</th>
+					<th >Telechargement
+					</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr
-					ng-repeat="justificatif in justificatifs | orderBy:tripar ">
-					<td>{{justificatif.id}}</td>
+				<tr ng-repeat="justificatif in justificatifs | orderBy:tripar:sens ">
+					<td>{{justificatif.nomDuFichier}}</td>
 					<td>{{justificatif.type}}</td>
 					<td>{{justificatif.date}}</td>
-					<td><a href={{justificatif.url}}><img class="icone"
-							src="static/imgs/download.png" /></a></td>
-
+					<td><a
+						href="/justificatifs/clients/3/3_NomClient2_PrenomClient2_Domicile.pdf"><img
+							class="icone" src="static/imgs/download.png" /></a></td>
 				</tr>
 			</tbody>
 		</table>

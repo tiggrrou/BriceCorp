@@ -45,7 +45,7 @@ App.config(['$routeProvider',function($routeProvider) {
 	.when("/cons/ConsClient_DetailCompte/:client_id" , {
 			templateUrl:"static/views/ConsClient_DetailCompte.html",
 			controller: 'UserController',	
-		    activetab: 'conseiller_recherchecompte'			
+		    activetab: 'conseiller_rechercheclient'			
 		})
 	.when("/cons/DetailClient/:client_id" , {
 			templateUrl:"static/views/Cons_DetailCompte.html",
@@ -60,7 +60,7 @@ App.config(['$routeProvider',function($routeProvider) {
 	.when("/cons/Demande_DetailCompte/:demande_id&:demande_type" , {
 			templateUrl:"static/views/Cons_DemandeDetailCompte.html",
 			controller: 'DemandeController',	
-		    activetab: 'conseiller_recherchecompte'			
+		    activetab: 'conseiller_demandesclient'			
 		})
 		
 	// Routage Client
@@ -103,7 +103,7 @@ App.config(['$routeProvider',function($routeProvider) {
 	.when("/cli/Cli_DetailCompte/:compte_id" , {
 		templateUrl:"static/views/Cli_DetailCompte.html",
 		controller: 'CompteController',	
-	    activetab: 'conseiller_demandesclient'			
+	    activetab: 'client_compte'			
 	})
 
 	

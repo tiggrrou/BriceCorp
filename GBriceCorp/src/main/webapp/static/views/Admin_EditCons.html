@@ -105,22 +105,34 @@
 		<table class="table table-hover">
 			<thead>
 				<tr>
-					<th>ID.</th>
-					<th>Prenom</th>
-					<th>Nom</th>
-					<th>Adresse</th>
-					<th>Email</th>
+											<tr>
+							<th ng-click="dmdctrl.trier_par('nom'); flechetri_1 = !flechetri_1; flechetri_2 = false; flechetri_3 = false; flechetri_4 = false; flechetri_5 = false ">Nom
+								<img class="icone_liste" src="static/imgs/flecheHaut.png" ng-hide="flechetri_1" />
+								<img class="icone_liste" src="static/imgs/flecheBas.png" ng-hide="!flechetri_1" />
+							</th>
+							<th ng-click="dmdctrl.trier_par('prenom'); flechetri_2 = !flechetri_2; flechetri_1 = false; flechetri_3 = false; flechetri_4 = false; flechetri_5 = false  ">Prenom
+								<img class="icone_liste" src="static/imgs/flecheHaut.png" ng-hide="flechetri_2" />
+								<img class="icone_liste" src="static/imgs/flecheBas.png" ng-hide="!flechetri_2" />
+							</th>
+							<th ng-click="dmdctrl.trier_par('dateCreation'); flechetri_3 = !flechetri_3; flechetri_2 = false; flechetri_1 = false; flechetri_4 = false; flechetri_5 = false  ">Adresse
+								<img class="icone_liste" src="static/imgs/flecheHaut.png" ng-hide="flechetri_3" />
+								<img class="icone_liste" src="static/imgs/flecheBas.png" ng-hide="!flechetri_3" />
+							</th>
+
+
+
 					<th>Réaffectation</th>
-					<th width="20%"></th>
+
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="c in cons.clients">
-					<td><span ng-bind="c.id"></span></td>
-					<td><span ng-bind="c.prenom"></span></td>
+			
+				<tr ng-repeat="c in cons.clients  | orderBy:tripar:sens">
 					<td><span ng-bind="c.nom"></span></td>
+					<td><span ng-bind="c.prenom"></span></td>
+
 					<td><span ng-bind="c.adresse"></span></td>
-					<td><span ng-bind="c.mail"></span></td>
+
 					<td>
 						<form name="formValidation" class="form-horizontal">
 										<select class="form-control"

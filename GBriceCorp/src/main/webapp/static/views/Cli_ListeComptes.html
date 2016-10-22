@@ -1,5 +1,5 @@
 
-	<div class="panel panel-info" ng_controller="CompteController as cptCtrl" ng-init="cptCtrl.findComptesByClientId()">
+	<div class="panel panel-info" ng_controller="CompteController as cptctrl" ng-init="cptctrl.findComptesByClientId()">
 
 			<!-- Default panel contents -->
 			<div class="panel-heading" >
@@ -12,13 +12,22 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th ng-click="ctrl.trier_par('libelle')">Libelle</th>
-								<th ng-click="ctrl.trier_par('id')">Iban</th>
-								<th ng-click="ctrl.trier_par('solde')">Solde</th>
+							<th ng-click="cptctrl.trier_par('libelle'); flechetri_1 = !flechetri_1; flechetri_2 = false; flechetri_3 = false; flechetri_4 = false; flechetri_5 = false ">Libelle
+								<img class="icone_liste" src="static/imgs/flecheHaut.png" ng-hide="flechetri_1" />
+								<img class="icone_liste" src="static/imgs/flecheBas.png" ng-hide="!flechetri_1" />
+							</th>
+							<th ng-click="cptctrl.trier_par('id'); flechetri_2 = !flechetri_2; flechetri_1 = false; flechetri_3 = false; flechetri_4 = false; flechetri_5 = false  ">Iban
+								<img class="icone_liste" src="static/imgs/flecheHaut.png" ng-hide="flechetri_2" />
+								<img class="icone_liste" src="static/imgs/flecheBas.png" ng-hide="!flechetri_2" />
+							</th>
+							<th ng-click="cptctrl.trier_par('solde'); flechetri_3 = !flechetri_3; flechetri_2 = false; flechetri_1 = false; flechetri_4 = false; flechetri_5 = false  ">Solde
+								<img class="icone_liste" src="static/imgs/flecheHaut.png" ng-hide="flechetri_3" />
+								<img class="icone_liste" src="static/imgs/flecheBas.png" ng-hide="!flechetri_3" />
+							</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr name="liste_comptes" ng-repeat="Compte in comptes  | orderBy:tripar " ng-click="ctrl.detailCompteCli(Compte.id)">
+							<tr name="liste_comptes" ng-repeat="Compte in comptes  | orderBy:tripar:sens " ng-click="ctrl.detailCompteCli(Compte.id)">
 								<td >{{Compte.libelle}}</td>
 								<td>{{Compte.id}} </td>
 								<td>{{Compte.solde}}</td>

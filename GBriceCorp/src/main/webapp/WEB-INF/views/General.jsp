@@ -187,7 +187,7 @@
 						ng-class="{active: $route.current.activetab == 'client_notif'}"
 						ng-click="ctrl.getNotifs">
 						<h4 class="list-group-item-heading">
-							Notifications <span class="glyphicon glyphicon-envelope">
+							Notifications <br /> <span ng-hide="{{currentUser.notifications.lu}}" class="glyphicon glyphicon-envelope">
 						</h4>
 						<p class="list-group-item-text">Liste de vos notifications</p>
 					</a>
@@ -266,7 +266,7 @@
 			<h1 ng-hide="{{admin_cache}}">Espace Administrateur</h1>
 			<h1 ng-hide="{{conseiller_cache}}">Espace Conseiller</h1>
 			<h1 ng-hide="{{client_cache}}">
-				Bienvenue <br /> {{ctrl.curentUser.prenom}} {{ctrl.curentUser.nom}}
+				Bienvenue <br /> {{currentUser.prenom}} {{currentUser.nom}}
 			</h1>
 		</div>
 		<div class="langue_connect col-xs-2">
