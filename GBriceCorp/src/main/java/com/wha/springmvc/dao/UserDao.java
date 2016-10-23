@@ -16,7 +16,7 @@ public interface UserDao {
 	public User connexion(String login, String mdp);
 	public User refresh(long idUser);
 	
-	
+	public Client generationMdp(long clientID);
 	
 	
 	public Client createClient(long idConseiller, Dem_CreationClient demande_inscription);

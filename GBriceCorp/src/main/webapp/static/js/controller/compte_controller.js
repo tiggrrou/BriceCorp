@@ -122,6 +122,7 @@ $scope.comptes=[];
 	 
     function goToNouveauCompte()
     {
+    	console.log("coucous")
     	$location.path("/cli/Cli_NouvCompte");
     }
     

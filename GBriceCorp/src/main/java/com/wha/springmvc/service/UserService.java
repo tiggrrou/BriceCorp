@@ -20,7 +20,7 @@ public interface UserService {
 	
 	public User refresh(long idUser);
 	
-	
+	public Client generationMdp(long clientID);	
 
 	
 	public void deleteClient(long id);

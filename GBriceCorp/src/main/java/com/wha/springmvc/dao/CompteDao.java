@@ -15,7 +15,7 @@ public interface CompteDao {
 	public List<Compte> findComptesByIdCons(long consId);
 
 	
-	public long saveCompte(Compte compte);
+	public long saveCompte(long clientId, Compte compte);
 	
 	void updateCompte(Compte compte);
 	

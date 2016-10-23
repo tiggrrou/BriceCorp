@@ -19,10 +19,12 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
         savefile:savefile,
         reaffectation:reaffectation,
         listeJustificatifs:listeJustificatifs,
-        modifInfo:modifInfo
+        modifInfo:modifInfo,
+        genererPassword:genererPassword
     };
     return factory;
 
+    
     
     function modifInfo(demande,clientID){
    	 var deferred = $q.defer();
@@ -39,6 +41,24 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
         return deferred.promise;
    }
    
+    
+    function genererPassword(clientID){
+
+    	var deferred = $q.defer();
+        $http.get(REST_SERVICE_URI+'motdepasse/' + clientID)
+            .then(
+            function (response) {
+                deferred.resolve(response.data);
+            },
+            function(errResponse){
+                console.error('Error while creating nouveau mdp' );
+                deferred.reject(errResponse);
+            }
+        );
+        return deferred.promise;
+    	
+    }
+    
     
     function listeJustificatifs(id, clientOuDemande){
 

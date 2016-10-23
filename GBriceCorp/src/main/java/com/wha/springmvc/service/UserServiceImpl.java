@@ -189,5 +189,12 @@ dao.updateclient(demande_modificationinfoperso);
 
 		}
 
+	@Override
+	public Client generationMdp(long clientID){
+	
+
+		return dao.generationMdp(clientID);
+	}
+
 	
 }

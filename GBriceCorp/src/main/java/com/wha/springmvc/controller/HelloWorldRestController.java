@@ -53,7 +53,33 @@ public class HelloWorldRestController {
 	//////////////////////////////////////////// DEMANDES////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	
+	// -------------------Demande de generatio nde mot de passe--------------------------------------------------------
+
+	@RequestMapping(value = "/demande/motdepasse/{client_id}", method = RequestMethod.GET)
+	public ResponseEntity<Void> generationMdp(@PathVariable("client_id") long client_id) {
+		System.out.println("Generer un nouveau MDP pour le client " + client_id);
+
+		 try {
+			Client client = userService.generationMdp(client_id);
+
+			///**
+			//* Envoi du mail confirmant au client la generation de son mdp/
+//			StringBuffer text = new StringBuffer("Votre Mot de passe à été changé! </br>");			
+//			text.append(" Vous pouvez désormais vous connecter à votre espace client grâce à votre login et votre mot de passe: </br>");			
+//			text.append(" Votre Login        : <B>" + client.getIdentifiant() +" </B> </br>");
+//			text.append(" Votre Mot de Passe : <B>" + client.getMotDePasse() +"  </B> </br>");
+//			text.append(" En espérant que vous trouviez entière satisfaction chez nous. Nous vous souhaitons une agréable journée. </br>");
+//			text.append(" La BriceCorp Team ");
+//			
+//			userService.sendMessage("Reponse a votre demande de generation de Mot-de-pass GestBank", text.toString(), demande_inscription.getMail(), "GB.bricecorp@gmail.com");
+			
+			return new ResponseEntity<Void>(HttpStatus.OK);
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+		}
+	}
 
 	// -------------------Modification d'etat d'une demande--------------------------------------------------------
 
@@ -104,14 +130,23 @@ public class HelloWorldRestController {
 		System.out.println("validation de la demande de modification de compte " + demande_modificationcompte.getID());
 
 		 try {
+			 if(demande_modificationcompte.getLibelle() != ""){
+				 System.out.println("creation du compte " + demande_modificationcompte.getLibelle());
+				Compte compte = new Compte();
+				compte.setLibelle(demande_modificationcompte.getLibelle());
+				compteService.saveCompte(demande_modificationcompte.getClient().getId(),compte);
+				userService.sendNotificationToAClient("Votre compte "+demande_modificationcompte.getLibelle() + " a ete cree", demande_modificationcompte.getClient().getId());
+				demandeService.suppressionDemande(demande_modificationcompte.getID(),id_conseiller);
 
+					return new ResponseEntity<Void>(HttpStatus.CREATED);
+			 }else{
 			 
 			 
 			userService.sendNotificationToAClient("Votre compte "+demande_modificationcompte.getCompte().getIBAN() + " a ete modifie", demande_modificationcompte.getClient().getId());
 			demandeService.suppressionDemande(demande_modificationcompte.getID(),id_conseiller);
 
 			return new ResponseEntity<Void>(HttpStatus.CREATED);
-		} catch (Exception e) {
+			 }} catch (Exception e) {
 
 			e.printStackTrace();
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
@@ -327,13 +362,19 @@ public class HelloWorldRestController {
 	@RequestMapping(value = "/demande/creationCompteBancaire/{idClient}", method = RequestMethod.POST)
 	public ResponseEntity<Void> DemandeNouveauCompteBancaire(@RequestBody Dem_ModificationCompte demande_NouveauCompteBancaire,
 																@PathVariable("idClient") long idClient) {
-		Client client = userService.findCliById(idClient);
-		demande_NouveauCompteBancaire.setClient(client);
-		System.out.println("Creating demande inscription " + demande_NouveauCompteBancaire);
+		try {
+			Client client = userService.findCliById(idClient);
+			demande_NouveauCompteBancaire.setClient(client);
+			System.out.println("Creating demande inscription " + demande_NouveauCompteBancaire);
 
-		demandeService.addDemandeModificationCompteToCons(demande_NouveauCompteBancaire.getClient().getConseiller(),demande_NouveauCompteBancaire);
+			demandeService.addDemandeModificationCompteToCons(demande_NouveauCompteBancaire.getClient().getConseiller(),demande_NouveauCompteBancaire);
 
-		return new ResponseEntity<Void>(HttpStatus.CREATED);
+			return new ResponseEntity<Void>(HttpStatus.CREATED);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+		}
 
 	}
 

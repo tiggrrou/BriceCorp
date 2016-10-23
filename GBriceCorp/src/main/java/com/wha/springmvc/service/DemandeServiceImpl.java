@@ -123,8 +123,6 @@ dao.addDemandeModificationInfoPersoToCons(id_conseiller, demandeModificationInfo
 	
 	}
 
-
-
 	
 
 

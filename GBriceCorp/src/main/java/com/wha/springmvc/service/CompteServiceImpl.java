@@ -46,8 +46,8 @@ return dao.findAllComptes();
 		return null;
 	}
 
-	public long saveCompte(Compte compte) {
-		return dao.saveCompte(compte);
+	public long saveCompte(long clientId, Compte compte){
+		return dao.saveCompte(clientId, compte);
 	}
 
 	public void updateCompte(Compte compte) {

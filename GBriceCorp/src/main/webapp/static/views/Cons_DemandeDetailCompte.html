@@ -5,12 +5,12 @@
 	<div class="panel-heading ">
 		<span class="lead">Demande de {{(demande.type ==
 			1)?'Creation':''}}{{(demande.type == 3)?'Chequier':''}}
-			{{(demande.type == 2)?'Modification de compte':''}}{{(demande.type ==
+			{{(demande.type == 2 && !demande.libelle)?'Modification de compte':''}}{{(demande.type == 2 && demande.libelle)?'Creation d un nouveau compte':''}}{{(demande.type ==
 			4)?'Modification d informations personnelle':''}}</span> <br />
 		{{(demande.type == 2)?'Demande de ':''}}{{(demande.type == 2 &&
 		demande.remunerateur == true)?'Compte remunerateur':''}}
 		{{(demande.type == 2 && demande.decouvert > 0)?'Decouvert de
-		'+demande.decouvert +' euros':''}}
+		'+demande.decouvert +' euros':''}}{{(demande.type == 2 && demande.libelle)?demande.libelle:''}}
 	</div>
 	<ul class="list-group">
 		<li class="list-group-item">Civilite

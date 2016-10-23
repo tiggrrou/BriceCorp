@@ -1,28 +1,43 @@
 <meta charset="utf-8">
-<div class="panel panel-info" ng-controller="DemandeController as dmdCtrl">
+<div class="panel panel-info"
+	ng-controller="DemandeController as dmdCtrl">
 	<div class="panel-heading">
 		<span class="lead">Demande de création d'un nouveau compte</span>
 	</div>
 	<div class="panel-body">
 		<div class="formcontainer">
-			<form ng-submit="dmdCtrl.demandeNouveauCompte()" class="form-horizontal">
+			<form ng-submit="dmdCtrl.demandeNouveauCompte()"
+				class="form-horizontal">
 				<div class="form-group">
 					<div class="row col-md-12">
-						<label class="col-md-2 control-label">Nom de votre compte</label>
-						<input class="col-md-2"type="text" name="nomCompte" ng-model="demandeCreationCompte.libelle" >
+						<select ng-model="demandeCreationCompte.libelle" name="libelleCompte"
+							class="form-control input-sm">
+							<option value="Livret A">Livret A</option>
+							<option value="Livret Epargne Logement">Livret Epargne Logement</option>
+							<option value="Compte Epargne Logement">Compte Epargne Logement</option>
+							<option value="Compte Arc-en-ciel">Compte Arc-en-ciel</option>
+							<option value="Compte La vie est belle">Compte La vie est belle</option>
+						</select>
 					</div>
-					<div class="row col-md-12">
-						<label class="col-md-2 control-label">Autorisation de découvert ?</label>
-						<input class="col-md-1"type="checkbox" name="checkDecouvert" ng-model="decouvert" >
-					</div>
-					<div ng-show="decouvert" class="row col-md-12">
-						<label class="col-md-2 control-label">Montant du découvert</label> 
-						<input class="col-md-2" type="number" ng-model="montantDecouvert">
-					</div>
-					<div class="row col-md-12">
-						<label class="col-md-2 control-label">Rémunération de compte ?</label> 
-						<input class="col-md-1" type="checkbox" name="checkRemun" ng-model="demandeCreationCompte.remunerateur">
-					</div>
+					<!-- 					<div class="row col-md-12"> -->
+					<!-- 						<label class="col-md-2 control-label">Nom de votre compte</label> -->
+					<!-- 						<input class="col-md-2" type="text" name="nomCompte" -->
+					<!-- 							ng-model="demandeCreationCompte.libelle"> -->
+					<!-- 					</div> -->
+					<!-- 					<div class="row col-md-12"> -->
+					<!-- 						<label class="col-md-2 control-label">Autorisation de -->
+					<!-- 							découvert ?</label> <input class="col-md-1" type="checkbox" -->
+					<!-- 							name="checkDecouvert" ng-model="demandeCreationCompte.decouvert"> -->
+					<!-- 					</div> -->
+					<!-- 					<div ng-show="decouvert" class="row col-md-12"> -->
+					<!-- 						<label class="col-md-2 control-label">Montant du découvert</label> -->
+					<!-- 						<input class="col-md-2" type="number" ng-model="demandeCreationCompte.montantDecouvert"> -->
+					<!-- 					</div> -->
+					<!-- 					<div class="row col-md-12"> -->
+					<!-- 						<label class="col-md-2 control-label">Rémunération de -->
+					<!-- 							compte ?</label> <input class="col-md-1" type="checkbox" -->
+					<!-- 							name="checkRemun" ng-model="demandeCreationCompte.remunerateur"> -->
+					<!-- 					</div> -->
 					<div class="row col-md-12">
 						<div class="form-actions floatRight">
 							<input type="submit"
@@ -32,19 +47,75 @@
 					</div>
 				</div>
 			</form>
-			<!--   Si nécessaire, veuillez uploader le document nécessaire: -->
-			<!-- 	<form method="post" action="reception.js" -->
-			<!-- 		enctype="multipart/form-data"> -->
-			<!-- 		<label for="Justificatif">Justificatif (type jpeg, bitmap ou png)</label><br /> <input type="file" name="justificatif" id="justificatif" /><br /> -->
-			<!-- 	</form> -->
-			<!-- 	<div class="row"> -->
-			<!-- 		<div class="form-actions floatRight"> -->
-			<!-- 			<input type="submit" value="Soumettre ma demande à  mon conseiller" -->
-			<!-- 				class="btn btn-primary btn-sm"> -->
-			<!-- 		</div> -->
-			<!-- 	</div> -->
+		</div>
+	</div>
+</div>
 
-			<!-- </form> -->
+
+
+<div class="panel panel-default"
+	ng-controller="DemandeController as dmdctrl"
+	ng-init="dmdctrl.listeJustificatifs()">
+	<!-- Default panel contents -->
+	<div class="panel-heading">
+		<span class="lead">N'oubliez pas de joindre les documents necessaire au traitement de votre demande</span>
+	</div>
+	<div class="tablecontainer">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+
+					<th ng-click="ctrl.trier_par('Type')">Type</th>
+					<th ng-click="ctrl.trier_par('Datereception')">Date de
+						reception</th>
+					<th >Telecharger</th>	
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="justificatif in justificatifs | orderBy:tripar ">
+
+					<td>{{justificatif.type}}</td>
+					<td>{{justificatif.date}}</td>
+					<td><a href={{justificatif.url}}><img class="icone"
+							src="static/imgs/download.png" /></a></td>
+
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div ng-init="value = ''">
+
+		<select class="form-control" ng-model="value">
+			<option value="">Ajouter un document</option>
+			<option value="1">Domicile</option>
+			<option value="2">Impot</option>
+			<option value="3">Salaire</option>
+			<option value="4">Autre</option>
+		</select>
+
+		<div class="col-xs-12" ng-if="(value==1)?true:false">
+			<input type="file" id="file" name="file"
+				class="form-control input-sm"
+				onchange="angular.element(this).scope().uploadFile(this.files, 'Domicile')" />
+		</div>
+
+		<div class="col-xs-12" ng-if="(value==2)?true:false">
+			<input type="file" id="file" name="file"
+				class="form-control input-sm"
+				onchange="angular.element(this).scope().uploadFile(this.files, 'Impot')" />
+		</div>
+
+		<div class="col-xs-12" ng-if="(value==3)?true:false">
+			<input type="file" id="file" name="file"
+				class="form-control input-sm"
+				onchange="angular.element(this).scope().uploadFile(this.files, 'Salaire')" />
+		</div>
+
+		<div class="col-xs-12" ng-if="(value==4)?true:false">
+			<input type="file" id="file" name="file"
+				class="form-control input-sm"
+				onchange="angular.element(this).scope().uploadFile(this.files, 'Autre')" />
 		</div>
 	</div>
 </div>
