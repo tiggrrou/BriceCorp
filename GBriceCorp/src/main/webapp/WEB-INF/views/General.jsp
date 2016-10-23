@@ -67,7 +67,7 @@
 								ng-model="ctrl.user.identifiant" 
 								name="login"
 								class="username form-control input-sm"
-								placeholder="Entez votre login" 
+								placeholder="{{translation.entrerLogin}}" 
 								required />
 							<div class="has-error" ng-show="formConnexion.login.$dirty">
 								<span ng-show="formConnexion.login.$error.required">Champ obligatoire</span>
@@ -82,7 +82,7 @@
 								ng-model="ctrl.user.motDePasse"
 								name="password" 
 								class="password form-control input-sm"
-								placeholder="Entrez votre mot de passe" 
+								placeholder="{{translation.entrerPass}}" 
 								required />
 							<div class="has-error" ng-show="formConnexion.password.$dirty">
 								<span ng-show="formConnexion.password.$error.required">Champ obligatoire</span>
@@ -94,7 +94,7 @@
 						<div class="form-actions center-block">
 							<input 
 								type="submit" 
-								value="Connexion"
+								value="{{translation.btnConnexion}}"
 								class="btn btn-primary btn-sm"
 								ng-disabled="formConnexion.$invalid">
 						</div>
