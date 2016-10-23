@@ -1,11 +1,15 @@
+<meta charset="utf-8">
 
 
-
-	<div class="panel panel-info " ng-controller="DemandeController as dmdctrl" ng-init="dmdctrl.getDemandesCreationClient();">
+	<div class="panel panel-info " ng-controller="DemandeController as dmdctrl" ng-init="dmdctrl.getDemandesCreationClient(0); checkAffectations = false">
 
 		<!-- Default panel contents -->
 		<div class="panel-heading" >
-			<span class="lead">Nouveaux Clients en attente d'affectation </span>
+		<div>
+			<span class="lead">Demandes d'affectation </span></div>
+		<div>	<input class="lead" type="radio" name="demandes" ng-model="checkAffectations" value="false" ng-click="dmdctrl.getDemandesCreationClient(0)" checked="checked">Demandes en cours {{demandeCreationClient}}</input></div>
+		<div>	<input class="lead" type="radio" name="demandes" ng-model="checkAffectations" value="true" ng-click="dmdctrl.getDemandesCreationClient(1)">Demandes déjà affectées</input></div>
+			
 		</div>
 		<!-- Tableau d'affichage des demandes d'ouverture -->
 
@@ -37,9 +41,13 @@
 							<th ng-click="dmdctrl.trier_par('Revenus'); flechetri_5 = !flechetri_5; flechetri_2 = false; flechetri_1 = false; flechetri_4 = false; flechetri_3 = false  ">Revenus
 								<img class="icone_liste" src="static/imgs/flecheHaut.png" ng-hide="flechetri_5" />
 								<img class="icone_liste" src="static/imgs/flecheBas.png" ng-hide="!flechetri_5" />
-							</th>							
+							</th>	
+							<th ng-click="dmdctrl.trier_par('Revenus'); flechetri_5 = !flechetri_5; flechetri_2 = false; flechetri_1 = false; flechetri_4 = false; flechetri_3 = false  ">Etat
+								<img class="icone_liste" src="static/imgs/flecheHaut.png" ng-hide="flechetri_5" />
+								<img class="icone_liste" src="static/imgs/flecheBas.png" ng-hide="!flechetri_5" />
+							</th>						
 							<th width="20%">Attribution</th>
-
+							
 						</tr>
 					</thead>
 					<tbody>
@@ -49,11 +57,12 @@
 							<td>{{demande.adresse}}</td>
 							<td>{{demande.mail}}</td>
 							<td>{{demande.revenu}}</td>
+							<td>{{demande.etat}}</td>
 							<td>
 										<div>
 									<form name="formValidation" class="form-horizontal">
 										<select class="form-control" id="sel1"
-											ng-change="dmdctrl.validation_attribution({{demande.id}},chosenConsID)" ng-model="chosenConsID">
+											ng-change="dmdctrl.validation_attribution({{demande.id}},chosenConsID)" ng-model="chosenConsID" >
 											<option value="">Select</option>
 											<option ng-repeat="Conseiller in ctrl.currentUser.conseillers" 
 												value="{{Conseiller.id}}">{{Conseiller.nom}}</option>
@@ -66,5 +75,58 @@
 				</table>
 			</div>
 		</div>
+<!-- 		<div class="panel-body" ng-show="checkAffectations"> -->
+<!-- 			<div class="tablecontainer"> -->
+<!-- 				<table class="table table-hover" > -->
+<!-- 					<thead> -->
+<!-- 						<tr> -->
+<!-- 							<th ng-click="dmdctrl.trier_par('nom'); flechetri_1 = !flechetri_1; flechetri_2 = false; flechetri_3 = false; flechetri_4 = false; flechetri_5 = false ">Nom -->
+<!-- 								<img class="icone_liste" src="static/imgs/flecheHaut.png" ng-hide="flechetri_1" /> -->
+<!-- 								<img class="icone_liste" src="static/imgs/flecheBas.png" ng-hide="!flechetri_1" /> -->
+<!-- 							</th> -->
+<!-- 							<th ng-click="dmdctrl.trier_par('prenom'); flechetri_2 = !flechetri_2; flechetri_1 = false; flechetri_3 = false; flechetri_4 = false; flechetri_5 = false  ">Prenom -->
+<!-- 								<img class="icone_liste" src="static/imgs/flecheHaut.png" ng-hide="flechetri_2" /> -->
+<!-- 								<img class="icone_liste" src="static/imgs/flecheBas.png" ng-hide="!flechetri_2" /> -->
+<!-- 							</th> -->
+<!-- 							<th ng-click="dmdctrl.trier_par('adresse'); flechetri_3 = !flechetri_3; flechetri_2 = false; flechetri_1 = false; flechetri_4 = false; flechetri_5 = false  ">Adresse -->
+<!-- 								<img class="icone_liste" src="static/imgs/flecheHaut.png" ng-hide="flechetri_3" /> -->
+<!-- 								<img class="icone_liste" src="static/imgs/flecheBas.png" ng-hide="!flechetri_3" /> -->
+<!-- 							</th> -->
+<!-- 							<th ng-click="dmdctrl.trier_par('Email'); flechetri_4 = !flechetri_4; flechetri_2 = false; flechetri_1 = false; flechetri_3 = false; flechetri_5 = false  ">Email -->
+<!-- 								<img class="icone_liste" src="static/imgs/flecheHaut.png" ng-hide="flechetri_4" /> -->
+<!-- 								<img class="icone_liste" src="static/imgs/flecheBas.png" ng-hide="!flechetri_4" /> -->
+<!-- 							</th> -->
+<!-- 							<th ng-click="dmdctrl.trier_par('Revenus'); flechetri_5 = !flechetri_5; flechetri_2 = false; flechetri_1 = false; flechetri_4 = false; flechetri_3 = false  ">Revenus -->
+<!-- 								<img class="icone_liste" src="static/imgs/flecheHaut.png" ng-hide="flechetri_5" /> -->
+<!-- 								<img class="icone_liste" src="static/imgs/flecheBas.png" ng-hide="!flechetri_5" /> -->
+<!-- 							</th>							 -->
+<!-- 							<th width="20%">Attribution</th> -->
+							
+<!-- 						</tr> -->
+<!-- 					</thead> -->
+<!-- 					<tbody> -->
+<!-- 						<tr ng-repeat="demande in dmdctrl.demandeCreationClient | filter:search:strict | orderBy:tripar:sens "> -->
+<!-- 							<td>{{demande.nom}}</td> -->
+<!-- 							<td>{{demande.prenom}}</td> -->
+<!-- 							<td>{{demande.adresse}}</td> -->
+<!-- 							<td>{{demande.mail}}</td> -->
+<!-- 							<td>{{demande.revenu}}</td> -->
+<!-- 							<td> -->
+<!-- 										<div> -->
+<!-- 									<form name="formValidation" class="form-horizontal"> -->
+<!-- 										<select class="form-control" id="sel1" -->
+<!-- 											ng-change="dmdctrl.validation_attribution({{demande.id}},chosenConsID)" ng-model="chosenConsID"> -->
+<!-- 											<option value="">Select</option> -->
+<!-- 											<option ng-repeat="Conseiller in ctrl.currentUser.conseillers"  -->
+<!-- 												value="{{Conseiller.id}}">{{Conseiller.nom}}</option> -->
+<!-- 										</select> -->
+<!-- 									</form> -->
+<!-- 										</div> -->
+<!-- 							</td> -->
+<!-- 						</tr> -->
+<!-- 					</tbody> -->
+<!-- 				</table> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
 	</div>
 

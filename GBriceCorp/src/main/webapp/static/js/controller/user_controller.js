@@ -43,7 +43,7 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
     self.getConsById = getConsById;
     self.validEditCons = validEditCons;
     self.populate_dummy=populate_dummy;
-
+    self.checkCreaCons = checkCreaCons;
     
     
     $scope.cons;  	
@@ -473,6 +473,17 @@ function refreshUser(){
         );
     };
 	
+    function checkCreaCons ()
+    {
+    	UserService.checkCreaCons(self.cons.identifiant)
+    	.then(
+    			function(){
+    				creaCons();
+    			},
+    			function(errResponse){
+    				alert("Cet identifiant existe déjà");
+    			})
+    }
     
     
     /* Récupération de la liste des conseillers  */

@@ -20,11 +20,27 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
         reaffectation:reaffectation,
         listeJustificatifs:listeJustificatifs,
         modifInfo:modifInfo,
+        fetchAllDemandesInsAffectees:fetchAllDemandesInsAffectees,
         genererPassword:genererPassword
     };
     return factory;
 
     
+    function fetchAllDemandesInsAffectees ()
+    {
+    	var deferred = $q.defer();
+        $http.get(REST_SERVICE_URI+'inscriptionsAffectees')
+            .then(
+            function (response) {
+                deferred.resolve(response.data);
+            },
+            function(errResponse){
+                console.error('Error while fetchAllDemandesInsAffectees');
+                deferred.reject(errResponse);
+            }
+        );
+        return deferred.promise;
+    }
     
     function modifInfo(demande,clientID){
    	 var deferred = $q.defer();
@@ -41,8 +57,7 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
         return deferred.promise;
    }
    
-    
-    function genererPassword(clientID){
+        function genererPassword(clientID){
 
     	var deferred = $q.defer();
         $http.get(REST_SERVICE_URI+'motdepasse/' + clientID)
@@ -58,7 +73,6 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
         return deferred.promise;
     	
     }
-    
     
     function listeJustificatifs(id, clientOuDemande){
 

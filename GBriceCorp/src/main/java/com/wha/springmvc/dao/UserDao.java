@@ -48,4 +48,6 @@ public interface UserDao {
 	public void createAdmin(Administrateur admin);
 	
 	public void sendNotificationToAClient(String message, long clientID);
+	
+	public boolean checkConseillerIdentifiant(String identifiant);
 }

@@ -53,6 +53,8 @@ public class HelloWorldRestController {
 	//////////////////////////////////////////// DEMANDES////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 
+	
+	
 	// -------------------Demande de generatio nde mot de passe--------------------------------------------------------
 
 	@RequestMapping(value = "/demande/motdepasse/{client_id}", method = RequestMethod.GET)
@@ -130,26 +132,32 @@ public class HelloWorldRestController {
 		System.out.println("validation de la demande de modification de compte " + demande_modificationcompte.getID());
 
 		 try {
-			 if(demande_modificationcompte.getLibelle() != ""){
-				 System.out.println("creation du compte " + demande_modificationcompte.getLibelle());
-				Compte compte = new Compte();
-				compte.setLibelle(demande_modificationcompte.getLibelle());
-				compteService.saveCompte(demande_modificationcompte.getClient().getId(),compte);
-				userService.sendNotificationToAClient("Votre compte "+demande_modificationcompte.getLibelle() + " a ete cree", demande_modificationcompte.getClient().getId());
+			if(demande_modificationcompte.getDecouvert() > 0){
+				 compteService.updateCompte(demande_modificationcompte.getCompte());
+			 
+				userService.sendNotificationToAClient("Votre compte "+demande_modificationcompte.getCompte().getLibelle() + " a ete modifie", demande_modificationcompte.getClient().getId());
 				demandeService.suppressionDemande(demande_modificationcompte.getID(),id_conseiller);
 
-					return new ResponseEntity<Void>(HttpStatus.CREATED);
+				return new ResponseEntity<Void>(HttpStatus.CREATED);
+			 }else if(demande_modificationcompte.isRemunerateur()){
+				 
+				 compteService.updateCompte(demande_modificationcompte.getCompte());
+				userService.sendNotificationToAClient("Votre compte "+demande_modificationcompte.getCompte().getLibelle() + " a ete modifie", demande_modificationcompte.getClient().getId());
+				demandeService.suppressionDemande(demande_modificationcompte.getID(),id_conseiller);
+
+				return new ResponseEntity<Void>(HttpStatus.CREATED);
 			 }else{
-			 
-			 
-			userService.sendNotificationToAClient("Votre compte "+demande_modificationcompte.getCompte().getIBAN() + " a ete modifie", demande_modificationcompte.getClient().getId());
-			demandeService.suppressionDemande(demande_modificationcompte.getID(),id_conseiller);
+				 System.out.println("creation du compte " + demande_modificationcompte.getLibelle());
+					Compte compte = new Compte();
+					compte.setLibelle(demande_modificationcompte.getLibelle());
+					compteService.saveCompte(demande_modificationcompte.getClient().getId(),compte);
+					userService.sendNotificationToAClient("Votre compte "+demande_modificationcompte.getLibelle() + " a ete cree", demande_modificationcompte.getClient().getId());
+					demandeService.suppressionDemande(demande_modificationcompte.getID(),id_conseiller);
 
-			return new ResponseEntity<Void>(HttpStatus.CREATED);
+						return new ResponseEntity<Void>(HttpStatus.CREATED);
 			 }} catch (Exception e) {
-
-			e.printStackTrace();
-			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+				 e.printStackTrace();
+				 return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}
 	}
 	
@@ -247,6 +255,19 @@ public class HelloWorldRestController {
 			return new ResponseEntity<Void>( HttpStatus.I_AM_A_TEAPOT);
 		}
 	}
+	//inscriptionsAffectees
+	
+	@RequestMapping(value = "/demande/inscriptionsAffectees", method = RequestMethod.GET)
+	public ResponseEntity<List<Dem_CreationClient>> inscriptionsAffectees() {
+		try {
+			List<Dem_CreationClient> listDemandes = demandeService.findAllDemandesCreationClient(1);
+			return new ResponseEntity<List<Dem_CreationClient>>(listDemandes, HttpStatus.OK);
+		} catch (NoResultException ex) {
+
+			return new ResponseEntity<List<Dem_CreationClient>>( HttpStatus.NO_CONTENT);
+		}
+	}
+	
 	// -----------------------------------------------réaffectation--------------------------------------------------------
 
 	@RequestMapping(value = "/demande/reaffectation/{client_id}&{conseiller_id}", method = RequestMethod.PUT)
@@ -286,22 +307,15 @@ public class HelloWorldRestController {
 
 	@RequestMapping(value = "/demande/inscription/{adminOrConsID}", method = RequestMethod.GET)
 	/**
-	 * Si l'id est égal à 0 alors c'est l'admin qui effectue la requete, sinon c'est un conseiller
+	 * Si l'id est égal à 0 ou 1 alors c'est l'admin qui effectue la requete (0 pour les nouvelles requetes, 1 pour les requetes en cours), sinon c'est un conseiller
 	 * @return
 	 */
 	public ResponseEntity<List<Dem_CreationClient>> listAllDemandeIscription(@PathVariable("adminOrConsID") long adminOrConsID) {
 		System.out.println("fetch demandes inscription ");
 		List<Dem_CreationClient> demandes;
-		if (adminOrConsID == 0)
-		{
-			//c'est l'admin
-			demandes = demandeService.findAllDemandesCreationClient();
-		}
-		else
-		{
-			//c'est un conseiller
-			demandes = demandeService.findAllDemandesCreationClient(adminOrConsID);
-		}
+
+		demandes = demandeService.findAllDemandesCreationClient(adminOrConsID);
+		
 		if (demandes.isEmpty()) {
 			return new ResponseEntity<List<Dem_CreationClient>>(HttpStatus.NO_CONTENT);
 		} 
@@ -566,6 +580,17 @@ public class HelloWorldRestController {
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 
+	@RequestMapping(value = "/user/check/{conseillerIdentifiant}", method = RequestMethod.POST)
+	public ResponseEntity<Void> checkCons(@PathVariable("conseillerIdentifiant") String identifiant) {
+		System.out.println("Check a conseiller " + identifiant);
+
+		if(userService.checkConseillerIdentifiant(identifiant))
+		{
+		return new ResponseEntity<Void>(HttpStatus.OK);
+		}
+		else return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+	}
+	
 	// ------------------- Update a Conseiller --------------------------------------------------------
 
 	@RequestMapping(value = "/user/consEdit", method = RequestMethod.PUT)

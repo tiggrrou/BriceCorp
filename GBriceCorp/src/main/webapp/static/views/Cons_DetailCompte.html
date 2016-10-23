@@ -115,17 +115,14 @@
 			<li class="list-group-item">Remuneration :
 				{{compte.tauxRemuneration}} %
 
-				<button ng-click="" ng-if="(!compte_id)?true:false"
-					class="btn btn-danger btn-sm floatRight no-print">Modifer</button>
 			</li>
 			<li class="list-group-item"
-				ng-hide="{{(compte.tauxRemuneration!=0)?true:false}}">Seuil de
+				ng-hide="{{(compte.tauxRemuneration>0)?true:false}}">Seuil de
 				remuneration : {{compte.seuil}} euros</li>
 			<li class="list-group-item">Agios : {{compte.tauxDecouvert}} %</li>
 			<li class="list-group-item">Decouvert autorise :
 				{{compte.decouvert}}
-				<button ng-click="" ng-if="(!compte_id)?true:false"
-					class="btn btn-danger btn-sm floatRight no-print" >Modifer</button>
+
 			</li>
 		</ul>
 

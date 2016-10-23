@@ -65,6 +65,7 @@ public class Dem_ModificationCompte extends Demande implements Serializable{
 	public void setRemunerateur(boolean remunerateur) {
 		this.remunerateur = remunerateur;
 	}
+	
 		public String getLibelle() {
 		return libelle;
 	}
