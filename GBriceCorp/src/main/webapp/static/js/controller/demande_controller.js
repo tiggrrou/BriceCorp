@@ -24,13 +24,14 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	 self.openFile=openFile;
 	 self.modifInfo=modifInfo;
 	 self.users=[];
-	 
-	 
+	 self.fetchAllDemandesInsAffectees = fetchAllDemandesInsAffectees;
 	 
 	    $scope.menuDemandesCons = [{"id":"inscription", "valeur" :"Ouverture compte"},
 	                               {"id":"chequier", "valeur" :"Chequier"},
 	                               {"id":"modifinfo", "valeur" :"Modification Informations personnelle"},
 	                               {"id":"modifcompte", "valeur" :"Modification compte"}];
+	    
+	    $scope.checkAffectations;
 	    
 	    $scope.value = $scope.menuDemandesCons[0].id;
 	    $scope.valeur = $scope.menuDemandesCons[0].valeur;
@@ -45,7 +46,6 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	    $scope.demande={};
 	    $scope.demandes=[];
 	 self.demandeCreationClient;
-
 
 	 
 	  function modifInfo(){
@@ -112,8 +112,20 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	 
 	 
 	 
-	 function getDemandesCreationClient(){
-		 DemandeService.fetchDemandesWithType("inscription", 0)
+	 function getDemandesCreationClient(choixDemandes){
+		 DemandeService.fetchDemandesWithType("inscription", choixDemandes)
+         .then(
+                 function(d) {
+                	 self.demandeCreationClient = d;
+                 },
+         function(errResponse){
+             console.error('Error while fetching creation request');
+         }
+     );	 
+	 }
+	 
+	 function fetchAllDemandesInsAffectees(){
+		 DemandeService.fetchAllDemandesInsAffectees()
          .then(
                  function(d) {
                 	 self.demandeCreationClient = d;
@@ -242,7 +254,10 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
             .then(
                     function(d) {
                     	console.log(d);
-                    	getDemandesCreationClient ();
+                    	if ($scope.checkAffectations)
+                    		getDemandesCreationClient (0);
+                    	else 
+                    		getDemandesCreationClient (0);
                     	
                     },
             function(errResponse){

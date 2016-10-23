@@ -36,7 +36,7 @@ public interface DemandeService {
 	 * Renvoie toutes les demandes de creation pour l'ADMIN
 	 * @return
 	 */
-	public List<Dem_CreationClient> findAllDemandesCreationClient();
+//	public List<Dem_CreationClient> findAllDemandesCreationClient(long CreeOuEnCours);
 	/**
 	 * Renvoie toutes les demandes de creation pour le CONSEILLER
 	 * @param id

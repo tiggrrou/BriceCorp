@@ -19,10 +19,27 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
         savefile:savefile,
         reaffectation:reaffectation,
         listeJustificatifs:listeJustificatifs,
-        modifInfo:modifInfo
+        modifInfo:modifInfo,
+        fetchAllDemandesInsAffectees:fetchAllDemandesInsAffectees
     };
     return factory;
 
+    
+    function fetchAllDemandesInsAffectees ()
+    {
+    	var deferred = $q.defer();
+        $http.get(REST_SERVICE_URI+'inscriptionsAffectees')
+            .then(
+            function (response) {
+                deferred.resolve(response.data);
+            },
+            function(errResponse){
+                console.error('Error while fetchAllDemandesInsAffectees');
+                deferred.reject(errResponse);
+            }
+        );
+        return deferred.promise;
+    }
     
     function modifInfo(demande,clientID){
    	 var deferred = $q.defer();

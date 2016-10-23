@@ -212,6 +212,19 @@ public class HelloWorldRestController {
 			return new ResponseEntity<Void>( HttpStatus.I_AM_A_TEAPOT);
 		}
 	}
+	//inscriptionsAffectees
+	
+	@RequestMapping(value = "/demande/inscriptionsAffectees", method = RequestMethod.GET)
+	public ResponseEntity<List<Dem_CreationClient>> inscriptionsAffectees() {
+		try {
+			List<Dem_CreationClient> listDemandes = demandeService.findAllDemandesCreationClient(1);
+			return new ResponseEntity<List<Dem_CreationClient>>(listDemandes, HttpStatus.OK);
+		} catch (NoResultException ex) {
+
+			return new ResponseEntity<List<Dem_CreationClient>>( HttpStatus.NO_CONTENT);
+		}
+	}
+	
 	// -----------------------------------------------réaffectation--------------------------------------------------------
 
 	@RequestMapping(value = "/demande/reaffectation/{client_id}&{conseiller_id}", method = RequestMethod.PUT)
@@ -251,22 +264,15 @@ public class HelloWorldRestController {
 
 	@RequestMapping(value = "/demande/inscription/{adminOrConsID}", method = RequestMethod.GET)
 	/**
-	 * Si l'id est égal à 0 alors c'est l'admin qui effectue la requete, sinon c'est un conseiller
+	 * Si l'id est égal à 0 ou 1 alors c'est l'admin qui effectue la requete (0 pour les nouvelles requetes, 1 pour les requetes en cours), sinon c'est un conseiller
 	 * @return
 	 */
 	public ResponseEntity<List<Dem_CreationClient>> listAllDemandeIscription(@PathVariable("adminOrConsID") long adminOrConsID) {
 		System.out.println("fetch demandes inscription ");
 		List<Dem_CreationClient> demandes;
-		if (adminOrConsID == 0)
-		{
-			//c'est l'admin
-			demandes = demandeService.findAllDemandesCreationClient();
-		}
-		else
-		{
-			//c'est un conseiller
-			demandes = demandeService.findAllDemandesCreationClient(adminOrConsID);
-		}
+
+		demandes = demandeService.findAllDemandesCreationClient(adminOrConsID);
+		
 		if (demandes.isEmpty()) {
 			return new ResponseEntity<List<Dem_CreationClient>>(HttpStatus.NO_CONTENT);
 		} 

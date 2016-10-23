@@ -13,6 +13,7 @@ import com.wha.springmvc.model.Dem_CreationClient;
 import com.wha.springmvc.model.Dem_ModificationCompte;
 import com.wha.springmvc.model.Dem_ModificationInfo;
 import com.wha.springmvc.model.Demande;
+import com.wha.springmvc.model.EtatDemande;
 import com.wha.springmvc.model.TypeDemandes;
 
 @Repository("demandeDao")
@@ -66,7 +67,7 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 	@Override
 	public List<Dem_CreationClient> findAllDemandesCreationClient() {
 		List<Dem_CreationClient> demandecreationclient = getEntityManager()
-				.createQuery("SELECT A.demandeCreationClient FROM Administrateur A")
+				.createQuery("SELECT D FROM Dem_CreationClient D")
 				.getResultList();
 		return demandecreationclient;
 	}
@@ -119,16 +120,39 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Dem_CreationClient> findAllDemandesCreationClient(long id) {
-		List<Demande> demandes = getEntityManager()
-				.createQuery("SELECT C.demandes FROM Conseiller C WHERE C.id = :id")
-				.setParameter("id", id)
-				.getResultList();
+		String query = "";
+		String param = "";
+		if (id > 1)
+		{
+			query = "SELECT C.demandes FROM Conseiller C WHERE C.id = :param";
+			param = String.valueOf(id);
+		}
+		else
+		{
+			query = "SELECT D FROM Dem_CreationClient D WHERE D.etat = :param";
+			param = (id == 0)? EtatDemande.Cree.name() : EtatDemande.EnCours.name();
+		}
 		List<Dem_CreationClient> demandecreationclient = new ArrayList<>();
-		for (Demande dem : demandes) {
-			if (dem.getType() == TypeDemandes.Creation.getType())
-			{
-				demandecreationclient.add((Dem_CreationClient)dem);
+		
+		if (id > 1)
+		{
+			List<Demande> demandes = getEntityManager()
+					.createQuery(query)
+					.setParameter("param", param)
+					.getResultList();
+			for (Demande dem : demandes) {
+				if (dem.getType() == TypeDemandes.Creation.getType())
+				{
+					demandecreationclient.add((Dem_CreationClient)dem);
+				}
 			}
+		}
+		else
+		{
+			demandecreationclient = getEntityManager()
+					.createQuery(query)
+					.setParameter("param", param)
+					.getResultList();
 		}
 		return demandecreationclient;
 	}
@@ -156,7 +180,7 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 		Demande demande = (Demande) getEntityManager()
 				.createQuery("SELECT d FROM Demande d WHERE d.id = :id").setParameter("id", id_demande)
 				.getSingleResult();
-
+		demande.setEtat(EtatDemande.EnCours.toString());
 		
 		Conseiller conseiller = (Conseiller) getEntityManager()
 				.createQuery("SELECT c FROM Conseiller c WHERE c.id = :id").setParameter("id", id_conseiller)
