@@ -1,3 +1,4 @@
+<meta charset="UTF-8">
 <div class=" panel panel-default "
 	ng-if="((ctrl.currentUser.typeUser == 3)?true:false)">
 	<div class="panel-heading ">
@@ -172,6 +173,63 @@
 		</table>
 	</div>
 </div>
+
+<div id="DemandAConsSectionId" class=" panel panel-default"
+	ng-init="ctrl.getInfosClient(ctrl.compte.clientID)" 
+			ng-controller="CompteController as cptctrl">		
+
+	<div class="panel-heading">
+		<span class="lead">Demandes à mon conseiller
+		</span>
+	</div>
+	<form ng-submit="cptctrl.writeDemDecou()" name="demDecou">
+		<div class="panel panel-info" layout="colomn">
+
+					Quel decouvert souhaiteriez vous avoir? (attention ce montant ne
+					peut pas exceder 40% de vos revenus mensuels) <input type="number"
+						max="{{ctrl.currentUser.revenu * 0.4}}" min="0"
+						ng-model="demDecouvert.montant" name="demDecouvert"
+						class="form-control input-sm" required />
+		</div>
+		<div class="has-error" ng-show="demDecou.$dirty">
+		<span ng-show="demDecou.demDecouvert.$error.required">Champ	obligatoire</span> 
+		<span ng-show="demDecou.demDecouvert.$error.max">Champ invalide : montant trop élevé.</span>
+		<span ng-show="demDecou.demDecouvert.$error.min">Une demande de découvert doit être une valeur positive.</span>
+				</div>
+				<div class="row">
+					<div class="form-actions floatRight">
+						<input type="submit"
+							value="Soumettre ma demande à  mon conseiller"
+							class="btn btn-primary btn-sm" ng-disabled="demDecou.$invalid">
+					</div>
+
+				</div>
+			</form>
+			<form ng-submit="cptctrl.writeDemChequier()" name="demChequier">
+				<div class="panel panel-info" layout="colomn">
+
+					Vous souhaitez avoir un chéquier pour ce compte? </div>
+				<div class="row">
+					<div class="form-actions floatRight">
+						<input type="submit"
+							value="Soumettre ma demande à  mon conseiller"
+							class="btn btn-primary btn-sm" >
+					</div>
+				</div>
+			</form>
+			<form ng-submit="cptctrl.writeDemRemu()" name="demRemu">
+				<div class="panel panel-info" layout="colomn">
+
+					Vous souhaitez que ce compte devienne rémunérateur? </div>
+				<div class="row">
+					<div class="form-actions floatRight">
+						<input type="submit"
+							value="Soumettre ma demande à  mon conseiller"
+							class="btn btn-primary btn-sm" >
+					</div>
+				</div>
+			</form>
+			</div>
 
 
 

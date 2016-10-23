@@ -261,9 +261,9 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
         return deferred.promise;
     }
     
-    function writeDemDecou (userID, compteID, decouvert) {
+    function writeDemDecou (userID, compteID, demDecouvert) {
     	var deferred = $q.defer();
-    	$http.post(REST_SERVICE_URI+'decouvert/'+userID+"&"+compteID+"&"+decouvert)
+    	$http.post(REST_SERVICE_URI+'decouvert/'+userID+"&"+compteID, demDecouvert)
     	.then(
     			//reponse OK du serveur
     			function (){

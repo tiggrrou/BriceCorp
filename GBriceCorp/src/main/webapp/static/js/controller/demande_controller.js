@@ -9,7 +9,6 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	 self.inscription_Client=inscription_Client;
 	 self.fetchAllDemandes=fetchAllDemandes;
 	 self.validation_Demande=validation_Demande;
-	 self.writeDemDecou=writeDemDecou;
 	 self.validation_attribution=validation_attribution;
 	 self.detailDemande=detailDemande;
 	 self.demandeNouveauCompte = demandeNouveauCompte;
@@ -416,16 +415,6 @@ function findDemandeById(id) {
 
 };
 
-function writeDemDecou() {
-	DemandeService.writeDemDecou(JSON.parse(sessionStorage.getItem("currentUser")).id, compte.id, decouvert)
-			.then(
-					function(){
-						// cas normal, pop up ?
-						alert("Votre demande a bien été transmise")
-					},
-					function(messageErreurFromService){
-						alert("Une erreur est survenue pendant la création de votre demande\n" + messageErreurFromService )
-					})
-};
+
    
 }]);

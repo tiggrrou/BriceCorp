@@ -1,6 +1,6 @@
 'use strict';
 
-App.controller('CompteController', ['$scope','$location', '$route', '$routeParams', 'CompteService', function($scope,$location,$route,$routeParams, CompteService) {
+App.controller('CompteController', ['$scope','$location', '$route', '$routeParams', 'CompteService','DemandeService', function($scope,$location,$route,$routeParams, CompteService,DemandeService) {
     var self = this;
     $scope.compte = {};
     $scope.comptes = [];
@@ -26,6 +26,7 @@ App.controller('CompteController', ['$scope','$location', '$route', '$routeParam
     self.trier_par=trier_par;
     self.compteDebiteur=compteDebiteur;
     self.compteExiste=compteExiste;
+	self.writeDemDecou=writeDemDecou;
     
     
     
@@ -258,7 +259,41 @@ $scope.comptes=[];
 
     				}
     
+    function writeDemDecou() {
+    	DemandeService.writeDemDecou(JSON.parse(sessionStorage.getItem("currentUser")).id, $scope.compte.id, $scope.demDecouvert)
+    			.then(
+    					function(){
+    						// cas normal, pop up ?
+    						alert("Votre demande a bien été transmise")
+    					},
+    					function(messageErreurFromService){
+    						alert("Une erreur est survenue pendant la création de votre demande de Decouvert \n" + messageErreurFromService )
+    					})
+    }; 
     
+    function writeDemRemu() {
+    	DemandeService.writeDemRemu(JSON.parse(sessionStorage.getItem("currentUser")).id, $scope.compte.id, $scope.demRemu)
+    			.then(
+    					function(){
+    						// cas normal, pop up ?
+    						alert("Votre demande a bien été transmise")
+    					},
+    					function(messageErreurFromService){
+    						alert("Une erreur est survenue pendant la création de votre demande de Remuneration \n" + messageErreurFromService )
+    					})
+    };
+    
+    function writeDemChequier() {
+    	DemandeService.writeDemChequier(JSON.parse(sessionStorage.getItem("currentUser")).id, $scope.compte.id, $scope.demChequier)
+    			.then(
+    					function(){
+    						// cas normal, pop up ?
+    						alert("Votre demande a bien été transmise")
+    					},
+    					function(messageErreurFromService){
+    						alert("Une erreur est survenue pendant la création de votre demande de chéquier \n" + messageErreurFromService )
+    					})
+    };
     
     
 }]);

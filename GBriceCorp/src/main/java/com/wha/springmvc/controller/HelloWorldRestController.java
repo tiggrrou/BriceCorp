@@ -457,17 +457,15 @@ public class HelloWorldRestController {
 	}
 	
 	// -------------------Create demande de decouvert
-		// --------------------------------------------------------
+	// --------------------------------------------------------
 
-		@RequestMapping(value = "/demande/decouvert/{idClient}&{compteId}&{decouvert}", method = RequestMethod.POST)
+		@RequestMapping(value = "/demande/decouvert/{idClient}&{compteId}", method = RequestMethod.POST)
 		public ResponseEntity<Void> DemandeDecouvert(@RequestBody Dem_ModificationCompte demande_Decouvert,
 																	@PathVariable("idClient") long idClient,
-																	@PathVariable("compteId") int compteId,
-																	@PathVariable("decouvert") int decouvert) {
+																	@PathVariable("compteId") int compteId) {
 			Client client = userService.findCliById(idClient);
 			demande_Decouvert.setClient(client);
 			demande_Decouvert.setCompte(compteService.findCompteById(compteId));
-			demande_Decouvert.setDecouvert(decouvert);
 			System.out.println("Creating demande de decouvert " + demande_Decouvert);
 
 			demandeService.addDemandeModificationCompteToCons(demande_Decouvert.getClient().getConseiller(),demande_Decouvert);
@@ -475,6 +473,42 @@ public class HelloWorldRestController {
 			return new ResponseEntity<Void>(HttpStatus.CREATED);
 
 		}
+		
+		// -------------------Create demande de Remuneration
+		// --------------------------------------------------------
+
+			@RequestMapping(value = "/demande/remuneration/{idClient}&{compteId}", method = RequestMethod.POST)
+			public ResponseEntity<Void> DemandeRemun(@RequestBody Dem_ModificationCompte demande_Remuneration,
+																		@PathVariable("idClient") long idClient,
+																		@PathVariable("compteId") int compteId) {
+				Client client = userService.findCliById(idClient);
+				demande_Remuneration.setClient(client);
+				demande_Remuneration.setCompte(compteService.findCompteById(compteId));
+				System.out.println("Creating demande de decouvert " + demande_Remuneration);
+
+				demandeService.addDemandeModificationCompteToCons(demande_Remuneration.getClient().getConseiller(),demande_Remuneration);
+
+				return new ResponseEntity<Void>(HttpStatus.CREATED);
+
+			}
+			
+			// -------------------Create demande de Chéquier
+			// --------------------------------------------------------
+
+				@RequestMapping(value = "/demande/chequier/{idClient}&{compteId}", method = RequestMethod.POST)
+				public ResponseEntity<Void> DemandeChequier(@RequestBody Dem_Chequier demande_Chequier,
+																			@PathVariable("idClient") long idClient,
+																			@PathVariable("compteId") int compteId) {
+					Client client = userService.findCliById(idClient);
+					demande_Chequier.setClient(client);
+					demande_Chequier.setCompte(compteService.findCompteById(compteId));
+					System.out.println("Creating demande de chequier " + demande_Chequier);
+
+					demandeService.addDemandeChequierToCons(demande_Chequier.getClient().getConseiller(),demande_Chequier);
+
+					return new ResponseEntity<Void>(HttpStatus.CREATED);
+
+				}
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////// CONSEILLER//////////////////////////////////////////////
