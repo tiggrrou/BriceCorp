@@ -44,8 +44,13 @@ public class CompteDaoImpl extends AbstractDao<Integer, Compte> implements Compt
 	
 	
 	@Override
-	public long saveCompte(Compte compte) {
-		persist(compte);
+	public long saveCompte(long clientId, Compte compte) {
+		
+		Client client = (Client) getEntityManager().createQuery("SELECT c FROM Client c WHERE c.id = :id")
+				.setParameter("id", clientId)
+				.getSingleResult();
+		client.getComptes().add(compte);
+
 		return compte.getID();
 	}
 

@@ -25,6 +25,11 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	 self.modifInfo=modifInfo;
 	 self.users=[];
 	 self.fetchAllDemandesInsAffectees = fetchAllDemandesInsAffectees;
+	  self.genererPassword=genererPassword;
+	 self.modifAffichRemuneration=modifAffichRemuneration;
+	 self.modifAffichDecouvert=modifAffichDecouvert;
+	 self.modifierRemuneration=modifierRemuneration;
+	 self.modifierDecouvert=modifierDecouvert;
 	 
 	    $scope.menuDemandesCons = [{"id":"inscription", "valeur" :"Ouverture compte"},
 	                               {"id":"chequier", "valeur" :"Chequier"},
@@ -47,7 +52,13 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	    $scope.demandes=[];
 	 self.demandeCreationClient;
 
-	 
+	  function session_delete(){
+		 	sessionStorage.clear();
+				$location.path("/");
+		 	location.reload();
+		 	console.log("delete session");
+		 };
+		 
 	  function modifInfo(){
 		  var demande={"nom":$scope.currentUser.nom,"prenom":$scope.currentUser.prenom,
 		             "telephone":$scope.currentUser.telephone,"mail":$scope.currentUser.mail,
@@ -57,7 +68,7 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 			 .then(
 	                 function() {
 	                	 console.log("demande de modification dinfo perso en cours");
-
+						$location.path("cli/");
 
 	                 },
 	         function(errResponse){
@@ -66,7 +77,26 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	     );	 
 	  }
 	 
-	 
+	 function modifAffichRemuneration(){
+	    	$scope.modifierCompteRemuneration = !$scope.modifierCompteRemuneration
+	    }
+	    function modifAffichDecouvert(){
+	    	$scope.modifierCompteDecouvert = !$scope.modifierCompteDecouvert
+	    }	 
+
+		 function modifierRemuneration(demande,tauxRemuneration,seuil)
+		 {
+			demande.compte.seuil = seuil;
+		    demande.compte.tauxRemuneration = tauxRemuneration;
+		    validation_Demande(demande)
+		 }
+		 
+		 function modifierDecouvert(demande,tauxDecouvert,decouvert){
+		   	demande.compte.decouvert = decouvert;
+	    	demande.compte.tauxDecouvert = tauxDecouvert;
+	       	validation_Demande(demande)
+		 }
+	    
 	 
 	    function trier_par(tri){
 	    	//en cours d affinage
@@ -95,6 +125,20 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	    			});
 			}
 	    };
+	
+	 function genererPassword(clientID)
+	 {
+		 DemandeService.genererPassword(clientID)
+		 .then(
+                 function() {
+                	 console.log("Nouveau mot de passe envoye");
+                	 session_delete();
+                  },
+         function(errResponse){
+             console.error('Erreur pendant creation du nouveau mdp');
+         }
+     );	 
+	 }
 	 
 	 function reaffectation(clientID, newConsID)
 	 {
@@ -102,7 +146,8 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 		 .then(
                  function() {
                 	 console.log("ok pour la réaffectation");
-                	 getConsById();
+                	// getConsById();
+                	 $location.path("#/");
                  },
          function(errResponse){
              console.error('Erreur pendant la réaffectation');
@@ -154,7 +199,7 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 		 console.log("je fais une demande pour un nouveau compte");
  
 		 //$scope.demandeCreationCompte.client = JSON.parse(sessionStorage.getItem("currentUser"));
-		 $scope.demandeCreationCompte.decouvert =($scope.decouvert)? $scope.montantDecouvert : 0 ;
+		 //$scope.demandeCreationCompte.decouvert =($scope.decouvert)? $scope.montantDecouvert : 0 ;
 		 
 		 DemandeService.demandeNouveauCompte($scope.demandeCreationCompte, JSON.parse(sessionStorage.getItem("currentUser")).id).then(
 	 				function(){
@@ -254,10 +299,7 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
             .then(
                     function(d) {
                     	console.log(d);
-                    	if ($scope.checkAffectations)
-                    		getDemandesCreationClient (0);
-                    	else 
-                    		getDemandesCreationClient (0);
+                    	getDemandesCreationClient ();
                     	
                     },
             function(errResponse){

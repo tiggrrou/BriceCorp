@@ -3,11 +3,11 @@
 	<div class="panel panel-info">
 		<!-- Default panel contents -->
 		<div class="panel-heading">
-			<span class="lead">Cliquez ici pour nous rejoindre</span>
+			<span class="lead">{{translation.cliqueici}}</span>
 		</div>
 		<div class="panel-body ">
 <a href="#/inscription" class="btn btn-success btn-lg center-block">
-	<h4 class="list-group-item-heading">Inscription</h4>
+	<h4 class="list-group-item-heading">{{translation.btnInscription}}</h4>
 </a>
 
 </div>
@@ -16,25 +16,25 @@
 	<div class="panel panel-info">
 		<!-- Default panel contents -->
 		<div class="panel-heading">
-			<span class="lead">Service de conversion</span>
+			<span class="lead">{{translation.webService}}</span>
 		</div>
 		<div class="panel-body ">
 			<div class="col-xs-12 raw ">
 
 				<div class="col-sm-6 ">
-					<label class="control-lable" for="file">Saisir le montant a convertir :</label>
+					<label class="control-lable" for="file">{{translation.saisirMontant}} :</label>
 				</div>
 				<div class="form-group  col-sm-6">
 
 					<input type="text" id="gp_amount" class="form-control input-sm"
-						placeholder="1234,56" />
+						placeholder="1234.56" />
 
 				</div>
 			</div>
 			<div class="col-xs-12 raw">
 
 				<div class="col-sm-6">
-					<label class="control-lable" for="file">Montant converti :</label>
+					<label class="control-lable" for="file">{{translation.montantConverti}} :</label>
 				</div>
 				<div class="col-sm-6">
 					<div class="form-group " id="gp_converted" text-align: center>
@@ -45,7 +45,7 @@
 			</div>
 			<div class="col-xs-12 raw">
 				<div class="col-sm-6">
-					<label class="control-lable" for="file">Devise de depart :</label>
+					<label class="control-lable" for="file">{{translation.deviseDepart}} :</label>
 				</div>
 				<div class="col-sm-6">
 					<select class="form-control" id="gp_from"></select>
@@ -56,7 +56,7 @@
 
 
 				<div class="col-sm-6">
-					<label class="control-lable" for="file">Devise d'arrivee :</label>
+					<label class="control-lable" for="file">{{translation.deviseArrivee}} :</label>
 				</div>
 				<div class="col-sm-6">
 					<select class="form-control" id="gp_to"></select>
@@ -66,8 +66,7 @@
 
 				<input class="btn btn-primary btn-sm center-block" type='button'
 					onClick='gp_convertIt()'
-					onMouseOver="PlaySound('static/Sound/Wololo.mp3')"
-					value='Convertir! (Wololo)' />
+					value='{{translation.convertir}}' />
 			</div>
 
 		</div>

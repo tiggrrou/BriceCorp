@@ -5,12 +5,12 @@
 	<div class="panel-heading ">
 		<span class="lead">Demande de {{(demande.type ==
 			1)?'Creation':''}}{{(demande.type == 3)?'Chequier':''}}
-			{{(demande.type == 2)?'Modification de compte':''}}{{(demande.type ==
+			{{(demande.type == 2 && !demande.libelle)?'Modification de compte':''}}{{(demande.type == 2 && demande.libelle)?'Creation d un nouveau compte':''}}{{(demande.type ==
 			4)?'Modification d informations personnelle':''}}</span> <br />
 		{{(demande.type == 2)?'Demande de ':''}}{{(demande.type == 2 &&
 		demande.remunerateur == true)?'Compte remunerateur':''}}
 		{{(demande.type == 2 && demande.decouvert > 0)?'Decouvert de
-		'+demande.decouvert +' euros':''}}
+		'+demande.decouvert +' euros':''}}{{(demande.type == 2 && demande.libelle)?demande.libelle:''}}
 	</div>
 	<ul class="list-group">
 		<li class="list-group-item">Civilite
@@ -31,7 +31,7 @@
 			ng-click="dmdctrl.modifEtat_Demande(demande,'Refusee')">Refus</a> <a
 			class="btn btn-primary btn-sm "
 			ng-click="dmdctrl.modifEtat_Demande(demande, 'EnCours')">Attente</a>
-			<a class="btn btn-success btn-sm "
+			<a class="btn btn-success btn-sm " ng-if="(demande.remunerateur || demande.decouvert > 0)?false:true"
 			ng-click="dmdctrl.validation_Demande(demande)">Valider</a></li>
 	</ul>
 </div>
@@ -150,21 +150,54 @@
 		<li class="list-group-item">Solde : {{demande.compte.solde}}
 			euros</li>
 
-		<li class="list-group-item">Remuneration :
+		<li  ng-if="!modifierCompteRemuneration" class="list-group-item">Remuneration :
 			{{demande.compte.tauxRemuneration}} %
 
-			<button ng-click="" ng-if="(!compte_id)?true:false"
+			<button ng-click="dmdctrl.modifAffichRemuneration()" ng-if="(!compte_id)?true:false"
 				class="btn btn-danger btn-sm floatRight no-print">Modifer</button>
 		</li>
-		<li class="list-group-item"
-			ng-hide="{{(compte.tauxRemuneration!=0)?true:false}}">Seuil de
-			remuneration : {{demande.compte.seuil}} euros</li>
-		<li class="list-group-item">Agios :
+		<li  ng-if="modifierCompteRemuneration" class="list-group-item">Remuneration :
+			<input type="number" ng-model="demande.compte.tauxRemuneration"
+								name="tauxRemuneration" 
+								class=" col-xs-2"
+								required /><a ng-click="dmdctrl.modifierRemuneration(demande, demande.compte.tauxRemuneration,demande.compte.seuil)"
+				class="btn btn-danger btn-sm floatRight no-print">Valider</a>
+		</li>
+		
+		<li ng-if="!modifierCompteRemuneration" class="list-group-item">
+			Seuil de remuneration : {{demande.compte.seuil}} euros</li>
+		<li ng-if="modifierCompteRemuneration" class="list-group-item form-control">
+		Seuil de remuneration : <input type="number" ng-model="demande.compte.seuil"
+								name="seuil" 
+								class=" col-xs-2"
+								required />euros</li>	
+								
+								
+								
+								
+								
+		<li ng-if="!modifierCompteDecouvert" class="list-group-item">Agios :
 			{{demande.compte.tauxDecouvert}} %</li>
-		<li class="list-group-item">Decouvert autorise :
+		<li ng-if="!modifierCompteDecouvert" class="list-group-item">Decouvert autorise :
 			{{demande.compte.decouvert}}
-			<button ng-click="" ng-if="(!compte_id)?true:false"
+			<button ng-click="dmdctrl.modifAffichDecouvert()" ng-if="(!compte_id)?true:false"
 				class="btn btn-danger btn-sm floatRight no-print">Modifer</button>
+		</li>
+		
+		
+		<li ng-if="modifierCompteDecouvert" class="list-group-item">Agios :
+
+			<input type="number" ng-model="demande.compte.tauxDecouvert"
+								name="tauxDecouvert" 
+								class=" col-xs-2"
+								required /></li>
+		<li ng-if="modifierCompteDecouvert" class="list-group-item">
+Decouvert autorise :
+			<input type="number" ng-model="demande.compte.decouvert"
+								name="decouvert" 
+								class=" col-xs-2"
+								required /><a ng-click="dmdctrl.modifierDecouvert(demande, demande.compte.tauxDecouvert,demande.compte.decouvert)"
+				class="btn btn-danger btn-sm floatRight no-print">Valider</a>
 		</li>
 	</ul>
 </div>

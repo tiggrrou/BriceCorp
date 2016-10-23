@@ -23,10 +23,10 @@
 								<label class="col-md-2 control-lable" for="file">Compte
 									à débiter</label>
 								<div class="col-md-7">
-									<select ng-model="virement.compteDebiteur"
+									<select ng-model="virement.compteDebiteur" ng-change="cptCtrl.compteDebiteur(virement.compteDebiteur)"
 										name="debiter" class="form-control input-sm">
-										<option name="liste_comptes"
-											ng-repeat="Compte in comptes" value="{{Compte.id}}">
+										<option name="liste_comptes" 
+											ng-repeat="Compte in comptes" value="{{Compte}}">
 											{{Compte.libelle}} , {{Compte.id}} , {{Compte.solde}}</option>
 									</select>
 									<div class="has-error" ng-show="formVirement">
@@ -44,15 +44,21 @@
 									<select ng-model="virement.compteCredite"
 										name="crediter" class="form-control input-sm">
 										<option name="liste_comptes" 
-											ng-repeat="Compte in comptes" value="{{Compte.id}}">{{Compte.libelle}}
-											, {{Compte.id}} , {{Compte.solde}}</option>
+											ng-repeat="Compte2 in comptes" value="{{Compte2.id}}">
+											{{Compte2.libelle}} , {{Compte2.id}} , {{Compte2.solde}}</option>
 										<option name="liste_comptes" value="Autre">Autre</option>
 									</select>
 									<div class="has-error" ng-show="formVirement.$dirty">
-										<span ng-show="formConnexion.nom.$error.required">Champ
+										<span ng-show="formVirement.nom.$error.required">Champ
 											obligatoire</span>
 									</div>
 								</div>
+							</div>
+						</div>
+						<div class="row" ng-if="virement.compteCredite == comptedebiteur.id && virement.compteCredite != null">
+							<div class="form-group col-md-12">						
+								<h1 >Vous ne pouvez debiter et crediter le meme compte</h1>
+								<input type="hidden" ng-model="virement.controleMemeCompte" name="controleMemeCompte" class="form-control input-sm" required />
 							</div>
 						</div>
 						<div class="row" ng-if="virement.compteCredite == 'Autre'">
@@ -60,7 +66,7 @@
 								<label class="col-md-2 control-lable" for="file">IBAN du compte à créditer</label>
 								<div class="col-md-7">
 									<input type="text" ng-model="virement.compteAutre"
-										name="compteAutre" class="form-control input-sm"
+										name="compteAutre" class="form-control input-sm" ng-blur="cptCtrl.compteExiste(virement.compteAutre)"
 										placeholder="IBAN du compte à créditer" required />
 									<div class="has-error" ng-show="formVirement.$dirty">
 										<span ng-show="formConnexion.montant.$error.required">Champ
@@ -69,14 +75,26 @@
 								</div>
 							</div>
 						</div>
+						<div class="row" ng-if="compte_id_existe == 'aucun' ">
+							<div class="form-group col-md-12">						
+								<h1 >Ce compte n'existe pas</h1>
+								<input type="hidden" ng-model="virement.controleCompteExiste" name="controleCompteExiste" class="form-control input-sm" required />
+							</div>
+						</div>		
+						<div class="row" ng-if="compte_id_existe == comptedebiteur.id && comptedebiteur.id">
+							<div class="form-group col-md-12">						
+								<h1 >Vous ne pouvez debiter et crediter le meme compte</h1>
+								<input type="hidden" ng-model="virement.controleMemeCompte2" name="controleMemeCompte2" class="form-control input-sm" required />
+							</div>
+						</div>				
 						<div class="row">
 							<div class="form-group col-md-12">
 								<label class="col-md-2 control-lable" for="file">Montant
 									à transférer</label>
 								<div class="col-md-7">
-									<input type="text" ng-model="virement.montant"
+									<input type="number" ng-model="virement.montant"
 										name="montant" class="form-control input-sm"
-										placeholder="Entrez votre montant" required />
+										placeholder="Entrez votre montant" max="{{comptedebiteur.solde}}+{{comptedebiteur.decouvert}}" />
 									<div class="has-error" ng-show="formVirement.$dirty">
 										<span ng-show="formConnexion.montant.$error.required">Champ
 											obligatoire</span>

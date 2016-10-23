@@ -207,7 +207,7 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 				.getSingleResult();
 		Demande demande = findDemandeById(id_demande);
 		conseiller.getDemandes().remove(demande);
-		
+		delete(demande);
 	}
 
 	@Override

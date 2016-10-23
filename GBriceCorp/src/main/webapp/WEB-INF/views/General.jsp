@@ -55,7 +55,7 @@
 		<div id="contenu_navbar" class="contenu_navbar">
 			<img id="logo" src="static/imgs/logo.png" ng-click="ctrl.populate_dummy()"/>
 			<!-- Menu de connexion  -->
-			<div class="formcontainer" ng-hide="{{connexion_cache}}">
+			<div class="formcontainer" ng-if="!connexion_cache">
 				<form ng-submit="ctrl.connect()" name="formConnexion"
 					class="form-horizontal">
 					<input type="hidden" ng-model="ctrl.user.id" />
@@ -67,7 +67,7 @@
 								ng-model="ctrl.user.identifiant" 
 								name="login"
 								class="username form-control input-sm"
-								placeholder="Entez votre login" 
+								placeholder="{{translation.entrerLogin}}" 
 								required />
 							<div class="has-error" ng-show="formConnexion.login.$dirty">
 								<span ng-show="formConnexion.login.$error.required">Champ obligatoire</span>
@@ -82,7 +82,7 @@
 								ng-model="ctrl.user.motDePasse"
 								name="password" 
 								class="password form-control input-sm"
-								placeholder="Entrez votre mot de passe" 
+								placeholder="{{translation.entrerPass}}" 
 								required />
 							<div class="has-error" ng-show="formConnexion.password.$dirty">
 								<span ng-show="formConnexion.password.$error.required">Champ obligatoire</span>
@@ -94,7 +94,7 @@
 						<div class="form-actions center-block">
 							<input 
 								type="submit" 
-								value="Connexion"
+								value="{{translation.btnConnexion}}"
 								class="btn btn-primary btn-sm"
 								ng-disabled="formConnexion.$invalid">
 						</div>
@@ -104,7 +104,7 @@
 			</div>
 
 			<!-- Menu du Conseiller -->
-			<div class="container-fluid " ng-hide="{{conseiller_cache}}">
+			<div class="container-fluid " ng-if="!conseiller_cache">
 				<div class="list-group">
 					<!-- Recherche client  -->
 					<a href="#/cons/Cons_RechCli" class="list-group-item"
@@ -159,7 +159,7 @@
 
 
 			<!-- Menu du Client -->
-			<div class="container-fluid" ng-hide="{{client_cache}}">
+			<div class="container-fluid" ng-if="!client_cache">
 				<div class="list-group">
 				<!-- Synthese des comptes -->
 					<a href="#/cli/Cli_ListeComptes" class="list-group-item"
@@ -196,7 +196,7 @@
 			</div>
 
 			<!-- Menu de l'administrateur -->
-			<div class="container-fluid" ng-hide="{{admin_cache}}">
+			<div class="container-fluid" ng-if="!admin_cache">
 				<div class="list-group">
 					<!-- Tableau des demandes -->
 					<a href="#/admin/Admin_AffectCli" class="list-group-item"
@@ -272,9 +272,9 @@
 		<div class="langue_connect col-xs-2">
 			<div>
 				<img class="langue center-block" src="static/imgs/en.png"
-					ng-hide="{{lang_cache}}" ng-click="ctrl.change_langue()" />
+					ng-if="lang_cache" ng-click="ctrl.change_langue()" />
 				<img class="langue center-block" src="static/imgs/fr.png"
-					ng-hide="{{!lang_cache}}" ng-click="ctrl.change_langue()" />
+					ng-if="!lang_cache" ng-click="ctrl.change_langue()" />
 			</div>
 			<div>
 				<input type="button" class="btn btn-danger center-block"
@@ -300,31 +300,7 @@
 	<script>
 		gp_currencySymbols()
 	</script>
-	<!-- Responsive a  faire
-	<script>
-	App.controller('cache_menu', function($scope) {
-		
-	
-	window.addEventListener("resize", function(){
-		var width = document.body.clientWidth;
 
-		if(width < 400){
-			$scope.nav_cache = true;
-			$scope.resize_cache = true;
-			}else{
-		$scope.resize_cache = false;
-}
-console.log("resize" + $scope.resize_cache);
-console.log("nav" + $scope.nav_cache);
-	})
-	})
-	
-	
-	
-	
-	</script>
-	
--->
 </body>
 
 </html>

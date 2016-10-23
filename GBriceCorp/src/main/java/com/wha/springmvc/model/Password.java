@@ -17,7 +17,7 @@ public class Password {
 	private static  SecureRandom random = new SecureRandom();
 
 	public static String nextSessionId() {
-		return new BigInteger(130, random).toString(3);
+		return new BigInteger(30, random).toString(32);
 	}
 
 	// String uuid = UUID.randomUUID().toString();

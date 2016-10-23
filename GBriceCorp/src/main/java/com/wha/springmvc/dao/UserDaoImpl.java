@@ -21,6 +21,7 @@ import com.wha.springmvc.model.Dem_CreationClient;
 import com.wha.springmvc.model.Dem_ModificationInfo;
 import com.wha.springmvc.model.Justificatif;
 import com.wha.springmvc.model.Notification;
+import com.wha.springmvc.model.Password;
 import com.wha.springmvc.model.TypeUtilisateur;
 import com.wha.springmvc.model.User;
 
@@ -266,6 +267,15 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		Client myClient = findCliById(clientID);
 		myClient.getNotifications().add(myNotif);
 
+	}
+
+	@Override
+	public Client generationMdp(long clientID){
+		Client client = findCliById(clientID);
+		client.setMotDePasse(Password.nextSessionId());
+		
+		return client;
+		
 	}
 
 }

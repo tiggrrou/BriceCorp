@@ -17,7 +17,7 @@ public interface CompteService {
 	public List<Compte> findByClientId(long clientId);
 	
 
-	public long saveCompte(Compte compte);
+	public long saveCompte(long clientId, Compte compte);
 	
 	public void updateCompte(Compte compte);
 	

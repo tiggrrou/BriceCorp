@@ -19,8 +19,9 @@ public interface DemandeService {
 	public void suppressionDemande(long id_demande,long id_conseiller);
 
 	public void reaffectation(long client_id, long conseiller_id);	
-	
 
+
+	
 	
 	
 	

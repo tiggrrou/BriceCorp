@@ -46,13 +46,12 @@ return dao.findAllComptes();
 		return null;
 	}
 
-	public long saveCompte(Compte compte) {
-		return dao.saveCompte(compte);
+	public long saveCompte(long clientId, Compte compte){
+		return dao.saveCompte(clientId, compte);
 	}
 
 	public void updateCompte(Compte compte) {
-//		int index = comptes.indexOf(compte);
-//		comptes.set(index, compte);
+dao.updateCompte(compte);
 	}
 
 	public void deleteCompteById(long compteid) {
