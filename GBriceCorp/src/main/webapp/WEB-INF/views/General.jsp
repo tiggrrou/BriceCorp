@@ -272,9 +272,9 @@
 		<div class="langue_connect col-xs-2">
 			<div>
 				<img class="langue center-block" src="static/imgs/en.png"
-					ng-hide="{{lang_cache}}" ng-click="ctrl.change_langue()" />
+					ng-if="lang_cache" ng-click="ctrl.change_langue()" />
 				<img class="langue center-block" src="static/imgs/fr.png"
-					ng-hide="{{!lang_cache}}" ng-click="ctrl.change_langue()" />
+					ng-if="!lang_cache" ng-click="ctrl.change_langue()" />
 			</div>
 			<div>
 				<input type="button" class="btn btn-danger center-block"
@@ -300,31 +300,7 @@
 	<script>
 		gp_currencySymbols()
 	</script>
-	<!-- Responsive a  faire
-	<script>
-	App.controller('cache_menu', function($scope) {
-		
-	
-	window.addEventListener("resize", function(){
-		var width = document.body.clientWidth;
 
-		if(width < 400){
-			$scope.nav_cache = true;
-			$scope.resize_cache = true;
-			}else{
-		$scope.resize_cache = false;
-}
-console.log("resize" + $scope.resize_cache);
-console.log("nav" + $scope.nav_cache);
-	})
-	})
-	
-	
-	
-	
-	</script>
-	
--->
 </body>
 
 </html>
