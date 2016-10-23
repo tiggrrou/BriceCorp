@@ -190,6 +190,8 @@ public class Compte implements Serializable{
 		this.soldeAgio = 0;
 		this.decouvert = 0;
 		this.tauxDecouvert = 0;
+		this.seuil = 0;
+		this.tauxRemuneration = 0;
 		this.mouvements = new HashSet<Mouvement>();
 		
 	}

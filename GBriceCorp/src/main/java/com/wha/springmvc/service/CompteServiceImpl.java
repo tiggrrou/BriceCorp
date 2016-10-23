@@ -51,8 +51,7 @@ return dao.findAllComptes();
 	}
 
 	public void updateCompte(Compte compte) {
-//		int index = comptes.indexOf(compte);
-//		comptes.set(index, compte);
+dao.updateCompte(compte);
 	}
 
 	public void deleteCompteById(long compteid) {

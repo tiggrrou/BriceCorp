@@ -24,7 +24,9 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
     };
     return factory;
 
+
     
+
     
     function modifInfo(demande,clientID){
    	 var deferred = $q.defer();

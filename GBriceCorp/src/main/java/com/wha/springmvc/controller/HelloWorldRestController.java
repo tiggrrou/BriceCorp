@@ -53,6 +53,8 @@ public class HelloWorldRestController {
 	//////////////////////////////////////////// DEMANDES////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 
+	
+	
 	// -------------------Demande de generatio nde mot de passe--------------------------------------------------------
 
 	@RequestMapping(value = "/demande/motdepasse/{client_id}", method = RequestMethod.GET)
@@ -130,26 +132,32 @@ public class HelloWorldRestController {
 		System.out.println("validation de la demande de modification de compte " + demande_modificationcompte.getID());
 
 		 try {
-			 if(demande_modificationcompte.getLibelle() != ""){
-				 System.out.println("creation du compte " + demande_modificationcompte.getLibelle());
-				Compte compte = new Compte();
-				compte.setLibelle(demande_modificationcompte.getLibelle());
-				compteService.saveCompte(demande_modificationcompte.getClient().getId(),compte);
-				userService.sendNotificationToAClient("Votre compte "+demande_modificationcompte.getLibelle() + " a ete cree", demande_modificationcompte.getClient().getId());
+			if(demande_modificationcompte.getDecouvert() > 0){
+				 compteService.updateCompte(demande_modificationcompte.getCompte());
+			 
+				userService.sendNotificationToAClient("Votre compte "+demande_modificationcompte.getCompte().getLibelle() + " a ete modifie", demande_modificationcompte.getClient().getId());
 				demandeService.suppressionDemande(demande_modificationcompte.getID(),id_conseiller);
 
-					return new ResponseEntity<Void>(HttpStatus.CREATED);
+				return new ResponseEntity<Void>(HttpStatus.CREATED);
+			 }else if(demande_modificationcompte.isRemunerateur()){
+				 
+				 compteService.updateCompte(demande_modificationcompte.getCompte());
+				userService.sendNotificationToAClient("Votre compte "+demande_modificationcompte.getCompte().getLibelle() + " a ete modifie", demande_modificationcompte.getClient().getId());
+				demandeService.suppressionDemande(demande_modificationcompte.getID(),id_conseiller);
+
+				return new ResponseEntity<Void>(HttpStatus.CREATED);
 			 }else{
-			 
-			 
-			userService.sendNotificationToAClient("Votre compte "+demande_modificationcompte.getCompte().getIBAN() + " a ete modifie", demande_modificationcompte.getClient().getId());
-			demandeService.suppressionDemande(demande_modificationcompte.getID(),id_conseiller);
+				 System.out.println("creation du compte " + demande_modificationcompte.getLibelle());
+					Compte compte = new Compte();
+					compte.setLibelle(demande_modificationcompte.getLibelle());
+					compteService.saveCompte(demande_modificationcompte.getClient().getId(),compte);
+					userService.sendNotificationToAClient("Votre compte "+demande_modificationcompte.getLibelle() + " a ete cree", demande_modificationcompte.getClient().getId());
+					demandeService.suppressionDemande(demande_modificationcompte.getID(),id_conseiller);
 
-			return new ResponseEntity<Void>(HttpStatus.CREATED);
+						return new ResponseEntity<Void>(HttpStatus.CREATED);
 			 }} catch (Exception e) {
-
-			e.printStackTrace();
-			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+				 e.printStackTrace();
+				 return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}
 	}
 	

@@ -25,7 +25,10 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	 self.modifInfo=modifInfo;
 	 self.users=[];
 	 self.genererPassword=genererPassword;
-	 
+	 self.modifAffichRemuneration=modifAffichRemuneration;
+	 self.modifAffichDecouvert=modifAffichDecouvert;
+	 self.modifierRemuneration=modifierRemuneration;
+	 self.modifierDecouvert=modifierDecouvert;
 	 
 	    $scope.menuDemandesCons = [{"id":"inscription", "valeur" :"Ouverture compte"},
 	                               {"id":"chequier", "valeur" :"Chequier"},
@@ -53,6 +56,8 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 		 	console.log("delete session");
 		 };
 		 
+		 
+		 
 	 
 	  function modifInfo(){
 		  var demande={"nom":$scope.currentUser.nom,"prenom":$scope.currentUser.prenom,
@@ -72,8 +77,29 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	     );	 
 	  }
 	 
-	 
-	 
+	  
+	  
+	    function modifAffichRemuneration(){
+	    	$scope.modifierCompteRemuneration = !$scope.modifierCompteRemuneration
+	    }
+	    function modifAffichDecouvert(){
+	    	$scope.modifierCompteDecouvert = !$scope.modifierCompteDecouvert
+	    }	 
+
+		 function modifierRemuneration(demande,tauxRemuneration,seuil)
+		 {
+			demande.compte.seuil = seuil;
+		    demande.compte.tauxRemuneration = tauxRemuneration;
+		    validation_Demande(demande)
+		 }
+		 
+		 function modifierDecouvert(demande,tauxDecouvert,decouvert){
+		   	demande.compte.decouvert = decouvert;
+	    	demande.compte.tauxDecouvert = tauxDecouvert;
+	       	validation_Demande(demande)
+		 }
+	    
+	    
 	    function trier_par(tri){
 	    	//en cours d affinage
 	    	if ($scope.tripar = tri){

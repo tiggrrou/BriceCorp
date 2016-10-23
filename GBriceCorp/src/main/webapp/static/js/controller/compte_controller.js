@@ -4,7 +4,6 @@ App.controller('CompteController', ['$scope','$location', '$route', '$routeParam
     var self = this;
     $scope.compte = {};
     $scope.comptes = [];
-
     $scope.virement;
 
     self.user;
