@@ -63,12 +63,12 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 		  var demande={"nom":$scope.currentUser.nom,"prenom":$scope.currentUser.prenom,
 		             "telephone":$scope.currentUser.telephone,"mail":$scope.currentUser.mail,
 		             "adresse":$scope.currentUser.adresse,"revenu":$scope.currentUser.revenu};	  
-
+console.log($scope.currentUser.id)
 			 DemandeService.modifInfo(demande,$scope.currentUser.id)
 			 .then(
 	                 function() {
 	                	 console.log("demande de modification dinfo perso en cours");
-
+	                	 $location.path("cli/");
 
 	                 },
 	         function(errResponse){
