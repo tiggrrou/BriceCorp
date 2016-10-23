@@ -24,15 +24,22 @@ App.controller('CompteController', ['$scope','$location', '$route', '$routeParam
     self.findComptesByClientId=findComptesByClientId;
     self.findCompteById=findCompteById;
     self.trier_par=trier_par;
+    self.compteDebiteur=compteDebiteur;
+    self.compteExiste=compteExiste;
     
+    
+    
+    function compteDebiteur(compte){
+   		$scope.comptedebiteur = JSON.parse(compte);
+    }  
     
     function trier_par(tri){
     	//en cours d affinage
     	if ($scope.tripar = tri){
     		$scope.sens = !$scope.sens;		
     	}
-    		$scope.tripar = tri;
-        }
+   		$scope.tripar = tri;
+    }
 
     
     
@@ -40,7 +47,26 @@ App.controller('CompteController', ['$scope','$location', '$route', '$routeParam
 	  	 $location.path("/cons/DetailCompte/" + compte_id);
 	   }   
     
+    
+    function compteExiste(compte_id){
+    	$scope.compte_id_existe = "aucun";
+      	CompteService.findCompteById(compte_id)
+    		    	.then(
+    		    			function(data){
+    		    				console.log(data)
+    		    				if(data){
+        		    				console.log(data.id);
+        		    				$scope.compte_id_existe = data.id;	    					
+    		    				}
 
+
+    		    			},
+    		    			function (errResponse){
+    		    				console.error('Error while getting an account from an compte ID')
+    		    			});
+    		    	
+    		    };
+    		    
     function getAllComptesByCons(){
 
       	CompteService.getAllComptesByCons(JSON.parse(sessionStorage.getItem("currentUser")).id)
@@ -211,9 +237,10 @@ $scope.comptes=[];
 
     function virement()
     {
-    	CompteService.virement(	$scope.virement.compteDebiteur, 
-    							($scope.virement.compteCredite == 'Autre')? $scope.virement.compteAutre :$scope.virement.compteCredite, 
-    							$scope.virement.montant)
+    	var compteDebiter = JSON.parse($scope.virement.compteDebiteur).id;
+    	var compteCrediter = ($scope.virement.compteCredite == 'Autre')? $scope.virement.compteAutre :$scope.virement.compteCredite;
+    	if(compteDebiter != compteCrediter){
+        	CompteService.virement(compteDebiter,compteCrediter,$scope.virement.montant)
     		.then(
     				function(){
     					alert("Votre virement a bien ete effectue, retour a la synthese des comptes");
@@ -221,6 +248,16 @@ $scope.comptes=[];
     				},
     				function(messageErreurFromService){
     					alert("Une erreur est survenue pendant le traitement de votre opération")
-    				})
+    				})	
+    		
+    	}else{
+    		alert("Vous ne pouvez pas debiter et crediter le meme compte");
+    		
+    	}
+
     				}
+    
+    
+    
+    
 }]);
