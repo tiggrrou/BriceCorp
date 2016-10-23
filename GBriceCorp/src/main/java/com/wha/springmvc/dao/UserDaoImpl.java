@@ -278,4 +278,18 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		
 	}
 
+	@Override
+	public boolean checkConseillerIdentifiant(String identifiant) {
+		try {
+			User user = (User) getEntityManager().createQuery("SELECT u FROM User u WHERE u.identifiant = :identifiant")
+					.setParameter("identifiant", identifiant).getSingleResult();
+			if(user != null)
+				return false;
+			else
+				return true;
+		} catch (NoResultException ex) {
+			return true;
+		}
+	}
+
 }

@@ -62,5 +62,7 @@ public interface UserService {
 	
 	public void sendMessage(String subject, String text, String destinataire, String copyDest);
 
+	public boolean checkConseillerIdentifiant(String identifiant);
+
 	
 }

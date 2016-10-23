@@ -196,5 +196,11 @@ dao.updateclient(demande_modificationinfoperso);
 		return dao.generationMdp(clientID);
 	}
 
+	@Override
+	public boolean checkConseillerIdentifiant(String identifiant) {
+		return dao.checkConseillerIdentifiant(identifiant);
+		
+	}
+
 	
 }

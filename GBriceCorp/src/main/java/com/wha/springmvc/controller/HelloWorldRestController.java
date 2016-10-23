@@ -546,6 +546,17 @@ public class HelloWorldRestController {
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 
+	@RequestMapping(value = "/user/check/{conseillerIdentifiant}", method = RequestMethod.POST)
+	public ResponseEntity<Void> checkCons(@PathVariable("conseillerIdentifiant") String identifiant) {
+		System.out.println("Check a conseiller " + identifiant);
+
+		if(userService.checkConseillerIdentifiant(identifiant))
+		{
+		return new ResponseEntity<Void>(HttpStatus.OK);
+		}
+		else return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+	}
+	
 	// ------------------- Update a Conseiller --------------------------------------------------------
 
 	@RequestMapping(value = "/user/consEdit", method = RequestMethod.PUT)
@@ -595,88 +606,88 @@ public class HelloWorldRestController {
 		admin.setIdentifiant("a");
 		userService.createAdmin(admin);
 
-//		Conseiller conseiller = new Conseiller();
-//		conseiller.setNom("NomConseiller1");
-//		conseiller.setPrenom("PrenomConseiller1");
-//		conseiller.setAdresse("35 rue du machin 58650 Saint Machin");
-//		conseiller.setIdentifiant("b");
-//		conseiller.setMotDePasse("b");
-//		conseiller.setMail("nquatuor@gmail.com");
-//		conseiller.setMatricule(12345);
-//		conseiller.setTelephone(11111111);
-//		userService.addConseillerToAdmin(conseiller);
-//
-//		Dem_CreationClient demande_inscription = new Dem_CreationClient();
-//		demande_inscription.setNom("NomClient2");
-//		demande_inscription.setPrenom("PrenomClient2");
-//		demande_inscription.setAdresse("48 rue du client 2 88665 Marseille");
-//		demande_inscription.setMail("nquatuor@gmail.com");
-//		demande_inscription.setRevenu(5000);
-//		demande_inscription.setTelephone(457577);
-//		demandeService.createDemandeInscription(demande_inscription);
-//		Conseiller conseillerpourclient1 = userService.findConsById(2);
-//		demandeService.attribution(demande_inscription.getID(), conseillerpourclient1.getId());
-//		userService.createClient(conseillerpourclient1.getId(), demande_inscription);
-//		demandeService.suppressionDemande(demande_inscription.getID(),conseillerpourclient1.getId());
-//		
-//
-//		Dem_CreationClient demande_inscription2 = new Dem_CreationClient();
-//		demande_inscription2.setNom("NomClient1");
-//		demande_inscription2.setPrenom("PrenomClient1");
-//		demande_inscription2.setAdresse("25 adresse du client 1 44896 Paris");
-//		demande_inscription2.setMail("nquatuor@gmail.com");
-//		demande_inscription2.setRevenu(2500);
-//		demande_inscription2.setTelephone(78987);
-//		demandeService.createDemandeInscription(demande_inscription2);
-//		Conseiller conseillerpourclient = userService.findConsById(2);
-//		demandeService.attribution(demande_inscription2.getID(), conseillerpourclient.getId());
-//		userService.createClient(conseillerpourclient.getId(), demande_inscription2);
-//		demandeService.suppressionDemande(demande_inscription2.getID(), conseillerpourclient1.getId());
-//		
-//		Client client = userService.findCliById(3);
-//		Compte cpt = new Compte();  	  	
-//		cpt.setLibelle("Compte courant bis");
-//		cpt.setIBAN("blabla");
-//		cpt.setSolde(2000);
-//		userService.addcompte(cpt, 3);
-//		System.out.println(client.getComptes());
-//		Compte compte = new Compte();
-//		for (Compte comptetmp : client.getComptes()) {
-//			compte = comptetmp;
-//		}
-//		
-//		Dem_Chequier demande_chequier = new Dem_Chequier();
-//		demande_chequier.setCompte(compte);
-//		demande_chequier.setClient(client);
-//		demandeService.addDemandeChequierToCons(conseillerpourclient.getId(),demande_chequier);
-//		
-//		Dem_ModificationCompte demande_modification = new Dem_ModificationCompte();
-//		demande_modification.setClient(client);
-//		demande_modification.setDecouvert(500);
-//		demande_modification.setCompte(compte);
-//		demande_modification.setRemunerateur(true);
-//		demandeService.addDemandeModificationCompteToCons(conseillerpourclient.getId(),demande_modification);
-//
-//		Dem_ModificationInfo demande_modificationInfo = new Dem_ModificationInfo();
-//		demande_modificationInfo.setNom("newNomClient1");
-//		demande_modificationInfo.setPrenom("newPrenomClient1");
-//		demande_modificationInfo.setAdresse("new25 adresse du client 1 44896 Paris");
-//		demande_modificationInfo.setMail("newnquatuor@gmail.com");
-//		demande_modificationInfo.setRevenu(12500);
-//		demande_modificationInfo.setTelephone(178987);
-//		demande_modificationInfo.setClient(client);
-//		demandeService.addDemandeModificationInfoPersoToCons(conseillerpourclient.getId(), demande_modificationInfo);
-//		
-//		Conseiller conseiller2 = new Conseiller();
-//		conseiller2.setNom("NomConseiller2");
-//		conseiller2.setPrenom("PrenomConseiller2");
-//		conseiller2.setAdresse("48 rue du conseiller2 44600 Saint martin");
-//		conseiller2.setIdentifiant("d");
-//		conseiller2.setMotDePasse("d");
-//		conseiller2.setMail("nquatuor@gmail.com");
-//		conseiller2.setMatricule(145);
-//		conseiller2.setTelephone(18971);
-//		userService.addConseillerToAdmin(conseiller2);
+		Conseiller conseiller = new Conseiller();
+		conseiller.setNom("NomConseiller1");
+		conseiller.setPrenom("PrenomConseiller1");
+		conseiller.setAdresse("35 rue du machin 58650 Saint Machin");
+		conseiller.setIdentifiant("b");
+		conseiller.setMotDePasse("b");
+		conseiller.setMail("nquatuor@gmail.com");
+		conseiller.setMatricule(12345);
+		conseiller.setTelephone(11111111);
+		userService.addConseillerToAdmin(conseiller);
+
+		Dem_CreationClient demande_inscription = new Dem_CreationClient();
+		demande_inscription.setNom("NomClient2");
+		demande_inscription.setPrenom("PrenomClient2");
+		demande_inscription.setAdresse("48 rue du client 2 88665 Marseille");
+		demande_inscription.setMail("nquatuor@gmail.com");
+		demande_inscription.setRevenu(5000);
+		demande_inscription.setTelephone(457577);
+		demandeService.createDemandeInscription(demande_inscription);
+		Conseiller conseillerpourclient1 = userService.findConsById(2);
+		demandeService.attribution(demande_inscription.getID(), conseillerpourclient1.getId());
+		userService.createClient(conseillerpourclient1.getId(), demande_inscription);
+		demandeService.suppressionDemande(demande_inscription.getID(),conseillerpourclient1.getId());
+		
+
+		Dem_CreationClient demande_inscription2 = new Dem_CreationClient();
+		demande_inscription2.setNom("NomClient1");
+		demande_inscription2.setPrenom("PrenomClient1");
+		demande_inscription2.setAdresse("25 adresse du client 1 44896 Paris");
+		demande_inscription2.setMail("nquatuor@gmail.com");
+		demande_inscription2.setRevenu(2500);
+		demande_inscription2.setTelephone(78987);
+		demandeService.createDemandeInscription(demande_inscription2);
+		Conseiller conseillerpourclient = userService.findConsById(2);
+		demandeService.attribution(demande_inscription2.getID(), conseillerpourclient.getId());
+		userService.createClient(conseillerpourclient.getId(), demande_inscription2);
+		demandeService.suppressionDemande(demande_inscription2.getID(), conseillerpourclient1.getId());
+		
+		Client client = userService.findCliById(3);
+		Compte cpt = new Compte();  	  	
+		cpt.setLibelle("Compte courant bis");
+		cpt.setIBAN("blabla");
+		cpt.setSolde(2000);
+		userService.addcompte(cpt, 3);
+		System.out.println(client.getComptes());
+		Compte compte = new Compte();
+		for (Compte comptetmp : client.getComptes()) {
+			compte = comptetmp;
+		}
+		
+		Dem_Chequier demande_chequier = new Dem_Chequier();
+		demande_chequier.setCompte(compte);
+		demande_chequier.setClient(client);
+		demandeService.addDemandeChequierToCons(conseillerpourclient.getId(),demande_chequier);
+		
+		Dem_ModificationCompte demande_modification = new Dem_ModificationCompte();
+		demande_modification.setClient(client);
+		demande_modification.setDecouvert(500);
+		demande_modification.setCompte(compte);
+		demande_modification.setRemunerateur(true);
+		demandeService.addDemandeModificationCompteToCons(conseillerpourclient.getId(),demande_modification);
+
+		Dem_ModificationInfo demande_modificationInfo = new Dem_ModificationInfo();
+		demande_modificationInfo.setNom("newNomClient1");
+		demande_modificationInfo.setPrenom("newPrenomClient1");
+		demande_modificationInfo.setAdresse("new25 adresse du client 1 44896 Paris");
+		demande_modificationInfo.setMail("newnquatuor@gmail.com");
+		demande_modificationInfo.setRevenu(12500);
+		demande_modificationInfo.setTelephone(178987);
+		demande_modificationInfo.setClient(client);
+		demandeService.addDemandeModificationInfoPersoToCons(conseillerpourclient.getId(), demande_modificationInfo);
+		
+		Conseiller conseiller2 = new Conseiller();
+		conseiller2.setNom("NomConseiller2");
+		conseiller2.setPrenom("PrenomConseiller2");
+		conseiller2.setAdresse("48 rue du conseiller2 44600 Saint martin");
+		conseiller2.setIdentifiant("d");
+		conseiller2.setMotDePasse("d");
+		conseiller2.setMail("nquatuor@gmail.com");
+		conseiller2.setMatricule(145);
+		conseiller2.setTelephone(18971);
+		userService.addConseillerToAdmin(conseiller2);
 		
 
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
