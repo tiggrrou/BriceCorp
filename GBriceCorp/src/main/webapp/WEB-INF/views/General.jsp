@@ -72,6 +72,9 @@
 							<div class="has-error" ng-show="formConnexion.login.$dirty">
 								<span ng-show="formConnexion.login.$error.required">Champ obligatoire</span>
 							</div>
+							<div class="has-error" ng-show="!LogOK">
+								<span >Identifiants non valides</span>
+							</div>
 						</div>
 					</div>
 					<div class="column">

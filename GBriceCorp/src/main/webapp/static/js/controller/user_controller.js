@@ -53,7 +53,8 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
     $scope.consId;
     $scope.client_id = $routeParams.client_id;
     $scope.compte_id = $routeParams.compte_id;    
-    $scope.$route = $route;      	
+    $scope.$route = $route;
+    $scope.LogOK = true;
     	
     function CheckHasNotifNonLu() {
     	self.hasNotifNonLu = false;
@@ -190,6 +191,7 @@ function trier_par(tri){
  		}, 
  		function (errResponse){
  			console.error('Error while connection');
+ 			$scope.LogOK = false;
  		}
  	);
  }; 
