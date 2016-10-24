@@ -14,7 +14,6 @@
 			<span class="lead">Demandes Clients en attente de traitement</span>
 		</div>
 		<!-- Tableau d'affichage des demandes d'ouverture -->
-
 		<div class="panel-body">
 			<div class="tablecontainer">
 				<table class="table table-hover">
@@ -35,17 +34,26 @@
 						</tr>
 					</thead>
 					<tbody>
+					
 						<tr ng-repeat="Notification in notifications| orderBy:tripar:sens ">
+						
 							<td>{{Notification.message}}</td>
 							<td>{{Notification.dateNotif}}</td>
-							<td><img class="langue" src="static/imgs/drapeau.png"
-								ng-hide="{{Notification.lu}}" ng-click="" /> <img
-								class="langue" src="static/imgs/delete.png"
-								ng-hide="!{{Notification.lu}}" ng-click="" /></td>
+							<td>
+							<img 	class="langue" 
+									src="static/imgs/drapeau.png"
+									ng-hide="Notification.lu" 
+									ng-click="ctrl.switchNotif(Notification)" /> 
+							<img
+									class="langue" 
+									src="static/imgs/delete.png"
+									ng-hide="!Notification.lu" 
+									ng-click="" /></td>
 
 						</tr>
 					</tbody>
 				</table>
+				
 			</div>
 		</div>
 	</div>

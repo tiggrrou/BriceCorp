@@ -50,4 +50,6 @@ public interface UserDao {
 	public void sendNotificationToAClient(String message, long clientID);
 	
 	public boolean checkConseillerIdentifiant(String identifiant);
+	
+	public void modifEtat_Notif(long userID, long notifID);
 }

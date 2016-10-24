@@ -23,6 +23,7 @@ import com.wha.springmvc.model.Dem_CreationClient;
 import com.wha.springmvc.model.Dem_ModificationCompte;
 import com.wha.springmvc.model.Dem_ModificationInfo;
 import com.wha.springmvc.model.Demande;
+import com.wha.springmvc.model.Notification;
 import com.wha.springmvc.model.TypeDemandes;
 import com.wha.springmvc.model.TypeUtilisateur;
 import com.wha.springmvc.model.User;
@@ -100,7 +101,24 @@ public class HelloWorldRestController {
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}
 	}
+	// switch
+	
+	@RequestMapping(value = "/user/switch/{userID}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> switchEtatNotif(@PathVariable("userID") long userID,
+			@RequestBody Notification notif) {
+		System.out.println("Modification de letat d une notif " + userID);
 
+		 try {
+			userService.modifEtat_Notif(userID,notif.getID());
+
+			return new ResponseEntity<Void>(HttpStatus.OK);
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
 	// -------------------Validation Demande Modification d info perso--------------------------------------------------------
 
 	@RequestMapping(value = "/demande/validationmodifinfoperso/{id_conseil}", method = RequestMethod.PUT)

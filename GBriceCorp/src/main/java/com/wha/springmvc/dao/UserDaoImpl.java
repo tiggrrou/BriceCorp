@@ -292,4 +292,20 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		}
 	}
 
+	@Override
+	public void modifEtat_Notif(long userID, long notifID) {
+		Client user = (Client) getEntityManager().createQuery("SELECT u FROM Client u WHERE u.id = :id")
+				.setParameter("id", userID).getSingleResult();
+		
+		Set<Notification> notifs = user.getNotifications();
+		for (Notification notification : notifs) {
+			if (notification.getID() == notifID)
+			{
+				notification.setLu(true);
+				break;
+			}
+		}
+		user.setNotifications(notifs);
+	}
+
 }

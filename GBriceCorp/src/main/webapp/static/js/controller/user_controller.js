@@ -44,6 +44,7 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
     self.validEditCons = validEditCons;
     self.populate_dummy=populate_dummy;
     self.checkCreaCons = checkCreaCons;
+    self.switchNotif = switchNotif;
     
     
     $scope.cons;  	
@@ -54,7 +55,18 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
     	
     	
     	
-    	
+    function switchNotif(notifSwitched) {
+    	UserService.switchNotif(JSON.parse(sessionStorage.getItem("currentUser")).id, notifSwitched)
+        .then(
+        function(d) {
+        	refreshUser();
+        	getNotifs();
+        },
+        function(errResponse){
+            console.error('Error while refreshing CurrentUser');
+        }
+    );
+    }
     	
     	
 	// Responsive des div partie_commune et banniere en fonction de la navbar
@@ -445,8 +457,10 @@ function refreshUser(){
     
     //* validation d'edition conseiller 
     function validEditCons() {
-    		console.log('conseiller en cours : ' + self.cons);
-            UserService.updateCons(self.cons)
+    		console.log('conseiller en cours : ' + $scope.cons);
+    		$scope.cons.clients = null;
+    		$scope.cons.demandes = null;
+            UserService.updateCons($scope.cons)
             .then(
             		function(d){
             			$location.path("admin/Admin_RechCons");	

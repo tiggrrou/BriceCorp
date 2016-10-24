@@ -202,5 +202,11 @@ dao.updateclient(demande_modificationinfoperso);
 		
 	}
 
+	@Override
+	public void modifEtat_Notif(long userID, long notifID) {
+		dao.modifEtat_Notif(userID,notifID );
+		
+	}
+
 	
 }
