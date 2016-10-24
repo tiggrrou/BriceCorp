@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.wha.springmvc.dao.CompteDao;
 import com.wha.springmvc.model.Client;
 import com.wha.springmvc.model.Compte;
+import com.wha.springmvc.model.Mouvement;
 
 @Service("compteService")
 @Transactional
@@ -68,8 +69,8 @@ dao.updateCompte(compte);
 	}
 
 	@Override
-	public void mouvement(float montant, long compteDebiteurID, long compteCrediteurID) {
-		dao.mouvement(montant, compteDebiteurID, compteCrediteurID);
+	public Mouvement mouvement(float montant, long compteDebiteurID, long compteCrediteurID) {
+		return dao.mouvement(montant, compteDebiteurID, compteCrediteurID);
 		
 	}
 

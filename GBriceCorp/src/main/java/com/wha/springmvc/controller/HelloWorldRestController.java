@@ -23,6 +23,7 @@ import com.wha.springmvc.model.Dem_CreationClient;
 import com.wha.springmvc.model.Dem_ModificationCompte;
 import com.wha.springmvc.model.Dem_ModificationInfo;
 import com.wha.springmvc.model.Demande;
+import com.wha.springmvc.model.Mouvement;
 import com.wha.springmvc.model.Notification;
 import com.wha.springmvc.model.TypeDemandes;
 import com.wha.springmvc.model.TypeUtilisateur;
@@ -510,13 +511,15 @@ public class HelloWorldRestController {
 		// --------------------------------------------------------
 
 			@RequestMapping(value = "/demande/remuneration/{idClient}&{compteId}", method = RequestMethod.POST)
-			public ResponseEntity<Void> DemandeRemun(@RequestBody Dem_ModificationCompte demande_Remuneration,
-																		@PathVariable("idClient") long idClient,
-																		@PathVariable("compteId") int compteId) {
+			public ResponseEntity<Void> DemandeRemun(@PathVariable("idClient") long idClient,
+													 @PathVariable("compteId") int compteId) {
 				Client client = userService.findCliById(idClient);
+				
+				Dem_ModificationCompte demande_Remuneration = new Dem_ModificationCompte();
+				
 				demande_Remuneration.setClient(client);
 				demande_Remuneration.setCompte(compteService.findCompteById(compteId));
-				System.out.println("Creating demande de decouvert " + demande_Remuneration);
+				System.out.println("Creating demande de Remuneration " + demande_Remuneration);
 
 				demandeService.addDemandeModificationCompteToCons(demande_Remuneration.getClient().getConseiller(),demande_Remuneration);
 
@@ -528,14 +531,16 @@ public class HelloWorldRestController {
 			// --------------------------------------------------------
 
 				@RequestMapping(value = "/demande/chequier/{idClient}&{compteId}", method = RequestMethod.POST)
-				public ResponseEntity<Void> DemandeChequier(@RequestBody Dem_Chequier demande_Chequier,
-																			@PathVariable("idClient") long idClient,
-																			@PathVariable("compteId") int compteId) {
+				public ResponseEntity<Void> DemandeChequier(@PathVariable("idClient") long idClient,
+															@PathVariable("compteId") int compteId) {
 					Client client = userService.findCliById(idClient);
+					
+					Dem_Chequier demande_Chequier = new Dem_Chequier();
+					
 					demande_Chequier.setClient(client);
 					demande_Chequier.setCompte(compteService.findCompteById(compteId));
 					System.out.println("Creating demande de chequier " + demande_Chequier);
-
+					
 					demandeService.addDemandeChequierToCons(demande_Chequier.getClient().getConseiller(),demande_Chequier);
 
 					return new ResponseEntity<Void>(HttpStatus.CREATED);
@@ -752,7 +757,7 @@ public class HelloWorldRestController {
 	@RequestMapping(value = "/compte/virement/{Debiteur}&{Crediteur}&{Montant}", method = RequestMethod.POST)
 	public ResponseEntity<Void> virement(@PathVariable("Debiteur") long debiteur,
 			@PathVariable("Crediteur") long crediteur, @PathVariable("Montant") float montant) {
-		compteService.mouvement(montant, debiteur ,crediteur);
+		Mouvement mouvementDebit = compteService.mouvement(montant, debiteur ,crediteur);
 		Client clientDebit = compteService.findOwnerByCountID(debiteur);
 		Client clientCredit = compteService.findOwnerByCountID(crediteur);
 		if (clientCredit.getId() != clientDebit.getId())
@@ -760,6 +765,10 @@ public class HelloWorldRestController {
 			String message = "vous avez été crédité de " + montant + " de la part de " 
 						 	 + clientDebit.getPrenom() + " " + clientDebit.getNom();
 			userService.sendNotificationToAClient(message, clientCredit.getId());
+			
+			String messageDebiteur = "Vous avez été débité de " + montant + " au profit de " 
+				 	 + clientCredit.getPrenom() + " " + clientCredit.getNom() +". L'operation est identifiable sous la référence suivante: " + mouvementDebit.getID()  ;
+			userService.sendNotificationToAClient(messageDebiteur, clientDebit.getId());
 		}
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}

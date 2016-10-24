@@ -90,7 +90,7 @@ public class CompteDaoImpl extends AbstractDao<Integer, Compte> implements Compt
 	}
 
 	@Override
-	public void mouvement(float montant, long compteDebiteurID, long compteCrediteurID) {
+	public Mouvement mouvement(float montant, long compteDebiteurID, long compteCrediteurID) {
 		
 		Compte compteDebite = findCompteById(compteDebiteurID);
 		//opération de débit
@@ -114,7 +114,7 @@ public class CompteDaoImpl extends AbstractDao<Integer, Compte> implements Compt
 		mvtCredit.setLibelle("Credit depuis compte " + compteDebiteurID);
 		compteCredite.getMouvements().add(mvtCredit);
 
-		
+		return mvtDebit;
 		
 	}
 

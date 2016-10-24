@@ -8,6 +8,8 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
     	fetchDemandesWithType:fetchDemandesWithType,
     	createDemandeInscription:createDemandeInscription,
         writeDemDecou:writeDemDecou,
+        writeDemRemu:writeDemRemu,
+        writeDemChequier:writeDemChequier,
         attributionConseiller:attributionConseiller,
         findDemandeById:findDemandeById,
         validation_CreationCompteClient:validation_CreationCompteClient,
@@ -278,6 +280,38 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
     function writeDemDecou (userID, compteID, demDecouvert) {
     	var deferred = $q.defer();
     	$http.post(REST_SERVICE_URI+'decouvert/'+userID+"&"+compteID, demDecouvert)
+    	.then(
+    			//reponse OK du serveur
+    			function (){
+    				deferred.resolve();
+    			},
+    			//reponse pas cool du serveur
+    			function(reponseServeur){
+    				deferred.reject(reponseServeur);
+    			}
+    	)
+    	return deferred.promise;
+    } 
+    
+    function writeDemChequier (userID, compteID) {
+    	var deferred = $q.defer();
+    	$http.post(REST_SERVICE_URI+'chequier/'+userID+"&"+compteID)
+    	.then(
+    			//reponse OK du serveur
+    			function (){
+    				deferred.resolve();
+    			},
+    			//reponse pas cool du serveur
+    			function(reponseServeur){
+    				deferred.reject(reponseServeur);
+    			}
+    	)
+    	return deferred.promise;
+    } 
+    
+    function writeDemRemu (userID, compteID) {
+    	var deferred = $q.defer();
+    	$http.post(REST_SERVICE_URI+'remuneration/'+userID+"&"+compteID)
     	.then(
     			//reponse OK du serveur
     			function (){
