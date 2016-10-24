@@ -23,11 +23,28 @@ App.factory('DemandeService', ['$http', '$q', function($http, $q){
         listeJustificatifs:listeJustificatifs,
         modifInfo:modifInfo,
         fetchAllDemandesInsAffectees:fetchAllDemandesInsAffectees,
-        genererPassword:genererPassword
+        genererPassword:genererPassword,
+        download:download
     };
     return factory;
 
     
+    
+    function download(file)
+    {
+    	var deferred = $q.defer();
+        $http.put(REST_SERVICE_URI+'download',file)
+            .then(
+            function (response) {
+                deferred.resolve(response.data);
+            },
+            function(errResponse){
+                console.error('Error while download');
+                deferred.reject(errResponse);
+            }
+        );
+        return deferred.promise;
+    }  
     function fetchAllDemandesInsAffectees ()
     {
     	var deferred = $q.defer();

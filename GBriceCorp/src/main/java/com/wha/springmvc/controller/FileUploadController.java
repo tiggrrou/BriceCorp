@@ -1,6 +1,7 @@
 package com.wha.springmvc.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -9,7 +10,10 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.FileCopyUtils;
@@ -17,6 +21,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -122,6 +127,36 @@ public class FileUploadController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return new ResponseEntity<List<Justificatif>>(HttpStatus.NO_CONTENT);
+		}		
+				
+
+	
+
+		
+	
+	}
+	
+	// -------------------download file--------------------------------------------------------
+
+	@RequestMapping(value = "/demande/download", method = RequestMethod.PUT)
+	public ResponseEntity<InputStreamResource> download(@RequestBody String file) {
+		System.out.println("fetch file " + file);
+		
+		try {
+			
+		    File downloadfile = new File(file);
+		   
+		    HttpHeaders respHeaders = new HttpHeaders();
+		    respHeaders.setContentType(MediaType.APPLICATION_PDF);
+		    respHeaders.setContentLength(downloadfile.length());
+		    respHeaders.setContentDispositionFormData("attachment", downloadfile.getName());
+		    InputStreamResource isr = new InputStreamResource(new FileInputStream(downloadfile));
+		    return new ResponseEntity<InputStreamResource>(isr, respHeaders, HttpStatus.OK);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new ResponseEntity<InputStreamResource>(HttpStatus.NO_CONTENT);
 		}		
 				
 
