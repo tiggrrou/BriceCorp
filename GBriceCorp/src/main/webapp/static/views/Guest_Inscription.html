@@ -91,8 +91,9 @@
 									class="form-control input-sm"
 									placeholder="Entrez votre email" 
 									required />
-							<div class="has-error" ng-show="formInscription.email.$dirty">
-								<span ng-show="formInscription.email.$error.required">Champ	obligatoire</span>
+							<div class="has-error" ng-show="formInscription.mail.$dirty">
+								<span ng-show="formInscription.mail.$error.required">Champ	obligatoire</span>
+								<span ng-show="formInscription.mail.$error.email">Email non valide</span>
 							</div>
 						</div>
 					</div>
