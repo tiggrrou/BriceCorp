@@ -220,7 +220,7 @@ Decouvert autorise :
 			</thead>
 			<tbody>
 				<tr
-					ng-repeat="mouvement in compte.mouvements | orderBy:tripar:sens ">
+					ng-repeat="mouvement in demande.compte.mouvements | orderBy:tripar:sens ">
 					<td>{{mouvement.libelle}}</td>
 					<td>{{mouvement.dateMouvement}}</td>
 					<td>{{mouvement.montant}}</td>
