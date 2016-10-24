@@ -174,13 +174,13 @@
 		<span class="lead">Demandes à mon conseiller
 		</span>
 	</div>
-	<form ng-submit="cptctrl.writeDemDecou()" name="demDecou">
+	<form ng-submit="cptctrl.writeDemDecou(compte_id)" name="demDecou">
 		<div class="panel panel-info" layout="colomn">
 
 					Quel decouvert souhaiteriez vous avoir? (attention ce montant ne
 					peut pas exceder 40% de vos revenus mensuels) <input type="number"
 						max="{{ctrl.currentUser.revenu * 0.4}}" min="0"
-						ng-model="demDecouvert.montant" name="demDecouvert"
+						ng-model="demDecouvert.decouvert" name="demDecouvert"
 						class="form-control input-sm" required />
 		</div>
 		<div class="has-error" ng-show="demDecou.$dirty">
@@ -197,7 +197,7 @@
 
 				</div>
 			</form>
-			<form ng-submit="cptctrl.writeDemChequier()" name="demChequier">
+			<form ng-submit="cptctrl.writeDemChequier(compte.id)" name="demChequier">
 				<div class="panel panel-info" layout="colomn">
 
 					Vous souhaitez avoir un chéquier pour ce compte? </div>
@@ -209,7 +209,7 @@
 					</div>
 				</div>
 			</form>
-			<form ng-submit="cptctrl.writeDemRemu()" name="demRemu">
+			<form ng-submit="cptctrl.writeDemRemu(compte.id)" name="demRemu">
 				<div class="panel panel-info" layout="colomn">
 
 					Vous souhaitez que ce compte devienne rémunérateur? </div>

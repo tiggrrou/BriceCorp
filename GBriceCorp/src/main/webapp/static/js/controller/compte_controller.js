@@ -258,36 +258,36 @@ $scope.comptes=[];
 
     				}
     
-    function writeDemDecou() {
-    	DemandeService.writeDemDecou(JSON.parse(sessionStorage.getItem("currentUser")).id, $scope.compte.id, $scope.demDecouvert)
+    function writeDemDecou(compteId) {
+    	DemandeService.writeDemDecou(JSON.parse(sessionStorage.getItem("currentUser")).id, compteId, $scope.demDecouvert)
     			.then(
     					function(){
     						// cas normal, pop up ?
-    						alert("Votre demande a bien été transmise")
+    						alert("Votre demande de découvert a bien été transmise")
     					},
     					function(messageErreurFromService){
     						alert("Une erreur est survenue pendant la création de votre demande de Decouvert \n" + messageErreurFromService )
     					})
     }; 
     
-    function writeDemRemu() {
-    	DemandeService.writeDemRemu(JSON.parse(sessionStorage.getItem("currentUser")).id, $scope.compte.id, $scope.demRemu)
+    function writeDemRemu(compteId) {
+    	DemandeService.writeDemRemu(JSON.parse(sessionStorage.getItem("currentUser")).id, compteId, $scope.demRemu)
     			.then(
     					function(){
     						// cas normal, pop up ?
-    						alert("Votre demande a bien été transmise")
+    						alert("Votre demande de Temunération sur compte a bien été transmise")
     					},
     					function(messageErreurFromService){
     						alert("Une erreur est survenue pendant la création de votre demande de Remuneration \n" + messageErreurFromService )
     					})
     };
     
-    function writeDemChequier() {
-    	DemandeService.writeDemChequier(JSON.parse(sessionStorage.getItem("currentUser")).id, $scope.compte.id, $scope.demChequier)
+    function writeDemChequier(compteId) {
+    	DemandeService.writeDemChequier(JSON.parse(sessionStorage.getItem("currentUser")).id, compteId , $scope.demChequier)
     			.then(
     					function(){
     						// cas normal, pop up ?
-    						alert("Votre demande a bien été transmise")
+    						alert("Votre demande de chéquier a bien été transmise")
     					},
     					function(messageErreurFromService){
     						alert("Une erreur est survenue pendant la création de votre demande de chéquier \n" + messageErreurFromService )
