@@ -208,5 +208,11 @@ dao.updateclient(demande_modificationinfoperso);
 		
 	}
 
+	@Override
+	public void delete_Notif(long userID, long id) {
+		dao.delete_Notif(userID, id);
+		
+	}
+
 	
 }

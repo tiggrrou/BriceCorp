@@ -52,4 +52,6 @@ public interface UserDao {
 	public boolean checkConseillerIdentifiant(String identifiant);
 	
 	public void modifEtat_Notif(long userID, long notifID);
+	
+	public void delete_Notif(long userID, long id);
 }

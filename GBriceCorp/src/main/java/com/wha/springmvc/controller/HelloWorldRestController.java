@@ -120,6 +120,24 @@ public class HelloWorldRestController {
 		}
 	}
 	
+	// delete notif
+	
+	@RequestMapping(value = "/user/deleteNotif/{userID}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> deleteNotif(@PathVariable("userID") long userID,
+			@RequestBody Notification notif) {
+		System.out.println("Modification de letat d une notif " + userID);
+
+		 try {
+			userService.delete_Notif(userID,notif.getID());
+
+			return new ResponseEntity<Void>(HttpStatus.OK);
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
 	// -------------------Validation Demande Modification d info perso--------------------------------------------------------
 
 	@RequestMapping(value = "/demande/validationmodifinfoperso/{id_conseil}", method = RequestMethod.PUT)

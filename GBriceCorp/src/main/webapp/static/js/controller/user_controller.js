@@ -47,7 +47,7 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
     self.switchNotif = switchNotif;
     self.CheckHasNotifNonLu = CheckHasNotifNonLu;
     self.hasNotifNonLu = false;
-    
+    self.deleteNotif = deleteNotif;
     
     $scope.cons;  	
     $scope.consId;
@@ -68,6 +68,18 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
     	
     function switchNotif(notifSwitched) {
     	UserService.switchNotif(JSON.parse(sessionStorage.getItem("currentUser")).id, notifSwitched)
+        .then(
+        function(d) {
+        	refreshUser();
+        },
+        function(errResponse){
+            console.error('Error while refreshing CurrentUser');
+        }
+    );
+    }
+    
+    function deleteNotif(notifSwitched) {
+    	UserService.deleteNotif(JSON.parse(sessionStorage.getItem("currentUser")).id, notifSwitched)
         .then(
         function(d) {
         	refreshUser();
