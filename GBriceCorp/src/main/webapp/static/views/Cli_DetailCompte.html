@@ -197,30 +197,25 @@
 
 				</div>
 			</form>
-			<form ng-submit="cptctrl.writeDemChequier(compte.id)" name="demChequier">
-				<div class="panel panel-info" layout="colomn">
-
+			<div class="panel panel-info" layout="colomn">
 					Vous souhaitez avoir un chéquier pour ce compte? </div>
 				<div class="row">
 					<div class="form-actions floatRight">
-						<input type="submit"
-							value="Soumettre ma demande à  mon conseiller"
-							class="btn btn-primary btn-sm" >
-					</div>
+						<button ng-model ="DemChequier"  value="Soumettre ma demande à  mon conseiller"
+							class="btn btn-primary btn-sm" ng-click="cptctrl.writeDemChequier(compte_id)" >
+							Soumettre ma demande à  mon conseiller</button>
 				</div>
-			</form>
-			<form ng-submit="cptctrl.writeDemRemu(compte.id)" name="demRemu">
-				<div class="panel panel-info" layout="colomn">
+			</div>
+			<div class="panel panel-info" layout="colomn">
 
 					Vous souhaitez que ce compte devienne rémunérateur? </div>
 				<div class="row">
 					<div class="form-actions floatRight">
-						<input type="submit"
-							value="Soumettre ma demande à  mon conseiller"
-							class="btn btn-primary btn-sm" >
+						<button ng-model ="DemRemu"  value="Soumettre ma demande à  mon conseiller"
+							class="btn btn-primary btn-sm" ng-click="cptctrl.writeDemRemu(compte_id)" >
+							Soumettre ma demande à  mon conseiller</button>
 					</div>
 				</div>
-			</form>
 			</div>
 
 

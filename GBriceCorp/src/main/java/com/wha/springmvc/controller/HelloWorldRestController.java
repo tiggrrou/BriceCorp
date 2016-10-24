@@ -492,13 +492,15 @@ public class HelloWorldRestController {
 		// --------------------------------------------------------
 
 			@RequestMapping(value = "/demande/remuneration/{idClient}&{compteId}", method = RequestMethod.POST)
-			public ResponseEntity<Void> DemandeRemun(@RequestBody Dem_ModificationCompte demande_Remuneration,
-																		@PathVariable("idClient") long idClient,
-																		@PathVariable("compteId") int compteId) {
+			public ResponseEntity<Void> DemandeRemun(@PathVariable("idClient") long idClient,
+													 @PathVariable("compteId") int compteId) {
 				Client client = userService.findCliById(idClient);
+				
+				Dem_ModificationCompte demande_Remuneration = new Dem_ModificationCompte();
+				
 				demande_Remuneration.setClient(client);
 				demande_Remuneration.setCompte(compteService.findCompteById(compteId));
-				System.out.println("Creating demande de decouvert " + demande_Remuneration);
+				System.out.println("Creating demande de Remuneration " + demande_Remuneration);
 
 				demandeService.addDemandeModificationCompteToCons(demande_Remuneration.getClient().getConseiller(),demande_Remuneration);
 
@@ -510,14 +512,16 @@ public class HelloWorldRestController {
 			// --------------------------------------------------------
 
 				@RequestMapping(value = "/demande/chequier/{idClient}&{compteId}", method = RequestMethod.POST)
-				public ResponseEntity<Void> DemandeChequier(@RequestBody Dem_Chequier demande_Chequier,
-																			@PathVariable("idClient") long idClient,
-																			@PathVariable("compteId") int compteId) {
+				public ResponseEntity<Void> DemandeChequier(@PathVariable("idClient") long idClient,
+															@PathVariable("compteId") int compteId) {
 					Client client = userService.findCliById(idClient);
+					
+					Dem_Chequier demande_Chequier = new Dem_Chequier();
+					
 					demande_Chequier.setClient(client);
 					demande_Chequier.setCompte(compteService.findCompteById(compteId));
 					System.out.println("Creating demande de chequier " + demande_Chequier);
-
+					
 					demandeService.addDemandeChequierToCons(demande_Chequier.getClient().getConseiller(),demande_Chequier);
 
 					return new ResponseEntity<Void>(HttpStatus.CREATED);

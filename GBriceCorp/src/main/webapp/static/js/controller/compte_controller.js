@@ -26,6 +26,8 @@ App.controller('CompteController', ['$scope','$location', '$route', '$routeParam
     self.compteDebiteur=compteDebiteur;
     self.compteExiste=compteExiste;
 	self.writeDemDecou=writeDemDecou;
+	self.writeDemRemu=writeDemRemu;
+	self.writeDemChequier=writeDemChequier;
     
     
     
@@ -256,7 +258,7 @@ $scope.comptes=[];
     		
     	}
 
-    				}
+    				};
     
     function writeDemDecou(compteId) {
     	DemandeService.writeDemDecou(JSON.parse(sessionStorage.getItem("currentUser")).id, compteId, $scope.demDecouvert)
@@ -271,11 +273,11 @@ $scope.comptes=[];
     }; 
     
     function writeDemRemu(compteId) {
-    	DemandeService.writeDemRemu(JSON.parse(sessionStorage.getItem("currentUser")).id, compteId, $scope.demRemu)
+    	DemandeService.writeDemRemu(JSON.parse(sessionStorage.getItem("currentUser")).id, compteId)
     			.then(
     					function(){
     						// cas normal, pop up ?
-    						alert("Votre demande de Temunération sur compte a bien été transmise")
+    						alert("Votre demande de Rémunération sur compte a bien été transmise")
     					},
     					function(messageErreurFromService){
     						alert("Une erreur est survenue pendant la création de votre demande de Remuneration \n" + messageErreurFromService )
@@ -283,7 +285,7 @@ $scope.comptes=[];
     };
     
     function writeDemChequier(compteId) {
-    	DemandeService.writeDemChequier(JSON.parse(sessionStorage.getItem("currentUser")).id, compteId , $scope.demChequier)
+    	DemandeService.writeDemChequier(JSON.parse(sessionStorage.getItem("currentUser")).id, compteId )
     			.then(
     					function(){
     						// cas normal, pop up ?
