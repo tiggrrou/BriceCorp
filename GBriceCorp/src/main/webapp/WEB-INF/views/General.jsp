@@ -55,7 +55,7 @@
 		<div id="contenu_navbar" class="contenu_navbar">
 			<img id="logo" src="static/imgs/logo.png" ng-click="ctrl.populate_dummy()"/>
 			<!-- Menu de connexion  -->
-			<div class="formcontainer" ng-if="!connexion_cache">
+			<div class="formcontainer" ng-hide="connexion_cache">
 				<form ng-submit="ctrl.connect()" name="formConnexion"
 					class="form-horizontal">
 					<input type="hidden" ng-model="ctrl.user.id" />
@@ -107,7 +107,7 @@
 			</div>
 
 			<!-- Menu du Conseiller -->
-			<div class="container-fluid " ng-if="!conseiller_cache">
+			<div class="container-fluid " ng-hide="conseiller_cache">
 				<div class="list-group">
 					<!-- Recherche client  -->
 					<a href="#/cons/Cons_RechCli" class="list-group-item"
@@ -162,7 +162,7 @@
 
 
 			<!-- Menu du Client -->
-			<div class="container-fluid" ng-if="!client_cache">
+			<div class="container-fluid" ng-hide="client_cache">
 				<div class="list-group">
 				<!-- Synthese des comptes -->
 					<a href="#/cli/Cli_ListeComptes" class="list-group-item"
@@ -200,7 +200,7 @@
 			</div>
 
 			<!-- Menu de l'administrateur -->
-			<div class="container-fluid" ng-if="!admin_cache">
+			<div class="container-fluid" ng-hide="admin_cache">
 				<div class="list-group">
 					<!-- Tableau des demandes -->
 					<a href="#/admin/Admin_AffectCli" class="list-group-item"
