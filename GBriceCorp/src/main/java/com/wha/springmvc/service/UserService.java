@@ -64,5 +64,7 @@ public interface UserService {
 
 	public boolean checkConseillerIdentifiant(String identifiant);
 
+	public void modifEtat_Notif(long userID, long id);
+
 	
 }

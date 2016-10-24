@@ -20,7 +20,8 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         deleteCons:deleteCons,
         getClient:getClient,
         getClientByCompteId:getClientByCompteId,
-        checkCreaCons:checkCreaCons
+        checkCreaCons:checkCreaCons,
+        switchNotif:switchNotif
     };
 
     var user = {
@@ -28,6 +29,23 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
     		};
 
     return factory;
+    
+    
+    function switchNotif(userID, notifSwitched)
+    {
+    	var deferred = $q.defer();
+        $http.put(REST_SERVICE_URI+ "switch/" + userID, notifSwitched)
+            .then(
+            function (response) {
+                deferred.resolve(response.data);
+            },
+            function(errResponse){
+                console.error('Error while fetching Users');
+                deferred.reject(errResponse);
+            }
+        );
+        return deferred.promise;
+    }
     
     function checkCreaCons(consID)
     {
