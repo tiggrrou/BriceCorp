@@ -84,7 +84,7 @@
 					<td>{{justificatif.type}}</td>
 					<td>{{justificatif.date}}</td>
 					<td><a
-						href="{{justificatif.path}}{{justificatif.nomDuFichier}}"><img
+						ng-click="dmdctrl.download(justificatif.path,justificatif.nomDuFichier)" download><img
 							class="icone" src="static/imgs/download.png" /></a></td>
 				</tr>
 			</tbody>

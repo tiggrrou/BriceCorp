@@ -20,7 +20,6 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	 self.findDemandeById=findDemandeById;
 	 self.getClient=getClient;
 	 self.trier_par=trier_par;
-	 self.openFile=openFile;
 	 self.modifInfo=modifInfo;
 	 self.users=[];
 	 self.fetchAllDemandesInsAffectees = fetchAllDemandesInsAffectees;
@@ -29,6 +28,8 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	 self.modifAffichDecouvert=modifAffichDecouvert;
 	 self.modifierRemuneration=modifierRemuneration;
 	 self.modifierDecouvert=modifierDecouvert;
+	 self.download=download;
+	 
 	 
 	    $scope.menuDemandesCons = [{"id":"inscription", "valeur" :"Ouverture compte"},
 	                               {"id":"chequier", "valeur" :"Chequier"},
@@ -49,8 +50,27 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 
 	    $scope.demande={};
 	    $scope.demandes=[];
-	 self.demandeCreationClient;
 
+
+	  function download(path,nomDuFichier){
+			 DemandeService.download(path+nomDuFichier)
+			 .then(
+	                 function(data) {
+	                	 console.log("ouverture du fichier");
+	                	 var url = URL.createObjectURL(new Blob([data]));
+	                     var a = document.createElement('a');
+	                     a.href = url;
+	                     a.download = nomDuFichier;
+	                     a.target = '_blank';
+	                     a.click();
+	
+	                 },
+	         function(errResponse){
+	             console.error('Erreur le download');
+	         }
+	     );	 
+	  }
+	 
 	  function session_delete(){
 		 	sessionStorage.clear();
 				$location.path("/");
@@ -105,10 +125,7 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	    		$scope.tripar = tri;
 	        }
 	    
-	    function openFile(url){
-	    	console.log(url)
-	    window.open ("File:///"+url,"mywindow","menubar=1,resizable=1,width=350,height=250");
-	    }
+
 	 
 	 	/* Recherche d'un conseiller par son ID */
 		function getConsById(){
