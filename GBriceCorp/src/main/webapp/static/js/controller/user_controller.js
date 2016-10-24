@@ -457,8 +457,10 @@ function refreshUser(){
     
     //* validation d'edition conseiller 
     function validEditCons() {
-    		console.log('conseiller en cours : ' + self.cons);
-            UserService.updateCons(self.cons)
+    		console.log('conseiller en cours : ' + $scope.cons);
+    		$scope.cons.clients = null;
+    		$scope.cons.demandes = null;
+            UserService.updateCons($scope.cons)
             .then(
             		function(d){
             			$location.path("admin/Admin_RechCons");	
