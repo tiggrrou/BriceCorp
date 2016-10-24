@@ -47,7 +47,7 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
     self.switchNotif = switchNotif;
     self.CheckHasNotifNonLu = CheckHasNotifNonLu;
     self.hasNotifNonLu = false;
-    
+    self.deleteNotif = deleteNotif;
     
     $scope.cons;  	
     $scope.consId;
@@ -71,7 +71,18 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
         .then(
         function(d) {
         	refreshUser();
-        	getNotifs();
+        },
+        function(errResponse){
+            console.error('Error while refreshing CurrentUser');
+        }
+    );
+    }
+    
+    function deleteNotif(notifSwitched) {
+    	UserService.deleteNotif(JSON.parse(sessionStorage.getItem("currentUser")).id, notifSwitched)
+        .then(
+        function(d) {
+        	refreshUser();
         },
         function(errResponse){
             console.error('Error while refreshing CurrentUser');
@@ -230,6 +241,7 @@ function refreshUser(){
         function(d) {
         	sessionStorage.setItem("currentUser",JSON.stringify(d));
         	self.currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+        	getNotifs();
         },
         function(errResponse){
             console.error('Error while refreshing CurrentUser');
@@ -389,6 +401,7 @@ function refreshUser(){
 //    				console.error('Error while getting Notifications')
 //    			})
     	$scope.notifications = JSON.parse(sessionStorage.getItem("currentUser")).notifications;
+    	CheckHasNotifNonLu();
     };
     
     

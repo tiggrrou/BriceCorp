@@ -66,5 +66,7 @@ public interface UserService {
 
 	public void modifEtat_Notif(long userID, long id);
 
+	public void delete_Notif(long userID, long id);
+
 	
 }

@@ -21,7 +21,8 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         getClient:getClient,
         getClientByCompteId:getClientByCompteId,
         checkCreaCons:checkCreaCons,
-        switchNotif:switchNotif
+        switchNotif:switchNotif,
+        deleteNotif:deleteNotif
     };
 
     var user = {
@@ -40,7 +41,23 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
                 deferred.resolve(response.data);
             },
             function(errResponse){
-                console.error('Error while fetching Users');
+                console.error('Error while switching notifs');
+                deferred.reject(errResponse);
+            }
+        );
+        return deferred.promise;
+    }
+    
+    function deleteNotif(userID, notifSwitched)
+    {
+    	var deferred = $q.defer();
+        $http.put(REST_SERVICE_URI+ "deleteNotif/" + userID, notifSwitched)
+            .then(
+            function (response) {
+                deferred.resolve(response.data);
+            },
+            function(errResponse){
+                console.error('Error while deleting Notif');
                 deferred.reject(errResponse);
             }
         );

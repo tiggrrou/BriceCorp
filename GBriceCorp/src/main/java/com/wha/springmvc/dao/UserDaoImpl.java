@@ -308,4 +308,15 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		user.setNotifications(notifs);
 	}
 
+	@Override
+	public void delete_Notif(long userID, long id) {
+		Client user = (Client) getEntityManager().createQuery("SELECT u FROM Client u WHERE u.id = :id")
+				.setParameter("id", userID).getSingleResult();
+		Notification notif = (Notification) getEntityManager().createQuery("SELECT u FROM Notification u WHERE u.id = :id")
+				.setParameter("id", id).getSingleResult();
+		
+		user.getNotifications().remove(notif);
+
+	}
+
 }
