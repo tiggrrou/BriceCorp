@@ -73,20 +73,19 @@
 											obligatoire</span>
 									</div>
 								</div>
-							</div>
-						</div>
-						<div class="row" ng-if="compte_id_existe == 'aucun' ">
-							<div class="form-group col-md-12">						
+
+							<div class="form-group col-md-12" ng-if="compte_id_existe == 'aucun' ">						
 								<h1 >Ce compte n'existe pas</h1>
 								<input type="hidden" ng-model="virement.controleCompteExiste" name="controleCompteExiste" class="form-control input-sm" required />
 							</div>
-						</div>		
-						<div class="row" ng-if="compte_id_existe == comptedebiteur.id && comptedebiteur.id">
-							<div class="form-group col-md-12">						
+
+							<div class="form-group col-md-12" ng-if="compte_id_existe == comptedebiteur.id && comptedebiteur.id">						
 								<h1 >Vous ne pouvez debiter et crediter le meme compte</h1>
 								<input type="hidden" ng-model="virement.controleMemeCompte2" name="controleMemeCompte2" class="form-control input-sm" required />
 							</div>
-						</div>				
+						</div>	
+						</div>	
+
 						<div class="row">
 							<div class="form-group col-md-12">
 								<label class="col-md-2 control-lable" for="file">Montant
@@ -94,14 +93,19 @@
 								<div class="col-md-7">
 									<input type="number" ng-model="virement.montant"
 										name="montant" class="form-control input-sm"
-										placeholder="Entrez votre montant" max="{{comptedebiteur.solde}}+{{comptedebiteur.decouvert}}" />
-									<div class="has-error" ng-show="formVirement.$dirty">
+										placeholder="Entrez votre montant" min="1" max="{{comptedebiteur.solde + comptedebiteur.decouvert}}" required/>
+									<div class="has-error" ng-show="formVirement.montant.$dirty">
 										<span ng-show="formConnexion.montant.$error.required">Champ
 											obligatoire</span>
 									</div>
 								</div>
 							</div>
 						</div>
+						<div class="row" ng-if="!(virement.montant < comptedebiteur.solde + comptedebiteur.decouvert) && virement.montant >0">
+							<div class="form-group col-md-12">						
+								<h1 >Vous depassez votre decouvert autorise</h1>
+							</div>
+						</div>	
 
 						<div class="row">
 							<div class="form-actions floatRight">

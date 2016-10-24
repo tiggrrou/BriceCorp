@@ -371,9 +371,9 @@ $scope.uploadFile = function(files, typeJustificatif) {
     var fd = new FormData();
     //Take the first selected file
     fd.append("file", files[0]);
-    
+
 	var file = fd
-	
+    console.log(fd)	
 if($scope.demande.client){
 console.log("demandecompteclient")
 	var id = $scope.demande.client.id
