@@ -144,7 +144,7 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 		else
 		{
 			query = "SELECT D FROM Dem_CreationClient D WHERE D.etat = :param";
-			param = (id == 0)? EtatDemande.Cree.name() : EtatDemande.EnCours.name();
+			param = (id == 0)? EtatDemande.Cree.name() : EtatDemande.Affectee.name();
 
 			demandecreationclient = getEntityManager()
 					.createQuery(query)
@@ -177,7 +177,7 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 		Demande demande = (Demande) getEntityManager()
 				.createQuery("SELECT d FROM Demande d WHERE d.id = :id").setParameter("id", id_demande)
 				.getSingleResult();
-		demande.setEtat(EtatDemande.EnCours.toString());
+		demande.setEtat(EtatDemande.Affectee.toString());
 		
 		Conseiller conseiller = (Conseiller) getEntityManager()
 				.createQuery("SELECT c FROM Conseiller c WHERE c.id = :id").setParameter("id", id_conseiller)
