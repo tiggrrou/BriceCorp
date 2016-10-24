@@ -1,6 +1,6 @@
 <meta charset="UTF-8">
 <div class=" panel panel-default "
-	ng-if="((ctrl.currentUser.typeUser == 3)?true:false)">
+	ng-if="((ctrl.currentUser.typeUser == 3)?true:false)" ng-init="ctrl.isConnexionExist()">
 	<div class="panel-heading ">
 		<span class="lead">Espace de {{ctrl.currentUser.prenom}}
 			{{ctrl.currentUser.nom}}</span>

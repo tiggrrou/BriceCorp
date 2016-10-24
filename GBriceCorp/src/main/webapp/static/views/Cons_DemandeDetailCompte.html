@@ -1,7 +1,7 @@
 
 <div class=" panel panel-default "
 	ng-controller="DemandeController as dmdctrl"
-	ng-init="dmdctrl.findDemandeById(demande_id)">
+	ng-init="dmdctrl.findDemandeById(demande_id); ctrl.isConnexionExist()">
 	<div class="panel-heading ">
 		<span class="lead">Demande de {{(demande.type ==
 			1)?'Creation':''}}{{(demande.type == 3)?'Chequier':''}}

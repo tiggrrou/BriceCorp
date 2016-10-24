@@ -6,7 +6,7 @@
 		CompteController.compteCredite  = compte reçevant l'argent -->
 	<!--  j'obtiens les comptes pour les placer dans les listes -->
 
-		<div class="panel panel-info" ng_controller="CompteController as cptCtrl" ng-init="cptCtrl.findComptesByClientId();">
+		<div class="panel panel-info" ng_controller="CompteController as cptCtrl" ng-init="cptCtrl.findComptesByClientId(); ctrl.isConnexionExist()">
 
 			<!-- Default panel contents -->
 			<div class="panel-heading" >

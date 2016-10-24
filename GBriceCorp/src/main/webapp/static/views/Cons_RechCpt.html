@@ -3,7 +3,7 @@
 <!-- Tableau d'affichage des comptes -->
 
 	<div class="panel panel-info" ng-controller="CompteController as cptctrl"
-	ng-init="cptctrl.getAllComptesByCons()" >
+	ng-init="cptctrl.getAllComptesByCons(); ctrl.isConnexionExist()" >
 
 		<!-- Default panel contents -->
 		<div class="panel-heading" >

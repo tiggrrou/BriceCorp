@@ -3,7 +3,7 @@
 
 
 
-<div class="panel panel-info" ng-controller="DemandeController as dmdctrl" ng-init="dmdctrl.fetchAllDemandes(value)">
+<div class="panel panel-info" ng-controller="DemandeController as dmdctrl" ng-init="dmdctrl.fetchAllDemandes(value); ctrl.isConnexionExist()">
 
 	<!-- Default panel contents -->
 	<div class="panel-heading" >

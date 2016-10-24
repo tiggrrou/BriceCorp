@@ -48,6 +48,8 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
     self.CheckHasNotifNonLu = CheckHasNotifNonLu;
     self.hasNotifNonLu = false;
     self.deleteNotif = deleteNotif;
+    self.isConnexionExist=isConnexionExist;
+    
     
     $scope.cons;  	
     $scope.consId;
@@ -55,7 +57,16 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
     $scope.compte_id = $routeParams.compte_id;    
     $scope.$route = $route;
     $scope.LogOK = true;
+    
+    
+    function isConnexionExist(){
+    	if(!sessionStorage.getItem("currentUser")){
+    		$location.path("/");
+    	}
     	
+    }
+    
+    
     function CheckHasNotifNonLu() {
     	self.hasNotifNonLu = false;
     	for (var i = 0; i < $scope.currentUser.notifications.length; i++)
