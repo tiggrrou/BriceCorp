@@ -11,7 +11,7 @@
 		<li class="list-group-item">{{ctrl.currentUser.adresse}}</li>
 		<li class="list-group-item">Tel: {{ctrl.currentUser.telephone}}</li>
 		<li class="list-group-item">Email: {{ctrl.currentUser.mail}}</li>
-
+		<li class="list-group-item">Revenu moyen: {{ctrl.currentUser.revenu}}</li>
 	</ul>
 
 </div>
@@ -151,7 +151,8 @@
 				<tr>
 					<th ng-click="ctrl.trier_par('libelle')">Libelle</th>
 					<th ng-click="ctrl.trier_par('dateMouvement')">Date</th>
-					<th ng-click="ctrl.trier_par('montant')">Montant</th>
+					<th >Credit</th>
+					<th >Debit</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -159,16 +160,21 @@
 					ng-repeat="mouvement in compte.mouvements | orderBy:tripar:sens ">
 					<td>{{mouvement.libelle}}</td>
 					<td>{{mouvement.dateMouvement}}</td>
-					<td>{{mouvement.montant}}</td>
+					<td>{{(mouvement.montant > 0)?mouvement.montant:""}}</td>
+					<td>{{(mouvement.montant < 0)?mouvement.montant:""}}</td>					
 				</tr>
+		
 			</tbody>
 		</table>
+				<span class="lead">Solde ce jour {{compte.solde}}euros</span>
 	</div>
 </div>
 
 <div id="DemandAConsSectionId" class=" panel panel-default"
 	ng-init="ctrl.getInfosClient(ctrl.compte.clientID)" 
-			ng-controller="CompteController as cptctrl">		
+			ng-controller="CompteController as cptctrl"
+ng-if="((ctrl.currentUser.typeUser == 3)?true:false)"			
+			>		
 
 	<div class="panel-heading">
 		<span class="lead">Demandes à mon conseiller

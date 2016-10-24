@@ -44,7 +44,7 @@
 		<span class="lead">Modifications</span>
 	</div>
 	<ul class="list-group">
-		<li class="list-group-item">Compte de {{demande.prenom}}
+		<li class="list-group-item">Civilite {{demande.prenom}}
 			{{demande.nom}}</li>
 		<li class="list-group-item">{{demande.adresse}}</li>
 		<li class="list-group-item">Tel: {{demande.telephone}}</li>
@@ -197,7 +197,7 @@ Decouvert autorise :
 		</li>
 	</ul>
 </div>
-<div id="RIBSectionId" class=" panel panel-default"
+<div id="ReleveSectionId" class=" panel panel-default"
 	ng-controller="DemandeController as dmdctrl"
 	ng-init="dmdctrl.findDemandeById(demande_id)"
 	ng-if="(demande_type == 1 || demande_type == 4)?false:true">
@@ -215,7 +215,8 @@ Decouvert autorise :
 				<tr>
 					<th ng-click="ctrl.trier_par('libelle')">Libelle</th>
 					<th ng-click="ctrl.trier_par('dateMouvement')">Date</th>
-					<th ng-click="ctrl.trier_par('montant')">Montant</th>
+					<th >Credit</th>
+					<th >Debit</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -223,10 +224,13 @@ Decouvert autorise :
 					ng-repeat="mouvement in demande.compte.mouvements | orderBy:tripar:sens ">
 					<td>{{mouvement.libelle}}</td>
 					<td>{{mouvement.dateMouvement}}</td>
-					<td>{{mouvement.montant}}</td>
+					<td>{{(mouvement.montant > 0)?mouvement.montant:""}}</td>
+					<td>{{(mouvement.montant < 0)?mouvement.montant:""}}</td>					
 				</tr>
+		
 			</tbody>
 		</table>
+				<span class="lead">Solde ce jour {{demande.compte.solde}}euros</span>
 	</div>
 </div>
 

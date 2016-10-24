@@ -93,60 +93,15 @@
 
 <div class=" panel panel-default "  class=" panel panel-default " ng-controller="CompteController as cptctrl"
 	ng-init="cptctrl.getComptes()" >
-	<div id="RIBSectionId" class=" panel panel-default " 
+	<div class=" panel panel-default " 
 
 	ng-repeat="compte in comptes">
-		<div class="panel-heading">
-			<span class="lead">{{compte.libelle}}
-				<button ng-click="ctrl.printToCart('RIBSectionId')"
-					class="btn btn-warning btn-sm floatRight no-print">Imprimer
-					le RIB</button>
+		<div class="panel-heading" ng-click="cptctrl.detailCompte(compte.id)">
+			<span  class="lead">{{compte.libelle}} - Solde : {{compte.solde}} euros
 			</span>
 		</div>
-		<ul class="list-group">
-			<li class="list-group-item">IBAN: {{compte.id}}</li>
-			<li class="list-group-item">Solde : {{compte.solde}} euros</li>
 
-			<li class="list-group-item">Remuneration :
-				{{compte.tauxRemuneration}} %
 
-			</li>
-			<li class="list-group-item"
-				ng-hide="{{(compte.tauxRemuneration>0)?true:false}}">Seuil de
-				remuneration : {{compte.seuil}} euros</li>
-			<li class="list-group-item">Agios : {{compte.tauxDecouvert}} %</li>
-			<li class="list-group-item">Decouvert autorise :
-				{{compte.decouvert}}
-
-			</li>
-		</ul>
-
-		<!-- Default panel contents -->
-		<div id="ReleveSectionId" class="panel-heading">
-			<span class="lead">Releve de compte
-				<button ng-click="ctrl.printToCart('ReleveSectionId')"
-					class="btn btn-warning btn-sm floatRight no-print">Imprimer
-					le Releve</button>
-			</span>
-		</div>
-		<div class="tablecontainer">
-			<table class="table table-hover ">
-				<thead>
-					<tr>
-						<th ng-click="ctrl.trier_par('libelle')">Libelle</th>
-						<th ng-click="ctrl.trier_par('dateMouvement')">Date</th>
-						<th ng-click="ctrl.trier_par('montant')">Montant</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="mouvement in compte.mouvements | orderBy:tripar:sens ">
-						<td>{{mouvement.libelle}}</td>
-						<td>{{mouvement.dateMouvement}}</td>
-						<td>{{mouvement.montant}}</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
 	</div>
 </div>
 
