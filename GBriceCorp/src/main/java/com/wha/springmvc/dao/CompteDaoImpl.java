@@ -62,7 +62,6 @@ public class CompteDaoImpl extends AbstractDao<Integer, Compte> implements Compt
 		cpt.setDateOuverture(compte.getDateOuverture());
 		cpt.setDecouvert(compte.getDecouvert());
 		cpt.setLibelle(compte.getLibelle());
-		cpt.setMouvements(compte.getMouvements());
 		cpt.setSeuil(compte.getSeuil());
 		cpt.setSolde(compte.getSolde());
 		cpt.setSoldeAgio(compte.getSoldeAgio());

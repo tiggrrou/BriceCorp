@@ -18,7 +18,7 @@
 					<div class="form-group col-md-12">
 						<label class="col-md-2 control-label" for="file">Prenom</label>
 						<div class="col-md-7">
-							<input type="text" ng-model="currentUser.prenom" name="prenom"
+							<input type="text" ng-model="tempUser.prenom" name="prenom"
 								class="form-control input-sm" placeholder="Entez votre prenom"
 								required />
 							<div class="has-error" ng-show="formModifInfo.$dirty">
@@ -32,7 +32,7 @@
 					<div class="form-group col-md-12">
 						<label class="col-md-2 control-label" for="file">Nom</label>
 						<div class="col-md-7">
-							<input type="text" ng-model="currentUser.nom" name="nom"
+							<input type="text" ng-model="tempUser.nom" name="nom"
 								class="form-control input-sm" placeholder="Entrez votre prenom"
 								required />
 							<div class="has-error" ng-show="formModifInfo.$dirty">
@@ -46,7 +46,7 @@
 					<div class="form-group col-md-12">
 						<label class="col-md-2 control-label" for="file">Telephone</label>
 						<div class="col-md-7">
-							<input type="tel" ng-model="currentUser.telephone" name="telephone"
+							<input type="tel" ng-model="tempUser.telephone" name="telephone"
 								class="form-control input-sm"
 								placeholder="Entez votre telephone" required />
 							<div class="has-error" ng-show="formModifInfo.$dirty">
@@ -61,7 +61,7 @@
 						<label class="col-md-2 control-label" for="file">Adresse
 							mail</label>
 						<div class="col-md-7">
-							<input type="email" ng-model="currentUser.mail" name="email"
+							<input type="email" ng-model="tempUser.mail" name="email"
 								class="form-control input-sm" placeholder="Entrez votre email"
 								required />
 							<div class="has-error" ng-show="formModifInfo.$dirty">
@@ -77,7 +77,7 @@
 						<label class="col-md-2 control-label" for="file">Adresse
 							postale</label>
 						<div class="col-md-7">
-							<input type="text" ng-model="currentUser.adresse" name="adresse"
+							<input type="text" ng-model="tempUser.adresse" name="adresse"
 								class="form-control input-sm" placeholder="Entrez votre adresse"
 								required />
 							<div class="has-error" ng-show="formModifInfo.$dirty">
@@ -92,7 +92,7 @@
 						<label class="col-md-2 control-lable" for="revenu">Revenus brut mensuel estimés</label>
 						<div class="col-md-7">
 							<input 	type="text" 
-									ng-model="currentUser.revenu"
+									ng-model="tempUser.revenu"
 									name="codepostal" 
 									class="form-control input-sm"
 									placeholder="Entez votre revenu moyen estimé"

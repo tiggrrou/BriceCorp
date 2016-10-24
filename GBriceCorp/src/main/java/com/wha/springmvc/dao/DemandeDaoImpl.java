@@ -122,23 +122,17 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 	public List<Dem_CreationClient> findAllDemandesCreationClient(long id) {
 		String query = "";
 		String param = "";
-		if (id > 1)
-		{
-			query = "SELECT C.demandes FROM Conseiller C WHERE C.id = :param";
-			param = String.valueOf(id);
-		}
-		else
-		{
-			query = "SELECT D FROM Dem_CreationClient D WHERE D.etat = :param";
-			param = (id == 0)? EtatDemande.Cree.name() : EtatDemande.EnCours.name();
-		}
 		List<Dem_CreationClient> demandecreationclient = new ArrayList<>();
-		
 		if (id > 1)
 		{
+			
+			
+			query = "SELECT C.demandes FROM Conseiller C WHERE C.id = :param";
+
+			
 			List<Demande> demandes = getEntityManager()
 					.createQuery(query)
-					.setParameter("param", param)
+					.setParameter("param", id)
 					.getResultList();
 			for (Demande dem : demandes) {
 				if (dem.getType() == TypeDemandes.Creation.getType())
@@ -149,6 +143,9 @@ public class DemandeDaoImpl extends AbstractDao<Integer, Demande> implements Dem
 		}
 		else
 		{
+			query = "SELECT D FROM Dem_CreationClient D WHERE D.etat = :param";
+			param = (id == 0)? EtatDemande.Cree.name() : EtatDemande.EnCours.name();
+
 			demandecreationclient = getEntityManager()
 					.createQuery(query)
 					.setParameter("param", param)

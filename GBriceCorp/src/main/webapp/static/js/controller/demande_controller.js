@@ -3,7 +3,7 @@
 App.controller('DemandeController', ['$scope', '$location', '$resource', '$route', 'DemandeService', 'UserService', '$routeParams', function($scope, $location, $resource, $route, DemandeService, UserService,$routeParams) {
 	
 
-
+	$scope.tempUser = JSON.parse(sessionStorage.getItem("currentUser"));
 	// General
 	var self = this;
 	 self.inscription_Client=inscription_Client;
@@ -59,9 +59,9 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 		 };
 		 
 	  function modifInfo(){
-		  var demande={"nom":$scope.currentUser.nom,"prenom":$scope.currentUser.prenom,
-		             "telephone":$scope.currentUser.telephone,"mail":$scope.currentUser.mail,
-		             "adresse":$scope.currentUser.adresse,"revenu":$scope.currentUser.revenu};	  
+		  var demande={"nom":$scope.tempUser.nom,"prenom":$scope.tempUser.prenom,
+		             "telephone":$scope.tempUser.telephone,"mail":$scope.tempUser.mail,
+		             "adresse":$scope.tempUser.adresse,"revenu":$scope.tempUser.revenu};	  
 
 			 DemandeService.modifInfo(demande,$scope.currentUser.id)
 			 .then(
@@ -238,7 +238,8 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	DemandeService.validation_CreationCompteClient(demande,currentUser_id)
         .then(
                 function(d) {
-                	console.log(d)
+                	console.log(d);
+                	$location.path("/cons/");	
                 },
         function(errResponse){
             console.error('Error while Creation Client');
@@ -251,6 +252,7 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
             .then(
                     function(d) {
                     	console.log(d)
+                    	$location.path("/cons/");
                     },
             function(errResponse){
                 console.error('Error while Modification compte');
@@ -263,6 +265,7 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
                 .then(
                         function(d) {
                         	console.log(d)
+                        	$location.path("/cons/");
                         },
                 function(errResponse){
                     console.error('Error while Chequier');
@@ -275,13 +278,14 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
                 .then(
                         function(d) {
                         	console.log(d)
+                        	$location.path("/cons/");
                         },
                 function(errResponse){
                     console.error('Error while Modification info');
                 }
             );	 
          	}
- 	 $location.path("/cons/");	
+
 
  	
 	 };
@@ -298,7 +302,7 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
             .then(
                     function(d) {
                     	console.log(d);
-                    	getDemandesCreationClient ();
+                    	getDemandesCreationClient (0);
                     	
                     },
             function(errResponse){
