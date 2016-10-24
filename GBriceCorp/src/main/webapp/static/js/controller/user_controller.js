@@ -45,6 +45,8 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
     self.populate_dummy=populate_dummy;
     self.checkCreaCons = checkCreaCons;
     self.switchNotif = switchNotif;
+    self.CheckHasNotifNonLu = CheckHasNotifNonLu;
+    self.hasNotifNonLu = false;
     
     
     $scope.cons;  	
@@ -53,7 +55,16 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
     $scope.compte_id = $routeParams.compte_id;    
     $scope.$route = $route;      	
     	
-    	
+    function CheckHasNotifNonLu() {
+    	self.hasNotifNonLu = false;
+    	for (var i = 0; i < $scope.currentUser.notifications.length; i++)
+    		{
+    		var notif = $scope.currentUser.notifications[i];
+    		if (!notif.lu)
+    			self.hasNotifNonLu = true;
+    		
+    		}
+    }
     	
     function switchNotif(notifSwitched) {
     	UserService.switchNotif(JSON.parse(sessionStorage.getItem("currentUser")).id, notifSwitched)

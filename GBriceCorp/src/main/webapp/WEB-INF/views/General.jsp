@@ -185,9 +185,10 @@
 				<!-- Notifications -->
 					</a> <a href="#/cli/Cli_Notifications" class="list-group-item"
 						ng-class="{active: $route.current.activetab == 'client_notif'}"
-						ng-click="ctrl.getNotifs">
+						ng-click="ctrl.getNotifs"
+						ng-init="ctrl.CheckHasNotifNonLu()">
 						<h4 class="list-group-item-heading">
-							Notifications <br /> <span ng-hide="{{currentUser.notifications.lu}}" class="glyphicon glyphicon-envelope">
+							Notifications <br /> <span ng-hide="{{!ctrl.hasNotifNonLu}}" class="glyphicon glyphicon-envelope">
 						</h4>
 						<p class="list-group-item-text">Liste de vos notifications</p>
 					</a>
