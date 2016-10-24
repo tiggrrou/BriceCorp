@@ -1,4 +1,17 @@
 'use strict';
+////filter array by @field {String}
+////return items from today to @days {Number} from now
+////eg: events | upComing:'StartDateTime':30
+//App.filter('upComing', function(){
+//return function(items, field, days){
+// var timeStart = Date.now();
+// var timeEnd = Date.now() + (days * 86400000); // 1 day in ms
+// return items.filter(function(item){
+//   return (item[field] > timeStart && item[field] < timeEnd);
+// });
+//};
+//});
+
 
 App.controller('CompteController', ['$scope','$location', '$route', '$routeParams', 'CompteService','DemandeService', function($scope,$location,$route,$routeParams, CompteService,DemandeService) {
     var self = this;
@@ -28,7 +41,7 @@ App.controller('CompteController', ['$scope','$location', '$route', '$routeParam
 	self.writeDemDecou=writeDemDecou;
 	self.writeDemRemu=writeDemRemu;
 	self.writeDemChequier=writeDemChequier;
-    
+    self.filtreListe=filtreListe;
     
     
     function compteDebiteur(compte){
@@ -43,6 +56,22 @@ App.controller('CompteController', ['$scope','$location', '$route', '$routeParam
    		$scope.tripar = tri;
     }
 
+   
+    function filtreListe(compte_id){
+
+    	console.log($scope.selectedItem)
+    	
+      	CompteService.filtreListeMouvement(compte_id, $scope.selectedItem)      	
+    		    	.then(
+    		    			function(data){
+    		    				console.log(data);
+    		    				$scope.mouvements = data;
+    		    			},
+    		    			function (errResponse){
+    		    				console.error('Error while getting an account from an customer ID')
+    		    			});
+    		    	
+    		    };   
     
     
     function detailCompte(compte_id){

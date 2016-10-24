@@ -19,8 +19,16 @@ public class CompteServiceImpl implements CompteService {
 	@Autowired
 	private CompteDao dao;
 
+	
 	private static final AtomicLong counter = new AtomicLong();
 
+	
+	
+	public List<Mouvement> mouvements(long idCompte, int dateRange){
+		return dao.mouvements(idCompte, dateRange);
+	}
+	
+	
 	public List<Compte> findAllComptes() {
 return dao.findAllComptes();
 	}

@@ -27,6 +27,8 @@ public interface CompteDao {
 	void deleteAllComptes();
 	
 	public Mouvement mouvement(float montant, long compteDebiteurID, long compteCrediteurID);
+	
+	public List<Mouvement> mouvements(long idCompte, int dateRange);
 
 	Client findOwnerByCountID(long idCompte);
 }

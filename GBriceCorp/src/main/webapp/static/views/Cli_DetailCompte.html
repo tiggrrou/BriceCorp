@@ -139,10 +139,14 @@
 	ng-init="cptctrl.findCompteById(compte_id)">
 
 	<div class="panel-heading">
-		<span class="lead">Releve de compte
-			<button ng-click="ctrl.printToCart('ReleveSectionId')"
-				class="btn btn-warning btn-sm floatRight no-print">Imprimer
-				le Releve</button>
+		<span class="lead">Releve de compte des
+		<select ng-model="selectedItem" ng-change="cptctrl.filtreListe(compte_id)">
+			<option value="1">30 derniers jours</option>
+			<option value="2">2 derniers mois</option>
+			<option value="3">3 derniers mois</option>		
+		</select>
+
+	
 		</span>
 	</div>
 	<div class="tablecontainer">
@@ -166,7 +170,10 @@
 		
 			</tbody>
 		</table>
-				<span class="lead">Solde ce jour {{compte.solde}}euros</span>
+				<span class="lead">Solde ce jour {{compte.solde}}euros</span>		
+				<button ng-click="ctrl.printToCart('ReleveSectionId')"
+				class="btn btn-warning btn-sm floatRight no-print">Imprimer
+				le Releve</button>
 	</div>
 </div>
 

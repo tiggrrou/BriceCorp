@@ -822,7 +822,16 @@ public class HelloWorldRestController {
 		return new ResponseEntity<Compte>(compte, HttpStatus.OK);
 	}	
 	
-	
+	// ------------------- Mouvements  --------------------------------------------------------
+
+	@RequestMapping(value = "/compte/mouvements/{compte_id}&{dateLimite}", method = RequestMethod.GET)
+	public ResponseEntity<List<Mouvement>> listmouvements(@PathVariable("compte_id") long compte_id, @PathVariable("dateLimite") int dateLimite) {
+		System.out.println("compte numero " + compte_id);
+		List<Mouvement> mouvements = compteService.mouvements(compte_id, dateLimite);
+
+		return new ResponseEntity<List<Mouvement>>(mouvements, HttpStatus.OK);
+	}	
+		
 	
 	
 }

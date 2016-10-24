@@ -1,5 +1,9 @@
 package com.wha.springmvc.dao;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -25,6 +29,38 @@ public class CompteDaoImpl extends AbstractDao<Integer, Compte> implements Compt
 		}
 	}
 
+	
+	@SuppressWarnings("unchecked")
+	public List<Mouvement> mouvements(long idCompte, int dateRange){
+		Calendar date2 = Calendar.getInstance();
+		date2.add(Calendar.MONTH, -dateRange);
+		
+	
+	
+	
+	
+	
+		List<Mouvement> mouvements = getEntityManager().createQuery("SELECT c.mouvements FROM Compte c WHERE c.id = :id")
+				.setParameter("id", idCompte)
+				.getResultList();
+		
+		List<Mouvement> listmouvements = new ArrayList<Mouvement>();
+		for (Mouvement mouvement : mouvements) {
+	        Calendar date1 = Calendar.getInstance();
+	        date1.setTime(mouvement.getDateMouvement());
+
+
+
+
+        	if(date1.compareTo(date2)>0){
+        		listmouvements.add(mouvement);
+        	}
+		}
+		
+		return listmouvements;
+	}
+	
+	
 	@Override
 	public List<Compte> findCByClientId(long clientId) {
 		@SuppressWarnings("unchecked")

@@ -8,12 +8,27 @@ App.factory('CompteService', ['$http', '$q', function($http, $q){
     	getComptesClient:getComptesClient,
     	virement:virement,
     	getAllComptesByCons:getAllComptesByCons,
-    	findCompteById:findCompteById
+    	findCompteById:findCompteById,
+    	filtreListeMouvement:filtreListeMouvement
     };
     
     return factory;
     
    
+    
+    function filtreListeMouvement(compte_id, datelimite){
+
+    	var deferred = $q.defer();
+    	$http.get(REST_SERVICE_URI_COMPTES+'mouvements/'+compte_id+"&"+datelimite)
+    	.then(
+    			function (){
+    				deferred.resolve();
+    			},
+    			function (){
+    				deferred.reject();
+    			})
+    			return deferred.promise;
+    }
     
     
     function virement(compteDebiteurID, compteCrediteID, montant){

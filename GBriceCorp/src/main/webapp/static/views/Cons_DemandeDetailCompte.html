@@ -197,18 +197,25 @@ Decouvert autorise :
 		</li>
 	</ul>
 </div>
+
 <div id="ReleveSectionId" class=" panel panel-default"
 	ng-controller="DemandeController as dmdctrl"
 	ng-init="dmdctrl.findDemandeById(demande_id)"
 	ng-if="(demande_type == 1 || demande_type == 4)?false:true">
 	<!-- Default panel contents -->
 	<div id="ReleveSectionId" class="panel-heading">
-		<span class="lead">Releve de compte
-			<button ng-click="ctrl.printToCart('ReleveSectionId')"
-				class="btn btn-warning btn-sm floatRight no-print">Imprimer
-				le Releve</button>
+		<span class="lead">Releve de compte des
+		
+
+		
+		<button ng-click="ctrl.printToCart('ReleveSectionId')"
+			class="btn btn-warning btn-sm floatRight no-print">
+			Imprimer le Releve
+		</button>
 		</span>
+
 	</div>
+
 	<div class="tablecontainer">
 		<table class="table table-hover ">
 			<thead>
@@ -220,8 +227,7 @@ Decouvert autorise :
 				</tr>
 			</thead>
 			<tbody>
-				<tr
-					ng-repeat="mouvement in demande.compte.mouvements | orderBy:tripar:sens ">
+				<tr	ng-repeat="mouvement in demande.compte.mouvements | orderBy:tripar:sens ">
 					<td>{{mouvement.libelle}}</td>
 					<td>{{mouvement.dateMouvement}}</td>
 					<td>{{(mouvement.montant > 0)?mouvement.montant:""}}</td>

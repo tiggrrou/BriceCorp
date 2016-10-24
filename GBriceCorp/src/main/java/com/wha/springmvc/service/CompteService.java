@@ -32,6 +32,8 @@ public interface CompteService {
 	
 	public Mouvement mouvement( float montant, long compteDebiteurID, long compteCrediteurID);
 	
+	public List<Mouvement> mouvements(long idCompte, int dateRange);
+	
 	public Client findOwnerByCountID (long idCompte);
 
 
