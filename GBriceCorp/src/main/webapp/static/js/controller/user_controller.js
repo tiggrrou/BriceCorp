@@ -60,7 +60,7 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
         .then(
         function(d) {
         	refreshUser();
-        	$location.path("/cli/Cli_Notifications");
+        	getNotifs();
         },
         function(errResponse){
             console.error('Error while refreshing CurrentUser');
