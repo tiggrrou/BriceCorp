@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.wha.springmvc.model.Client;
 import com.wha.springmvc.model.Compte;
+import com.wha.springmvc.model.Mouvement;
 
 
 
@@ -29,7 +30,7 @@ public interface CompteService {
 	
 	public boolean isCompteExist(Compte compte);
 	
-	public void mouvement( float montant, long compteDebiteurID, long compteCrediteurID);
+	public Mouvement mouvement( float montant, long compteDebiteurID, long compteCrediteurID);
 	
 	public Client findOwnerByCountID (long idCompte);
 
