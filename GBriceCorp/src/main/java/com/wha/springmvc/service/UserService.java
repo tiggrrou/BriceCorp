@@ -61,9 +61,19 @@ public interface UserService {
 	public void addcompte(Compte compte, long client_id);
 	
 	public void sendMessage(String subject, String text, String destinataire, String copyDest);
-
+	
+	/**
+	 * 
+	 * @param identifiant
+	 * @return
+	 */
 	public boolean checkConseillerIdentifiant(String identifiant);
 
+	/**
+	 * 
+	 * @param userID
+	 * @param id
+	 */
 	public void modifEtat_Notif(long userID, long id);
 
 	public void delete_Notif(long userID, long id);

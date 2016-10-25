@@ -162,7 +162,7 @@
 
 
 			<!-- Menu du Client -->
-			<div class="container-fluid" ng-hide="client_cache">
+			<div class="container-fluid" ng-if="!client_cache">
 				<div class="list-group">
 				<!-- Synthese des comptes -->
 					<a href="#/cli/Cli_ListeComptes" class="list-group-item"

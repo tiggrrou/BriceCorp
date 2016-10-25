@@ -200,20 +200,20 @@ Decouvert autorise :
 
 <div id="ReleveSectionId" class=" panel panel-default"
 	ng-controller="DemandeController as dmdctrl"
-	ng-init="dmdctrl.findDemandeById(demande_id)"
-	ng-if="(demande_type == 1 || demande_type == 4)?false:true">
-	<!-- Default panel contents -->
-	<div id="ReleveSectionId" class="panel-heading">
+
+	ng-if="(demande_type == 1 || demande_type == 4)?false:true"
+	ng-init="selectedItem='1'; dmdctrl.findDemandeById(demande_id, 1)">
+
+
+	<div class="panel-heading">
 		<span class="lead">Releve de compte des
-		
-
-		
-		<button ng-click="ctrl.printToCart('ReleveSectionId')"
-			class="btn btn-warning btn-sm floatRight no-print">
-			Imprimer le Releve
-		</button>
+		<select ng-hide="((ctrl.currentUser.typeUser == 2)?false:true)" ng-model="selectedItem" ng-change="dmdctrl.filtreListe(compte_id, selectedItem)">
+			<option value="1">30 derniers jours</option>
+			<option value="2">2 derniers mois</option>
+			<option value="3">3 derniers mois</option>		
+		</select>
+	
 		</span>
-
 	</div>
 
 	<div class="tablecontainer">
@@ -227,7 +227,7 @@ Decouvert autorise :
 				</tr>
 			</thead>
 			<tbody>
-				<tr	ng-repeat="mouvement in demande.compte.mouvements | orderBy:tripar:sens ">
+				<tr	ng-repeat="mouvement in mouvements | orderBy:tripar:sens ">
 					<td>{{mouvement.libelle}}</td>
 					<td>{{mouvement.dateMouvement}}</td>
 					<td>{{(mouvement.montant > 0)?mouvement.montant:""}}</td>
@@ -237,6 +237,9 @@ Decouvert autorise :
 			</tbody>
 		</table>
 				<span class="lead">Solde ce jour {{demande.compte.solde}}euros</span>
+								<button ng-click="ctrl.printToCart('ReleveSectionId')"
+				class="btn btn-warning btn-sm floatRight no-print">Imprimer
+				le Releve</button>
 	</div>
 </div>
 

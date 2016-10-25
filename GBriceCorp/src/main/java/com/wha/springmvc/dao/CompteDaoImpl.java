@@ -1,5 +1,6 @@
 package com.wha.springmvc.dao;
 
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -7,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.NoResultException;
+import javax.persistence.TemporalType;
 
 import org.springframework.stereotype.Repository;
 
@@ -32,32 +34,42 @@ public class CompteDaoImpl extends AbstractDao<Integer, Compte> implements Compt
 	
 	@SuppressWarnings("unchecked")
 	public List<Mouvement> mouvements(long idCompte, int dateRange){
-		Calendar date2 = Calendar.getInstance();
-		date2.add(Calendar.MONTH, -dateRange);
+		Date date = new Date();	
+		   Calendar dCal = Calendar.getInstance();
+		   dCal.setTime(date);
+		   dCal.add(Calendar.MONTH, -1*dateRange);
+
+System.out.println(dCal);
+	
+	
+
+//		List<Mouvement> mouvements = getEntityManager()
+//		.createQuery("SELECT m FROM Mouvement m WHERE m.dateMouvement > :dateRange")
+//				.setParameter("dateRange", dCal,TemporalType.DATE)
+//				.getResultList();
 		
-	
-	
-	
-	
-	
-		List<Mouvement> mouvements = getEntityManager().createQuery("SELECT c.mouvements FROM Compte c WHERE c.id = :id")
-				.setParameter("id", idCompte)
-				.getResultList();
+//List<Mouvement> mouvements = getEntityManager()
+//.createQuery("SELECT M FROM Mouvement M WHERE M.dateMouvement > :dateRange AND M MEMBER OF (SELECT c.mouvements FROM Compte c WHERE c.id = :id)")
+//.setParameter("id", idCompte)
+//.setParameter("dateRange", dCal,TemporalType.DATE)
+//.getResultList();
+
+//.createQuery("SELECT c.mouvements FROM Compte c WHERE c.id = :id  JOIN c.mouvements q WHERE q IN  (SELECT m FROM Mouvement m WHERE m.dateMouvement > :dateRange)")
+
+//select personne 
+//from Bateau bateau 
+//	join bateau.passager personne 
+//where bateau.nom = :nom
+
+List<Mouvement> mouvements = getEntityManager()
+	.createQuery("SELECT ms FROM Compte c JOIN c.mouvements ms WHERE ((c.id = :id) AND (ms IN (SELECT m FROM Mouvement m WHERE m.dateMouvement > :dateRange)))")
+	.setParameter("id", idCompte)
+	.setParameter("dateRange", dCal,TemporalType.DATE)
+	.getResultList();
 		
-		List<Mouvement> listmouvements = new ArrayList<Mouvement>();
-		for (Mouvement mouvement : mouvements) {
-	        Calendar date1 = Calendar.getInstance();
-	        date1.setTime(mouvement.getDateMouvement());
 
-
-
-
-        	if(date1.compareTo(date2)>0){
-        		listmouvements.add(mouvement);
-        	}
-		}
-		
-		return listmouvements;
+		System.out.println(mouvements);		
+		return mouvements;
 	}
 	
 	

@@ -136,11 +136,11 @@
 
 <div id="ReleveSectionId" class=" panel panel-default"
 	ng-controller="CompteController as cptctrl"
-	ng-init="cptctrl.findCompteById(compte_id)">
+	ng-init="selectedItem='1'; cptctrl.filtreListe(compte_id,1); ">
 
 	<div class="panel-heading">
 		<span class="lead">Releve de compte des
-		<select ng-model="selectedItem" ng-change="cptctrl.filtreListe(compte_id)">
+		<select ng-hide="((ctrl.currentUser.typeUser == 2)?false:true)" ng-model="selectedItem" ng-change="cptctrl.filtreListe(compte_id,selectedItem)">
 			<option value="1">30 derniers jours</option>
 			<option value="2">2 derniers mois</option>
 			<option value="3">3 derniers mois</option>		
@@ -161,7 +161,7 @@
 			</thead>
 			<tbody>
 				<tr
-					ng-repeat="mouvement in compte.mouvements | orderBy:tripar:sens ">
+					ng-repeat="mouvement in mouvements | orderBy:tripar:sens ">
 					<td>{{mouvement.libelle}}</td>
 					<td>{{mouvement.dateMouvement}}</td>
 					<td>{{(mouvement.montant > 0)?mouvement.montant:""}}</td>

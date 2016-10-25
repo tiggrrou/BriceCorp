@@ -21,11 +21,11 @@ App.factory('CompteService', ['$http', '$q', function($http, $q){
     	var deferred = $q.defer();
     	$http.get(REST_SERVICE_URI_COMPTES+'mouvements/'+compte_id+"&"+datelimite)
     	.then(
-    			function (){
-    				deferred.resolve();
+    			function (response){
+    				deferred.resolve(response.data);
     			},
-    			function (){
-    				deferred.reject();
+    			function (errResponse){
+    				console.error('Error while fetching mouvements')
     			})
     			return deferred.promise;
     }

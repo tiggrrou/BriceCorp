@@ -47,36 +47,38 @@ public class HelloWorldRestController {
 	DemandeService demandeService; // Service which will do all data
 									// retrieval/manipulation work
 
-	
-	
-	
-	
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////// DEMANDES////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	
-	
-	// -------------------Demande de generatio nde mot de passe--------------------------------------------------------
+	// -------------------Demande de generatio nde mot de
+	// passe--------------------------------------------------------
 
 	@RequestMapping(value = "/demande/motdepasse/{client_id}", method = RequestMethod.GET)
 	public ResponseEntity<Void> generationMdp(@PathVariable("client_id") long client_id) {
 		System.out.println("Generer un nouveau MDP pour le client " + client_id);
 
-		 try {
+		try {
 			Client client = userService.generationMdp(client_id);
 
-			///**
-			//* Envoi du mail confirmant au client la generation de son mdp/
-//			StringBuffer text = new StringBuffer("Votre Mot de passe à été changé! </br>");			
-//			text.append(" Vous pouvez désormais vous connecter à votre espace client grâce à votre login et votre mot de passe: </br>");			
-//			text.append(" Votre Login        : <B>" + client.getIdentifiant() +" </B> </br>");
-//			text.append(" Votre Mot de Passe : <B>" + client.getMotDePasse() +"  </B> </br>");
-//			text.append(" En espérant que vous trouviez entière satisfaction chez nous. Nous vous souhaitons une agréable journée. </br>");
-//			text.append(" La BriceCorp Team ");
-//			
-//			userService.sendMessage("Reponse a votre demande de generation de Mot-de-pass GestBank", text.toString(), demande_inscription.getMail(), "GB.bricecorp@gmail.com");
-			
+			/// **
+			// * Envoi du mail confirmant au client la generation de son mdp/
+			// StringBuffer text = new StringBuffer("Votre Mot de passe à été
+			// changé! </br>");
+			// text.append(" Vous pouvez désormais vous connecter à votre espace
+			// client grâce à votre login et votre mot de passe: </br>");
+			// text.append(" Votre Login : <B>" + client.getIdentifiant() +"
+			// </B> </br>");
+			// text.append(" Votre Mot de Passe : <B>" + client.getMotDePasse()
+			// +" </B> </br>");
+			// text.append(" En espérant que vous trouviez entière satisfaction
+			// chez nous. Nous vous souhaitons une agréable journée. </br>");
+			// text.append(" La BriceCorp Team ");
+			//
+			// userService.sendMessage("Reponse a votre demande de generation de
+			// Mot-de-pass GestBank", text.toString(),
+			// demande_inscription.getMail(), "GB.bricecorp@gmail.com");
+
 			return new ResponseEntity<Void>(HttpStatus.OK);
 		} catch (Exception e) {
 
@@ -85,15 +87,16 @@ public class HelloWorldRestController {
 		}
 	}
 
-	// -------------------Modification d'etat d'une demande--------------------------------------------------------
+	// -------------------Modification d'etat d'une
+	// demande--------------------------------------------------------
 
 	@RequestMapping(value = "/demande/modifEtat_Demande/{demande_id}&{nouvelEtat}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> attribution(@PathVariable("demande_id") long demande_id,
 			@PathVariable("nouvelEtat") String nouvelEtat) {
 		System.out.println("Modification de letat d une demande " + demande_id);
 
-		 try {
-			demandeService.modifEtat_Demande(demande_id,nouvelEtat);
+		try {
+			demandeService.modifEtat_Demande(demande_id, nouvelEtat);
 
 			return new ResponseEntity<Void>(HttpStatus.OK);
 		} catch (Exception e) {
@@ -103,14 +106,13 @@ public class HelloWorldRestController {
 		}
 	}
 	// switch
-	
+
 	@RequestMapping(value = "/user/switch/{userID}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> switchEtatNotif(@PathVariable("userID") long userID,
-			@RequestBody Notification notif) {
+	public ResponseEntity<Void> switchEtatNotif(@PathVariable("userID") long userID, @RequestBody Notification notif) {
 		System.out.println("Modification de letat d une notif " + userID);
 
-		 try {
-			userService.modifEtat_Notif(userID,notif.getID());
+		try {
+			userService.modifEtat_Notif(userID, notif.getID());
 
 			return new ResponseEntity<Void>(HttpStatus.OK);
 		} catch (Exception e) {
@@ -119,16 +121,15 @@ public class HelloWorldRestController {
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
+
 	// delete notif
-	
+
 	@RequestMapping(value = "/user/deleteNotif/{userID}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> deleteNotif(@PathVariable("userID") long userID,
-			@RequestBody Notification notif) {
+	public ResponseEntity<Void> deleteNotif(@PathVariable("userID") long userID, @RequestBody Notification notif) {
 		System.out.println("Modification de letat d une notif " + userID);
 
-		 try {
-			userService.delete_Notif(userID,notif.getID());
+		try {
+			userService.delete_Notif(userID, notif.getID());
 
 			return new ResponseEntity<Void>(HttpStatus.OK);
 		} catch (Exception e) {
@@ -137,20 +138,23 @@ public class HelloWorldRestController {
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
-	// -------------------Validation Demande Modification d info perso--------------------------------------------------------
+
+	// -------------------Validation Demande Modification d info
+	// perso--------------------------------------------------------
 
 	@RequestMapping(value = "/demande/validationmodifinfoperso/{id_conseil}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> validationModifInfoPerso(@PathVariable("id_conseil") long id_conseiller,
 			@RequestBody Dem_ModificationInfo demande_modificationinfoperso) {
-		System.out.println("validation de la demande de modification d info perso " + demande_modificationinfoperso.getID());
+		System.out.println(
+				"validation de la demande de modification d info perso " + demande_modificationinfoperso.getID());
 
-		 try {
+		try {
 
-			 userService.updateclient(demande_modificationinfoperso);
-			 
-			userService.sendNotificationToAClient("Vos informations personnelles ont ete mises à jour", demande_modificationinfoperso.getClient().getId());
-			demandeService.suppressionDemande(demande_modificationinfoperso.getID(),id_conseiller);
+			userService.updateclient(demande_modificationinfoperso);
+
+			userService.sendNotificationToAClient("Vos informations personnelles ont ete mises à jour",
+					demande_modificationinfoperso.getClient().getId());
+			demandeService.suppressionDemande(demande_modificationinfoperso.getID(), id_conseiller);
 
 			return new ResponseEntity<Void>(HttpStatus.CREATED);
 		} catch (Exception e) {
@@ -159,56 +163,66 @@ public class HelloWorldRestController {
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
-	
-	// -------------------Validation Demande Modification de compte--------------------------------------------------------
+
+	// -------------------Validation Demande Modification de
+	// compte--------------------------------------------------------
 
 	@RequestMapping(value = "/demande/validationmodifcompte/{id_conseil}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> validationModifCompte(@PathVariable("id_conseil") long id_conseiller,
 			@RequestBody Dem_ModificationCompte demande_modificationcompte) {
 		System.out.println("validation de la demande de modification de compte " + demande_modificationcompte.getID());
 
-		 try {
-			if(demande_modificationcompte.getDecouvert() > 0){
-				 compteService.updateCompte(demande_modificationcompte.getCompte());
-			 
-				userService.sendNotificationToAClient("Votre compte "+demande_modificationcompte.getCompte().getLibelle() + " a ete modifie", demande_modificationcompte.getClient().getId());
-				demandeService.suppressionDemande(demande_modificationcompte.getID(),id_conseiller);
+		try {
+			if (demande_modificationcompte.getDecouvert() > 0) {
+				compteService.updateCompte(demande_modificationcompte.getCompte());
+
+				userService.sendNotificationToAClient(
+						"Votre compte " + demande_modificationcompte.getCompte().getLibelle() + " a ete modifie",
+						demande_modificationcompte.getClient().getId());
+				demandeService.suppressionDemande(demande_modificationcompte.getID(), id_conseiller);
 
 				return new ResponseEntity<Void>(HttpStatus.CREATED);
-			 }else if(demande_modificationcompte.isRemunerateur()){
-				 
-				 compteService.updateCompte(demande_modificationcompte.getCompte());
-				userService.sendNotificationToAClient("Votre compte "+demande_modificationcompte.getCompte().getLibelle() + " a ete modifie", demande_modificationcompte.getClient().getId());
-				demandeService.suppressionDemande(demande_modificationcompte.getID(),id_conseiller);
+			} else if (demande_modificationcompte.isRemunerateur()) {
+
+				compteService.updateCompte(demande_modificationcompte.getCompte());
+				userService.sendNotificationToAClient(
+						"Votre compte " + demande_modificationcompte.getCompte().getLibelle() + " a ete modifie",
+						demande_modificationcompte.getClient().getId());
+				demandeService.suppressionDemande(demande_modificationcompte.getID(), id_conseiller);
 
 				return new ResponseEntity<Void>(HttpStatus.CREATED);
-			 }else{
-				 System.out.println("creation du compte " + demande_modificationcompte.getLibelle());
-					Compte compte = new Compte();
-					compte.setLibelle(demande_modificationcompte.getLibelle());
-					compteService.saveCompte(demande_modificationcompte.getClient().getId(),compte);
-					userService.sendNotificationToAClient("Votre compte "+demande_modificationcompte.getLibelle() + " a ete cree", demande_modificationcompte.getClient().getId());
-					demandeService.suppressionDemande(demande_modificationcompte.getID(),id_conseiller);
+			} else {
+				System.out.println("creation du compte " + demande_modificationcompte.getLibelle());
+				Compte compte = new Compte();
+				compte.setLibelle(demande_modificationcompte.getLibelle());
+				compteService.saveCompte(demande_modificationcompte.getClient().getId(), compte);
+				userService.sendNotificationToAClient(
+						"Votre compte " + demande_modificationcompte.getLibelle() + " a ete cree",
+						demande_modificationcompte.getClient().getId());
+				demandeService.suppressionDemande(demande_modificationcompte.getID(), id_conseiller);
 
-						return new ResponseEntity<Void>(HttpStatus.CREATED);
-			 }} catch (Exception e) {
-				 e.printStackTrace();
-				 return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+				return new ResponseEntity<Void>(HttpStatus.CREATED);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
-	
-	// -------------------Validation Demande Chequier--------------------------------------------------------
+
+	// -------------------Validation Demande
+	// Chequier--------------------------------------------------------
 
 	@RequestMapping(value = "/demande/validationchequier/{id_conseil}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> validationChequier(@RequestBody Dem_Chequier demande_chequier, @PathVariable("id_conseil") long id_conseiller) {
+	public ResponseEntity<Void> validationChequier(@RequestBody Dem_Chequier demande_chequier,
+			@PathVariable("id_conseil") long id_conseiller) {
 		System.out.println("validation de la demande de chequier " + demande_chequier.getID());
 
-		 try {
-			userService.sendNotificationToAClient("Votre chequier a ete commande pour votre compte "+demande_chequier.getCompte().getIBAN(), demande_chequier.getClient().getId());
+		try {
+			userService.sendNotificationToAClient(
+					"Votre chequier a ete commande pour votre compte " + demande_chequier.getCompte().getIBAN(),
+					demande_chequier.getClient().getId());
 
-			demandeService.suppressionDemande(demande_chequier.getID(),id_conseiller);
+			demandeService.suppressionDemande(demande_chequier.getID(), id_conseiller);
 
 			return new ResponseEntity<Void>(HttpStatus.CREATED);
 		} catch (Exception e) {
@@ -218,35 +232,39 @@ public class HelloWorldRestController {
 		}
 	}
 
-	// -------------------Validation Creation Client--------------------------------------------------------
+	// -------------------Validation Creation
+	// Client--------------------------------------------------------
 
 	@RequestMapping(value = "/demande/validationcreation/{id_conseil}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> validationCreation(@PathVariable("id_conseil") long id_conseiller,
 			@RequestBody Dem_CreationClient demande_inscription) {
 		System.out.println("validation de la demande d'isncription " + demande_inscription.getID());
 
-		 try {
-			Client client = userService.createClient(id_conseiller,demande_inscription);
+		try {
+			Client client = userService.createClient(id_conseiller, demande_inscription);
 
-			///**
-			//* Envoi du mail confirmant au client la création de son compte/
-//			StringBuffer text = new StringBuffer("Bienvenue chez GestBank, filiale du groupe BriceCorp! </br>");			
-//			text.append(" Nous sommes heureux de vous annoncer que votre compte a été créé et qu'il est à présent parfaitement fonctionnel. </br> ");			
-//			text.append(" Vous pouvez désormais vous connecter à votre espace client grâce à votre login et votre mot de passe: </br>");			
-//			text.append(" Votre Login        : <B>" + client.getIdentifiant() +" </B> </br>");
-//			text.append(" Votre Mot de Passe : <B>" + client.getMotDePasse() +"  </B> </br>");
-//			text.append(" En espérant que vous trouviez entière satisfaction chez nous. Nous vous souhaitons une agréable journée. </br>");
-//			text.append(" La BriceCorp Team ");
-//			
-//			userService.sendMessage("Bienvenue chez GestBank!", text.toString(), demande_inscription.getMail(), "GB.bricecorp@gmail.com");
-			
-			demandeService.suppressionDemande(demande_inscription.getID(),id_conseiller);
-			 
+			/// **
+			// * Envoi du mail confirmant au client la création de son compte/
+			// StringBuffer text = new StringBuffer("Bienvenue chez GestBank,
+			// filiale du groupe BriceCorp! </br>");
+			// text.append(" Nous sommes heureux de vous annoncer que votre
+			// compte a été créé et qu'il est à présent parfaitement
+			// fonctionnel. </br> ");
+			// text.append(" Vous pouvez désormais vous connecter à votre espace
+			// client grâce à votre login et votre mot de passe: </br>");
+			// text.append(" Votre Login : <B>" + client.getIdentifiant() +"
+			// </B> </br>");
+			// text.append(" Votre Mot de Passe : <B>" + client.getMotDePasse()
+			// +" </B> </br>");
+			// text.append(" En espérant que vous trouviez entière satisfaction
+			// chez nous. Nous vous souhaitons une agréable journée. </br>");
+			// text.append(" La BriceCorp Team ");
+			//
+			// userService.sendMessage("Bienvenue chez GestBank!",
+			// text.toString(), demande_inscription.getMail(),
+			// "GB.bricecorp@gmail.com");
 
-					
-					
-					
-					
+			demandeService.suppressionDemande(demande_inscription.getID(), id_conseiller);
 
 			return new ResponseEntity<Void>(HttpStatus.CREATED);
 		} catch (Exception e) {
@@ -256,44 +274,43 @@ public class HelloWorldRestController {
 		}
 	}
 
-	// -------------------Retrieve Demande by Id--------------------------------------------------------
+	// -------------------Retrieve Demande by
+	// Id--------------------------------------------------------
 
 	@RequestMapping(value = "/demande/{id_demande}", method = RequestMethod.GET)
 	public ResponseEntity<Demande> demandeById(@PathVariable("id_demande") long id_demande) {
 		System.out.println("fetch demande " + id_demande);
-		
-		
+
 		Demande demande;
 		try {
 			demande = demandeService.findDemandeById(id_demande);
 			System.out.println(demande);
 			return new ResponseEntity<Demande>(demande, HttpStatus.OK);
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
 			return new ResponseEntity<Demande>(HttpStatus.NO_CONTENT);
 		}
 
-		
-
 	}
 
-	// -------------------Attribution du conseiller à une demande d'ouverture de compte--------------------------------------------------------
+	// -------------------Attribution du conseiller à une demande d'ouverture de
+	// compte--------------------------------------------------------
 
 	@RequestMapping(value = "/demande/attribution/{demande_id}&{conseiller_id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> attribution(@PathVariable("demande_id") long demande_id,
 			@PathVariable("conseiller_id") long conseiller_id) {
-		System.out.println("Attribution du conseiller" +conseiller_id + " a la demande " + demande_id);
+		System.out.println("Attribution du conseiller" + conseiller_id + " a la demande " + demande_id);
 		try {
 			demandeService.attribution(demande_id, conseiller_id);
-			return new ResponseEntity<Void>( HttpStatus.OK);
+			return new ResponseEntity<Void>(HttpStatus.OK);
 		} catch (NoResultException ex) {
 
-			return new ResponseEntity<Void>( HttpStatus.I_AM_A_TEAPOT);
+			return new ResponseEntity<Void>(HttpStatus.I_AM_A_TEAPOT);
 		}
 	}
-	//inscriptionsAffectees
-	
+	// inscriptionsAffectees
+
 	@RequestMapping(value = "/demande/inscriptionsAffectees", method = RequestMethod.GET)
 	public ResponseEntity<List<Dem_CreationClient>> inscriptionsAffectees() {
 		try {
@@ -301,24 +318,26 @@ public class HelloWorldRestController {
 			return new ResponseEntity<List<Dem_CreationClient>>(listDemandes, HttpStatus.OK);
 		} catch (NoResultException ex) {
 
-			return new ResponseEntity<List<Dem_CreationClient>>( HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<Dem_CreationClient>>(HttpStatus.NO_CONTENT);
 		}
 	}
-	
+
 	// -----------------------------------------------réaffectation--------------------------------------------------------
 
 	@RequestMapping(value = "/demande/reaffectation/{client_id}&{conseiller_id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> réaffectation(	@PathVariable("client_id") long client_id,
-												@PathVariable("conseiller_id") long conseiller_id) {
-		    demandeService.reaffectation(client_id, conseiller_id);
-			return new ResponseEntity<Void>( HttpStatus.OK);
-		
+	public ResponseEntity<Void> réaffectation(@PathVariable("client_id") long client_id,
+			@PathVariable("conseiller_id") long conseiller_id) {
+		demandeService.reaffectation(client_id, conseiller_id);
+		return new ResponseEntity<Void>(HttpStatus.OK);
+
 	}
-	
-	// -------------------Retrieve All Demandes de modif compte--------------------------------------------------------
+
+	// -------------------Retrieve All Demandes de modif
+	// compte--------------------------------------------------------
 
 	@RequestMapping(value = "/demande/modifcompte/{conseillerID}", method = RequestMethod.GET)
-	public ResponseEntity<List<Dem_ModificationCompte>> listAllDemandeModifCompte(@PathVariable("conseillerID") long consID) {
+	public ResponseEntity<List<Dem_ModificationCompte>> listAllDemandeModifCompte(
+			@PathVariable("conseillerID") long consID) {
 		System.out.println("fetch demandes modif compte");
 		List<Dem_ModificationCompte> demandes = demandeService.findAllDemandesModifCompte(consID);
 
@@ -328,10 +347,12 @@ public class HelloWorldRestController {
 		return new ResponseEntity<List<Dem_ModificationCompte>>(demandes, HttpStatus.OK);
 	}
 
-	// -------------------Retrieve All Demandes de modif info perso--------------------------------------------------------
-	
+	// -------------------Retrieve All Demandes de modif info
+	// perso--------------------------------------------------------
+
 	@RequestMapping(value = "/demande/modifinfo/{conseillerID}", method = RequestMethod.GET)
-	public ResponseEntity<List<Dem_ModificationInfo>> listAllDemandeModifInfoPerso(@PathVariable("conseillerID") long consID) {
+	public ResponseEntity<List<Dem_ModificationInfo>> listAllDemandeModifInfoPerso(
+			@PathVariable("conseillerID") long consID) {
 		System.out.println("fetch demandes modif compte");
 		List<Dem_ModificationInfo> demandes = demandeService.findAllDemandesModifInfo(consID);
 
@@ -340,27 +361,33 @@ public class HelloWorldRestController {
 		}
 		return new ResponseEntity<List<Dem_ModificationInfo>>(demandes, HttpStatus.OK);
 	}
-	// -------------------Retrieve All Demandes d inscription non attribuees--------------------------------------------------------
+	// -------------------Retrieve All Demandes d inscription non
+	// attribuees--------------------------------------------------------
 
 	@RequestMapping(value = "/demande/inscription/{adminOrConsID}", method = RequestMethod.GET)
 	/**
-	 * Si l'id est égal à 0 ou 1 alors c'est l'admin qui effectue la requete (0 pour les nouvelles requetes, 1 pour les requetes en cours), sinon c'est un conseiller
+	 * Si l'id est égal à 0 ou 1 alors c'est l'admin qui effectue la requete (0
+	 * pour les nouvelles requetes, 1 pour les requetes en cours), sinon c'est
+	 * un conseiller
+	 * 
 	 * @return
 	 */
-	public ResponseEntity<List<Dem_CreationClient>> listAllDemandeIscription(@PathVariable("adminOrConsID") long adminOrConsID) {
+	public ResponseEntity<List<Dem_CreationClient>> listAllDemandeIscription(
+			@PathVariable("adminOrConsID") long adminOrConsID) {
 		System.out.println("fetch demandes inscription ");
 		List<Dem_CreationClient> demandes;
 
 		demandes = demandeService.findAllDemandesCreationClient(adminOrConsID);
-		
+
 		if (demandes.isEmpty()) {
 			return new ResponseEntity<List<Dem_CreationClient>>(HttpStatus.NO_CONTENT);
-		} 
+		}
 
 		return new ResponseEntity<List<Dem_CreationClient>>(demandes, HttpStatus.OK);
 	}
 
-	// -------------------Retrieve All Demandes de chequier--------------------------------------------------------
+	// -------------------Retrieve All Demandes de
+	// chequier--------------------------------------------------------
 
 	@RequestMapping(value = "/demande/chequier/{conseillerID}", method = RequestMethod.GET)
 	public ResponseEntity<List<Dem_Chequier>> listAllDemandeChequier(@PathVariable("conseillerID") long consID) {
@@ -373,7 +400,8 @@ public class HelloWorldRestController {
 		return new ResponseEntity<List<Dem_Chequier>>(demandes, HttpStatus.OK);
 	}
 
-	// -------------------Create demande d'inscription-------------------------------------------------------
+	// -------------------Create demande
+	// d'inscription-------------------------------------------------------
 
 	@RequestMapping(value = "/demande/inscription", method = RequestMethod.POST)
 	public ResponseEntity<Demande> DemandeInscription(@RequestBody Dem_CreationClient demande_inscription) {
@@ -384,19 +412,21 @@ public class HelloWorldRestController {
 		return new ResponseEntity<Demande>(demande, HttpStatus.CREATED);
 
 	}
-	
-	// -------------------Create demande de modification d'info perso-------------------------------------------------------
+
+	// -------------------Create demande de modification d'info
+	// perso-------------------------------------------------------
 
 	@RequestMapping(value = "/demande/createmodifinfoperso/{idClient}", method = RequestMethod.POST)
-	public ResponseEntity<Void> DemandeInfoPerso(@RequestBody Dem_ModificationInfo demandeModificationInfoPerso, @PathVariable("idClient") long idClient) {
+	public ResponseEntity<Void> DemandeInfoPerso(@RequestBody Dem_ModificationInfo demandeModificationInfoPerso,
+			@PathVariable("idClient") long idClient) {
 		System.out.println("Creating demande de modification d info perso de " + demandeModificationInfoPerso);
 
 		try {
 			Client client = userService.findCliById(idClient);
 			demandeModificationInfoPerso.setClient(client);
 			demandeModificationInfoPerso.setType(TypeDemandes.ModificationInformationPerso.getType());
-			System.out.println("coucou "+ demandeModificationInfoPerso);
-			demandeService.addDemandeModificationInfoPersoToCons(client.getConseiller(),demandeModificationInfoPerso);
+			System.out.println("coucou " + demandeModificationInfoPerso);
+			demandeService.addDemandeModificationInfoPersoToCons(client.getConseiller(), demandeModificationInfoPerso);
 			return new ResponseEntity<Void>(HttpStatus.CREATED);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -404,21 +434,22 @@ public class HelloWorldRestController {
 			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
 		}
 
-
-
 	}
-	
-	// -------------------Create demande de nouveau compte bancaire --------------------------------------------------------
+
+	// -------------------Create demande de nouveau compte bancaire
+	// --------------------------------------------------------
 
 	@RequestMapping(value = "/demande/creationCompteBancaire/{idClient}", method = RequestMethod.POST)
-	public ResponseEntity<Void> DemandeNouveauCompteBancaire(@RequestBody Dem_ModificationCompte demande_NouveauCompteBancaire,
-																@PathVariable("idClient") long idClient) {
+	public ResponseEntity<Void> DemandeNouveauCompteBancaire(
+			@RequestBody Dem_ModificationCompte demande_NouveauCompteBancaire,
+			@PathVariable("idClient") long idClient) {
 		try {
 			Client client = userService.findCliById(idClient);
 			demande_NouveauCompteBancaire.setClient(client);
 			System.out.println("Creating demande inscription " + demande_NouveauCompteBancaire);
 
-			demandeService.addDemandeModificationCompteToCons(demande_NouveauCompteBancaire.getClient().getConseiller(),demande_NouveauCompteBancaire);
+			demandeService.addDemandeModificationCompteToCons(demande_NouveauCompteBancaire.getClient().getConseiller(),
+					demande_NouveauCompteBancaire);
 
 			return new ResponseEntity<Void>(HttpStatus.CREATED);
 		} catch (Exception e) {
@@ -433,7 +464,8 @@ public class HelloWorldRestController {
 	//////////////////////////////////////////// CONNEXION///////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// ------------------- Login a User --------------------------------------------------------
+	// ------------------- Login a User
+	// --------------------------------------------------------
 
 	@RequestMapping(value = "/user/connect/{login}&{password}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<User> connectUser(@PathVariable("login") String login, @PathVariable("password") String pwd) {
@@ -451,16 +483,15 @@ public class HelloWorldRestController {
 
 	}
 
-	
-	// ------------------- refresh CurrentUser --------------------------------------------------------
+	// ------------------- refresh CurrentUser
+	// --------------------------------------------------------
 
 	@RequestMapping(value = "/user/{idUser}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<User> getClient(@PathVariable("idUser") long idUser) {
 
-		
-		System.out.println("Rafraichissement du User " +idUser);
+		System.out.println("Rafraichissement du User " + idUser);
 		try {
-			User currentUser = userService.refresh( idUser);
+			User currentUser = userService.refresh(idUser);
 			return new ResponseEntity<User>(currentUser, HttpStatus.OK);
 		} catch (NoResultException ex) {
 
@@ -468,16 +499,14 @@ public class HelloWorldRestController {
 
 		}
 
-
 	}
-	
-	
+
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////// Clients////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	
-	// ------------------- get Client --------------------------------------------------------
+	// ------------------- get Client
+	// --------------------------------------------------------
 
 	@RequestMapping(value = "/user/client/{idClient}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<User> getClientById(@PathVariable("idClient") long idClient) {
@@ -491,8 +520,9 @@ public class HelloWorldRestController {
 			return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
-	// ------------------- get Client By CompteId--------------------------------------------------------
+
+	// ------------------- get Client By
+	// CompteId--------------------------------------------------------
 
 	@RequestMapping(value = "/user/compte/{idCompte}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<User> getClientByCompteId(@PathVariable("idCompte") long idCompte) {
@@ -506,70 +536,72 @@ public class HelloWorldRestController {
 			return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
+
 	// -------------------Create demande de decouvert
 	// --------------------------------------------------------
 
-		@RequestMapping(value = "/demande/decouvert/{idClient}&{compteId}", method = RequestMethod.POST)
-		public ResponseEntity<Void> DemandeDecouvert(@RequestBody Dem_ModificationCompte demande_Decouvert,
-																	@PathVariable("idClient") long idClient,
-																	@PathVariable("compteId") int compteId) {
-			Client client = userService.findCliById(idClient);
-			demande_Decouvert.setClient(client);
-			demande_Decouvert.setCompte(compteService.findCompteById(compteId));
-			System.out.println("Creating demande de decouvert " + demande_Decouvert);
+	@RequestMapping(value = "/demande/decouvert/{idClient}&{compteId}", method = RequestMethod.POST)
+	public ResponseEntity<Void> DemandeDecouvert(@RequestBody Dem_ModificationCompte demande_Decouvert,
+			@PathVariable("idClient") long idClient, @PathVariable("compteId") int compteId) {
+		Client client = userService.findCliById(idClient);
+		demande_Decouvert.setClient(client);
+		demande_Decouvert.setCompte(compteService.findCompteById(compteId));
+		System.out.println("Creating demande de decouvert " + demande_Decouvert);
 
-			demandeService.addDemandeModificationCompteToCons(demande_Decouvert.getClient().getConseiller(),demande_Decouvert);
+		demandeService.addDemandeModificationCompteToCons(demande_Decouvert.getClient().getConseiller(),
+				demande_Decouvert);
 
-			return new ResponseEntity<Void>(HttpStatus.CREATED);
+		return new ResponseEntity<Void>(HttpStatus.CREATED);
 
-		}
-		
-		// -------------------Create demande de Remuneration
-		// --------------------------------------------------------
+	}
 
-			@RequestMapping(value = "/demande/remuneration/{idClient}&{compteId}", method = RequestMethod.POST)
-			public ResponseEntity<Void> DemandeRemun(@PathVariable("idClient") long idClient,
-													 @PathVariable("compteId") int compteId) {
-				Client client = userService.findCliById(idClient);
-				
-				Dem_ModificationCompte demande_Remuneration = new Dem_ModificationCompte();
-				
-				demande_Remuneration.setClient(client);
-				demande_Remuneration.setCompte(compteService.findCompteById(compteId));
-				System.out.println("Creating demande de Remuneration " + demande_Remuneration);
+	// -------------------Create demande de Remuneration
+	// --------------------------------------------------------
 
-				demandeService.addDemandeModificationCompteToCons(demande_Remuneration.getClient().getConseiller(),demande_Remuneration);
+	@RequestMapping(value = "/demande/remuneration/{idClient}&{compteId}", method = RequestMethod.POST)
+	public ResponseEntity<Void> DemandeRemun(@PathVariable("idClient") long idClient,
+			@PathVariable("compteId") int compteId) {
+		Client client = userService.findCliById(idClient);
 
-				return new ResponseEntity<Void>(HttpStatus.CREATED);
+		Dem_ModificationCompte demande_Remuneration = new Dem_ModificationCompte();
 
-			}
-			
-			// -------------------Create demande de Chéquier
-			// --------------------------------------------------------
+		demande_Remuneration.setClient(client);
+		demande_Remuneration.setCompte(compteService.findCompteById(compteId));
+		System.out.println("Creating demande de Remuneration " + demande_Remuneration);
 
-				@RequestMapping(value = "/demande/chequier/{idClient}&{compteId}", method = RequestMethod.POST)
-				public ResponseEntity<Void> DemandeChequier(@PathVariable("idClient") long idClient,
-															@PathVariable("compteId") int compteId) {
-					Client client = userService.findCliById(idClient);
-					
-					Dem_Chequier demande_Chequier = new Dem_Chequier();
-					
-					demande_Chequier.setClient(client);
-					demande_Chequier.setCompte(compteService.findCompteById(compteId));
-					System.out.println("Creating demande de chequier " + demande_Chequier);
-					
-					demandeService.addDemandeChequierToCons(demande_Chequier.getClient().getConseiller(),demande_Chequier);
+		demandeService.addDemandeModificationCompteToCons(demande_Remuneration.getClient().getConseiller(),
+				demande_Remuneration);
 
-					return new ResponseEntity<Void>(HttpStatus.CREATED);
+		return new ResponseEntity<Void>(HttpStatus.CREATED);
 
-				}
-	
+	}
+
+	// -------------------Create demande de Chéquier
+	// --------------------------------------------------------
+
+	@RequestMapping(value = "/demande/chequier/{idClient}&{compteId}", method = RequestMethod.POST)
+	public ResponseEntity<Void> DemandeChequier(@PathVariable("idClient") long idClient,
+			@PathVariable("compteId") int compteId) {
+		Client client = userService.findCliById(idClient);
+
+		Dem_Chequier demande_Chequier = new Dem_Chequier();
+
+		demande_Chequier.setClient(client);
+		demande_Chequier.setCompte(compteService.findCompteById(compteId));
+		System.out.println("Creating demande de chequier " + demande_Chequier);
+
+		demandeService.addDemandeChequierToCons(demande_Chequier.getClient().getConseiller(), demande_Chequier);
+
+		return new ResponseEntity<Void>(HttpStatus.CREATED);
+
+	}
+
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////// CONSEILLER//////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// -------------------Retrieve Conseiller Users--------------------------------------------------------
+	// -------------------Retrieve Conseiller
+	// Users--------------------------------------------------------
 
 	@RequestMapping(value = "/user/Conseiller/{idConseiller}", method = RequestMethod.GET)
 	public ResponseEntity<List<Client>> listUser_Cons(@PathVariable("idConseiller") long idConseiller) {
@@ -584,7 +616,8 @@ public class HelloWorldRestController {
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////// ADMIN///////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////
-	// -------------------Retrieve all Conseillers --------------------------------------------------------
+	// -------------------Retrieve all Conseillers
+	//////////////////////////////////////////////////////////////////////////////////////////////////// --------------------------------------------------------
 
 	@RequestMapping(value = "/user/Admin/Conseillers", method = RequestMethod.GET)
 	public ResponseEntity<List<Conseiller>> listUser_Admin_Cons() {
@@ -597,7 +630,8 @@ public class HelloWorldRestController {
 		return new ResponseEntity<List<Conseiller>>(conseillers, HttpStatus.OK);
 	}
 
-	// -------------------Retrieve Single Conseiller--------------------------------------------------------
+	// -------------------Retrieve Single
+	// Conseiller--------------------------------------------------------
 
 	@RequestMapping(value = "/user/ADMIN/Cons/{idCons}", method = RequestMethod.GET)
 	public ResponseEntity<Conseiller> getCons(@PathVariable("idCons") long idCons) {
@@ -610,7 +644,8 @@ public class HelloWorldRestController {
 		return new ResponseEntity<Conseiller>(conseiller, HttpStatus.OK);
 	}
 
-	// -------------------Create a Conseiller--------------------------------------------------------
+	// -------------------Create a
+	// Conseiller--------------------------------------------------------
 
 	@RequestMapping(value = "/user/ADMIN/creaCons", method = RequestMethod.POST)
 	public ResponseEntity<Void> creaCons3(@RequestBody Conseiller conseiller) {
@@ -625,14 +660,14 @@ public class HelloWorldRestController {
 	public ResponseEntity<Void> checkCons(@PathVariable("conseillerIdentifiant") String identifiant) {
 		System.out.println("Check a conseiller " + identifiant);
 
-		if(userService.checkConseillerIdentifiant(identifiant))
-		{
-		return new ResponseEntity<Void>(HttpStatus.OK);
-		}
-		else return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+		if (userService.checkConseillerIdentifiant(identifiant)) {
+			return new ResponseEntity<Void>(HttpStatus.OK);
+		} else
+			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
 	}
-	
-	// ------------------- Update a Conseiller --------------------------------------------------------
+
+	// ------------------- Update a Conseiller
+	// --------------------------------------------------------
 
 	@RequestMapping(value = "/user/consEdit", method = RequestMethod.PUT)
 	public ResponseEntity<Conseiller> updateCons(@RequestBody Conseiller cons) {
@@ -643,8 +678,8 @@ public class HelloWorldRestController {
 		return new ResponseEntity<Conseiller>(cons, HttpStatus.OK);
 	}
 
-
-	// ------------------- Delete a Conseiller --------------------------------------------------------
+	// ------------------- Delete a Conseiller
+	// --------------------------------------------------------
 
 	@RequestMapping(value = "/user/delCons{idCons}", method = RequestMethod.DELETE)
 	public ResponseEntity<Conseiller> deleteCons(@PathVariable("idCons") long idCons) {
@@ -664,7 +699,8 @@ public class HelloWorldRestController {
 	//////////////////////////////////////////// AUTRES///////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// -------------------Create a Admin--------------------------------------------------------
+	// -------------------Create a
+	// Admin--------------------------------------------------------
 
 	@RequestMapping(value = "/user/Dummy", method = RequestMethod.POST)
 	public ResponseEntity<Void> populateDummy() {
@@ -703,8 +739,7 @@ public class HelloWorldRestController {
 		Conseiller conseillerpourclient1 = userService.findConsById(2);
 		demandeService.attribution(demande_inscription.getID(), conseillerpourclient1.getId());
 		userService.createClient(conseillerpourclient1.getId(), demande_inscription);
-		demandeService.suppressionDemande(demande_inscription.getID(),conseillerpourclient1.getId());
-		
+		demandeService.suppressionDemande(demande_inscription.getID(), conseillerpourclient1.getId());
 
 		Dem_CreationClient demande_inscription2 = new Dem_CreationClient();
 		demande_inscription2.setNom("NomClient1");
@@ -718,9 +753,9 @@ public class HelloWorldRestController {
 		demandeService.attribution(demande_inscription2.getID(), conseillerpourclient.getId());
 		userService.createClient(conseillerpourclient.getId(), demande_inscription2);
 		demandeService.suppressionDemande(demande_inscription2.getID(), conseillerpourclient1.getId());
-		
+
 		Client client = userService.findCliById(3);
-		Compte cpt = new Compte();  	  	
+		Compte cpt = new Compte();
 		cpt.setLibelle("Compte courant bis");
 		cpt.setIBAN("blabla");
 		cpt.setSolde(2000);
@@ -730,18 +765,18 @@ public class HelloWorldRestController {
 		for (Compte comptetmp : client.getComptes()) {
 			compte = comptetmp;
 		}
-		
+
 		Dem_Chequier demande_chequier = new Dem_Chequier();
 		demande_chequier.setCompte(compte);
 		demande_chequier.setClient(client);
-		demandeService.addDemandeChequierToCons(conseillerpourclient.getId(),demande_chequier);
-		
+		demandeService.addDemandeChequierToCons(conseillerpourclient.getId(), demande_chequier);
+
 		Dem_ModificationCompte demande_modification = new Dem_ModificationCompte();
 		demande_modification.setClient(client);
 		demande_modification.setDecouvert(500);
 		demande_modification.setCompte(compte);
 		demande_modification.setRemunerateur(true);
-		demandeService.addDemandeModificationCompteToCons(conseillerpourclient.getId(),demande_modification);
+		demandeService.addDemandeModificationCompteToCons(conseillerpourclient.getId(), demande_modification);
 
 		Dem_ModificationInfo demande_modificationInfo = new Dem_ModificationInfo();
 		demande_modificationInfo.setNom("newNomClient1");
@@ -752,7 +787,7 @@ public class HelloWorldRestController {
 		demande_modificationInfo.setTelephone(178987);
 		demande_modificationInfo.setClient(client);
 		demandeService.addDemandeModificationInfoPersoToCons(conseillerpourclient.getId(), demande_modificationInfo);
-		
+
 		Conseiller conseiller2 = new Conseiller();
 		conseiller2.setNom("NomConseiller2");
 		conseiller2.setPrenom("PrenomConseiller2");
@@ -763,7 +798,6 @@ public class HelloWorldRestController {
 		conseiller2.setMatricule(145);
 		conseiller2.setTelephone(18971);
 		userService.addConseillerToAdmin(conseiller2);
-		
 
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
@@ -771,27 +805,29 @@ public class HelloWorldRestController {
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////// COMPTE//////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////
-	// ------------------- Virement --------------------------------------------------------
+	// ------------------- Virement
+	//////////////////////////////////////////////////////////////////////////////////////////////////// --------------------------------------------------------
 	@RequestMapping(value = "/compte/virement/{Debiteur}&{Crediteur}&{Montant}", method = RequestMethod.POST)
 	public ResponseEntity<Void> virement(@PathVariable("Debiteur") long debiteur,
 			@PathVariable("Crediteur") long crediteur, @PathVariable("Montant") float montant) {
-		Mouvement mouvementDebit = compteService.mouvement(montant, debiteur ,crediteur);
+		Mouvement mouvementDebit = compteService.mouvement(montant, debiteur, crediteur);
 		Client clientDebit = compteService.findOwnerByCountID(debiteur);
 		Client clientCredit = compteService.findOwnerByCountID(crediteur);
-		if (clientCredit.getId() != clientDebit.getId())
-		{
-			String message = "vous avez été crédité de " + montant + " de la part de " 
-						 	 + clientDebit.getPrenom() + " " + clientDebit.getNom();
+		if (clientCredit.getId() != clientDebit.getId()) {
+			String message = "vous avez été crédité de " + montant + " de la part de " + clientDebit.getPrenom() + " "
+					+ clientDebit.getNom();
 			userService.sendNotificationToAClient(message, clientCredit.getId());
-			
-			String messageDebiteur = "Vous avez été débité de " + montant + " au profit de " 
-				 	 + clientCredit.getPrenom() + " " + clientCredit.getNom() +". L'operation est identifiable sous la référence suivante: " + mouvementDebit.getID()  ;
+
+			String messageDebiteur = "Vous avez été débité de " + montant + " au profit de " + clientCredit.getPrenom()
+					+ " " + clientCredit.getNom() + ". L'operation est identifiable sous la référence suivante: "
+					+ mouvementDebit.getID();
 			userService.sendNotificationToAClient(messageDebiteur, clientDebit.getId());
 		}
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
-	// ------------------- Liste Compte d'un client --------------------------------------------------------
+	// ------------------- Liste Compte d'un client
+	// --------------------------------------------------------
 
 	@RequestMapping(value = "/compte/{idClient}", method = RequestMethod.GET)
 	public ResponseEntity<List<Compte>> getListeClientComptes(@PathVariable("idClient") long ID) {
@@ -801,8 +837,8 @@ public class HelloWorldRestController {
 		return new ResponseEntity<List<Compte>>(listComptes, HttpStatus.OK);
 	}
 
-	
-	// ------------------- Liste Compte d'un conseiller --------------------------------------------------------
+	// ------------------- Liste Compte d'un conseiller
+	// --------------------------------------------------------
 
 	@RequestMapping(value = "/compte/bycons/{idCons}", method = RequestMethod.GET)
 	public ResponseEntity<List<Compte>> getListeConseillersComptes(@PathVariable("idCons") long idCons) {
@@ -811,8 +847,9 @@ public class HelloWorldRestController {
 		System.out.println(listComptes);
 		return new ResponseEntity<List<Compte>>(listComptes, HttpStatus.OK);
 	}
-	
-	// ------------------- un compte by id --------------------------------------------------------
+
+	// ------------------- un compte by id
+	// --------------------------------------------------------
 
 	@RequestMapping(value = "/compte/byId/{compte_id}", method = RequestMethod.GET)
 	public ResponseEntity<Compte> findComptebyId(@PathVariable("compte_id") long compte_id) {
@@ -820,18 +857,18 @@ public class HelloWorldRestController {
 		Compte compte = compteService.findCompteById(compte_id);
 		System.out.println("compte " + compte);
 		return new ResponseEntity<Compte>(compte, HttpStatus.OK);
-	}	
-	
-	// ------------------- Mouvements  --------------------------------------------------------
+	}
+
+	// ------------------- Mouvements
+	// --------------------------------------------------------
 
 	@RequestMapping(value = "/compte/mouvements/{compte_id}&{dateLimite}", method = RequestMethod.GET)
-	public ResponseEntity<List<Mouvement>> listmouvements(@PathVariable("compte_id") long compte_id, @PathVariable("dateLimite") int dateLimite) {
+	public ResponseEntity<List<Mouvement>> listmouvements(@PathVariable("compte_id") long compte_id,
+			@PathVariable("dateLimite") int dateLimite) {
 		System.out.println("compte numero " + compte_id);
 		List<Mouvement> mouvements = compteService.mouvements(compte_id, dateLimite);
 
 		return new ResponseEntity<List<Mouvement>>(mouvements, HttpStatus.OK);
-	}	
-		
-	
-	
+	}
+
 }

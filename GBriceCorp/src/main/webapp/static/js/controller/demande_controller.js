@@ -1,6 +1,6 @@
 'use strict';
 
-App.controller('DemandeController', ['$scope', '$location', '$resource', '$route', 'DemandeService', 'UserService', '$routeParams', function($scope, $location, $resource, $route, DemandeService, UserService,$routeParams) {
+App.controller('DemandeController', ['$scope', '$location', '$resource', '$route', 'DemandeService', 'UserService','CompteService', '$routeParams', function($scope, $location, $resource, $route, DemandeService, UserService,CompteService,$routeParams) {
 	
 
 	$scope.tempUser = JSON.parse(sessionStorage.getItem("currentUser"));
@@ -29,7 +29,7 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	 self.modifierRemuneration=modifierRemuneration;
 	 self.modifierDecouvert=modifierDecouvert;
 	 self.download=download;
-	 
+	 self.filtreListe=filtreListe;
 	 
 	    $scope.menuDemandesCons = [{"id":"inscription", "valeur" :"Ouverture compte"},
 	                               {"id":"chequier", "valeur" :"Chequier"},
@@ -51,7 +51,25 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	    $scope.demande={};
 	    $scope.demandes=[];
 
+	    function filtreListe(compte_id, dateRange){
 
+
+	    	console.log(dateRange)
+
+	      	CompteService.filtreListeMouvement($scope.demande.compte.id, dateRange)      	
+	    		    	.then(
+	    		    			function(data){
+	    		    				console.log(data);
+	    		    				$scope.mouvements = data;
+	    		    			},
+	    		    			function (errResponse){
+	    		    				console.error('Error while getting an account from an customer ID')
+	    		    			});
+	    		    	
+	    		    };   
+	    
+	    		    
+	    		    
 	  function download(path,nomDuFichier){
 			 DemandeService.download(path+nomDuFichier)
 			 .then(
@@ -368,12 +386,12 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 
 
 $scope.uploadFile = function(files, typeJustificatif) {
-    var fd = new FormData();
+	$scope.tropVolumineux = false;
+    var file = new FormData();
     //Take the first selected file
-    fd.append("file", files[0]);
+    file.append("file", files[0]);
 
-	var file = fd
-    console.log(fd)	
+if(files[0].size < 5000000){
 if($scope.demande.client){
 console.log("demandecompteclient")
 	var id = $scope.demande.client.id
@@ -417,10 +435,16 @@ console.log("demandecompteclient")
     	},
     function(errResponse){
         console.error('Error while uploading file');
+        
+        console.log(errResponse)
     }
 		
 );
-}
+    
+}else{
+	$scope.tropVolumineux = true;
+console.log("fichier trop volumineux")
+}}
 
 function listeJustificatifs() {
 
@@ -462,6 +486,7 @@ function findDemandeById(id) {
     		function(d) {
     			$scope.demande = d;
      		   self.listeJustificatifs();
+     		  filtreListe(d.compte.id,1)
     			console.log(d)
     		},
     function(errResponse){

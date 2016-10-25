@@ -38,7 +38,7 @@
 		</div>
 
 
-	</div>
+	</div>{{tropVolumineux}}
 	<div class="panel-body" ng-hide="Impot">
 		<div class="col-xs-12 raw ">
 			<div class="row">
@@ -49,8 +49,13 @@
 						<input type="file" id="file" name="file"
 							class="form-control input-sm"
 							onchange="angular.element(this).scope().uploadFile(this.files, 'Impot')" />
+					</div>{{tropVolumineux}}
+						<div class="row" ng-if="tropVolumineux ">
+							<div class="form-group col-md-12">						
+								<h1 >Votre fichier fait plus de 5Mo</h1>
+							</div>
+						</div>	
 
-					</div>
 
 				</div>
 			</div>

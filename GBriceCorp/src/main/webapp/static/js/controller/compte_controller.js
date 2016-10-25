@@ -57,11 +57,11 @@ App.controller('CompteController', ['$scope','$location', '$route', '$routeParam
     }
 
    
-    function filtreListe(compte_id){
+    function filtreListe(compte_id, dateRange){
 
-    	console.log($scope.selectedItem)
-    	
-      	CompteService.filtreListeMouvement(compte_id, $scope.selectedItem)      	
+    	console.log(dateRange)
+
+      	CompteService.filtreListeMouvement(compte_id, dateRange)      	
     		    	.then(
     		    			function(data){
     		    				console.log(data);
