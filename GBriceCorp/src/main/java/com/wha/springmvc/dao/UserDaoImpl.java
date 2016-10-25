@@ -319,4 +319,13 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Notification> findNotificationsById(long userID) {
+		List<Notification> notifications = getEntityManager()
+				.createQuery("SELECT c.notifications FROM Client c WHERE c.id = :idConseiller")
+				.setParameter("idConseiller", userID).getResultList();
+		return notifications;
+	}
+
 }

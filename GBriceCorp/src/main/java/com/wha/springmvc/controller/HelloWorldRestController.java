@@ -139,6 +139,23 @@ public class HelloWorldRestController {
 		}
 	}
 
+	// fetch notif
+
+	@RequestMapping(value = "/user/getnotif/{userID}", method = RequestMethod.GET)
+	public ResponseEntity<List<Notification>> deleteNotif(@PathVariable("userID") long userID) {
+		System.out.println("Modification de letat d une notif " + userID);
+
+		try {
+			List<Notification> notifications = userService.findNotificationsById(userID);
+
+			return new ResponseEntity<List<Notification>>(notifications, HttpStatus.OK);
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			return new ResponseEntity<List<Notification>>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
 	// -------------------Validation Demande Modification d info
 	// perso--------------------------------------------------------
 

@@ -23,6 +23,7 @@ import com.wha.springmvc.model.Compte;
 import com.wha.springmvc.model.Conseiller;
 import com.wha.springmvc.model.Dem_CreationClient;
 import com.wha.springmvc.model.Dem_ModificationInfo;
+import com.wha.springmvc.model.Notification;
 import com.wha.springmvc.model.User;
 
 @Service("userService")
@@ -212,6 +213,11 @@ dao.updateclient(demande_modificationinfoperso);
 	public void delete_Notif(long userID, long id) {
 		dao.delete_Notif(userID, id);
 		
+	}
+
+	@Override
+	public List<Notification> findNotificationsById(long userID) {
+return dao.findNotificationsById(userID);
 	}
 
 	

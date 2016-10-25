@@ -2,7 +2,7 @@
 
 App.factory('UserService', ['$http', '$q', function($http, $q){
 
-    var REST_SERVICE_URI = 'http://localhost:8080/GestBank/user/';
+    var REST_SERVICE_URI = 'http://192.168.200.50:8080/GestBank/user/';
 
     var factory = {
         fetchAllUsers: fetchAllUsers,
@@ -22,7 +22,8 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
         getClientByCompteId:getClientByCompteId,
         checkCreaCons:checkCreaCons,
         switchNotif:switchNotif,
-        deleteNotif:deleteNotif
+        deleteNotif:deleteNotif,
+        getNotifs:getNotifs
     };
 
     var user = {
@@ -30,6 +31,23 @@ App.factory('UserService', ['$http', '$q', function($http, $q){
     		};
 
     return factory;
+    
+    
+    function getNotifs(userID)
+    {
+    	var deferred = $q.defer();
+        $http.get(REST_SERVICE_URI+ "getnotif/" + userID)
+            .then(
+            function (response) {
+                deferred.resolve(response.data);
+            },
+            function(errResponse){
+                console.error('Error while fetching notifs');
+                deferred.reject(errResponse);
+            }
+        );
+        return deferred.promise;
+    }
     
     
     function switchNotif(userID, notifSwitched)

@@ -2,7 +2,7 @@
 
 App.factory('DemandeService', ['$http', '$q', function($http, $q){
 
-    var REST_SERVICE_URI = 'http://localhost:8080/GestBank/demande/';
+    var REST_SERVICE_URI = 'http://192.168.200.50:8080/GestBank/demande/';
 
     var factory = {
     	fetchDemandesWithType:fetchDemandesWithType,

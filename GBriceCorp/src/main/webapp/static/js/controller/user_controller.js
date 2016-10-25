@@ -46,7 +46,7 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
     self.checkCreaCons = checkCreaCons;
     self.switchNotif = switchNotif;
     self.CheckHasNotifNonLu = CheckHasNotifNonLu;
-    self.hasNotifNonLu = false;
+
     self.deleteNotif = deleteNotif;
     self.isConnexionExist=isConnexionExist;
     
@@ -67,27 +67,31 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
     }
     
     
-    function CheckHasNotifNonLu() {
-    	self.hasNotifNonLu = false;
-    	for (var i = 0; i < $scope.currentUser.notifications.length; i++)
+    function CheckHasNotifNonLu(notifications) {
+        self.hasNotifNonLu = false;
+
+    	for (var i = 0; i < notifications.length; i++)
     		{
-    		var notif = $scope.currentUser.notifications[i];
+    		var notif = notifications[i];
     		if (!notif.lu)
     			self.hasNotifNonLu = true;
-    		
     		}
+    	console.log("notif "+ self.hasNotifNonLu)
+
     }
     	
     function switchNotif(notifSwitched) {
     	UserService.switchNotif(JSON.parse(sessionStorage.getItem("currentUser")).id, notifSwitched)
         .then(
         function(d) {
-        	refreshUser();
+        	getNotifs();
         },
         function(errResponse){
             console.error('Error while refreshing CurrentUser');
         }
     );
+    	
+
     }
     
     function deleteNotif(notifSwitched) {
@@ -405,16 +409,19 @@ function refreshUser(){
     
     function getNotifs(){
     	// je récupère les notifs associées à un client
-//    	UserService.getNotifs(JSON.parse(sessionStorage.getItem("currentUser")).id)
-//    	.then(
-//    			function(dataFromService){
-//    				notifications = JSON.parse(dataFromService);
-//    			},
-//    			function (errResponse){
-//    				console.error('Error while getting Notifications')
-//    			})
-    	$scope.notifications = JSON.parse(sessionStorage.getItem("currentUser")).notifications;
-    	CheckHasNotifNonLu();
+    	UserService.getNotifs(JSON.parse(sessionStorage.getItem("currentUser")).id)
+    	.then(
+    			function(dataFromService){
+    				$scope.notifications = dataFromService;
+    				console.log($scope.notifications)
+    		    	CheckHasNotifNonLu($scope.notifications);
+    			},
+    			function (errResponse){
+    				console.error('Error while getting Notifications')
+    			})
+//    	$scope.notifications = JSON.parse(sessionStorage.getItem("currentUser")).notifications;
+    	
+
     };
     
     

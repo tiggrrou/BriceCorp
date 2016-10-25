@@ -23,7 +23,7 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 	 self.modifInfo=modifInfo;
 	 self.users=[];
 	 self.fetchAllDemandesInsAffectees = fetchAllDemandesInsAffectees;
-	  self.genererPassword=genererPassword;
+	 self.genererPassword=genererPassword;
 	 self.modifAffichRemuneration=modifAffichRemuneration;
 	 self.modifAffichDecouvert=modifAffichDecouvert;
 	 self.modifierRemuneration=modifierRemuneration;

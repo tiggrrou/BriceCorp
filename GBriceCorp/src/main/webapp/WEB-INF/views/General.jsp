@@ -53,7 +53,7 @@
 	<div id="navbar" class="navbar col-xs-5 col-sm-3 col-lg-2"
 		ng-hide="nav_cache">
 		<div id="contenu_navbar" class="contenu_navbar">
-			<img id="logo" src="static/imgs/logo.png" ng-click="ctrl.populate_dummy()"/>
+			<img id="logo" src="static/imgs/logo.png" ng-click="ctrl.session_delete()"/>
 			<!-- Menu de connexion  -->
 			<div class="formcontainer" ng-hide="connexion_cache">
 				<form ng-submit="ctrl.connect()" name="formConnexion"
@@ -162,7 +162,7 @@
 
 
 			<!-- Menu du Client -->
-			<div class="container-fluid" ng-if="!client_cache">
+			<div class="container-fluid" ng-hide="client_cache">
 				<div class="list-group">
 				<!-- Synthese des comptes -->
 					<a href="#/cli/Cli_ListeComptes" class="list-group-item"
@@ -188,10 +188,9 @@
 				<!-- Notifications -->
 					</a> <a href="#/cli/Cli_Notifications" class="list-group-item"
 						ng-class="{active: $route.current.activetab == 'client_notif'}"
-						ng-click="ctrl.getNotifs"
-						ng-init="ctrl.CheckHasNotifNonLu()">
+						ng-click="ctrl.getNotifs">
 						<h4 class="list-group-item-heading">
-							Notifications <br /> <span ng-hide="{{!ctrl.hasNotifNonLu}}" class="glyphicon glyphicon-envelope">
+							Notifications <br /> <span ng-show="ctrl.hasNotifNonLu == true" class="glyphicon glyphicon-envelope">
 						</h4>
 						<p class="list-group-item-text">Liste de vos notifications</p>
 					</a>
