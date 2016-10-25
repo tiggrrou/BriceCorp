@@ -564,7 +564,7 @@ public class HelloWorldRestController {
 		Client client = userService.findCliById(idClient);
 
 		Dem_ModificationCompte demande_Remuneration = new Dem_ModificationCompte();
-
+		demande_Remuneration.setRemunerateur(true);
 		demande_Remuneration.setClient(client);
 		demande_Remuneration.setCompte(compteService.findCompteById(compteId));
 		System.out.println("Creating demande de Remuneration " + demande_Remuneration);

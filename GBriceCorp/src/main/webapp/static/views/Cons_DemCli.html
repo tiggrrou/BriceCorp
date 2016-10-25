@@ -32,9 +32,13 @@
 								<img class="icone_liste" src="static/imgs/flecheHaut.png" ng-hide="flechetri_2" />
 								<img class="icone_liste" src="static/imgs/flecheBas.png" ng-hide="!flechetri_2" />
 							</th>
-							<th ng-click="dmdctrl.trier_par('dateCreation'); flechetri_3 = !flechetri_3; flechetri_2 = false; flechetri_1 = false; flechetri_4 = false; flechetri_5 = false  ">DateCreation
+							<th ng-click="dmdctrl.trier_par('type'); flechetri_3 = !flechetri_3; flechetri_2 = false; flechetri_1 = false; flechetri_4 = false; flechetri_5 = false  ">Type
 								<img class="icone_liste" src="static/imgs/flecheHaut.png" ng-hide="flechetri_3" />
 								<img class="icone_liste" src="static/imgs/flecheBas.png" ng-hide="!flechetri_3" />
+							</th>							
+							<th ng-click="dmdctrl.trier_par('dateCreation'); flechetri_4 = !flechetri_4; flechetri_2 = false; flechetri_1 = false; flechetri_4 = false; flechetri_5 = false  ">DateCreation
+								<img class="icone_liste" src="static/imgs/flecheHaut.png" ng-hide="flechetri_4" />
+								<img class="icone_liste" src="static/imgs/flecheBas.png" ng-hide="!flechetri_4" />
 							</th>
 								<th width="10%" ng-click="ctrl.trier_par('Action')">Etat</th>
 							</tr>
@@ -43,9 +47,10 @@
 							<tr ng-repeat="demande in dmdctrl.demandes  | filter:search:strict | orderBy:tripar:sens " ng-click="dmdctrl.detailDemande(demande)" >
 								<td>{{(demande.client!=null)?demande.client.nom:demande.nom}}</td>
 								<td>{{(demande.client!=null)?demande.client.prenom:demande.prenom}}</td>
+								<td>{{(demande.type == 1)?'Creation Client':''}}{{(demande.type == 3)?'Chequier':''}}{{(demande.type == 2 && demande.remunerateur == true)?'Remunerateur':''}}{{(demande.type == 2 && demande.decouvert > 0)?'Autorisation Decouvert':''}}{{(demande.type == 2 && demande.libelle)?'Nouveau compte':''}}</td>
 								<td>{{demande.dateCreation}}</td>
 								<td align=center>
-<img class="icone_liste" src="static/imgs/crayon.png" ng-hide="{{(demande.etat=='Affectee')?false:true}}"  />
+<img class="icone_liste" src="static/imgs/crayon.png" ng-hide="{{(demande.etat=='Affectee' || demande.etat=='Cree')?false:true}}"  />
 <img class="icone_liste" src="static/imgs/sablier.png" ng-hide="{{(demande.etat=='EnCours')?false:true}}" />
 
 								</td>
