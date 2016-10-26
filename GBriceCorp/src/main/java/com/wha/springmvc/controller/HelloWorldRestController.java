@@ -63,21 +63,15 @@ public class HelloWorldRestController {
 
 			/// **
 			// * Envoi du mail confirmant au client la generation de son mdp/
-			// StringBuffer text = new StringBuffer("Votre Mot de passe à été
-			// changé! </br>");
-			// text.append(" Vous pouvez désormais vous connecter à votre espace
-			// client grâce à votre login et votre mot de passe: </br>");
-			// text.append(" Votre Login : <B>" + client.getIdentifiant() +"
-			// </B> </br>");
-			// text.append(" Votre Mot de Passe : <B>" + client.getMotDePasse()
-			// +" </B> </br>");
-			// text.append(" En espérant que vous trouviez entière satisfaction
-			// chez nous. Nous vous souhaitons une agréable journée. </br>");
-			// text.append(" La BriceCorp Team ");
-			//
-			// userService.sendMessage("Reponse a votre demande de generation de
-			// Mot-de-pass GestBank", text.toString(),
-			// demande_inscription.getMail(), "GB.bricecorp@gmail.com");
+			 StringBuffer text = new StringBuffer("Votre Mot de passe à été changé! </br>");
+			 text.append(" Vous pouvez désormais vous connecter à votre espace client grâce à votre login et votre mot de passe: </br>");
+			 text.append(" Votre Login : <B>" + client.getIdentifiant() +" </B> </br>");
+			 text.append(" Votre Mot de Passe : <B>" + client.getMotDePasse() +" </B> </br>");
+			 text.append(" En espérant que vous trouviez entière satisfaction chez nous. Nous vous souhaitons une agréable journée. </br>");
+			 text.append(" La BriceCorp Team ");
+			
+			 userService.sendMessage("Reponse a votre demande de generation de Mot-de-pass GestBank", text.toString(),
+			client.getMail(), "GB.bricecorp@gmail.com");
 
 			return new ResponseEntity<Void>(HttpStatus.OK);
 		} catch (Exception e) {
@@ -212,6 +206,25 @@ public class HelloWorldRestController {
 				System.out.println("creation du compte " + demande_modificationcompte.getLibelle());
 				Compte compte = new Compte();
 				compte.setLibelle(demande_modificationcompte.getLibelle());
+				if(("Livret A").equals(demande_modificationcompte.getLibelle())){
+					compte.setTauxRemuneration(5);
+				}else if(("Livret Epargne Logement").equals(demande_modificationcompte.getLibelle())){
+					compte.setTauxRemuneration(2);
+				}else if(("Compte Epargne Logement").equals(demande_modificationcompte.getLibelle())){
+					compte.setTauxRemuneration(1);
+				}else if(("Compte Arc-en-ciel").equals(demande_modificationcompte.getLibelle())){
+					compte.setTauxDecouvert(10);
+					compte.setSeuil(1000);
+				}else if(("Compte La vie est belle").equals(demande_modificationcompte.getLibelle())){
+					compte.setDecouvert(1000);
+					compte.setTauxDecouvert(1);
+					compte.setTauxRemuneration(2);
+					compte.setSeuil(1000);
+				}
+				
+				
+
+				
 				compteService.saveCompte(demande_modificationcompte.getClient().getId(), compte);
 				userService.sendNotificationToAClient(
 						"Votre compte " + demande_modificationcompte.getLibelle() + " a ete cree",
@@ -262,26 +275,16 @@ public class HelloWorldRestController {
 
 			/// **
 			// * Envoi du mail confirmant au client la création de son compte/
-			// StringBuffer text = new StringBuffer("Bienvenue chez GestBank,
-			// filiale du groupe BriceCorp! </br>");
-			// text.append(" Nous sommes heureux de vous annoncer que votre
-			// compte a été créé et qu'il est à présent parfaitement
-			// fonctionnel. </br> ");
-			// text.append(" Vous pouvez désormais vous connecter à votre espace
-			// client grâce à votre login et votre mot de passe: </br>");
-			// text.append(" Votre Login : <B>" + client.getIdentifiant() +"
-			// </B> </br>");
-			// text.append(" Votre Mot de Passe : <B>" + client.getMotDePasse()
-			// +" </B> </br>");
-			// text.append(" En espérant que vous trouviez entière satisfaction
-			// chez nous. Nous vous souhaitons une agréable journée. </br>");
-			// text.append(" La BriceCorp Team ");
-			//
-			// userService.sendMessage("Bienvenue chez GestBank!",
-			// text.toString(), demande_inscription.getMail(),
-			// "GB.bricecorp@gmail.com");
-
-			demandeService.suppressionDemande(demande_inscription.getID(), id_conseiller);
+			 StringBuffer text = new StringBuffer("Bienvenue chez GestBank, filiale du groupe BriceCorp! </br>");
+			 text.append(" Nous sommes heureux de vous annoncer que votre compte a été créé et qu'il est à présent parfaitement fonctionnel. </br> ");
+			 text.append(" Vous pouvez désormais vous connecter à votre espace client grâce à votre login et votre mot de passe: </br>");
+			 text.append(" Votre Login : <B>" + client.getIdentifiant() +" </B> </br>");
+			 text.append(" Votre Mot de Passe : <B>" + client.getMotDePasse() +" </B> </br>");
+			 text.append(" En espérant que vous trouviez entière satisfaction chez nous. Nous vous souhaitons une agréable journée. </br>");
+			 text.append(" La BriceCorp Team ");
+			
+			 userService.sendMessage("Bienvenue chez GestBank!", text.toString(), demande_inscription.getMail(), "GB.bricecorp@gmail.com");
+			 demandeService.suppressionDemande(demande_inscription.getID(), id_conseiller);
 
 			return new ResponseEntity<Void>(HttpStatus.CREATED);
 		} catch (Exception e) {

@@ -386,7 +386,7 @@ App.controller('DemandeController', ['$scope', '$location', '$resource', '$route
 
 
 $scope.uploadFile = function(files, typeJustificatif) {
-	$scope.tropVolumineux = false;
+	self.tropVolumineux = false;
     var file = new FormData();
     //Take the first selected file
     file.append("file", files[0]);
@@ -442,9 +442,11 @@ console.log("demandecompteclient")
 );
     
 }else{
-	$scope.tropVolumineux = true;
-console.log("fichier trop volumineux")
-}}
+	self.tropVolumineux = true;
+
+}
+
+console.log("fichier trop volumineux" + self.tropVolumineux)}
 
 function listeJustificatifs() {
 
@@ -486,7 +488,8 @@ function findDemandeById(id) {
     		function(d) {
     			$scope.demande = d;
      		   self.listeJustificatifs();
-     		  filtreListe(d.compte.id,1)
+     		   if(d.compte){
+     		  filtreListe(d.compte.id,1)}
     			console.log(d)
     		},
     function(errResponse){

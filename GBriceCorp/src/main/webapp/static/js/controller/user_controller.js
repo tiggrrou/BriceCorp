@@ -63,9 +63,10 @@ App.controller('UserController', ['$scope', '$location', '$resource', '$route', 
     	if(!sessionStorage.getItem("currentUser")){
     		$location.path("/");
     	}
-    	
     }
     
+
+   
     
     function CheckHasNotifNonLu(notifications) {
         self.hasNotifNonLu = false;

@@ -162,7 +162,7 @@
 
 
 			<!-- Menu du Client -->
-			<div class="container-fluid" ng-hide="client_cache">
+			<div class="container-fluid" ng-if="!client_cache">
 				<div class="list-group">
 				<!-- Synthese des comptes -->
 					<a href="#/cli/Cli_ListeComptes" class="list-group-item"
@@ -188,6 +188,7 @@
 				<!-- Notifications -->
 					</a> <a href="#/cli/Cli_Notifications" class="list-group-item"
 						ng-class="{active: $route.current.activetab == 'client_notif'}"
+						ng-init="ctrl.CheckHasNotifNonLu(currentUser.notifications)"
 						ng-click="ctrl.getNotifs">
 						<h4 class="list-group-item-heading">
 							Notifications <br /> <span ng-show="ctrl.hasNotifNonLu == true" class="glyphicon glyphicon-envelope">
